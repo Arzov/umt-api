@@ -1,0 +1,55 @@
+name: Map
+intro: >
+  Vista donde el usuario puede buscar canchas disponibles que estén cerca de su radio de búsqueda.
+imageId: mapPage 
+subs:
+  - name: MapMain
+    copy:
+      id: cp-main
+      path: pages\map\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También permite obtener las canchas cercanas al usuario.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[MapMobile](#mapmobile)"
+      - name: DATA
+        data:
+          - field: userData
+            type: object
+            desc: Información del usuario.
+          - field: position
+            type: object
+            desc: Posición actual del usuario.
+          - field: courtsList
+            type: array[object]
+            desc: Listado de canchas cercanas.
+  - name: MapMobile
+    copy:
+      id: cp-mobile
+      path: pages\map\mobile\index.vue
+    intro: >
+      Componente de la vista [Map](#map) para dispositivos móviles.
+    attrs:
+      - name: DATA
+        data:
+          - field: map
+            type: object
+            desc: Instancia de Google Maps.
+      - name: PROPS
+        data:
+          - field: userData
+            type: object
+            desc: Información del usuario.
+          - field: position
+            type: object
+            desc: Posición actual del usuario.
+          - field: courtsList
+            type: array[object]
+            desc: Listado de canchas cercanas.
+      - name: METHODS
+        methods:
+          - name: toCenter
+            desc: >
+              Reinicia vista del mapa a la posición del usuario.

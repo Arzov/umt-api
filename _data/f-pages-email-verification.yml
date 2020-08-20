@@ -1,0 +1,88 @@
+name: Email Verification
+intro: >
+  Vista donde el usuario debe verificar su email de registro mediante el código enviado por **Arzov**.
+  También puede pedir un nuevo código en caso de no recibirlo.
+imageId: emailVerificationPage 
+subs:
+  - name: EmailVerificationMain
+    copy:
+      id: cp-main
+      path: pages\email_verification\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También gatillar la verificación del email del usuario o reenviar nuevo código de validación.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[EmailVerificationMobile](#emailverificationmobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+          - field: userData
+            type: object
+            desc: Información del usuario.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >
+              Captura eventos generado por el componente [EmailVerificationMobile](#emailverificationmobile).
+              Según los valores retornados puede verificar el email o reenviar un nuevo código de verificación.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: EmailVerificationMobile
+    copy:
+      id: cp-mobile
+      path: pages\email_verification\mobile\index.vue
+    intro: >
+      Componente de la vista [EmailVerification](#email-verification) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[CodeInput](#)"
+      - name: DATA
+        data:
+          - field: decorator
+            type: object
+            desc: Decorador para campos en formulario.
+          - field: formVerification
+            type: object
+            desc: Formulario de la vista.
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [EmailVerificationMain](#emailverificationmain).
+          - field: userData
+            type: object
+            desc: Información del usuario.
+      - name: COMPUTED
+        methods:
+          - name: email
+            desc: >
+              Retorna email del usuario desde datos del store.
+            return:
+              type: string
+              desc: Email del usuario.
+      - name: METHODS
+        methods:
+          - name: verify
+            desc: >
+              Emite evento para verificar el email.
+            params:
+              - field: event
+                type: object
+                desc: Evento del formulario.
+            return:
+              type: object
+              desc: Evento a gatillar.
+          - name: resendCode
+            desc: >
+              Emite evento para reenviar código de verificación.
+            return:
+              type: object
+              desc: Evento a gatillar.

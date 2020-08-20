@@ -1,0 +1,67 @@
+@import 'base';
+
+%image-btn {
+    margin-right: 20px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+%navbar {
+    z-index: 1100;
+}
+
+body[data-theme="light"] {
+    .navbar {
+        @extend %navbar;
+        background-color: $color-lm-bg-02;
+
+        #theme-toggle {
+            content: url($base-url + "/assets/images/dark-mode.svg");
+            @extend %image-btn;
+        }
+
+        #github-btn {
+            background-image: url($base-url + "/assets/images/lm-github.svg");
+            @extend %image-btn;
+        }
+
+        a, a:hover {
+            color: $color-dm-bg-01;
+        }
+    }
+
+    .navbar-brand {
+        color: $color-dm-bg-01;
+        font-family: $font-title;
+    }
+}
+
+body[data-theme="dark"] {
+    .navbar {
+        @extend %navbar;
+        background-color: $color-dm-bg-02;
+
+        #theme-toggle {
+            content: url($base-url + "/assets/images/light-mode.svg");
+            @extend %image-btn;
+        }
+
+        #github-btn {
+            background-image: url($base-url + "/assets/images/dm-github.svg");
+            @extend %image-btn;
+        }
+
+        a, a:hover {
+            color: $color-lm-bg-02;
+        }
+    }
+
+    .navbar-brand {
+        color: $color-lm-bg-02;
+        font-family: $font-title;
+    }
+}

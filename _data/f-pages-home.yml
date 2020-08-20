@@ -1,0 +1,103 @@
+name: Home
+intro: >
+  Vista inicial de la app donde el usuario tiene la funcionalidad de buscar rivales cercanos
+  y enlistarlos. El usuario puede enviar una solicitud de _match_ a cada rival.
+imageId: homePage 
+subs:
+  - name: HomeMain
+    copy:
+      id: cp-main
+      path: pages\home\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop. También permite
+      buscar rivales cercanos o enviar una solicitud de match a un rival.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[HomeMobile](#homemobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+      - name: COMPUTED
+        methods:
+          - name: userData
+            desc: Retorna información del usuario desde store.
+            return:
+                type: object
+                desc: Información del usuario.
+          - name: usersFound
+            desc: Retorna listado de rivales cercanos.
+            return:
+                type: array[object]
+                desc: Listado de rivales cercanos.
+          - name: searchingUsers
+            desc: Indica si usuario está buscando rivales.
+            return:
+                type: boolean
+                desc: Indicador de búsqueda.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >
+              Captura eventos generado por el componente [HomeMobile](#homemobile). Según los valores
+              retornados puede buscar rivales cercanos o enviar una solicitud a un rival.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: HomeMobile
+    copy:
+      id: cp-mobile
+      path: pages\home\mobile\index.vue
+    intro: >
+      Componente de la vista [Home](#home) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[ProfileImage](#)"
+          - "[UserSearchCard](#)"
+          - "[Geolocation](#)"
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [HomeMain](#homemain).
+          - field: usersFound
+            type: array[object]
+            desc: Listado de rivales cercanos.
+          - field: userData
+            type: object
+            desc: Información del usuario.
+          - field: searchingUsers
+            type: boolean
+            desc: Indicador de búsqueda de rivales.
+      - name: METHODS
+        methods:
+          - name: searchMatch
+            desc: >
+              Emite evento para buscar rivales.
+            return:
+              type: object
+              desc: Evento a gatillar.
+          - name: requestMatch
+            desc: >
+              Emite evento para enviar solicitud de match a un rival.
+            params:
+              - field: rangeKey
+                type: string
+                desc: Email del rival.
+              - field: firstName
+                type: string
+                desc: Nombre del rival.
+              - field: picture
+                type: string
+                desc: URL de la foto de perfil del rival.
+              - field: index
+                type: integer
+                desc: Índice del rival en listado de rivales cercanos.
+            return:
+              type: object
+              desc: Evento a gatillar.

@@ -1,0 +1,63 @@
+name: Start
+intro: >
+  Vista principal donde el usuario puede iniciar sesión mediante **Arzov**, **Facebook** o
+  **Google**. También puede registrar una cuenta mediante **Arzov**.
+imageId: startPage 
+subs:
+  - name: StartMain
+    copy:
+      id: cp-main
+      path: pages\start\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También redirecciona al usuario a la vista [Login](./login) o [Register](./register).
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[StartMobile](#startmobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >            	
+              Captura eventos generados por los componentes. Según
+              los valores retornados puede redireccionar al usuario
+              a la vista [Login](./login) o [Register](./register).
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: StartMobile
+    copy:
+      id: cp-mobile
+      path: pages\start\mobile\index.vue
+    intro: >
+      Componente de la vista [Start](#start) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[FacebookLogin](#)"
+          - "[GoogleLogin](#)"
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [StartMain](#startmain).
+      - name: METHODS
+        methods:
+          - name: toAuth
+            desc: >
+              Emite evento para redireccionar a la vista [Login](./login) o [Register](./register).
+            params:
+              - field: eventType
+                type: string
+                desc: Tipo de evento a gatillar.
+                values: TO_LOGIN \| TO_REGISTER
+            return:
+              type: object
+              desc: Evento a gatillar.

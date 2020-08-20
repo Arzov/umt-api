@@ -1,0 +1,75 @@
+name: Register
+intro: >
+  Vista donde el usuario registra su email en **Arzov** (AWS Cognito maneja la autenticación).
+imageId: registerPage 
+subs:
+  - name: RegisterMain
+    copy:
+      id: cp-main
+      path: pages\register\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También gatillar el registro mediante **Arzov** o
+      redireccionar a los **términos y condiciones**.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[RegisterMobile](#registermobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >            	
+              Captura eventos generados por los componentes. Según los valores retornados
+              puede redireccionar al usuario a los **términos y condiciones** o
+              registrarse con **Arzov**.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: RegisterMobile
+    copy:
+      id: cp-mobile
+      path: pages\register\mobile\index.vue
+    intro: >
+      Componente de la vista [Register](#register) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[BirthdateInput](#)"
+          - "[GenderInput](#)"
+          - "[UInput](#)"
+          - "[HeaderTitleMobile](#)"
+      - name: DATA
+        data:
+          - field: decorator
+            type: object
+            desc: Decorador para campos en formulario.
+          - field: genderDecorator
+            type: object
+            desc: Decorador para selector de sexo.
+          - field: formRegister
+            type: object
+            desc: Formulario de la vista.
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [RegisterMain](#registermain).
+      - name: METHODS
+        methods:
+          - name: signUp
+            desc: >
+              Emite evento para registrar la cuenta.
+            params:
+              - field: event
+                type: object
+                desc: Evento del formulario.
+            return:
+              type: object
+              desc: Evento a gatillar.

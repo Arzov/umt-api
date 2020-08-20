@@ -1,0 +1,45 @@
+@import 'base';
+
+%copy-btn {
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 12px;
+    cursor: pointer;
+}
+
+#content {
+    margin-left: 17rem; // Same as the width of the sidebar
+    margin-right: 17rem; // Same as the width of the sidebar
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    text-align: justify;
+
+    code {
+        color: $color-purple-01;
+    }
+
+    .content-img {
+        margin: 0;
+
+        input[type=checkbox] {
+            display: none;
+        }
+
+        img {
+            transition: transform 0.25s ease;
+            cursor: zoom-in;
+            box-shadow: 0 5px 10px 0 $color-black-trans-50;
+        }
+
+        input[type=checkbox]:checked ~ label > img {
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+    }
+
+    .copy-btn {
+        content: url($base-url + "/assets/images/clipboard.svg");
+        @extend %copy-btn;
+    }
+}

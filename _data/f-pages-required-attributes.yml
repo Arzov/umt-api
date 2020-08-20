@@ -1,0 +1,80 @@
+name: Required Attributes
+intro: >
+  Vista donde el usuario debe, obligatoriamente, ingresar atributos extras para poder
+  filtrar la búsqueda de sus rivales (esta vista es sólo necesaria para los usuarios que
+  ingresan por primera vez mediante **Facebook** o **Google**).
+imageId: requiredAttributesPage 
+subs:
+  - name: RequiredAttributesMain
+    copy:
+      id: cp-main
+      path: pages\required_attributes\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También guardar atributos del usuario o cerrar sesión.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[RequiredAttributesMobile](#requiredattributesmobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >            	
+              Captura eventos generados por los componentes. Según
+              los valores retornados puede guardar los atributos del usuario
+              o cerrar sesión.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: RequiredAttributesMobile
+    copy:
+      id: cp-mobile
+      path: pages\required_attributes\mobile\index.vue
+    intro: >
+      Componente de la vista [RequiredAttributes](#required-attributes) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[BirthdateInput](#)"
+          - "[GenderInput](#)"
+      - name: DATA
+        data:
+          - field: decorator
+            type: object
+            desc: Decorador para campos en formulario.
+          - field: genderDecorator
+            type: object
+            desc: Decorador para selector de sexo.
+          - field: formRequired
+            type: object
+            desc: Formulario de la vista.
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [RequiredAttributesMain](#requiredattributesmain).
+      - name: METHODS
+        methods:
+          - name: saveAttributes
+            desc: >
+              Emite evento para guardar atributos.
+            params:
+              - field: event
+                type: object
+                desc: Evento del formulario.
+            return:
+              type: object
+              desc: Evento a gatillar.
+          - name: signOut
+            desc: >
+              Emite evento para cerrar sesión.
+            return:
+              type: object
+              desc: Evento a gatillar.

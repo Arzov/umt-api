@@ -1,0 +1,13 @@
+# Backend AWS
+node_modules
+.vscode
+**/layers/**/nodejs
+**/layers/**/*.zip
+docs
+
+# Jekyll
+_site
+.jekyll-cache
+
+# Whitelist
+!backend/aws/lambda/layers/**/nodejs/.gitkeep

@@ -1,0 +1,80 @@
+name: Required Filters
+intro: >
+  Vista donde se le pregunta al usuario por filtros necesarios para la búsqueda de
+  rivales en la app según su preferencia.
+imageId: requiredFiltersPage 
+subs:
+  - name: RequiredFiltersMain
+    copy:
+      id: cp-main
+      path: pages\required_filters\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También guardar filtros del usuario o cerrar sesión.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[RequiredFiltersMobile](#requiredfiltersmobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >            	
+              Captura eventos generados por los componentes. Según
+              los valores retornados puede guardar los filtros del usuario
+              o cerrar sesión.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: RequiredFiltersMobile
+    copy:
+      id: cp-mobile
+      path: pages\required_filters\mobile\index.vue
+    intro: >
+      Componente de la vista [RequiredFilters](#required-filters) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[MatchFilterInput](#)"
+          - "[GenderInput](#)"
+          - "[AgeFilterInput](#)"
+      - name: DATA
+        data:
+          - field: decorator
+            type: object
+            desc: Decorador para campos en formulario.
+          - field: genderFilterDecorator
+            type: object
+            desc: Decorador para selector de sexo en filtros.
+          - field: formRequired
+            type: object
+            desc: Formulario de la vista.
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [RequiredFiltersMain](#requiredfiltersmain).
+      - name: METHODS
+        methods:
+          - name: saveFilters
+            desc: >
+              Emite evento para guardar filtros.
+            params:
+              - field: event
+                type: object
+                desc: Evento del formulario.
+            return:
+              type: object
+              desc: Evento a gatillar.
+          - name: signOut
+            desc: >
+              Emite evento para cerrar sesión.
+            return:
+              type: object
+              desc: Evento a gatillar.

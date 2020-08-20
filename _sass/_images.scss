@@ -1,0 +1,266 @@
+@import 'base';
+
+%images {
+	background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    width: 200px;
+}
+
+%fig-light {
+    figcaption {
+        margin-bottom: .5rem;
+
+        b:after {
+            content: "Light";
+        }
+    }
+}
+
+%fig-dark {
+    figcaption {
+        margin-bottom: .5rem;
+        
+        b:after {
+            content: "Dark";
+        }
+    }
+}
+
+body[data-theme="light"] {
+    #chatPage {
+        img {
+            content: url($base-url + "/assets/images/lm_chat@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #emailVerificationPage {
+        img {
+            content: url($base-url + "/assets/images/lm_email_verification@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #homePage {
+        img {
+            content: url($base-url + "/assets/images/lm_home@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #loginPage {
+        img {
+            content: url($base-url + "/assets/images/lm_login@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #mapPage {
+        img {
+            content: url($base-url + "/assets/images/lm_map@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #matchPage {
+        img {
+            content: url($base-url + "/assets/images/lm_match.gif");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #profilePage {
+        img {
+            content: url($base-url + "/assets/images/lm_profile@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #recoverPasswordPage {
+        img {
+            content: url($base-url + "/assets/images/lm_recover_password@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #registerPage {
+        img {
+            content: url($base-url + "/assets/images/lm_register@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #requiredAttributesPage {
+        img {
+            content: url($base-url + "/assets/images/lm_required_attributes@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #requiredFiltersPage {
+        img {
+            content: url($base-url + "/assets/images/lm_required_filters@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #resetPasswordPage {
+        img {
+            content: url($base-url + "/assets/images/lm_reset_password@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+
+    #startPage {
+        img {
+            content: url($base-url + "/assets/images/lm_start@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-light;
+    }
+}
+
+body[data-theme="dark"] {
+    #chatPage {
+        img {
+            content: url($base-url + "/assets/images/dm_chat@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #emailVerificationPage {
+        img {
+            content: url($base-url + "/assets/images/dm_email_verification@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #homePage {
+        img {
+            content: url($base-url + "/assets/images/dm_home@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #loginPage {
+        img {
+            content: url($base-url + "/assets/images/dm_login@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #mapPage {
+        img {
+            content: url($base-url + "/assets/images/dm_map@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #matchPage {
+        img {
+            content: url($base-url + "/assets/images/dm_match.gif");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #profilePage {
+        img {
+            content: url($base-url + "/assets/images/dm_profile@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #recoverPasswordPage {
+        img {
+            content: url($base-url + "/assets/images/dm_recover_password@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #registerPage {
+        img {
+            content: url($base-url + "/assets/images/dm_register@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #requiredAttributesPage {
+        img {
+            content: url($base-url + "/assets/images/dm_required_attributes@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #requiredFiltersPage {
+        img {
+            content: url($base-url + "/assets/images/dm_required_filters@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #resetPasswordPage {
+        img {
+            content: url($base-url + "/assets/images/dm_reset_password@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+
+    #startPage {
+        img {
+            content: url($base-url + "/assets/images/dm_start@3x.png");
+            @extend %images;
+        }
+
+        @extend %fig-dark;
+    }
+}
