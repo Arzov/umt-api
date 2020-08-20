@@ -1,8 +1,6 @@
 # Backend AWS
 node_modules
 .vscode
-**/layers/**/nodejs
-**/layers/**/*.zip
 docs
 
 # Jekyll
