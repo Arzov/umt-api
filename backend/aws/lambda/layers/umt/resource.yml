@@ -1,0 +1,8 @@
+
+  LDLayerUMT:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      LayerName: umt
+      Content: lambda/layers/umt/
+      CompatibleRuntimes:
+        - nodejs12.x

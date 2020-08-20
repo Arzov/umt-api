@@ -1,0 +1,11 @@
+
+  LDFunctionUMTUpdateUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: umt-update-user
+      CodeUri: lambda/functions/umt-update-user/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Environment:
+        Variables:
+          RUN_MODE: SERVER
+          DB_UMT_USERS: !Ref DBTableUMTUsers

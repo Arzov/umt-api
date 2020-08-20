@@ -1,0 +1,11 @@
+
+  LDFunctionUMTUpdateMatch:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: umt-update-match
+      CodeUri: lambda/functions/umt-update-match/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Environment:
+        Variables:
+          RUN_MODE: SERVER
+          DB_UMT_MATCHES: !Ref DBTableUMTMatches

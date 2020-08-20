@@ -1,0 +1,9 @@
+Outputs:
+  ASGraphQLApiUMTUrl:
+    Value: !GetAtt ASGraphQLApiUMT.GraphQLUrl
+    Export:
+      Name: UMT-ASGraphQLApiUMTUrl
+  CFDistributionUMTPWAId:
+    Value: !Ref CFDistributionUMTPWA
+    Export:
+      Name: UMT-CFDistributionUMTPWAId

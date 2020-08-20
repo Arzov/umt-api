@@ -1,0 +1,14 @@
+
+  LDFunctionUMTAddUser:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMT
+    Properties:
+      FunctionName: umt-add-user
+      CodeUri: lambda/functions/umt-add-user/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMT
+      Environment:
+        Variables:
+          RUN_MODE: SERVER
+          DB_UMT_USERS: !Ref DBTableUMTUsers

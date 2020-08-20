@@ -1,0 +1,14 @@
+
+  LDFunctionUMTAddMatch:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMT
+    Properties:
+      FunctionName: umt-add-match
+      CodeUri: lambda/functions/umt-add-match/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMT
+      Environment:
+        Variables:
+          RUN_MODE: SERVER
+          DB_UMT_MATCHES: !Ref DBTableUMTMatches

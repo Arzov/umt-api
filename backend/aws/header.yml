@@ -1,0 +1,20 @@
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Backend en AWS
+
+Globals:
+  Function:
+    MemorySize: 256
+    Timeout: 180
+    Handler: index.handler
+    Runtime: nodejs12.x
+
+Parameters: 
+  AWSDefaultRegion: 
+    Type: String
+  AWSS3PWABucket: 
+    Type: String
+  AWSR53UMTDomain: 
+    Type: String
+
+Resources:

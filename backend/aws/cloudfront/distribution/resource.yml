@@ -1,0 +1,43 @@
+
+  CFDistributionUMTPWA:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        CustomErrorResponses:
+          - ErrorCachingMinTTL: 300
+            ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /start.html        
+        Aliases:
+          - !Ref AWSR53UMTDomain
+        ViewerCertificate:
+          AcmCertificateArn: !ImportValue ARV-CMCertificateARVARN
+          MinimumProtocolVersion: TLSv1.2_2018
+          SslSupportMethod: sni-only        
+        DefaultCacheBehavior: 
+          AllowedMethods: 
+            - GET
+            - HEAD
+          Compress: true
+          DefaultTTL: 60
+          MaxTTL: 120
+          MinTTL: 0
+          ForwardedValues:
+            QueryString: false        
+          TargetOriginId: !Sub
+              - S3-${Name}
+              - { Name: !Ref S3BucketUMTPWA }
+          ViewerProtocolPolicy: redirect-to-https        
+        DefaultRootObject: start.html
+        Enabled: true
+        IPV6Enabled: true
+        Origins: 
+          - DomainName: !GetAtt S3BucketUMTPWA.DomainName
+            Id: !Sub
+              - S3-${Name}
+              - { Name: !Ref S3BucketUMTPWA }
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub
+                - origin-access-identity/cloudfront/${Id}
+                - { Id: !Ref CFOriginAccessIdentityUMT }
+        PriceClass: PriceClass_All       

@@ -1,0 +1,11 @@
+
+  LDFunctionUMTGetCourts:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: umt-get-courts
+      CodeUri: lambda/functions/umt-get-courts/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Environment:
+        Variables:
+          RUN_MODE: SERVER
+          DB_UMT_COURTS: !Ref DBTableUMTCourts

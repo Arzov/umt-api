@@ -1,0 +1,6 @@
+
+  CFOriginAccessIdentityUMT:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties: 
+      CloudFrontOriginAccessIdentityConfig: 
+        Comment: umt

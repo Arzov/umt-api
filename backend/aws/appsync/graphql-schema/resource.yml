@@ -1,0 +1,157 @@
+
+  ASGraphQLSchemaUMT:
+    Type: AWS::AppSync::GraphQLSchema
+    Properties: 
+      ApiId: !GetAtt ASGraphQLApiUMT.ApiId
+      Definition: >
+        type Court {
+          hashKey: String!
+          rangeKey: String!
+          matchType: [String]!
+          name: String!
+          website: String!
+          email: [String]
+          phone: [String]
+          information: String
+          benefits: String
+          schedule: String
+          payCondition: String
+          prices: String
+          geoJson: [Float]
+          partner: Boolean
+          active: Boolean
+          address: String
+        }
+        
+        type CourtsList {
+          items: [Court]
+          nextToken: String
+        }
+        
+        type Match {
+          hashKey: String!
+          rangeKey: String!
+          geohash: String!
+          matchId: String!
+          adversaryName: String!
+          adversaryPicture: String!
+          createdAt: String!
+          expireAt: String!
+          matchStatus: String!
+          matchFilter: String!
+          genderFilter: String!
+          ageMinFilter: Int!
+          ageMaxFilter: Int!
+        }
+        
+        type MatchesList {
+          items: [Match]
+          nextToken: String
+        }
+        
+        type Message {
+          hashKey: String!
+          rangeKey: String!
+          author: String!
+          authorName: String!
+          content: String!
+        }
+        
+        type MessagesList {
+          items: [Message]
+          nextToken: String
+        }
+        
+        type Mutation {
+          addMatch(
+            hashKey: String!,
+            rangeKey: String!,
+            geohash: String!,
+            creatorName: String!,
+            creatorPicture: String!,
+            adversaryName: String!,
+            adversaryPicture: String!,
+            matchFilter: String!,
+            genderFilter: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!
+          ): Match
+          updateMatch(
+            hashKey: String!,
+            rangeKey: String!,
+            matchId: String!,
+            userStatus: String!
+          ): Match
+          updateUser(
+            hashKey: String!,
+            rangeKey: String!,
+            genderFilter: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: String!
+          ): User
+          addMessage(
+            hashKey: String!,
+            author: String!,
+            authorName: String!,
+            content: String!
+          ): Message
+          addUser(
+            latitude: Float!,
+            longitude: Float!,
+            rangeKey: String!,
+            genderFilter: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: String!
+          ): User
+        }
+        
+        type Query {
+          getCourts(hashKey: String!, matchType: String!, nextToken: String): CourtsList
+          getMatches(hashKey: String!, nextToken: String): MatchesList
+          getMessages(hashKey: String!, nextToken: String): MessagesList
+          getUser(rangeKey: String!, nextToken: String): UsersList
+          searchMatch(
+            hashKey: String!,
+            nextToken: String,
+            birthdate: String,
+            matchFilter: String,
+            genderFilter: String,
+            rangeKey: String,
+            ageMinFilter: Int,
+            ageMaxFilter: Int,
+            gender: String
+          ): UsersList
+        }
+        
+        type Subscription {
+          onAddMessage(hashKey: String!): Message
+            @aws_subscribe(mutations: ["addMessage"])
+          onUpdateMatch(rangeKey: String!): Match
+            @aws_subscribe(mutations: ["updateMatch"])
+        }
+        
+        type User {
+          hashKey: String!
+          rangeKey: String!
+          geoJson: [Float]
+          genderFilter: String
+          ageMinFilter: Int
+          ageMaxFilter: Int
+          matchFilter: String
+          firstName: String
+          age: Int
+          picture: String
+        }
+        
+        type UsersList {
+          items: [User]
+          nextToken: String
+        }
+        
+        schema {
+          query: Query
+          mutation: Mutation
+          subscription: Subscription
+        }
