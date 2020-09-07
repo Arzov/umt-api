@@ -1,9 +1,9 @@
 {
-  "ModelName": "umatch",
+  "ModelName": "umt-api",
   "ModelMetadata": {
     "Author": "Franco Barrientos",
     "DateCreated": "Aug 26, 2020, 11:01 PM",
-    "DateLastModified": "Sep 05, 2020, 01:19 PM",
+    "DateLastModified": "Sep 05, 2020, 03:15 PM",
     "Description": "Modelo de datos para API de Umatch.",
     "Version": "1.0"
   },
@@ -583,10 +583,10 @@
                     }
                   },
                   "7v7": {
-                    "P": {
-                      "S": "GK"
-                    },
                     "M": {
+                      "P": {
+                        "S": "GK"
+                      },
                       "X": {
                         "N": "-1"
                       },

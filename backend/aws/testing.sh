@@ -17,34 +17,34 @@ status=$?
 #  Levantar servicio AWS DynamoDB
 # ----------------------------------------------------------
 
-docker network create arzov-local-network
-docker run --name aws-arzov -d -p 8000:8000 \
-    --network arzov-local-network \
-    --network-alias arzov \
-    amazon/dynamodb-local \
-    -jar DynamoDBLocal.jar \
-    -inMemory -sharedDb
+# docker network create arzov-local-network
+# docker run --name aws-arzov -d -p 8000:8000 \
+#     --network arzov-local-network \
+#     --network-alias arzov \
+#     amazon/dynamodb-local \
+#     -jar DynamoDBLocal.jar \
+#     -inMemory -sharedDb
 
 # Crear tablas
-cd dynamodb/tables
+# cd dynamodb/tables
 
-declare -A tables=(
-  [umt-courts]=5
-  [umt-matches]=5
-  [umt-messages]=5
-  [umt-users]=5
-)
+# declare -A tables=(
+#   [umt-courts]=5
+#   [umt-matches]=5
+#   [umt-messages]=5
+#   [umt-users]=5
+# )
 
-for table in "${!tables[@]}"
-do
-    ln="${tables[$table]}"
-    cd $table
-    awk "NR >= ${ln}" resource.yml > tmp.yml
-    aws dynamodb create-table --cli-input-yaml file://tmp.yml --endpoint-url http://localhost:8000 --region localhost > null.log
-    rm tmp.yml; rm null.log; cd ../
-done
+# for table in "${!tables[@]}"
+# do
+#     ln="${tables[$table]}"
+#     cd $table
+#     awk "NR >= ${ln}" resource.yml > tmp.yml
+#     aws dynamodb create-table --cli-input-yaml file://tmp.yml --endpoint-url http://localhost:8000 --region localhost > null.log
+#     rm tmp.yml; rm null.log; cd ../
+# done
 
-cd ../../
+# cd ../../
 
 
 # ----------------------------------------------------------
@@ -75,15 +75,7 @@ status=$((status + $?))
 cd lambda/functions
 
 lambdas="
-    umt-add-court
-    umt-add-match
-    umt-add-message
     umt-add-user
-    umt-get-courts
-    umt-get-matches
-    umt-search-match
-    umt-update-match
-    umt-update-user
 "
 
 for lambda in $lambdas
@@ -95,9 +87,9 @@ done
 
 # Detener servicios
 kill -9 $pids
-docker kill aws-arzov
-docker rm aws-arzov
-docker network rm arzov-local-network
+# docker kill aws-arzov
+# docker rm aws-arzov
+# docker network rm arzov-local-network
 
 # Remover archivos temporales
 cd ../../

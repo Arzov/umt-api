@@ -132,22 +132,62 @@
             @aws_subscribe(mutations: ["updateMatch"])
         }
         
+
+
+
+
+
+
+
         type User {
-          hashKey: String!
-          rangeKey: String!
-          geoJson: [Float]
-          genderFilter: String
+          email: String!
+          geohash: String!
+          coords: String
+          genderFilter: [String]
           ageMinFilter: Int
           ageMaxFilter: Int
-          matchFilter: String
-          firstName: String
-          age: Int
-          picture: String
+          matchFilter: [String]
+          positions: [String]
+          skills: String
+          foot: String
+          weight: Int
+          height: Int
         }
         
         type UsersList {
           items: [User]
           nextToken: String
+        }
+
+        type Team {
+          id: String!
+          name: String!
+          picture: String
+          formation: String
+          geohash: String!
+          searchingPlayers: Boolean
+        }
+
+        type TeamsList {
+          items: [Team]
+          nextToken: String
+        }
+
+        type Mutation {
+          addUser(
+            latitude: Float!,
+            longitude: Float!,
+            email: String!,
+            genderFilter: [String!]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String!]!,
+            positions: [String],
+            skills: String,
+            foot: String,
+            weight: Int,
+            height: Int
+          ): User
         }
         
         schema {

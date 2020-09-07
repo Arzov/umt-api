@@ -2,6 +2,7 @@
 node_modules
 .vscode
 docs
+*.~vsdx
 
 # Jekyll
 _site
