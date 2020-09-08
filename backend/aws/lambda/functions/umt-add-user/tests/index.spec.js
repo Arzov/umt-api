@@ -1,6 +1,8 @@
 const aws = require('aws-sdk')
 const event01 = require('../events/event01.json')
 const event02 = require('../events/event02.json')
+const event03 = require('../events/event03.json')
+const event04 = require('../events/event04.json')
 
 describe('Test AWS Lambda: umt-add-user', () => {
 
@@ -56,6 +58,7 @@ describe('Test AWS Lambda: umt-add-user', () => {
       } else {
         let response = JSON.parse(data.Payload)
 
+        expect(data.StatusCode).toBe(200)
         expect(response.email).toBe('jesus.barrientos@arzov.com')
         expect(response.geohash).toBe('66jcfp')
         expect(response.coords.LON.N).toBe('-70.573615')
@@ -68,6 +71,68 @@ describe('Test AWS Lambda: umt-add-user', () => {
         expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
           TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
         expect(response.foot).toBe('')
+        expect(response.weight).toBe('80')
+        expect(response.height).toBe('170')
+      }
+
+      done()
+    })
+  }, 60000)
+
+  test('Evaluar respuesta: Usuario (matias.barrientos@arzov.com)', (done) => {
+    params.Payload = JSON.stringify(event03)
+
+    lambda.invoke(params, function(err, data) {
+      if (err) {
+        console.log(err)
+        expect(err.StatusCode).toBe(200)
+      } else {
+        let response = JSON.parse(data.Payload)
+
+        expect(data.StatusCode).toBe(200)
+        expect(response.email).toBe('matias.barrientos@arzov.com')
+        expect(response.geohash).toBe('66jcfp')
+        expect(response.coords.LON.N).toBe('-70.573615')
+        expect(response.coords.LAT.N).toBe('-33.399435')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('35')
+        expect(response.matchFilter).toStrictEqual(['7v7'])
+        expect(response.genderFilter).toStrictEqual(['M'])
+        expect(response.positions).toStrictEqual(['GK', 'LW', 'RW'])
+        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
+          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
+        expect(response.foot).toBe('')
+        expect(response.weight).toBe('65')
+        expect(response.height).toBe('175')
+      }
+
+      done()
+    })
+  }, 60000)
+
+  test('Evaluar respuesta: Usuario (svonko.vescovi@arzov.com)', (done) => {
+    params.Payload = JSON.stringify(event04)
+
+    lambda.invoke(params, function(err, data) {
+      if (err) {
+        console.log(err)
+        expect(err.StatusCode).toBe(200)
+      } else {
+        let response = JSON.parse(data.Payload)
+
+        expect(data.StatusCode).toBe(200)
+        expect(response.email).toBe('svonko.vescovi@arzov.com')
+        expect(response.geohash).toBe('66jcfp')
+        expect(response.coords.LON.N).toBe('-70.573615')
+        expect(response.coords.LAT.N).toBe('-33.399435')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('35')
+        expect(response.matchFilter).toStrictEqual(['7v7'])
+        expect(response.genderFilter).toStrictEqual(['M'])
+        expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
+        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
+          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
+        expect(response.foot).toBe('L')
         expect(response.weight).toBe('80')
         expect(response.height).toBe('170')
       }

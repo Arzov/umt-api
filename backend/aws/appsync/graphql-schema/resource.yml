@@ -150,8 +150,8 @@
           positions: [String]
           skills: String
           foot: String
-          weight: Int
-          height: Int
+          weight: Int!
+          height: Int!
         }
         
         type UsersList {
@@ -165,12 +165,23 @@
           picture: String
           formation: String
           geohash: String!
-          searchingPlayers: Boolean
+          searchingPlayers: Boolean!
         }
 
         type TeamsList {
           items: [Team]
           nextToken: String
+        }
+
+        type TeamMember {
+          hashKey: String!
+          rangeKey: String!
+          id: String!
+          name: String!
+          picture: String
+          formation: String
+          geohash: String!
+          searchingPlayers: Boolean!
         }
 
         type Mutation {
@@ -185,9 +196,14 @@
             positions: [String],
             skills: String,
             foot: String,
-            weight: Int,
-            height: Int
+            weight: Int!,
+            height: Int!
           ): User
+          addTeam(
+            name: String!,
+            geohash: String!,
+            searchingPlayers: Boolean!
+          ): Team
         }
         
         schema {

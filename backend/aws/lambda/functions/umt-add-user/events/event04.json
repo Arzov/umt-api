@@ -1,0 +1,13 @@
+{
+  "email": "svonko.vescovi@arzov.com",
+  "latitude": -33.399435,
+  "longitude": -70.573615,
+  "ageMinFilter": 20,
+  "ageMaxFilter": 35,
+  "genderFilter": ["M"],
+  "matchFilter": ["7v7"],
+  "positions": ["CF","LW","RW"],
+  "foot": "L",
+  "weight": 80,
+  "height": 170
+}

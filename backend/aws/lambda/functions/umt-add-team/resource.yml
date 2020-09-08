@@ -1,13 +1,13 @@
 
-  LDFunctionUMTAddUser:
+  LDFunctionUMTAddTeam:
     Type: AWS::Serverless::Function
-    DependsOn: LDLayerUMT
+    DependsOn: LDLayerUMTEnvs
     Properties:
-      FunctionName: umt-add-user
-      CodeUri: lambda/functions/umt-add-user/
+      FunctionName: umt-add-team
+      CodeUri: lambda/functions/umt-add-team/
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
-        - !Ref LDLayerUMT
+        - !Ref LDLayerUMTEnvs
       Environment:
         Variables:
           RUN_MODE: SERVER

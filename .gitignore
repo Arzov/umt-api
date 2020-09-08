@@ -1,5 +1,5 @@
 # Backend AWS
-node_modules
+**/node_modules/*
 .vscode
 docs
 *.~vsdx
@@ -10,3 +10,4 @@ _site
 
 # Whitelist
 !backend/aws/lambda/layers/**/nodejs/.gitkeep
+!**/node_modules/umt-envs

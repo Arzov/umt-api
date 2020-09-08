@@ -1,13 +1,12 @@
 /**
- * Agrega un usuario
+ * Agrega un equipo
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
 
 const aws = require('aws-sdk');
-const ngeohash = require('ngeohash');
+const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
-const geohashLength = 6;
 let options = { apiVersion: '2012-08-10' };
 
 if (process.env.RUN_MODE === 'LOCAL') {
@@ -21,22 +20,16 @@ const dynamodb = new aws.DynamoDB(options);
 
 
 exports.handler = function(event, context, callback) {
-	const latitude = event.latitude;
-	const longitude = event.longitude;
-	const hashKey = `USR#${event.email}`;
-	const genderFilter = event.genderFilter;
-	const ageMinFilter = String(event.ageMinFilter);
-	const ageMaxFilter = String(event.ageMaxFilter);
-	const matchFilter = event.matchFilter;
-	const positions = event.positions ? event.positions : [''];
-	const skills = event.skills ? JSON.parse(event.skills):
-		{ATT: {N: '1'}, SPD: {N: '1'}, TEC: {N: '1'}, TWK: {N: '1'}, FCE: {N: '1'}, DEF: {N: '1'}};
-	const foot = event.foot ? event.foot : '';
-	const weight = String(event.weight);
-	const height = String(event.height);
-	const coords = {LON: {N: String(longitude)}, LAT: {N: String(latitude)}};
-	const geohash = ngeohash.encode(latitude, longitude, geohashLength);
+	const hashKey = `${umtEnvs.pfx.TEAM}${event.name.toLowerCase().replace(/\s+/g, '')}`; // elimina espacios y
+																			// deja en minusculas
+																			// el nombre del equipo
+	const name = event.name.toUpperCase();
+	const picture = event.picture ? event.picture : '';
+	const formation = event.formation ? JSON.parse(event.formation) :
+		{'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'}, '11v11': {S: '4-4-2'}};
+	const searchingPlayers = String(event.searchingPlayers);
+	const geohash = event.geohash;
 
-	dql.addUser(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, geohash, coords, genderFilter,
-		ageMinFilter, ageMaxFilter, matchFilter, positions, skills, foot, weight, height, callback);
+	dql.addTeam(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, geohash, name, picture,
+		formation, searchingPlayers, callback);
 };

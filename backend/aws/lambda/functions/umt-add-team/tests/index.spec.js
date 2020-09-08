@@ -2,7 +2,7 @@ const aws = require('aws-sdk')
 const event01 = require('../events/event01.json')
 const event02 = require('../events/event02.json')
 
-describe('Test AWS Lambda: umt-add-user', () => {
+describe('Test AWS Lambda: umt-add-team', () => {
 
   let lambda = new aws.Lambda({
     apiVersion: '2015-03-31',
@@ -12,10 +12,10 @@ describe('Test AWS Lambda: umt-add-user', () => {
   })
 
   let params = {
-    FunctionName: 'umt-add-user'
+    FunctionName: 'umt-add-team'
   }
 
-  test('Evaluar respuesta: Usuario (fjbarrientosg@gmail.com)', (done) => {
+  test('Evaluar respuesta: Equipo (RPC)', (done) => {
     params.Payload = JSON.stringify(event01)
 
     lambda.invoke(params, function(err, data) {
@@ -26,27 +26,20 @@ describe('Test AWS Lambda: umt-add-user', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.email).toBe('fjbarrientosg@gmail.com')
         expect(response.geohash).toBe('66jcfp')
-        expect(response.coords.LON.N).toBe('-70.573615')
-        expect(response.coords.LAT.N).toBe('-33.399435')
-        expect(response.ageMinFilter).toBe('20')
-        expect(response.ageMaxFilter).toBe('40')
-        expect(response.matchFilter).toStrictEqual(['5v5', '7v7', '11v11'])
-        expect(response.genderFilter).toStrictEqual(['M'])
-        expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
-        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
-          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
-        expect(response.foot).toBe('R')
-        expect(response.weight).toBe('75')
-        expect(response.height).toBe('175')
+        expect(response.id).toBe('rpc')
+        expect(response.name).toBe('RPC')
+        expect(response.picture).toBe('')
+        expect(response.formation).toStrictEqual({ '5v5': { S: '2-1-1' }, '7v7': { S: '3-2-1' },
+          '11v11': { S: '4-4-2' }})
+        expect(response.searchingPlayers).toBe('false')
       }
 
       done()
     })
   }, 60000)
 
-  test('Evaluar respuesta: Usuario (jesus.barrientos@arzov.com)', (done) => {
+  test('Evaluar respuesta: Equipo (MAN. UNITED)', (done) => {
     params.Payload = JSON.stringify(event02)
 
     lambda.invoke(params, function(err, data) {
@@ -56,20 +49,14 @@ describe('Test AWS Lambda: umt-add-user', () => {
       } else {
         let response = JSON.parse(data.Payload)
 
-        expect(response.email).toBe('jesus.barrientos@arzov.com')
+        expect(data.StatusCode).toBe(200)
         expect(response.geohash).toBe('66jcfp')
-        expect(response.coords.LON.N).toBe('-70.573615')
-        expect(response.coords.LAT.N).toBe('-33.399435')
-        expect(response.ageMinFilter).toBe('20')
-        expect(response.ageMaxFilter).toBe('40')
-        expect(response.matchFilter).toStrictEqual(['5v5', '7v7'])
-        expect(response.genderFilter).toStrictEqual(['M'])
-        expect(response.positions).toStrictEqual([''])
-        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
-          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
-        expect(response.foot).toBe('')
-        expect(response.weight).toBe('80')
-        expect(response.height).toBe('170')
+        expect(response.id).toBe('man.united')
+        expect(response.name).toBe('MAN. UNITED')
+        expect(response.picture).toBe('')
+        expect(response.formation).toStrictEqual({ '5v5': { S: '2-1-1' }, '7v7': { S: '3-2-1' },
+          '11v11': { S: '4-4-2' }})
+        expect(response.searchingPlayers).toBe('false')
       }
 
       done()

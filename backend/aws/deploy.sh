@@ -20,7 +20,7 @@ status=$?
 # Instalar layers
 cd lambda/layers
 
-cd umt/nodejs; npm install; cd ../../
+cd umt-ext/nodejs; npm install; cd ../../
 
 cd ../../
 

@@ -1,5 +1,5 @@
 {
-  "name": "umt-add-user",
+  "name": "umt-add-team",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,8 +15,5 @@
   "devDependencies": {
     "aws-sdk": "^2.683.0",
     "jest": "^26.0.1"
-  },
-  "optionalDependencies": {
-    "ngeohash": "^0.6.3"
   }
 }

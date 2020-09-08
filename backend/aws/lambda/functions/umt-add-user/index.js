@@ -5,6 +5,7 @@
 
 
 const aws = require('aws-sdk');
+const umtEnvs = require('umt-envs');
 const ngeohash = require('ngeohash');
 const dql = require('utils/dql');
 const geohashLength = 6;
@@ -23,7 +24,7 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = function(event, context, callback) {
 	const latitude = event.latitude;
 	const longitude = event.longitude;
-	const hashKey = `USR#${event.email}`;
+	const hashKey = `${umtEnvs.pfx.USR}${event.email}`;
 	const genderFilter = event.genderFilter;
 	const ageMinFilter = String(event.ageMinFilter);
 	const ageMaxFilter = String(event.ageMaxFilter);

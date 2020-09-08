@@ -8,58 +8,40 @@
  * Agrega un usuario
  * @param {Object} db Conexion a DynamoDB
  * @param {String} tableName Nombre de la tabla
- * @param {String} hashKey Email
- * @param {String} rangeKey Email
+ * @param {String} hashKey Id
+ * @param {String} rangeKey Id
+ * @param {String} name Nombre
+ * @param {String} picture URL de la imagen
+ * @param {Object} formation Formación para cada tipo de juego
+ * @param {Boolean} searchingPlayers Indicador de busqueda de integrantes
  * @param {String} geohash Hash de geolocalizacion
- * @param {Object} coords Coordenadas de latitud y longitud
- * @param {String[]} genderFilter Filtro de sexo
- * @param {String} ageMinFilter Filtro de edad minima
- * @param {String} ageMaxFilter Filtro de edad maxima
- * @param {String[]} matchFilter Filtro de tipo de juego
- * @param {Object} skills Habilidades
- * @param {String[]} positions Posiciones de juego
- * @param {String} foot Pie habil
- * @param {String} weight Peso
- * @param {String} height Estatura
  * @param {Function} fn Funcion callback
  */
-const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFilter, ageMinFilter,
-    ageMaxFilter, matchFilter, positions, skills, foot, weight, height, fn) => {
+const addTeam = (db, tableName, hashKey, rangeKey, geohash, name, picture, formation,
+    searchingPlayers, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
-            "hashKey": { S: hashKey },
-            "rangeKey": { S: rangeKey },
-            "geohash": { S: geohash },
-            "coords": { M: coords },
-            "genderFilter": { SS: genderFilter },
-            "ageMinFilter": { N: ageMinFilter },
-            "ageMaxFilter": { N: ageMaxFilter },
-            "matchFilter": { SS: matchFilter },
-            "positions": { SS: positions },
-            "skills": { M: skills },
-            "foot": { S: foot },
-            "weight": { S: weight },
-            "height": { S: height }
+            'hashKey': { S: hashKey },
+            'rangeKey': { S: rangeKey },
+            'geohash': { S: geohash },
+            'name': { S: name },
+            'picture': { S: picture },
+            'formation': { M: formation },
+            'searchingPlayers': { B: searchingPlayers }
         }
     }, function(err, data) {
         if (err) fn(err);
         else
             fn(null, {
-                email: hashKey.split('#')[1],
+                id: hashKey.split('#')[1],
                 geohash,
-                coords,
-                ageMinFilter,
-                ageMaxFilter,
-                genderFilter,
-                matchFilter,
-                positions,
-                skills,
-                foot,
-                weight,
-                height
+                name,
+                picture,
+                formation,
+                searchingPlayers
             });
     });
 }
 
-module.exports.addUser = addUser;
+module.exports.addTeam = addTeam;

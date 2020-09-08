@@ -28,19 +28,19 @@ const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFilter
     db.putItem({
         TableName: tableName,
         Item: {
-            "hashKey": { S: hashKey },
-            "rangeKey": { S: rangeKey },
-            "geohash": { S: geohash },
-            "coords": { M: coords },
-            "genderFilter": { SS: genderFilter },
-            "ageMinFilter": { N: ageMinFilter },
-            "ageMaxFilter": { N: ageMaxFilter },
-            "matchFilter": { SS: matchFilter },
-            "positions": { SS: positions },
-            "skills": { M: skills },
-            "foot": { S: foot },
-            "weight": { S: weight },
-            "height": { S: height }
+            'hashKey': { S: hashKey },
+            'rangeKey': { S: rangeKey },
+            'geohash': { S: geohash },
+            'coords': { M: coords },
+            'genderFilter': { SS: genderFilter },
+            'ageMinFilter': { N: ageMinFilter },
+            'ageMaxFilter': { N: ageMaxFilter },
+            'matchFilter': { SS: matchFilter },
+            'positions': { SS: positions },
+            'skills': { M: skills },
+            'foot': { S: foot },
+            'weight': { S: weight },
+            'height': { S: height }
         }
     }, function(err, data) {
         if (err) fn(err);
