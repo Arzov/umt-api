@@ -154,7 +154,7 @@
           height: Int!
         }
         
-        type UsersList {
+        type UserList {
           items: [User]
           nextToken: String
         }
@@ -168,7 +168,7 @@
           searchingPlayers: Boolean!
         }
 
-        type TeamsList {
+        type TeamList {
           items: [Team]
           nextToken: String
         }
@@ -184,8 +184,20 @@
           joinedOn: String
         }
 
-        type TeamMembersList {
+        type TeamMemberList {
           items: [TeamMember]
+          nextToken: String
+        }
+
+        type TeamChat {
+          teamId: String!
+          userEmail: String!
+          sentOn: String!
+          msg: String!
+        }
+
+        type TeamChatList {
+          items: [TeamChat]
           nextToken: String
         }
 
@@ -217,6 +229,11 @@
             status: String!,
             number: Int!
           ): TeamMember
+          addTeamChat(
+            teamId: String!,
+            userEmail: String!,
+            msg: String!
+          ): TeamChat
         }
         
         schema {

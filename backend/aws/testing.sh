@@ -71,10 +71,15 @@ status=$((status + $?))
 
 cd lambda/functions
 
+# lambdas="
+#     umt-add-user
+#     umt-add-team
+#     umt-add-teammember
+#     umt-add-teamchat
+# "
+
 lambdas="
-    umt-add-user
-    umt-add-team
-    umt-add-teammember
+    umt-add-teamchat
 "
 
 for lambda in $lambdas

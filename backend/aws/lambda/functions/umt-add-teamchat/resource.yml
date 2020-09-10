@@ -1,0 +1,17 @@
+
+  LDFunctionUMTAddTeamChat:
+    Type: AWS::Serverless::Function
+    DependsOn:
+      - LDLayerUMTEnvs
+      - LDLayerUMTExt
+    Properties:
+      FunctionName: umt-add-teamchat
+      CodeUri: lambda/functions/umt-add-teamchat/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs
+        - !Ref LDLayerUMTExt
+      Environment:
+        Variables:
+          RUN_MODE: SERVER
+          DB_UMT_001: !Ref DBTableUMT001
