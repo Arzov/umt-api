@@ -174,14 +174,19 @@
         }
 
         type TeamMember {
-          hashKey: String!
-          rangeKey: String!
-          id: String!
-          name: String!
-          picture: String
-          formation: String
-          geohash: String!
-          searchingPlayers: Boolean!
+          teamId: String!
+          userEmail: String!
+          position: String
+          isCaptain: Boolean
+          role: [String!]!
+          status: String
+          number: Int
+          joinedOn: String
+        }
+
+        type TeamMembersList {
+          items: [TeamMember]
+          nextToken: String
         }
 
         type Mutation {
@@ -204,6 +209,14 @@
             geohash: String!,
             searchingPlayers: Boolean!
           ): Team
+          addTeamMember(
+            teamId: String!,
+            userEmail: String!,
+            position: String,
+            role: [String],
+            status: String!,
+            number: Int!
+          ): TeamMember
         }
         
         schema {

@@ -74,6 +74,7 @@ cd lambda/functions
 lambdas="
     umt-add-user
     umt-add-team
+    umt-add-teammember
 "
 
 for lambda in $lambdas
