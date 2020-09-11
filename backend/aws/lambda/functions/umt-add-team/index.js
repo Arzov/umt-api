@@ -20,10 +20,11 @@ const dynamodb = new aws.DynamoDB(options);
 
 
 exports.handler = function(event, context, callback) {
-	const hashKey = `${umtEnvs.pfx.TEAM}${event.name.toLowerCase().replace(/\s+/g, '')}`; // elimina espacios y
-																			// deja en minusculas
-																			// el nombre del equipo
-	const name = event.name.toUpperCase();
+	const name = event.name.toUpperCase().trim();
+
+	// Elimina espacios y deja en minusculas el nombre del equipo
+	const hashKey = `${umtEnvs.pfx.TEAM}${name.toLowerCase().replace(/\s+/g, '')}`;
+
 	const picture = event.picture ? event.picture : '';
 	const formation = event.formation ? JSON.parse(event.formation) :
 		{'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'}, '11v11': {S: '4-4-2'}};

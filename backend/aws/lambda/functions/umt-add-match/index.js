@@ -18,7 +18,7 @@ if (process.env.RUN_MODE === 'LOCAL') {
 }
 
 const dynamodb = new aws.DynamoDB(options);
-const daysToExpire = 14;
+const daysToExpire = umtEnvs.gbl.DAYS_TO_EXPIRE;
 
 
 exports.handler = function(event, context, callback) {

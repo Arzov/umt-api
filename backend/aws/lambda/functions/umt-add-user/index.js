@@ -8,7 +8,7 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const ngeohash = require('ngeohash');
 const dql = require('utils/dql');
-const geohashLength = 6;
+const geohashLength = umtEnvs.gbl.GEOHASH_LENGTH;
 let options = { apiVersion: '2012-08-10' };
 
 if (process.env.RUN_MODE === 'LOCAL') {

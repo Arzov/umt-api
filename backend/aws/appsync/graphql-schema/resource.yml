@@ -235,6 +235,33 @@
           nextToken: String
         }
 
+        type MatchChat {
+          teamId1: String!
+          teamId2: String!
+          userEmail: String!
+          sentOn: String!
+          msg: String!
+        }
+
+        type MatchChatList {
+          items: [MatchChat]
+          nextToken: String
+        }
+
+        type Stadium {
+          geohash: String!
+          id: String!
+          name: String!
+          matchTypes: [String!]!
+          coords: String!
+          address: String
+        }
+
+        type StadiumList {
+          items: [Stadium]
+          nextToken: String
+        }
+
         type Mutation {
           addUser(
             latitude: Float!,
@@ -279,6 +306,25 @@
             stadiumId: String,
             courtId: Int
           ): Match
+          addMatchPatch(
+            teamId1: String!,
+            teamId2: String!,
+            userEmail: String!,
+            status: String
+          ): MatchPatch
+          addMatchChat(
+            teamId1: String!,
+            teamId2: String!,
+            userEmail: String!,
+            msg: String!
+          ): MatchChat
+          addStadium(
+            latitude: Float!,
+            longitude: Float!,
+            name: String!,
+            matchTypes: [String!]!,
+            address: String
+          ): Stadium
         }
         
         schema {
