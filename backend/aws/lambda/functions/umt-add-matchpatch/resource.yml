@@ -1,0 +1,13 @@
+
+  LDFunctionUMTAddMatchPatch:
+    Type: AWS::Serverless::Function
+    DependsOn:
+      - LDLayerUMTEnvs
+      - LDLayerUMTExt
+    Properties:
+      FunctionName: umt-add-matchpatch
+      CodeUri: lambda/functions/umt-add-matchpatch/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs
+        - !Ref LDLayerUMTExt

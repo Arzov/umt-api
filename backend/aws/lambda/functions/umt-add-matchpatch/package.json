@@ -1,5 +1,5 @@
 {
-  "name": "umt-add-match",
+  "name": "umt-add-matchpatch",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,12 +12,11 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {
-    "aws-sdk": "^2.683.0",
-    "jest": "^25.1.0"
-  },
   "optionalDependencies": {
     "moment": "^2.26.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.683.0",
+    "jest": "^26.0.1"
   }
 }

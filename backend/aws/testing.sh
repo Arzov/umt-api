@@ -77,10 +77,11 @@ cd lambda/functions
 #     umt-add-teammember
 #     umt-add-teamchat
 #     umt-add-match
+#     umt-add-matchpatch
 # "
 
 lambdas="
-    umt-add-match
+    umt-add-matchpatch
 "
 
 for lambda in $lambdas
