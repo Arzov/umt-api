@@ -8,6 +8,10 @@ Globals:
     Timeout: 180
     Handler: index.handler
     Runtime: nodejs12.x
+    Environment:
+      Variables:
+        RUN_MODE: SERVER
+        DB_UMT_001: !Ref DBTableUMT001
 
 Parameters: 
   AWSDefaultRegion: 

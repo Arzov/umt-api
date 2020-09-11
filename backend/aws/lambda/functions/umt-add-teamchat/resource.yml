@@ -11,7 +11,3 @@
       Layers:
         - !Ref LDLayerUMTEnvs
         - !Ref LDLayerUMTExt
-      Environment:
-        Variables:
-          RUN_MODE: SERVER
-          DB_UMT_001: !Ref DBTableUMT001

@@ -8,7 +8,3 @@
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs
-      Environment:
-        Variables:
-          RUN_MODE: SERVER
-          DB_UMT_001: !Ref DBTableUMT001

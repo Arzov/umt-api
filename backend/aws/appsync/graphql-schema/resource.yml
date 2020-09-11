@@ -201,6 +201,27 @@
           nextToken: String
         }
 
+        type Match {
+          teamId1: String!
+          teamId2: String!
+          createdOn: String!
+          allowedPatches: Int
+          positions: [String]
+          matchTypes: [String]
+          expireOn: String!
+          schedule: String
+          status: String
+          geohash: String!
+          stadiumGeohash: String
+          stadiumId: String
+          courtId: Int
+        }
+
+        type MatchList {
+          items: [Match]
+          nextToken: String
+        }
+
         type Mutation {
           addUser(
             latitude: Float!,
