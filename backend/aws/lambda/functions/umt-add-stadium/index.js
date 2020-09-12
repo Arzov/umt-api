@@ -7,6 +7,7 @@
 const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const ngeohash = require('ngeohash');
+const umtUtils = require('umt-utils');
 const dql = require('utils/dql');
 const geohashLength = umtEnvs.gbl.GEOHASH_LENGTH;
 let options = { apiVersion: '2012-08-10' };
@@ -22,14 +23,11 @@ const dynamodb = new aws.DynamoDB(options);
 
 
 exports.handler = function(event, context, callback) {
-	const name = event.name.toUpperCase().trim();
+	const name = umtUtils.cleanName(event.name.toUpperCase().trim());
 	const latitude = event.latitude;
 	const longitude = event.longitude;
 	const coords = {LON: {N: String(longitude)}, LAT: {N: String(latitude)}};
-
-	// Elimina espacios y deja en minusculas el nombre
-	const hashKey = `${umtEnvs.pfx.STAD}${name.toLowerCase().replace(/\s+/g, '')}`;
-
+	const hashKey = `${umtEnvs.pfx.STAD}${umtUtils.nameToId(name)}`;
 	const rangeKey = `${umtEnvs.pfx.STAD}${ngeohash.encode(latitude, longitude, geohashLength)}`;
 	const matchTypes = event.matchTypes;
 	const address = event.address ? event.address : '';

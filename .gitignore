@@ -11,3 +11,4 @@ _site
 # Whitelist
 !backend/aws/lambda/layers/**/nodejs/.gitkeep
 !**/node_modules/umt-envs
+!**/node_modules/umt-utils

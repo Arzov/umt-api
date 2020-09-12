@@ -4,6 +4,7 @@
     DependsOn:
       - LDLayerUMTEnvs
       - LDLayerUMTExt
+      - LDLayerUMTPkgs
     Properties:
       FunctionName: umt-add-stadium
       CodeUri: lambda/functions/umt-add-stadium/
@@ -11,3 +12,4 @@
       Layers:
         - !Ref LDLayerUMTEnvs
         - !Ref LDLayerUMTExt
+        - !Ref LDLayerUMTPkgs

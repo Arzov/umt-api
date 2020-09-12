@@ -262,6 +262,19 @@
           nextToken: String
         }
 
+        type Court {
+          stadiumId: String!
+          stadiumGeohash: String!
+          id: String!
+          matchTypes: [String!]!
+          material: String
+        }
+
+        type CourtList {
+          items: [Court]
+          nextToken: String
+        }
+
         type Mutation {
           addUser(
             latitude: Float!,
@@ -325,6 +338,12 @@
             matchTypes: [String!]!,
             address: String
           ): Stadium
+          addCourt(
+            stadiumId: String!,
+            stadiumGeohash: String!,
+            matchTypes: [String!]!,
+            material: String
+          ): Court
         }
         
         schema {
