@@ -84,7 +84,7 @@ cd lambda/functions
 # "
 
 lambdas="
-    umt-add-team
+    umt-add-court
 "
 
 for lambda in $lambdas
