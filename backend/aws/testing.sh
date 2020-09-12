@@ -80,10 +80,11 @@ cd lambda/functions
 #     umt-add-matchpatch
 #     umt-add-matchchat
 #     umt-add-stadium
+#     umt-add-court
 # "
 
 lambdas="
-    umt-add-stadium
+    umt-add-court
 "
 
 for lambda in $lambdas
