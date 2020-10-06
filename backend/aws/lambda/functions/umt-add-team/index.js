@@ -26,7 +26,7 @@ exports.handler = function(event, context, callback) {
 	const picture = event.picture ? event.picture : '';
 	const formation = event.formation ? JSON.parse(event.formation) :
 		{'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'}, '11v11': {S: '4-4-2'}};
-	const searchingPlayers = String(event.searchingPlayers);
+	const searchingPlayers = event.searchingPlayers;
 	const geohash = event.geohash;
 
 	dql.addTeam(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, geohash, name, picture,

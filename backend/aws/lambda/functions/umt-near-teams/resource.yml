@@ -1,0 +1,10 @@
+
+  LDFunctionUMTNearTeams:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-near-teams
+      CodeUri: lambda/functions/umt-near-teams/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs

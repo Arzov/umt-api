@@ -28,7 +28,7 @@ const addTeam = (db, tableName, hashKey, rangeKey, geohash, name, picture, forma
             'name': { S: name },
             'picture': { S: picture },
             'formation': { M: formation },
-            'searchingPlayers': { B: searchingPlayers }
+            'searchingPlayers': { BOOL: searchingPlayers }
         }
     }, function(err, data) {
         if (err) fn(err);

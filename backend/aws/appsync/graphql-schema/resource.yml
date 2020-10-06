@@ -344,10 +344,25 @@
             matchTypes: [String!]!,
             material: String
           ): Court
+          updateUser(
+            latitude: Float!,
+            longitude: Float!,
+            email: String!,
+            genderFilter: [String!]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String!]!,
+            positions: [String],
+            skills: String,
+            foot: String,
+            weight: Int!,
+            height: Int!
+          ): User
         }
 
         type Query {
           getUser(email: String!, nextToken: String): User
+          nearTeams(geohash: String!, nextToken: String): TeamList
         }
         
         schema {
