@@ -82,10 +82,11 @@ cd lambda/functions
 #     umt-add-stadium
 #     umt-add-court
 #     umt-get-user
+#     umt-update-user
 # "
 
 lambdas="
-umt-get-user
+umt-update-user
 "
 
 for lambda in $lambdas

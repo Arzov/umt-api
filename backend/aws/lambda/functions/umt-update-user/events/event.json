@@ -1,0 +1,13 @@
+{
+  "email": "fjbarrientosg@gmail.com",
+  "latitude": -33.399435,
+  "longitude": -70.573615,
+  "ageMinFilter": 22,
+  "ageMaxFilter": 45,
+  "genderFilter": ["M"],
+  "matchFilter": ["5v5", "7v7", "11v11"],
+  "positions": ["CF","LW","RW"],
+  "foot": "R",
+  "weight": 80,
+  "height": 175
+}
