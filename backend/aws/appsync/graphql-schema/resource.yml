@@ -345,6 +345,10 @@
             material: String
           ): Court
         }
+
+        type Query {
+          getUser(email: String!, nextToken: String): User
+        }
         
         schema {
           query: Query

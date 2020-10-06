@@ -1,4 +1,5 @@
 
+  #TODO: Eliminar dynamodb de datasource y agregar lambdas
   ASDataSourceUMTDBMessages:
     Type: AWS::AppSync::DataSource
     Properties: 
