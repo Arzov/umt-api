@@ -29,7 +29,7 @@ describe('Test AWS Lambda: umt-add-stadium', () => {
         expect(response.id).toBe('clubdeportivoindepe')
         expect(response.name).toBe('CLUB DEPORTIVO INDEPE')
         expect(response.matchTypes).toStrictEqual(['5v5', '7v7', '11v11'])
-        expect(response.coords).toStrictEqual({ LON: { N: '-70.573615' }, LAT: { N: '-33.399435' } })
+        expect(response.coords).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
         expect(response.address).toBe('')
       }
 

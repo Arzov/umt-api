@@ -31,7 +31,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].name).toBe('MAN. UNITED')
         expect(response.items[0].searchingPlayers).toBe(false)
         expect(response.items[0].formation).toStrictEqual({
-          '5v5': '2-1-1', '7v7': '3-2-1', '11v11': '4-4-2' })
+          '5v5': '2-1-1', '7v7': '3-2-1', '11v11': '4-4-2'})
         expect(response.items[0].picture).toBe('')
         expect(response.items[0].id).toBe('man.united')
         expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#man.united\"},\"hashKey\":{\"S\":\"TEAM#man.united\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
@@ -57,7 +57,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].name).toBe('RPC')
         expect(response.items[0].searchingPlayers).toBe(false)
         expect(response.items[0].formation).toStrictEqual({
-          '5v5': '2-1-1', '7v7': '3-2-1', '11v11': '4-4-2' })
+          '5v5': '2-1-1', '7v7': '3-2-1', '11v11': '4-4-2'})
         expect(response.items[0].picture).toBe('')
         expect(response.items[0].id).toBe('rpc')
         expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#rpc\"},\"hashKey\":{\"S\":\"TEAM#rpc\"},\"geohash\":{\"S\":\"66jcfp\"}}") 

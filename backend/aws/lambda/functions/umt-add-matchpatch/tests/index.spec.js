@@ -28,7 +28,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         expect(response.teamId1).toBe('rpc')
         expect(response.teamId2).toBe('man.united')
         expect(response.userEmail).toBe('svonko.vescovi@arzov.com')
-        expect(response.status).toStrictEqual({ PS: { S: 'P' } })
+        expect(response.status).toStrictEqual({PS: {S: 'P'}})
       }
 
       done()

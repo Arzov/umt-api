@@ -6,6 +6,7 @@
   "ageMaxFilter": 40,
   "genderFilter": ["M"],
   "matchFilter": ["5v5", "7v7"],
+  "foot": "R",
   "weight": 80,
   "height": 170
 }

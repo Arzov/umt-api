@@ -29,10 +29,9 @@ exports.handler = function(event, context, callback) {
 	const ageMinFilter = String(event.ageMinFilter);
 	const ageMaxFilter = String(event.ageMaxFilter);
 	const matchFilter = event.matchFilter;
-	const positions = event.positions ? event.positions : [''];
-	const skills = event.skills ? JSON.parse(event.skills):
-		{ATT: {N: '1'}, SPD: {N: '1'}, TEC: {N: '1'}, TWK: {N: '1'}, FCE: {N: '1'}, DEF: {N: '1'}};
-	const foot = event.foot ? event.foot : '';
+	const positions = event.positions ? event.positions : umtEnvs.dft.USER.POSITIONS;
+	const skills = event.skills ? JSON.parse(event.skills) : umtEnvs.dft.USER.SKILLS;
+	const foot = event.foot;
 	const weight = String(event.weight);
 	const height = String(event.height);
 	const coords = {LON: {N: String(longitude)}, LAT: {N: String(latitude)}};

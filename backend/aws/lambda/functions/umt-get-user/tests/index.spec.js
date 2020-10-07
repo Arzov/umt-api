@@ -28,12 +28,12 @@ describe('Test AWS Lambda: umt-get-user', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.email).toBe('fjbarrientosg@gmail.com')
         expect(response.geohash).toBe('66jcfp')
-        expect(response.coords).toStrictEqual({ LON: { N: '-70.573615' }, LAT: { N: '-33.399435' } })
-        expect(response.genderFilter).toStrictEqual([ 'M' ])
+        expect(response.coords).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
+        expect(response.genderFilter).toStrictEqual(['M'])
         expect(response.ageMinFilter).toBe('20')
         expect(response.ageMaxFilter).toBe('40')
-        expect(response.matchFilter).toStrictEqual([ '11v11', '5v5', '7v7' ])
-        expect(response.positions).toStrictEqual([ 'CF', 'LW', 'RW' ])
+        expect(response.matchFilter).toStrictEqual(['11v11', '5v5', '7v7'])
+        expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
         expect(response.foot).toBe('R')
       }
 

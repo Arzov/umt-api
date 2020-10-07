@@ -23,10 +23,8 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = function(event, context, callback) {
 	const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
 	const rangeKey = `${umtEnvs.pfx.MEM}${event.userEmail}`;
-	const position = event.position ? JSON.parse(event.position) : 
-		{'5v5':{M:{P:{S:'GK'},X:{N:'-1'},Y:{N:'-1'}}},'7v7':{M:{P:{S:'GK'},X:{N:'-1'},Y:{N:'-1'}}},
-		'11v11':{M:{P:{S:'GK'},X:{N:'-1'},Y:{N:'-1'}}}};
-	const role = event.role ? event.role : ['Player'];
+	const position = event.position ? JSON.parse(event.position) : umtEnvs.dft.TEAMMEMBER.POSITION;
+	const role = event.role ? event.role : umtEnvs.dft.TEAMMEMBER.ROLE;
 	const status = JSON.parse(event.status);
 	const number = String(event.number);
 	const joinedOn = moment().format();

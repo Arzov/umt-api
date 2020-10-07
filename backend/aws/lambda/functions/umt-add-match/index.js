@@ -27,14 +27,16 @@ exports.handler = function(event, context, callback) {
 	const createdOn = moment().format();
 	const expireOn = moment().add(daysToExpire, 'days').format();
 	const allowedPatches = String(event.allowedPatches);
-	const positions = event.positions ? event.positions : [''];
+	const positions = event.positions ? event.positions : umtEnvs.dft.MATCH.POSITIONS;
 	const matchTypes = event.matchTypes;
-	const schedule = JSON.parse(event.schedule);
-	let status = {AR:{S:"P"},RR:{S:"P"}};
+	// TODO: Revisar tiempo local vs tiempo del servidor
+	const schedule = event.schedule? JSON.parse(event.schedule) :
+		{day: {S: expireOn.split('T')[0]}, time: {S: expireOn.split('T')[1].substr(0, 5)}};
 	const geohash = event.geohash;
-	const stadiumGeohash = event.stadiumGeohash ? event.stadiumGeohash : '';
-	const stadiumId = event.stadiumId ? event.stadiumId : '';
-	const courtId = event.courtId ? String(event.courtId) : '0';
+	const stadiumGeohash = event.stadiumGeohash ? event.stadiumGeohash : umtEnvs.dft.MATCH.STADIUMGEOHASH;
+	const stadiumId = event.stadiumId ? event.stadiumId : umtEnvs.dft.MATCH.STADIUMID;
+	const courtId = event.courtId ? String(event.courtId) : umtEnvs.dft.MATCH.COURTID;
+	let status = umtEnvs.dft.MATCH.STATUS;
 
 	// Verificar si existe alguna solicitud desde el otro equipo
     dql.getMatch(dynamodb, process.env.DB_UMT_001, rangeKey, hashKey, function(err, data) {

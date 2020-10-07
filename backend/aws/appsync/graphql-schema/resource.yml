@@ -149,7 +149,7 @@
           matchFilter: [String]
           positions: [String]
           skills: String
-          foot: String
+          foot: String!
           weight: Int!
           height: Int!
         }
@@ -286,7 +286,7 @@
             matchFilter: [String!]!,
             positions: [String],
             skills: String,
-            foot: String,
+            foot: String!,
             weight: Int!,
             height: Int!
           ): User
@@ -311,9 +311,10 @@
           addMatch(
             teamId1: String!,
             teamId2: String!,
-            allowedPatches: Int,
-            matchTypes: String!,
-            schedule: String!,
+            allowedPatches: Int!,
+            positions: [String],
+            matchTypes: [String!]!,
+            schedule: String,
             geohash: String!,
             stadiumGeohash: String,
             stadiumId: String,
@@ -348,20 +349,20 @@
             latitude: Float!,
             longitude: Float!,
             email: String!,
-            genderFilter: [String!]!,
+            genderFilter: [String]!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
-            matchFilter: [String!]!,
-            positions: [String],
-            skills: String,
-            foot: String,
+            matchFilter: [String]!,
+            positions: [String]!,
+            skills: String!,
+            foot: String!,
             weight: Int!,
             height: Int!
           ): User
         }
 
         type Query {
-          getUser(email: String!, nextToken: String): User
+          getUser(email: String!): User
           nearTeams(geohash: String!, nextToken: String): TeamList
         }
         

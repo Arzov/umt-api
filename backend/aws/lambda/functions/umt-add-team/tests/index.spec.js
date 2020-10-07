@@ -30,8 +30,8 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('rpc')
         expect(response.name).toBe('RPC')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual({ '5v5': { S: '2-1-1' }, '7v7': { S: '3-2-1' },
-          '11v11': { S: '4-4-2' }})
+        expect(response.formation).toStrictEqual({'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'},
+          '11v11': {S: '4-4-2'}})
         expect(response.searchingPlayers).toBe(false)
       }
 
@@ -54,8 +54,8 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('man.united')
         expect(response.name).toBe('MAN. UNITED')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual({ '5v5': { S: '2-1-1' }, '7v7': { S: '3-2-1' },
-          '11v11': { S: '4-4-2' }})
+        expect(response.formation).toStrictEqual({'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'},
+          '11v11': {S: '4-4-2'}})
         expect(response.searchingPlayers).toBe(false)
       }
 

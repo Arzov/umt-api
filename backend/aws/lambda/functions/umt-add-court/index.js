@@ -22,7 +22,7 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = function(event, context, callback) {
 	const hashKey = `${umtEnvs.pfx.STAD}${event.stadiumId}`;
 	const matchTypes = event.matchTypes;
-	const material = event.material ? event.material : '';
+	const material = event.material ? event.material : umtEnvs.dft.MATERIAL;
 
 	// Obtener el id de la ultima cancha agregada para generar id actual
     dql.getLastCourtId(dynamodb, process.env.DB_UMT_001, hashKey, umtEnvs.pfx.COURT, function(err, lastId) {

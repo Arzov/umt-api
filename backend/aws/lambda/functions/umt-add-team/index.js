@@ -23,9 +23,8 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = function(event, context, callback) {
 	const name = umtUtils.cleanName(event.name);
 	const hashKey = `${umtEnvs.pfx.TEAM}${umtUtils.nameToId(name)}`;
-	const picture = event.picture ? event.picture : '';
-	const formation = event.formation ? JSON.parse(event.formation) :
-		{'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'}, '11v11': {S: '4-4-2'}};
+	const picture = event.picture ? event.picture : umtEnvs.dft.TEAM.PICTURE;
+	const formation = event.formation ? JSON.parse(event.formation) : umtEnvs.dft.TEAM.FORMATION;
 	const searchingPlayers = event.searchingPlayers;
 	const geohash = event.geohash;
 

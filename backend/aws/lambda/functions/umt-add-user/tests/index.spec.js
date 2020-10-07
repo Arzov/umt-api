@@ -37,8 +37,8 @@ describe('Test AWS Lambda: umt-add-user', () => {
         expect(response.matchFilter).toStrictEqual(['5v5', '7v7', '11v11'])
         expect(response.genderFilter).toStrictEqual(['M'])
         expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
-        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
-          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
+        expect(response.skills).toStrictEqual({ATT: {N: '1'}, SPD: {N: '1'},
+          TEC: {N: '1'}, TWK: {N: '1'}, FCE: {N: '1'}, DEF: {N: '1'}})
         expect(response.foot).toBe('R')
         expect(response.weight).toBe('75')
         expect(response.height).toBe('175')
@@ -68,9 +68,9 @@ describe('Test AWS Lambda: umt-add-user', () => {
         expect(response.matchFilter).toStrictEqual(['5v5', '7v7'])
         expect(response.genderFilter).toStrictEqual(['M'])
         expect(response.positions).toStrictEqual([''])
-        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
-          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
-        expect(response.foot).toBe('')
+        expect(response.skills).toStrictEqual({ATT: {N: '1'}, SPD: {N: '1'},
+          TEC: {N: '1'}, TWK: {N: '1'}, FCE: {N: '1'}, DEF: {N: '1'}})
+        expect(response.foot).toBe('R')
         expect(response.weight).toBe('80')
         expect(response.height).toBe('170')
       }
@@ -99,9 +99,9 @@ describe('Test AWS Lambda: umt-add-user', () => {
         expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(response.genderFilter).toStrictEqual(['M'])
         expect(response.positions).toStrictEqual(['GK', 'LW', 'RW'])
-        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
-          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
-        expect(response.foot).toBe('')
+        expect(response.skills).toStrictEqual({ATT: {N: '1'}, SPD: {N: '1'},
+          TEC: {N: '1'}, TWK: {N: '1'}, FCE: {N: '1'}, DEF: {N: '1'}})
+        expect(response.foot).toBe('R')
         expect(response.weight).toBe('65')
         expect(response.height).toBe('175')
       }
@@ -130,8 +130,8 @@ describe('Test AWS Lambda: umt-add-user', () => {
         expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(response.genderFilter).toStrictEqual(['M'])
         expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
-        expect(response.skills).toStrictEqual({ ATT: { N: '1' }, SPD: { N: '1' },
-          TEC: { N: '1' }, TWK: { N: '1' }, FCE: { N: '1' }, DEF: { N: '1' } })
+        expect(response.skills).toStrictEqual({ATT: {N: '1'}, SPD: {N: '1'},
+          TEC: {N: '1'}, TWK: {N: '1'}, FCE: {N: '1'}, DEF: {N: '1'}})
         expect(response.foot).toBe('L')
         expect(response.weight).toBe('80')
         expect(response.height).toBe('170')
