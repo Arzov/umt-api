@@ -1,6 +1,7 @@
 const aws = require('aws-sdk')
 const event01 = require('../events/event01.json')
 const event02 = require('../events/event02.json')
+const event03 = require('../events/event03.json')
 
 describe('Test AWS Lambda: umt-add-team', () => {
 
@@ -57,6 +58,30 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.formation).toStrictEqual({'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'},
           '11v11': {S: '4-4-2'}})
         expect(response.searchingPlayers).toBe(false)
+      }
+
+      done()
+    })
+  }, 60000)
+
+  test('Evaluar respuesta: Equipo (FC BARCELONA)', (done) => {
+    params.Payload = JSON.stringify(event03)
+
+    lambda.invoke(params, function(err, data) {
+      if (err) {
+        console.log(err)
+        expect(err.StatusCode).toBe(200)
+      } else {
+        let response = JSON.parse(data.Payload)
+
+        expect(data.StatusCode).toBe(200)
+        expect(response.geohash).toBe('66jcfp')
+        expect(response.id).toBe('fcbarcelona')
+        expect(response.name).toBe('FC BARCELONA')
+        expect(response.picture).toBe('')
+        expect(response.formation).toStrictEqual({'5v5': {S: '2-1-1'}, '7v7': {S: '3-2-1'},
+          '11v11': {S: '4-4-2'}})
+        expect(response.searchingPlayers).toBe(true)
       }
 
       done()

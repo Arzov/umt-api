@@ -84,6 +84,7 @@ lambdas="
     umt-get-user
     umt-update-user
     umt-near-teams
+    umt-near-matches
 "
 
 # lambdas="

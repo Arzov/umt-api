@@ -1,6 +1,7 @@
 const aws = require('aws-sdk')
 const event01 = require('../events/event01.json')
 const event02 = require('../events/event02.json')
+const event03 = require('../events/event03.json')
 
 describe('Test AWS Lambda: umt-add-match', () => {
 
@@ -55,6 +56,33 @@ describe('Test AWS Lambda: umt-add-match', () => {
         
         expect(data.StatusCode).toBe(200)
         expect(response.teamId1).toBe('rpc')
+      }
+
+      done()
+    })
+  }, 60000)
+
+  test('Evaluar respuesta: Equipos (MAN. UNITED - FC BARCELONA)', (done) => {
+    params.Payload = JSON.stringify(event03)
+
+    lambda.invoke(params, function(err, data) {
+      if (err) {
+        console.log(err)
+        expect(err.StatusCode).toBe(200)
+      } else {
+        let response = JSON.parse(data.Payload)
+        
+        expect(data.StatusCode).toBe(200)
+        expect(response.teamId1).toBe('man.united')
+        expect(response.teamId2).toBe('fcbarcelona')
+        expect(response.allowedPatches).toBe('2')
+        expect(response.positions).toStrictEqual([''])
+        expect(response.matchTypes).toStrictEqual(['7v7'])
+        expect(response.status).toStrictEqual({AR: {S: 'P'}, RR: {S: 'P'}})
+        expect(response.geohash).toBe('66jcfp')
+        expect(response.stadiumGeohash).toBe('')
+        expect(response.stadiumId).toBe('')
+        expect(response.courtId).toBe('0')
       }
 
       done()

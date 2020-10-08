@@ -1,0 +1,10 @@
+
+  LDFunctionUMTNearMatches:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-near-matches
+      CodeUri: lambda/functions/umt-near-matches/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs

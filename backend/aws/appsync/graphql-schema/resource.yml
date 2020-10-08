@@ -363,7 +363,8 @@
 
         type Query {
           getUser(email: String!): User
-          nearTeams(geohash: String!, nextToken: String): TeamList
+          nearTeams(geohash: String!, forJoin: Boolean!, nextToken: String): TeamList
+          nearMatches(geohash: String!, nextToken: String): MatchList
         }
         
         schema {

@@ -1,5 +1,5 @@
 /**
- * Obtiene equipos cercanos
+ * Obtiene partidos cercanos
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
@@ -8,7 +8,7 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
 let options = { apiVersion: '2012-08-10' };
-let limitScan = umtEnvs.gbl.TEAMS_SCAN_LIMIT;
+let limitScan = umtEnvs.gbl.MATCHES_SCAN_LIMIT;
 
 if (process.env.RUN_MODE === 'LOCAL') {
 	options.endpoint = 'http://arzov:8000'
@@ -23,7 +23,6 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = (event, context, callback) => {
     const geohash = event.geohash;
-    const forJoin = event.forJoin;
     let nextToken = event.nextToken;
 
     /**
@@ -37,7 +36,7 @@ exports.handler = (event, context, callback) => {
         if (JSON.parse(nextToken).geohash.S !== geohash) nextToken = null;
     }
 
-    dql.nearTeams(dynamodb, process.env.DB_UMT_001, geohash, forJoin, limitScan, nextToken, function(err, data) {
+    dql.nearMatches(dynamodb, process.env.DB_UMT_001, geohash, limitScan, nextToken, function(err, data) {
         if (err) callback(err);
         else {
             let nextTokenResult = null;
@@ -48,12 +47,19 @@ exports.handler = (event, context, callback) => {
             if (data.Count) {
                 const dataResult = data.Items.map(function(x) {
                     return {
-                        id: x.hashKey.S.split('#')[1],
-                        name: x.name.S,
-                        picture: x.picture.S,
-                        formation: x.formation.M,
+                        teamId1: x.hashKey.S.split('#')[1],
+                        teamId2: x.rangeKey.S.split('#')[1],
+                        createdOn: x.createdOn.S,
+                        allowedPatches: x.allowedPatches.N,
+                        positions: x.positions.SS,
+                        matchTypes: x.matchTypes.SS,
+                        expireOn: x.expireOn.S,
+                        schedule: x.schedule.M,
+                        status: x.status.M,
                         geohash: x.geohash.S,
-                        searchingPlayers: x.searchingPlayers.BOOL
+                        stadiumGeohash: x.stadiumGeohash.S,
+                        stadiumId: x.stadiumId.S,
+                        courtId: x.courtId.N
                     };
                 });
 
@@ -63,7 +69,7 @@ exports.handler = (event, context, callback) => {
                 });
             }
 
-            else callback(null, { items: [], nextToken: nextTokenResult });
+            else callback(null, {items: [], nextToken: nextTokenResult});
         }
     });
 };
