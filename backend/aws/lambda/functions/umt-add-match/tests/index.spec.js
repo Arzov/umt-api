@@ -38,6 +38,7 @@ describe('Test AWS Lambda: umt-add-match', () => {
         expect(response.stadiumGeohash).toBe('')
         expect(response.stadiumId).toBe('')
         expect(response.courtId).toBe('0')
+        expect(response.genderFilter).toStrictEqual(['M'])
       }
 
       done()
@@ -83,6 +84,7 @@ describe('Test AWS Lambda: umt-add-match', () => {
         expect(response.stadiumGeohash).toBe('')
         expect(response.stadiumId).toBe('')
         expect(response.courtId).toBe('0')
+        expect(response.genderFilter).toStrictEqual(['M'])
       }
 
       done()

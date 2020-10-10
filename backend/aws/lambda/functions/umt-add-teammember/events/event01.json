@@ -1,8 +1,5 @@
 {
   "teamId": "rpc",
   "userEmail": "fjbarrientosg@gmail.com",
-  "position": "{\"5v5\":{\"M\":{\"P\":{\"S\":\"CF\"},\"X\":{\"N\":\"-1\"},\"Y\":{\"N\":\"-1\"}}},\"7v7\":{\"M\":{\"P\":{\"S\":\"GK\"},\"X\":{\"N\":\"-1\"},\"Y\":{\"N\":\"-1\"}}},\"11v11\":{\"M\":{\"P\":{\"S\":\"GK\"},\"X\":{\"N\":\"-1\"},\"Y\":{\"N\":\"-1\"}}}}",
-  "role": ["Admin", "Player", "Captain"],
-  "status": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}",
-  "number": 0
+  "role": ["Admin", "Player", "Captain"]
 }

@@ -29,13 +29,14 @@ exports.handler = function(event, context, callback) {
 	const allowedPatches = String(event.allowedPatches);
 	const positions = event.positions ? event.positions : umtEnvs.dft.MATCH.POSITIONS;
 	const matchTypes = event.matchTypes;
-	// TODO: Revisar tiempo local vs tiempo del servidor
+	// TODO: Revisar tiempo local vs tiempo del servidor (por lado del cliente en frontend)
 	const schedule = event.schedule? JSON.parse(event.schedule) :
 		{day: {S: expireOn.split('T')[0]}, time: {S: expireOn.split('T')[1].substr(0, 5)}};
 	const geohash = event.geohash;
 	const stadiumGeohash = event.stadiumGeohash ? event.stadiumGeohash : umtEnvs.dft.MATCH.STADIUMGEOHASH;
 	const stadiumId = event.stadiumId ? event.stadiumId : umtEnvs.dft.MATCH.STADIUMID;
 	const courtId = event.courtId ? String(event.courtId) : umtEnvs.dft.MATCH.COURTID;
+	const genderFilter = event.genderFilter;
 	let status = umtEnvs.dft.MATCH.STATUS;
 
 	// Verificar si existe alguna solicitud desde el otro equipo
@@ -50,7 +51,7 @@ exports.handler = function(event, context, callback) {
             else 
                 dql.addMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, createdOn,
 					expireOn, allowedPatches, positions, matchTypes, schedule, status, geohash,
-					stadiumGeohash, stadiumId, courtId, callback);
+					stadiumGeohash, stadiumId, courtId, genderFilter, callback);
         }
     });
 };

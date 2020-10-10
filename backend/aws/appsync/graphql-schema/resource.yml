@@ -207,14 +207,15 @@
           createdOn: String!
           allowedPatches: Int
           positions: [String]
-          matchTypes: [String]
+          matchTypes: [String!]!
           expireOn: String!
-          schedule: String
-          status: String
+          schedule: String!
+          status: String!
           geohash: String!
           stadiumGeohash: String
           stadiumId: String
           courtId: Int
+          genderFilter: [String!]!
         }
 
         type MatchList {
@@ -319,6 +320,7 @@
             stadiumGeohash: String,
             stadiumId: String,
             courtId: Int
+            genderFilter: [String!]!
           ): Match
           addMatchPatch(
             teamId1: String!,
@@ -365,6 +367,7 @@
           getUser(email: String!): User
           nearTeams(geohash: String!, forJoin: Boolean!, nextToken: String): TeamList
           nearMatches(geohash: String!, nextToken: String): MatchList
+          listTeams(email: String!, nextToken: String): TeamList
         }
         
         schema {

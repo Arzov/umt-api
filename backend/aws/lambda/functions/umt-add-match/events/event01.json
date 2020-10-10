@@ -4,5 +4,6 @@
   "allowedPatches": 0,
   "matchTypes": ["7v7"],
   "schedule": "{\"day\":{\"S\":\"2020-09-02\"},\"time\":{\"S\":\"18:45\"}}",
-  "geohash": "66jcfp"
+  "geohash": "66jcfp",
+  "genderFilter": ["M"]
 }

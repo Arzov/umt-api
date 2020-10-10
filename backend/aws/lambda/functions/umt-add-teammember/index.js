@@ -23,10 +23,10 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = function(event, context, callback) {
 	const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
 	const rangeKey = `${umtEnvs.pfx.MEM}${event.userEmail}`;
-	const position = event.position ? JSON.parse(event.position) : umtEnvs.dft.TEAMMEMBER.POSITION;
+	const position = umtEnvs.dft.TEAMMEMBER.POSITION;
 	const role = event.role ? event.role : umtEnvs.dft.TEAMMEMBER.ROLE;
-	const status = JSON.parse(event.status);
-	const number = String(event.number);
+	const status = umtEnvs.dft.TEAMMEMBER.STATUS;
+	const number = umtEnvs.dft.TEAMMEMBER.NUMBER;
 	const joinedOn = moment().format();
 
 	dql.addTeamMember(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, position, role,

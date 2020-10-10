@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "Franco Barrientos",
     "DateCreated": "Aug 26, 2020, 11:01 PM",
-    "DateLastModified": "Sep 08, 2020, 12:06 PM",
+    "DateLastModified": "Oct 09, 2020, 10:45 PM",
     "Description": "Modelo de datos para API de Umatch.",
     "Version": "1.0"
   },
@@ -844,6 +844,11 @@
               "geohash": {
                 "S": "66jcfp"
               },
+              "genderFilter": {
+                "SS": [
+                  "M"
+                ]
+              },
               "positions": {
                 "SS": [
                   "GK",
@@ -906,7 +911,8 @@
             "schedule",
             "stadiumGeohash",
             "stadiumId",
-            "courtId"
+            "courtId",
+            "genderFilter"
           ],
           "DataAccess": {
             "MySql": {}

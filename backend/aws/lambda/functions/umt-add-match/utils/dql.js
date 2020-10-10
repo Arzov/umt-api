@@ -43,10 +43,12 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
  * @param {String} stadiumGeohash Hash de geolocalizacion del club deportivo
  * @param {String} stadiumId Id del club deportivo donde se jugara
  * @param {String} courtId Id de la cancha donde se jugara el partido
+ * @param {String[]} genderFilter Filtro de sexo del partido
  * @param {Function} fn Funcion callback
  */
 const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowedPatches,
-    positions, matchTypes, schedule, status, geohash, stadiumGeohash, stadiumId, courtId, fn) => {
+    positions, matchTypes, schedule, status, geohash, stadiumGeohash, stadiumId, courtId, genderFilter,
+    fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
@@ -62,7 +64,8 @@ const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowed
             'geohash': { S: geohash },
             'stadiumGeohash': { S: stadiumGeohash },
             'stadiumId': { S: stadiumId },
-            'courtId': { N: courtId }
+            'courtId': { N: courtId },
+            'genderFilter': { SS: genderFilter }
         }
     }, function(err, data) {
         if (err) fn(err);
@@ -80,7 +83,8 @@ const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowed
                 geohash,
                 stadiumGeohash,
                 stadiumId,
-                courtId
+                courtId,
+                genderFilter
             });
     });
 }
