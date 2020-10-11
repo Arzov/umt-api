@@ -25,10 +25,10 @@ exports.handler = function(event, context, callback) {
 	const rangeKey = `${umtEnvs.pfx.MEM}${event.userEmail}`;
 	const position = umtEnvs.dft.TEAMMEMBER.POSITION;
 	const role = event.role ? event.role : umtEnvs.dft.TEAMMEMBER.ROLE;
-	const status = umtEnvs.dft.TEAMMEMBER.STATUS;
+	const reqStat = JSON.parse(event.reqStat);
 	const number = umtEnvs.dft.TEAMMEMBER.NUMBER;
 	const joinedOn = moment().format();
 
 	dql.addTeamMember(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, position, role,
-		status, number, joinedOn, callback);
+		reqStat, number, joinedOn, callback);
 };

@@ -12,13 +12,13 @@
  * @param {String} rangeKey Email del usuario
  * @param {Object} position Posicion en la formacion
  * @param {String[]} role Roles
- * @param {Object} status Estado de solicitud
+ * @param {Object} reqStat Estado de solicitud
  * @param {String} number Numero de jugador
  * @param {String} joinedOn Fecha de ingreso
  * @param {Function} fn Funcion callback
  */
 const addTeamMember = (db, tableName, hashKey, rangeKey, position, role,
-    status, number, joinedOn, fn) => {
+    reqStat, number, joinedOn, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
@@ -26,7 +26,7 @@ const addTeamMember = (db, tableName, hashKey, rangeKey, position, role,
             'rangeKey': { S: rangeKey },
             'position': { M: position },
             'role': { SS: role },
-            'status': { M: status },
+            'reqStat': { M: reqStat },
             'number': { N: number },
             'joinedOn': { S: joinedOn }
         }
@@ -38,7 +38,7 @@ const addTeamMember = (db, tableName, hashKey, rangeKey, position, role,
                 userEmail: rangeKey.split('#')[1],
                 position,
                 role,
-                status,
+                reqStat,
                 number,
                 joinedOn
             });

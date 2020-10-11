@@ -38,7 +38,7 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
  * @param {String[]} positions Posiciones requeridas para parchar
  * @param {String[]} matchTypes Tipo de juego del partido
  * @param {Object} schedule Horario y fecha del encuentro
- * @param {Object} status Estado de la solicitud
+ * @param {Object} reqStat Estado de la solicitud
  * @param {String} geohash Hash de geolocalizacion
  * @param {String} stadiumGeohash Hash de geolocalizacion del club deportivo
  * @param {String} stadiumId Id del club deportivo donde se jugara
@@ -47,7 +47,7 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
  * @param {Function} fn Funcion callback
  */
 const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowedPatches,
-    positions, matchTypes, schedule, status, geohash, stadiumGeohash, stadiumId, courtId, genderFilter,
+    positions, matchTypes, schedule, reqStat, geohash, stadiumGeohash, stadiumId, courtId, genderFilter,
     fn) => {
     db.putItem({
         TableName: tableName,
@@ -60,7 +60,7 @@ const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowed
             'positions': { SS: positions },
             'matchTypes': { SS: matchTypes },
             'schedule': { M: schedule },
-            'status': { M: status },
+            'reqStat': { M: reqStat },
             'geohash': { S: geohash },
             'stadiumGeohash': { S: stadiumGeohash },
             'stadiumId': { S: stadiumId },
@@ -79,7 +79,7 @@ const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowed
                 positions,
                 matchTypes,
                 schedule,
-                status,
+                reqStat,
                 geohash,
                 stadiumGeohash,
                 stadiumId,

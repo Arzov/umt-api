@@ -23,7 +23,7 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = function(event, context, callback) {
 	const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
 	const sentOn = moment().format();
-	const rangeKey = `${umtEnvs.pfx.CHAT}${event.userEmail}#${sentOn}`;
+	const rangeKey = `${umtEnvs.pfx.CHAT}${sentOn}#${event.userEmail}`;
 	const msg = event.msg;
 
 	dql.addTeamChat(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, msg, callback);

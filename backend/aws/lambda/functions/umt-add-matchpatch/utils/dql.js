@@ -5,23 +5,45 @@
 
 
 /**
+ * Obtiene un parche
+ * @param {Object} db Conexion a DynamoDB
+ * @param {String} tableName Nombre de la tabla
+ * @param {String} hashKey Id del equipo solicitante
+ * @param {String} rangeKey Id del equipo solicitado y email del parche
+ * @param {Function} fn Funcion callback
+ */
+const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
+    db.getItem({
+        TableName: tableName,
+        Key: {
+            "hashKey": { S: hashKey },
+            "rangeKey": { S: rangeKey }
+        }
+    },
+    function(err, data) {
+        if (err) fn(err);
+        else fn(null, data);
+    });
+}
+
+/**
  * Agrega un parche al match
  * @param {Object} db Conexion a DynamoDB
  * @param {String} tableName Nombre de la tabla
  * @param {String} hashKey Id del equipo solicitante
  * @param {String} rangeKey Id del equipo solicitado y el email del parche
  * @param {String} joinedOn Fecha cuando se unio
- * @param {Object} status Estado que indica si esta confirmado o no
+ * @param {Object} reqStat Estado que indica si esta confirmado o no
  * @param {Function} fn Funcion callback
  */
-const addMatchPatch = (db, tableName, hashKey, rangeKey, joinedOn, status, fn) => {
+const addMatchPatch = (db, tableName, hashKey, rangeKey, joinedOn, reqStat, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
             'hashKey': { S: hashKey },
             'rangeKey': { S: rangeKey },
             'joinedOn': { S: joinedOn },
-            'status': { M: status }
+            'reqStat': { M: reqStat }
         }
     }, function(err, data) {
         if (err) fn(err);
@@ -31,9 +53,10 @@ const addMatchPatch = (db, tableName, hashKey, rangeKey, joinedOn, status, fn) =
                 teamId2: rangeKey.split('#')[1],
                 userEmail: rangeKey.split('#')[2],
                 joinedOn,
-                status
+                reqStat
             });
     });
 }
 
+module.exports.getMatchPatch = getMatchPatch;
 module.exports.addMatchPatch = addMatchPatch;

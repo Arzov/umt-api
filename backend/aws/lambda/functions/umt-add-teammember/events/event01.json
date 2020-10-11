@@ -1,5 +1,6 @@
 {
   "teamId": "rpc",
   "userEmail": "fjbarrientosg@gmail.com",
-  "role": ["Admin", "Player", "Captain"]
+  "role": ["Admin", "Player", "Captain"],
+  "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
 }

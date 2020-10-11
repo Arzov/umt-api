@@ -34,7 +34,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
           '11v11': {M: {P: {S: ''}, X: {N: '-1'}, Y: {N: '-1'}}}
         })
         expect(response.role).toStrictEqual(['Admin', 'Player', 'Captain'])
-        expect(response.status).toStrictEqual({TR: {S: 'P'}, PR: {S: 'P'}})
+        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -61,7 +61,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
           '11v11': {M: {P: {S: ''}, X: {N: '-1'}, Y: {N: '-1'}}}
         })
         expect(response.role).toStrictEqual(['Player'])
-        expect(response.status).toStrictEqual({TR: {S: 'P'}, PR: {S: 'P'}})
+        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
         expect(response.number).toBe('0')
       }
 

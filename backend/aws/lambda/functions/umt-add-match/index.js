@@ -37,7 +37,7 @@ exports.handler = function(event, context, callback) {
 	const stadiumId = event.stadiumId ? event.stadiumId : umtEnvs.dft.MATCH.STADIUMID;
 	const courtId = event.courtId ? String(event.courtId) : umtEnvs.dft.MATCH.COURTID;
 	const genderFilter = event.genderFilter;
-	let status = umtEnvs.dft.MATCH.STATUS;
+	const reqStat = umtEnvs.dft.MATCH.REQSTAT;
 
 	// Verificar si existe alguna solicitud desde el otro equipo
     dql.getMatch(dynamodb, process.env.DB_UMT_001, rangeKey, hashKey, function(err, data) {
@@ -50,7 +50,7 @@ exports.handler = function(event, context, callback) {
             // Si no existe entonces agregar
             else 
                 dql.addMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, createdOn,
-					expireOn, allowedPatches, positions, matchTypes, schedule, status, geohash,
+					expireOn, allowedPatches, positions, matchTypes, schedule, reqStat, geohash,
 					stadiumGeohash, stadiumId, courtId, genderFilter, callback);
         }
     });

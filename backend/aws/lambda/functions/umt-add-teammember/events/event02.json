@@ -1,4 +1,5 @@
 {
   "teamId": "rpc",
-  "userEmail": "jesus.barrientos@arzov.com"
+  "userEmail": "jesus.barrientos@arzov.com",
+  "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
 }

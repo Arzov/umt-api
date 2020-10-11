@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "Franco Barrientos",
     "DateCreated": "Aug 26, 2020, 11:01 PM",
-    "DateLastModified": "Oct 09, 2020, 10:45 PM",
+    "DateLastModified": "Oct 11, 2020, 12:56 PM",
     "Description": "Modelo de datos para API de Umatch.",
     "Version": "1.0"
   },
@@ -62,7 +62,7 @@
           "AttributeType": "SS"
         },
         {
-          "AttributeName": "status",
+          "AttributeName": "reqStat",
           "AttributeType": "M"
         },
         {
@@ -468,10 +468,7 @@
             "foot",
             "weight",
             "height"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "TeamMember",
@@ -537,16 +534,6 @@
                   "Captain"
                 ]
               },
-              "status": {
-                "M": {
-                  "TR": {
-                    "S": "A"
-                  },
-                  "PR": {
-                    "S": ""
-                  }
-                }
-              },
               "joinedOn": {
                 "S": "2020-06-17T21:27:51+00:00"
               },
@@ -608,16 +595,6 @@
                 "SS": [
                   "Player"
                 ]
-              },
-              "status": {
-                "M": {
-                  "TR": {
-                    "S": "A"
-                  },
-                  "PR": {
-                    "S": ""
-                  }
-                }
               },
               "joinedOn": {
                 "S": "2020-06-17T21:27:51+00:00"
@@ -682,16 +659,6 @@
                   "Player"
                 ]
               },
-              "status": {
-                "M": {
-                  "TR": {
-                    "S": "A"
-                  },
-                  "PR": {
-                    "S": ""
-                  }
-                }
-              },
               "joinedOn": {
                 "S": "2020-06-17T21:27:51+00:00"
               },
@@ -703,13 +670,10 @@
           "NonKeyAttributes": [
             "position",
             "role",
-            "status",
+            "reqStat",
             "joinedOn",
             "number"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "TeamChat",
@@ -723,7 +687,7 @@
                 "S": "TEAM#rpc"
               },
               "rangeKey": {
-                "S": "CHAT#fjbarrientosg@gmail.com#2020-06-17T21:27:51+00:00"
+                "S": "CHAT#2020-06-17T21:27:51+00:00#fjbarrientosg@gmail.com"
               },
               "msg": {
                 "S": "Hola a todos!"
@@ -734,7 +698,7 @@
                 "S": "TEAM#rpc"
               },
               "rangeKey": {
-                "S": "CHAT#jesus.barrientos@arzov.com#2020-06-18T21:27:51+00:00"
+                "S": "CHAT#2020-06-18T21:27:51+00:00#jesus.barrientos@arzov.com"
               },
               "msg": {
                 "S": "Hola! :)"
@@ -743,10 +707,7 @@
           ],
           "NonKeyAttributes": [
             "msg"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "Team",
@@ -822,10 +783,7 @@
             "picture",
             "formation",
             "searchingPlayers"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "Match",
@@ -855,7 +813,7 @@
                   "CM"
                 ]
               },
-              "status": {
+              "reqStat": {
                 "M": {
                   "AR": {
                     "S": "A"
@@ -902,8 +860,9 @@
           ],
           "NonKeyAttributes": [
             "geohash",
+            "genderFilter",
             "positions",
-            "status",
+            "reqStat",
             "createdOn",
             "allowedPatches",
             "matchTypes",
@@ -911,12 +870,8 @@
             "schedule",
             "stadiumGeohash",
             "stadiumId",
-            "courtId",
-            "genderFilter"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+            "courtId"
+          ]
         },
         {
           "FacetName": "MatchPatch",
@@ -932,7 +887,7 @@
               "rangeKey": {
                 "S": "PATCH#man.united#svonko.vescovi@arzov.com"
               },
-              "status": {
+              "reqStat": {
                 "M": {
                   "PS": {
                     "S": "C"
@@ -945,12 +900,9 @@
             }
           ],
           "NonKeyAttributes": [
-            "status",
+            "reqStat",
             "joinedOn"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "MatchChat",
@@ -964,7 +916,7 @@
                 "S": "MATCH#rpc"
               },
               "rangeKey": {
-                "S": "CHAT#man.united#fjbarrientosg@gmail.com#2020-06-17T21:27:51+00:00"
+                "S": "CHAT#2020-06-17T21:27:51+00:00#man.united#fjbarrientosg@gmail.com"
               },
               "msg": {
                 "S": "Cuándo jugamos?"
@@ -975,7 +927,7 @@
                 "S": "MATCH#rpc"
               },
               "rangeKey": {
-                "S": "CHAT#man.united#matias.barrientos@arzov.com#2020-06-17T22:27:51+00:00"
+                "S": "CHAT#2020-06-17T22:27:51+00:00#man.united#matias.barrientos@arzov.com"
               },
               "msg": {
                 "S": "Mañana!"
@@ -984,10 +936,7 @@
           ],
           "NonKeyAttributes": [
             "msg"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "Stadium",
@@ -1033,10 +982,7 @@
             "name",
             "matchTypes",
             "address"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "Court",
@@ -1081,10 +1027,7 @@
           "NonKeyAttributes": [
             "matchTypes",
             "material"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         }
       ],
       "GlobalSecondaryIndexes": [

@@ -179,7 +179,7 @@
           position: String
           isCaptain: Boolean
           role: [String!]!
-          status: String
+          reqStat: String
           number: Int
           joinedOn: String
         }
@@ -210,7 +210,7 @@
           matchTypes: [String!]!
           expireOn: String!
           schedule: String!
-          status: String!
+          reqStat: String!
           geohash: String!
           stadiumGeohash: String
           stadiumId: String
@@ -227,7 +227,7 @@
           teamId1: String!
           teamId2: String!
           userEmail: String!
-          status: String
+          reqStat: String
           joinedOn: String!
         }
 
@@ -301,7 +301,7 @@
             userEmail: String!,
             position: String,
             role: [String],
-            status: String!,
+            reqStat: String!,
             number: Int!
           ): TeamMember
           addTeamChat(
@@ -326,7 +326,7 @@
             teamId1: String!,
             teamId2: String!,
             userEmail: String!,
-            status: String
+            reqStat: String
           ): MatchPatch
           addMatchChat(
             teamId1: String!,
