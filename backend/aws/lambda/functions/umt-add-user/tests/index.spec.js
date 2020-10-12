@@ -1,4 +1,5 @@
 const aws = require('aws-sdk')
+const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
 const event01 = require('../events/event01.json')
 const event02 = require('../events/event02.json')
 const event03 = require('../events/event03.json')
@@ -6,16 +7,8 @@ const event04 = require('../events/event04.json')
 
 describe('Test AWS Lambda: umt-add-user', () => {
 
-  let lambda = new aws.Lambda({
-    apiVersion: '2015-03-31',
-    region: 'us-east-1',
-    endpoint: 'http://127.0.0.1:3001',
-    sslEnabled: false
-  })
-
-  let params = {
-    FunctionName: 'umt-add-user'
-  }
+  let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
+  let params = {FunctionName: 'umt-add-user'}
 
   test('Evaluar respuesta: Usuario (fjbarrientosg@gmail.com)', (done) => {
     params.Payload = JSON.stringify(event01)

@@ -1,18 +1,11 @@
 const aws = require('aws-sdk')
+const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
 const event01 = require('../events/event01.json')
 
 describe('Test AWS Lambda: umt-add-stadium', () => {
 
-  let lambda = new aws.Lambda({
-    apiVersion: '2015-03-31',
-    region: 'us-east-1',
-    endpoint: 'http://127.0.0.1:3001',
-    sslEnabled: false
-  })
-
-  let params = {
-    FunctionName: 'umt-add-stadium'
-  }
+  let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
+  let params = {FunctionName: 'umt-add-stadium'}
 
   test('Evaluar respuesta: Club (CLUB DEPORTIVO INDEPE)', (done) => {
     params.Payload = JSON.stringify(event01)

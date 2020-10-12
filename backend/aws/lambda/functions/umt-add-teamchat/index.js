@@ -8,14 +8,9 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const moment = require('moment');
 const dql = require('utils/dql');
-let options = { apiVersion: '2012-08-10' };
+let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
-if (process.env.RUN_MODE === 'LOCAL') {
-	options.endpoint = 'http://arzov:8000';
-	options.accessKeyId = 'xxxx';
-	options.secretAccessKey = 'xxxx';
-	options.region = 'localhost';
-}
+if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
 
 const dynamodb = new aws.DynamoDB(options);
 

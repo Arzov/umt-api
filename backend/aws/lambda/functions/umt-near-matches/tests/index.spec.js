@@ -1,19 +1,12 @@
 const aws = require('aws-sdk')
+const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
 const event01 = require('../events/event01.json')
 const event02 = require('../events/event02.json')
 
 describe('Test AWS Lambda: umt-near-matches', () => {
 
-  let lambda = new aws.Lambda({
-    apiVersion: '2015-03-31',
-    region: 'us-east-1',
-    endpoint: 'http://127.0.0.1:3001',
-    sslEnabled: false
-  })
-
-  let params = {
-    FunctionName: 'umt-near-matches'
-  }
+  let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
+  let params = {FunctionName: 'umt-near-matches'}
 
   test('Evaluar respuesta: Parte 1 geohash - 66jcfp', (done) => {
 
@@ -35,7 +28,7 @@ describe('Test AWS Lambda: umt-near-matches', () => {
         expect(response.items[0].stadiumGeohash).toBe('')
         expect(response.items[0].stadiumId).toBe('')
         expect(response.items[0].geohash).toBe('66jcfp')
-        expect(response.items[0].status).toStrictEqual({AR: {S: 'P'}, RR: {S: 'P'}})
+        expect(response.items[0].reqStat).toStrictEqual({AR: {S: 'A'}, RR: {S: 'P'}})
         expect(response.items[0].courtId).toBe('0')
         expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"MATCH#fcbarcelona\"},\"hashKey\":{\"S\":\"MATCH#man.united\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
       }

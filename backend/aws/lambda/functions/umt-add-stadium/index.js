@@ -10,14 +10,9 @@ const ngeohash = require('ngeohash');
 const umtUtils = require('umt-utils');
 const dql = require('utils/dql');
 const geohashLength = umtEnvs.gbl.GEOHASH_LENGTH;
-let options = { apiVersion: '2012-08-10' };
+let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
-if (process.env.RUN_MODE === 'LOCAL') {
-	options.endpoint = 'http://arzov:8000';
-	options.accessKeyId = 'xxxx';
-	options.secretAccessKey = 'xxxx';
-	options.region = 'localhost';
-}
+if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
 
 const dynamodb = new aws.DynamoDB(options);
 

@@ -7,15 +7,12 @@
 const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
-let options = { apiVersion: '2012-08-10' };
 let limitScan = umtEnvs.gbl.TEAMS_SCAN_LIMIT;
+let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') {
-	options.endpoint = 'http://arzov:8000'
-	options.accessKeyId = 'xxxx'
-	options.secretAccessKey = 'xxxx'
-    options.region = 'localhost'
-    limitScan = 1
+    options = umtEnvs.dev.DYNAMODB_CONFIG;
+    limitScan = umtEnvs.dev.TEAMS_SCAN_LIMIT;
 }
 
 const dynamodb = new aws.DynamoDB(options);

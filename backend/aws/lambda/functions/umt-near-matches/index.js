@@ -7,15 +7,12 @@
 const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
-let options = { apiVersion: '2012-08-10' };
 let limitScan = umtEnvs.gbl.MATCHES_SCAN_LIMIT;
+let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') {
-	options.endpoint = 'http://arzov:8000'
-	options.accessKeyId = 'xxxx'
-	options.secretAccessKey = 'xxxx'
-    options.region = 'localhost'
-    limitScan = 1
+    options = umtEnvs.dev.DYNAMODB_CONFIG;
+    limitScan = umtEnvs.dev.MATCHES_SCAN_LIMIT;
 }
 
 const dynamodb = new aws.DynamoDB(options);
@@ -55,7 +52,7 @@ exports.handler = (event, context, callback) => {
                         matchTypes: x.matchTypes.SS,
                         expireOn: x.expireOn.S,
                         schedule: x.schedule.M,
-                        status: x.status.M,
+                        reqStat: x.reqStat.M,
                         geohash: x.geohash.S,
                         stadiumGeohash: x.stadiumGeohash.S,
                         stadiumId: x.stadiumId.S,

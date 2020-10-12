@@ -90,7 +90,7 @@ cd lambda/functions
 # "
 
 lambdas="
-umt-team-requests
+umt-near-matches
 "
 
 for lambda in $lambdas
