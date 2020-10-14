@@ -1,0 +1,10 @@
+
+  LDFunctionUMTTeamMemberRequests:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-teammember-requests
+      CodeUri: lambda/functions/umt-teammember-requests/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs
