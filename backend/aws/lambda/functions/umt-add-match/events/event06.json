@@ -1,6 +1,6 @@
 {
-  "teamId1": "realmadrid",
-  "teamId2": "man.united",
+  "teamId1": "bayern",
+  "teamId2": "psg",
   "matchTypes": ["7v7"],
   "geohash": "66jcfp",
   "genderFilter": ["M"]

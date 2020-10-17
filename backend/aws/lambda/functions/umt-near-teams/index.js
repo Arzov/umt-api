@@ -19,6 +19,7 @@ const dynamodb = new aws.DynamoDB(options);
 
 
 exports.handler = (event, context, callback) => {
+    // TODO: Agregar id del equipo para filtrar en el resultado final
     const geohash = event.geohash;
     const forJoin = event.forJoin;
     let nextToken = event.nextToken;

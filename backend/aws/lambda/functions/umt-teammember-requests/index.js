@@ -1,5 +1,5 @@
 /**
- * Obtiene solicitudes del usuario
+ * Obtiene solicitudes de equipos del jugador
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 

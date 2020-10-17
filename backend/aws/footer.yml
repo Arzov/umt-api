@@ -3,7 +3,7 @@ Outputs:
     Value: !GetAtt ASGraphQLApiUMT.GraphQLUrl
     Export:
       Name: UMT-ASGraphQLApiUMTUrl
-  CFDistributionUMTPWAId:
-    Value: !Ref CFDistributionUMTPWA
+  CFDistributionUMTWebId:
+    Value: !Ref CFDistributionUMTWeb
     Export:
-      Name: UMT-CFDistributionUMTPWAId
+      Name: UMT-CFDistributionUMTWebId

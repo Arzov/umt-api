@@ -21,11 +21,11 @@ exports.handler = function(event, context, callback) {
 	const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
 	const createdOn = moment().format();
 	const expireOn = moment().add(daysToExpire, 'days').format();
-	const allowedPatches = String(event.allowedPatches);
+	const allowedPatches = event.allowedPatches ? String(event.allowedPatches) : umtEnvs.dft.MATCH.ALLOWED_PATCHES;
 	const positions = event.positions ? event.positions : umtEnvs.dft.MATCH.POSITIONS;
 	const matchTypes = event.matchTypes;
 	// TODO: Revisar tiempo local vs tiempo del servidor (por lado del cliente en frontend)
-	const schedule = event.schedule? JSON.parse(event.schedule) :
+	const schedule = event.schedule ? JSON.parse(event.schedule) :
 		{day: {S: expireOn.split('T')[0]}, time: {S: expireOn.split('T')[1].substr(0, 5)}};
 	const geohash = event.geohash;
 	const stadiumGeohash = event.stadiumGeohash ? event.stadiumGeohash : umtEnvs.dft.MATCH.STADIUMGEOHASH;

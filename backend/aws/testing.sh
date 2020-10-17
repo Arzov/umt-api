@@ -58,7 +58,7 @@ cd ../../
 sam local start-lambda --docker-network arzov-local-network -t template.yml \
     --parameter-overrides "
         ParameterKey=AWSDefaultRegion,ParameterValue=$AWS_DEFAULT_REGION
-        ParameterKey=AWSS3PWABucket,ParameterValue=$AWS_S3_PWA_BUCKET
+        ParameterKey=AWSS3WebBucket,ParameterValue=$AWS_S3_WEB_BUCKET
         ParameterKey=AWSR53UMTDomain,ParameterValue=$AWS_R53_UMT_DOMAIN
     " \
     --env-vars lambda/functions/env.json & pids="${pids-} $!"
@@ -91,7 +91,7 @@ cd lambda/functions
 # "
 
 lambdas="
-umt-teammember-requests
+umt-add-match
 "
 
 for lambda in $lambdas

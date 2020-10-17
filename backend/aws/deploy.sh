@@ -28,7 +28,7 @@ cd ../../
 sam build -t template.yml \
     --parameter-overrides "
         ParameterKey=AWSDefaultRegion,ParameterValue=$AWS_DEFAULT_REGION
-        ParameterKey=AWSS3PWABucket,ParameterValue=$AWS_S3_PWA_BUCKET
+        ParameterKey=AWSS3WebBucket,ParameterValue=$AWS_S3_WEB_BUCKET
         ParameterKey=AWSR53UMTDomain,ParameterValue=$AWS_R53_UMT_DOMAIN
     "
 status=$((status + $?))
@@ -48,7 +48,7 @@ sam deploy --no-confirm-changeset \
     --s3-bucket $AWS_S3_ARTIFACTS_BUCKET \
     --parameter-overrides "
         ParameterKey=AWSDefaultRegion,ParameterValue=$AWS_DEFAULT_REGION
-        ParameterKey=AWSS3PWABucket,ParameterValue=$AWS_S3_PWA_BUCKET
+        ParameterKey=AWSS3WebBucket,ParameterValue=$AWS_S3_WEB_BUCKET
         ParameterKey=AWSR53UMTDomain,ParameterValue=$AWS_R53_UMT_DOMAIN
     " \
     --no-fail-on-empty-changeset

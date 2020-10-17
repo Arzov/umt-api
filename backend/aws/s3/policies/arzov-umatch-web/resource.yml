@@ -1,13 +1,13 @@
 
-  S3BucketPolicyUMTPWA:
+  S3BucketPolicyUMTWeb:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref S3BucketUMTPWA
+      Bucket: !Ref S3BucketUMTWeb
       PolicyDocument:
         Statement:
           - Sid: CloudFrontPolicy
             Effect: Allow
             Action: s3:GetObject
-            Resource: !Join ['', ['arn:aws:s3:::', !Ref S3BucketUMTPWA, /*]]
+            Resource: !Join ['', ['arn:aws:s3:::', !Ref S3BucketUMTWeb, /*]]
             Principal:
               AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CFOriginAccessIdentityUMT}"

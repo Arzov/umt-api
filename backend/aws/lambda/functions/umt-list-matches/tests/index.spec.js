@@ -2,12 +2,12 @@ const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
 const event = require('../events/event.json')
 
-describe('Test AWS Lambda: umt-teammember-requests', () => {
+describe('Test AWS Lambda: umt-list-matches', () => {
 
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
-  let params = {FunctionName: 'umt-teammember-requests'}
+  let params = {FunctionName: 'umt-list-matches'}
 
-  test('Evaluar respuesta: Usuario (jesus.barrientos@arzov.com)', (done) => {
+  test('Evaluar respuesta: Usuario (fjbarrientosg@gmail.com)', (done) => {
     params.Payload = JSON.stringify(event)
 
     lambda.invoke(params, function(err, data) {
@@ -18,9 +18,7 @@ describe('Test AWS Lambda: umt-teammember-requests', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.items[0].teamId).toBe('rpc')
-        expect(response.items[0].userEmail).toBe('jesus.barrientos@arzov.com')
-        expect(response.items[0].reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
+        expect(response.items[0].id).toBe('rpc')
         expect(response.nextToken).toBe(null)
       }
 

@@ -18,7 +18,7 @@ describe('Test AWS Lambda: umt-update-user', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.email).toBe('fjbarrientosg@gmail.com')
+        expect(response.email).toBe('franco.barrientos@arzov.com')
         expect(response.geohash).toBe('66jcfp')
         expect(response.coords).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
         expect(response.genderFilter).toStrictEqual(['M'])
@@ -26,8 +26,7 @@ describe('Test AWS Lambda: umt-update-user', () => {
         expect(response.ageMaxFilter).toBe('45')
         expect(response.matchFilter).toStrictEqual(['5v5', '7v7', '11v11'])
         expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
-        expect(response.skills).toStrictEqual({ATT: {N: '1'}, SPD: {N: '1'},
-          TEC: {N: '1'}, TWK: {N: '1'}, FCE: {N: '1'}, DEF: {N: '1'}})
+        expect(response.skills).toStrictEqual(umtEnvs.dft.USER.SKILLS)
         expect(response.foot).toBe('R')
         expect(response.weight).toBe('80')
         expect(response.height).toBe('175')

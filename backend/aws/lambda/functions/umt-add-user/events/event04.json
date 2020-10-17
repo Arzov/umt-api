@@ -7,7 +7,7 @@
   "genderFilter": ["M"],
   "matchFilter": ["7v7"],
   "positions": ["CF","LW","RW"],
-  "foot": "L",
+  "foot": "R",
   "weight": 80,
   "height": 170
 }

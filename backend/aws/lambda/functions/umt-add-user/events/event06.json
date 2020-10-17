@@ -1,0 +1,12 @@
+{
+  "email": "ivo.farias@arzov.com",
+  "latitude": -33.399435,
+  "longitude": -70.573615,
+  "ageMinFilter": 20,
+  "ageMaxFilter": 40,
+  "genderFilter": ["M"],
+  "matchFilter": ["5v5", "7v7"],
+  "foot": "L",
+  "weight": 83,
+  "height": 172
+}

@@ -20,7 +20,7 @@ jobs:
           echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_DEV }}
           echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_DEV }}
           echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_DEV }}
-          echo ::set-env name=AWS_S3_PWA_BUCKET::${{ secrets.AWS_S3_PWA_BUCKET_DEV }}
+          echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_DEV }}
           echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
           echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_DEV }}
     
@@ -30,7 +30,7 @@ jobs:
           echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_STG }}
           echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_STG }}
           echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_STG }}
-          echo ::set-env name=AWS_S3_PWA_BUCKET::${{ secrets.AWS_S3_PWA_BUCKET_STG }}
+          echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_STG }}
           echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_STG }}
           echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_STG }}
 
@@ -40,7 +40,7 @@ jobs:
           echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_PRD }}
           echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_PRD }}
           echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_PRD }}
-          echo ::set-env name=AWS_S3_PWA_BUCKET::${{ secrets.AWS_S3_PWA_BUCKET_PRD }}
+          echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_PRD }}
           echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_PRD }}
           echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_PRD }}
 

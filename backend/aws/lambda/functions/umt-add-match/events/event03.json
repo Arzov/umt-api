@@ -1,6 +1,6 @@
 {
-  "teamId1": "man.united",
-  "teamId2": "fcbarcelona",
+  "teamId1": "chelsea",
+  "teamId2": "man.united",
   "allowedPatches": 2,
   "matchTypes": ["7v7"],
   "geohash": "66jcfp",

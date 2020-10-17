@@ -1,6 +1,6 @@
 {
-  "teamId": "man.united",
-  "userEmail": "franco.barrientos@arzov.com",
+  "teamId": "psg",
+  "userEmail": "diego.lagos@arzov.com",
   "role": ["Admin", "Player", "Captain"],
   "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
 }

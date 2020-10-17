@@ -1,5 +1,5 @@
 
-  CFDistributionUMTPWA:
+  CFDistributionUMTWeb:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
@@ -26,16 +26,16 @@
             QueryString: false        
           TargetOriginId: !Sub
               - S3-${Name}
-              - { Name: !Ref S3BucketUMTPWA }
+              - { Name: !Ref S3BucketUMTWeb }
           ViewerProtocolPolicy: redirect-to-https        
         DefaultRootObject: start.html
         Enabled: true
         IPV6Enabled: true
         Origins: 
-          - DomainName: !GetAtt S3BucketUMTPWA.DomainName
+          - DomainName: !GetAtt S3BucketUMTWeb.DomainName
             Id: !Sub
               - S3-${Name}
-              - { Name: !Ref S3BucketUMTPWA }
+              - { Name: !Ref S3BucketUMTWeb }
             S3OriginConfig:
               OriginAccessIdentity: !Sub
                 - origin-access-identity/cloudfront/${Id}

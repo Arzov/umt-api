@@ -16,7 +16,7 @@ Globals:
 Parameters: 
   AWSDefaultRegion: 
     Type: String
-  AWSS3PWABucket: 
+  AWSS3WebBucket: 
     Type: String
   AWSR53UMTDomain: 
     Type: String
