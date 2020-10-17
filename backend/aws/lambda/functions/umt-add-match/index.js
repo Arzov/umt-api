@@ -40,7 +40,7 @@ exports.handler = function(event, context, callback) {
         else {
             // Existe una solicitud y no ha expirado
 			if (Object.entries(data).length > 0 && data.constructor === Object && createdOn < data.Item.expireOn.S)
-				callback(null, { teamId1: event.teamId2 });
+				callback(null, {teamId1: event.teamId2});
 
             // Si no existe entonces agregar
             else 

@@ -1,5 +1,5 @@
 /**
- * Acutaliza información del usuario
+ * Acutaliza informacion del usuario
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 

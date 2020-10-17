@@ -7,6 +7,8 @@ const event04 = require('../events/event04.json')
 const event05 = require('../events/event05.json')
 const event06 = require('../events/event06.json')
 const event07 = require('../events/event07.json')
+const event08 = require('../events/event08.json')
+const event09 = require('../events/event09.json')
 
 describe('Test AWS Lambda: umt-add-match', () => {
 
@@ -185,6 +187,62 @@ describe('Test AWS Lambda: umt-add-match', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId1).toBe('chelsea')
         expect(response.teamId2).toBe('psg')
+        expect(response.allowedPatches).toBe('0')
+        expect(response.positions).toStrictEqual([''])
+        expect(response.matchTypes).toStrictEqual(['7v7'])
+        expect(response.reqStat).toStrictEqual({AR: {S: 'A'}, RR: {S: 'P'}})
+        expect(response.geohash).toBe('66jcfp')
+        expect(response.stadiumGeohash).toBe('')
+        expect(response.stadiumId).toBe('')
+        expect(response.courtId).toBe('0')
+        expect(response.genderFilter).toStrictEqual(['M'])
+      }
+
+      done()
+    })
+  }, 60000)
+
+  test('Evaluar respuesta: Partido (FC BARCELONA - CHELSEA)', (done) => {
+    params.Payload = JSON.stringify(event08)
+
+    lambda.invoke(params, function(err, data) {
+      if (err) {
+        console.log(err)
+        expect(err.StatusCode).toBe(200)
+      } else {
+        let response = JSON.parse(data.Payload)
+
+        expect(data.StatusCode).toBe(200)
+        expect(response.teamId1).toBe('fcbarcelona')
+        expect(response.teamId2).toBe('chelsea')
+        expect(response.allowedPatches).toBe('0')
+        expect(response.positions).toStrictEqual([''])
+        expect(response.matchTypes).toStrictEqual(['7v7'])
+        expect(response.reqStat).toStrictEqual({AR: {S: 'A'}, RR: {S: 'P'}})
+        expect(response.geohash).toBe('66jcfp')
+        expect(response.stadiumGeohash).toBe('')
+        expect(response.stadiumId).toBe('')
+        expect(response.courtId).toBe('0')
+        expect(response.genderFilter).toStrictEqual(['M'])
+      }
+
+      done()
+    })
+  }, 60000)
+
+  test('Evaluar respuesta: Partido (BAYERN - CHELSEA)', (done) => {
+    params.Payload = JSON.stringify(event09)
+
+    lambda.invoke(params, function(err, data) {
+      if (err) {
+        console.log(err)
+        expect(err.StatusCode).toBe(200)
+      } else {
+        let response = JSON.parse(data.Payload)
+
+        expect(data.StatusCode).toBe(200)
+        expect(response.teamId1).toBe('bayern')
+        expect(response.teamId2).toBe('chelsea')
         expect(response.allowedPatches).toBe('0')
         expect(response.positions).toStrictEqual([''])
         expect(response.matchTypes).toStrictEqual(['7v7'])

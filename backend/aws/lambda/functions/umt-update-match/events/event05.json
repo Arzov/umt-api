@@ -1,0 +1,13 @@
+{
+  "teamId1": "fcbarcelona",
+  "teamId2": "chelsea",
+  "allowedPatches": 0,
+  "positions": [""],
+  "matchTypes": ["7v7"],
+  "schedule": "{\"day\":{\"S\":\"2020-12-03\"},\"time\":{\"S\":\"20:50\"}}",
+  "reqStat": "{\"AR\":{\"S\":\"A\"},\"RR\":{\"S\":\"D\"}}",
+  "stadiumGeohash": "",
+  "stadiumId": "",
+  "courtId": 0,
+  "genderFilter": ["M"]
+}
