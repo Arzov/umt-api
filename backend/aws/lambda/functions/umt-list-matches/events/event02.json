@@ -1,0 +1,4 @@
+{
+  "id": "man.united",
+  "nextToken": "{\"rangeKey\":{\"S\":\"MATCH#fcbarcelona\"},\"hashKey\":{\"S\":\"MATCH#man.united\"}}&{\"rangeKey\":{\"S\":\"MATCH#man.united\"},\"hashKey\":{\"S\":\"MATCH#bayern\"}}"
+}

@@ -89,10 +89,11 @@ cd lambda/functions
 #     umt-team-requests
 #     umt-teammember-requests
 #     umt-update-match
+#     umt-list-matches
 # "
 
 lambdas="
-umt-update-match
+umt-list-matches
 "
 
 for lambda in $lambdas

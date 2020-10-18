@@ -8,39 +8,67 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let limitScan = umtEnvs.gbl.MATCHES_SCAN_LIMIT;
 
-if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
+if (process.env.RUN_MODE === 'LOCAL') {
+    options = umtEnvs.dev.DYNAMODB_CONFIG;
+    limitScan = umtEnvs.dev.MATCHES_SCAN_LIMIT;
+}
 
 const dynamodb = new aws.DynamoDB(options);
-const limitScan = umtEnvs.gbl.MATCHES_SCAN_LIMIT;
 
 
 exports.handler = (event, context, callback) => {
-    const rangeKey = `${umtEnvs.pfx.MATCH}${event.id}`;
-    const nextToken = event.nextToken;
+    const hashKey = `${umtEnvs.pfx.MATCH}${event.id}`;
+    const ownerNextToken = event.nextToken ? event.nextToken.split('&')[0] : null;
+    const guestNextToken = event.nextToken ? event.nextToken.split('&')[1] : null;
 
-    dql.listTeams(dynamodb, process.env.DB_UMT_001, rangeKey, limitScan, nextToken, function(err, data) {
+    dql.listOwnerMatches(dynamodb, process.env.DB_UMT_001, hashKey, limitScan,
+        ownerNextToken, function(err, data) {
         if (err) callback(err);
         else {
-            let nextTokenResult = null;
+            let ownerNextTokenResult = null;
+            let guestNextTokenResult = null;
+            let ownerDataResult = []
+            let guestDataResult = []
 
             if ('LastEvaluatedKey' in data)
-                nextTokenResult = JSON.stringify(data.LastEvaluatedKey);
+                ownerNextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
             if (data.Count) {
-                const dataResult = data.Items.map(function(x) {
+                ownerDataResult = data.Items.map(function(x) {
                     return {
-                        id: x.hashKey.S.split('#')[1]
+                        teamId1: x.hashKey.S.split('#')[1],
+                        teamId2: x.rangeKey.S.split('#')[1]
                     };
-                });
-
-                callback(null, {
-                    items: dataResult,
-                    nextToken: nextTokenResult
                 });
             }
 
-            else callback(null, { items: [], nextToken: nextTokenResult });
+            dql.listGuestMatches(dynamodb, process.env.DB_UMT_001, hashKey, limitScan,
+                guestNextToken, function(err, data) {
+                if (err) callback(err);
+                else {
+                    if ('LastEvaluatedKey' in data)
+                        guestNextTokenResult = JSON.stringify(data.LastEvaluatedKey);
+
+                    if (data.Count) {
+                        guestDataResult = data.Items.map(function(x) {
+                            return {
+                                teamId1: x.hashKey.S.split('#')[1],
+                                teamId2: x.rangeKey.S.split('#')[1]
+                            };
+                        });
+                    }
+
+                    ownerNextTokenResult = ownerNextTokenResult ? ownerNextTokenResult : '';
+                    guestNextTokenResult = guestNextTokenResult ? guestNextTokenResult : '';
+
+                    callback(null, {
+                        items: ownerDataResult.concat(guestDataResult),
+                        nextToken: `${ownerNextTokenResult}&${guestNextTokenResult}`
+                    });
+                }
+            });
         }
     });
 };
