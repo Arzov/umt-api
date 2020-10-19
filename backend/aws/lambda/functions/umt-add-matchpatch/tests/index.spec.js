@@ -9,7 +9,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
   let params = {FunctionName: 'umt-add-matchpatch'}
 
-  test('Evaluar respuesta: Parche - Match (svonko.vescovi@arzov.com, RPC - MAN. UNITED)', (done) => {
+  test('Evaluar respuesta: Parche - Match (franco.barrientos@arzov.com, BAYERN - PSG)', (done) => {
     params.Payload = JSON.stringify(event01)
 
     lambda.invoke(params, function(err, data) {
@@ -20,17 +20,17 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.teamId1).toBe('rpc')
-        expect(response.teamId2).toBe('man.united')
-        expect(response.userEmail).toBe('svonko.vescovi@arzov.com')
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(response.teamId1).toBe('bayern')
+        expect(response.teamId2).toBe('psg')
+        expect(response.userEmail).toBe('franco.barrientos@arzov.com')
+        expect(response.reqStat).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
       }
 
       done()
     })
   }, 60000)
 
-  test('Evaluar respuesta: Match - Parche (RPC - MAN. UNITED, svonko.vescovi@arzov.com)', (done) => {
+  test('Evaluar respuesta: Match - Parche (PSG - BAYERN, franco.barrientos@arzov.com)', (done) => {
     params.Payload = JSON.stringify(event02)
 
     lambda.invoke(params, function(err, data) {
@@ -41,7 +41,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(response.reqStat).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
       }
 
       done()
@@ -59,10 +59,10 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.teamId1).toBe('rpc')
-        expect(response.teamId2).toBe('man.united')
-        expect(response.userEmail).toBe('diego.lagos@arzov.com')
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
+        expect(response.teamId1).toBe('chelsea')
+        expect(response.teamId2).toBe('psg')
+        expect(response.userEmail).toBe('franco.barrientos@arzov.com')
+        expect(response.reqStat).toStrictEqual({MR: {S: 'A'}, PR: {S: 'P'}})
       }
 
       done()

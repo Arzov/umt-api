@@ -308,7 +308,7 @@
           listTeams(email: String!, nextToken: String): TeamList
           teamRequests(id: String!, nextToken: String): TeamMemberList
           teamMemberRequests(email: String!, nextToken: String): TeamMemberList
-          listMatches(id: String!, nextToken: String): MatchList
+          listMatches(id: String, email: String, nextToken: String): MatchList
         }
         
         schema {

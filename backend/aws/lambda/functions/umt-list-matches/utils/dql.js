@@ -98,5 +98,53 @@ const listGuestMatches = (db, tableName, rangeKey, limitScan, nextToken, fn) => 
     }
 }
 
+/**
+ * Obtiene partidos del jugador como parche
+ * @param {Object} db Conexion a DynamoDB
+ * @param {String} tableName Nombre de la tabla
+ * @param {String} rangeKey Email
+ * @param {Integer} limitScan Limite de partidos a obtener para paginacion
+ * @param {String} nextToken Ultimo partido para paginacion
+ * @param {Function} fn Funcion callback
+ */
+const listPatchMatches = (db, tableName, rangeKey, limitScan, nextToken, fn) => {
+    if (nextToken) {
+        db.query({
+            TableName: tableName,
+            IndexName: "rangeKey-idx",
+            KeyConditionExpression: "rangeKey = :v1 and begins_with (hashKey, :v2)",
+            FilterExpression: "reqStat.MR = :v3 and reqStat.PR = :v3",
+            ExpressionAttributeValues: {
+                ":v1": { S: rangeKey },
+                ":v2": { S: umtEnvs.pfx.MATCH },
+                ":v3": { S: 'A' }
+            },
+            ExclusiveStartKey: JSON.parse(nextToken),
+            Limit: limitScan
+        }, function(err, data) {
+            if (err) fn(err);
+            else fn(null, data);
+        });
+    }
+    else {
+        db.query({
+            TableName: tableName,
+            IndexName: "rangeKey-idx",
+            KeyConditionExpression: "rangeKey = :v1 and begins_with (hashKey, :v2)",
+            FilterExpression: "reqStat.MR = :v3 and reqStat.PR = :v3",
+            ExpressionAttributeValues: {
+                ":v1": { S: rangeKey },
+                ":v2": { S: umtEnvs.pfx.MATCH },
+                ":v3": { S: 'A' }
+            },
+            Limit: limitScan
+        }, function(err, data) {
+            if (err) fn(err);
+            else fn(null, data);
+        });
+    }
+}
+
 module.exports.listOwnerMatches = listOwnerMatches;
 module.exports.listGuestMatches = listGuestMatches;
+module.exports.listPatchMatches = listPatchMatches;

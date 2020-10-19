@@ -8,8 +8,8 @@
  * Obtiene un parche
  * @param {Object} db Conexion a DynamoDB
  * @param {String} tableName Nombre de la tabla
- * @param {String} hashKey Id del equipo solicitante
- * @param {String} rangeKey Id del equipo solicitado y email del parche
+ * @param {String} hashKey Id del equipo solicitante y id del equipo solicitado
+ * @param {String} rangeKey Email del parche
  * @param {Function} fn Funcion callback
  */
 const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
@@ -30,8 +30,8 @@ const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
  * Agrega un parche al match
  * @param {Object} db Conexion a DynamoDB
  * @param {String} tableName Nombre de la tabla
- * @param {String} hashKey Id del equipo solicitante
- * @param {String} rangeKey Id del equipo solicitado y el email del parche
+ * @param {String} hashKey Id del equipo solicitante y id del equipo solicitado
+ * @param {String} rangeKey Email del parche
  * @param {String} joinedOn Fecha cuando se unio
  * @param {Object} reqStat Estado que indica si esta confirmado o no
  * @param {Function} fn Funcion callback
@@ -50,8 +50,8 @@ const addMatchPatch = (db, tableName, hashKey, rangeKey, joinedOn, reqStat, fn) 
         else
             fn(null, {
                 teamId1: hashKey.split('#')[1],
-                teamId2: rangeKey.split('#')[1],
-                userEmail: rangeKey.split('#')[2],
+                teamId2: hashKey.split('#')[2],
+                userEmail: rangeKey.split('#')[1],
                 joinedOn,
                 reqStat
             });
