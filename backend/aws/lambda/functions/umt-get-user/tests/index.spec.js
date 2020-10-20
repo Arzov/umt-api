@@ -7,7 +7,7 @@ describe('Test AWS Lambda: umt-get-user', () => {
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
   let params = {FunctionName: 'umt-get-user'}
 
-  test('Respuesta desde AWS: Usuario fjbarrientosg@gmail.com', (done) => {
+  test('Respuesta desde AWS: Usuario franco.barrientos@arzov.com', (done) => {
 
     params.Payload = JSON.stringify(event)
 
@@ -19,7 +19,7 @@ describe('Test AWS Lambda: umt-get-user', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.email).toBe('fjbarrientosg@gmail.com')
+        expect(response.email).toBe('franco.barrientos@arzov.com')
         expect(response.geohash).toBe('66jcfp')
         expect(response.coords).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
         expect(response.genderFilter).toStrictEqual(['M'])

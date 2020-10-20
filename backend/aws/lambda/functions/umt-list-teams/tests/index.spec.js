@@ -7,7 +7,7 @@ describe('Test AWS Lambda: umt-list-teams', () => {
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
   let params = {FunctionName: 'umt-list-teams'}
 
-  test('Evaluar respuesta: Usuario (fjbarrientosg@gmail.com)', (done) => {
+  test('Evaluar respuesta: Usuario (franco.barrientos@arzov.com)', (done) => {
     params.Payload = JSON.stringify(event)
 
     lambda.invoke(params, function(err, data) {
@@ -18,7 +18,7 @@ describe('Test AWS Lambda: umt-list-teams', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.items[0].id).toBe('rpc')
+        expect(response.items[0].id).toBe('man.united')
         expect(response.nextToken).toBe(null)
       }
 

@@ -20,6 +20,7 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = (event, context, callback) => {
     const geohash = event.geohash;
+    const hashKey = event.id ? `${umtEnvs.pfx.MATCH}${event.id}` : '';
     let nextToken = event.nextToken;
 
     /**
@@ -33,40 +34,42 @@ exports.handler = (event, context, callback) => {
         if (JSON.parse(nextToken).geohash.S !== geohash) nextToken = null;
     }
 
-    dql.nearMatches(dynamodb, process.env.DB_UMT_001, geohash, limitScan, nextToken, function(err, data) {
+    // TODO: Completar filtros de edad y sexo
+    dql.nearMatches(dynamodb, process.env.DB_UMT_001, geohash, hashKey, limitScan, nextToken, function(err, data) {
         if (err) callback(err);
         else {
             let nextTokenResult = null;
+            let dataResult = [];
 
             if ('LastEvaluatedKey' in data)
                 nextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
             if (data.Count) {
-                const dataResult = data.Items.map(function(x) {
-                    return {
-                        teamId1: x.hashKey.S.split('#')[1],
-                        teamId2: x.rangeKey.S.split('#')[1],
-                        createdOn: x.createdOn.S,
-                        allowedPatches: x.allowedPatches.N,
-                        positions: x.positions.SS,
-                        matchTypes: x.matchTypes.SS,
-                        expireOn: x.expireOn.S,
-                        schedule: x.schedule.M,
-                        reqStat: x.reqStat.M,
-                        geohash: x.geohash.S,
-                        stadiumGeohash: x.stadiumGeohash.S,
-                        stadiumId: x.stadiumId.S,
-                        courtId: x.courtId.N
-                    };
-                });
-
-                callback(null, {
-                    items: dataResult,
-                    nextToken: nextTokenResult
-                });
+                dataResult = data.Items.map(function(x) {
+                    if (hashKey !== x.rangeKey.S)
+                        return {
+                            teamId1: x.hashKey.S.split('#')[1],
+                            teamId2: x.rangeKey.S.split('#')[1],
+                            createdOn: x.createdOn.S,
+                            allowedPatches: x.allowedPatches.N,
+                            positions: x.positions.SS,
+                            matchTypes: x.matchTypes.SS,
+                            expireOn: x.expireOn.S,
+                            schedule: x.schedule.M,
+                            reqStat: x.reqStat.M,
+                            geohash: x.geohash.S,
+                            stadiumGeohash: x.stadiumGeohash.S,
+                            stadiumId: x.stadiumId.S,
+                            courtId: x.courtId.N,
+                            genderFilter: x.genderFilter.SS
+                        };
+                }).filter(function (el) {return el != null});
             }
 
-            else callback(null, {items: [], nextToken: nextTokenResult});
+            callback(null, {
+                items: dataResult,
+                nextToken: nextTokenResult
+            });
         }
     });
 };

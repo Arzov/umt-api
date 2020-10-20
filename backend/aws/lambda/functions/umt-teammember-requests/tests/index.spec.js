@@ -7,7 +7,7 @@ describe('Test AWS Lambda: umt-teammember-requests', () => {
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
   let params = {FunctionName: 'umt-teammember-requests'}
 
-  test('Evaluar respuesta: Usuario (jesus.barrientos@arzov.com)', (done) => {
+  test('Evaluar respuesta: Usuario (franco.barrientos@arzov.com)', (done) => {
     params.Payload = JSON.stringify(event)
 
     lambda.invoke(params, function(err, data) {
@@ -18,9 +18,12 @@ describe('Test AWS Lambda: umt-teammember-requests', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.items[0].teamId).toBe('rpc')
-        expect(response.items[0].userEmail).toBe('jesus.barrientos@arzov.com')
-        expect(response.items[0].reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
+        expect(response.items[0].teamId).toBe('bayern')
+        expect(response.items[0].userEmail).toBe('franco.barrientos@arzov.com')
+        expect(response.items[0].reqStat).toStrictEqual({TR: {S: 'P'}, PR: {S: 'A'}})
+        expect(response.items[1].teamId).toBe('fcbarcelona')
+        expect(response.items[1].userEmail).toBe('franco.barrientos@arzov.com')
+        expect(response.items[1].reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
         expect(response.nextToken).toBe(null)
       }
 

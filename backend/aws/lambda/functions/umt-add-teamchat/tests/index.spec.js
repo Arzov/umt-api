@@ -8,7 +8,7 @@ describe('Test AWS Lambda: umt-add-teamchat', () => {
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
   let params = {FunctionName: 'umt-add-teamchat'}
 
-  test('Evaluar respuesta: Equipo - Miembro (RPC - fjbarrientosg@gmail.com)', (done) => {
+  test('Evaluar respuesta: Equipo - Miembro (MAN. UNITED - matias.barrientos@arzov.com)', (done) => {
     params.Payload = JSON.stringify(event01)
 
     lambda.invoke(params, function(err, data) {
@@ -19,16 +19,16 @@ describe('Test AWS Lambda: umt-add-teamchat', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.teamId).toBe('rpc')
-        expect(response.userEmail).toBe('fjbarrientosg@gmail.com')
-        expect(response.msg).toBe('Hola a todos!')
+        expect(response.teamId).toBe('man.united')
+        expect(response.userEmail).toBe('matias.barrientos@arzov.com')
+        expect(response.msg).toBe('Jajajaja')
       }
 
       done()
     })
   }, 60000)
 
-  test('Evaluar respuesta: Equipo - Miembro (RPC - jesus.barrientos@arzov.com)', (done) => {
+  test('Evaluar respuesta: Equipo - Miembro (MAN. UNITED - franco.barrientos@arzov.com)', (done) => {
     params.Payload = JSON.stringify(event02)
 
     lambda.invoke(params, function(err, data) {
@@ -39,9 +39,9 @@ describe('Test AWS Lambda: umt-add-teamchat', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.teamId).toBe('rpc')
-        expect(response.userEmail).toBe('jesus.barrientos@arzov.com')
-        expect(response.msg).toBe('Hola! :)')
+        expect(response.teamId).toBe('man.united')
+        expect(response.userEmail).toBe('franco.barrientos@arzov.com')
+        expect(response.msg).toBe('Buena cabros! Alguien juega?')
       }
 
       done()

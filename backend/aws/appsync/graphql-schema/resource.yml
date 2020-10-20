@@ -304,11 +304,12 @@
         type Query {
           getUser(email: String!): User
           nearTeams(geohash: String!, forJoin: Boolean!, nextToken: String): TeamList
-          nearMatches(geohash: String!, nextToken: String): MatchList
+          nearMatches(geohash: String!, id: String, nextToken: String): MatchList
           listTeams(email: String!, nextToken: String): TeamList
           teamRequests(id: String!, nextToken: String): TeamMemberList
           teamMemberRequests(email: String!, nextToken: String): TeamMemberList
           listMatches(id: String, email: String, nextToken: String): MatchList
+          matchRequests(id: String!, nextToken: String): MatchList
         }
         
         schema {

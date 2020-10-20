@@ -11,21 +11,25 @@ const umtEnvs = require('umt-envs');
  * @param {Object} db Conexion a DynamoDB
  * @param {String} tableName Nombre de la tabla
  * @param {String} geohash Hash de geolocalizacion
+ * @param {String} hashKey Id del equipo
  * @param {Integer} limitScan Limite de partidos a obtener para paginacion
  * @param {String} nextToken Ultimo partido para paginacion
  * @param {Function} fn Funcion callback
  */
-const nearMatches = (db, tableName, geohash, limitScan, nextToken, fn) => {
+const nearMatches = (db, tableName, geohash, hashKey, limitScan, nextToken, fn) => {
     if (nextToken) {
         db.query({
             TableName: tableName,
-            IndexName: "geohash-idx",
-            KeyConditionExpression: "geohash = :v1 and begins_with (rangeKey, :v2)",
-            FilterExpression: "allowedPatches > :v3",
+            IndexName: 'geohash-idx',
+            KeyConditionExpression: 'geohash = :v1 and begins_with (rangeKey, :v2)',
+            FilterExpression: 'allowedPatches > :v3 and reqStat.AR = :v4 and reqStat.RR = :v4\
+                and hashKey <> :v5',
             ExpressionAttributeValues: {
-                ":v1": { S: geohash },
-                ":v2": { S: umtEnvs.pfx.MATCH },
-                ":v3": { N: '0' }
+                ':v1': { S: geohash },
+                ':v2': { S: umtEnvs.pfx.MATCH },
+                ':v3': { N: '0' },
+                ':v4': { S: 'A' },
+                ':v5': { S: hashKey }
             },
             ExclusiveStartKey: JSON.parse(nextToken),
             Limit: limitScan
@@ -37,13 +41,16 @@ const nearMatches = (db, tableName, geohash, limitScan, nextToken, fn) => {
     else {
         db.query({
             TableName: tableName,
-            IndexName: "geohash-idx",
-            KeyConditionExpression: "geohash = :v1 and begins_with (rangeKey, :v2)",
-            FilterExpression: "allowedPatches > :v3",
+            IndexName: 'geohash-idx',
+            KeyConditionExpression: 'geohash = :v1 and begins_with (rangeKey, :v2)',
+            FilterExpression: 'allowedPatches > :v3 and reqStat.AR = :v4 and reqStat.RR = :v4\
+                and hashKey <> :v5',
             ExpressionAttributeValues: {
-                ":v1": { S: geohash },
-                ":v2": { S: umtEnvs.pfx.MATCH },
-                ":v3": { N: '0' }
+                ':v1': { S: geohash },
+                ':v2': { S: umtEnvs.pfx.MATCH },
+                ':v3': { N: '0' },
+                ':v4': { S: 'A' },
+                ':v5': { S: hashKey }
             },
             Limit: limitScan
         }, function(err, data) {

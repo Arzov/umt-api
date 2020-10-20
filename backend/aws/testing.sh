@@ -77,6 +77,7 @@ cd lambda/functions
 #     umt-add-teammember
 #     umt-add-teamchat
 #     umt-add-match
+#     umt-update-match
 #     umt-add-matchpatch
 #     umt-add-matchchat
 #     umt-add-stadium
@@ -88,12 +89,12 @@ cd lambda/functions
 #     umt-list-teams
 #     umt-team-requests
 #     umt-teammember-requests
-#     umt-update-match
 #     umt-list-matches
+#     umt-match-requests
 # "
 
 lambdas="
-umt-list-matches
+umt-match-requests
 "
 
 for lambda in $lambdas

@@ -1,7 +1,7 @@
 {
   "teamId1": "chelsea",
   "teamId2": "man.united",
-  "allowedPatches": 0,
+  "allowedPatches": 2,
   "positions": [""],
   "matchTypes": ["7v7"],
   "schedule": "{\"day\":{\"S\":\"2020-12-03\"},\"time\":{\"S\":\"20:50\"}}",
