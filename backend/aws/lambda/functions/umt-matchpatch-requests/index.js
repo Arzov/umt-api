@@ -1,5 +1,5 @@
 /**
- * Obtiene solicitudes de equipos del jugador
+ * Obtiene solicitudes de partidos para parchar
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
@@ -16,10 +16,10 @@ const limitScan = umtEnvs.gbl.REQUESTS_SCAN_LIMIT;
 
 
 exports.handler = (event, context, callback) => {
-    const rangeKey = `${umtEnvs.pfx.MEM}${event.email}`;
+    const rangeKey = `${umtEnvs.pfx.PATCH}${event.email}`;
     const nextToken = event.nextToken;
 
-    dql.teamMemberRequests(dynamodb, process.env.DB_UMT_001, rangeKey, limitScan, nextToken, function(err, data) {
+    dql.matchPatchRequests(dynamodb, process.env.DB_UMT_001, rangeKey, limitScan, nextToken, function(err, data) {
         if (err) callback(err);
         else {
             let nextTokenResult = null;
@@ -31,7 +31,8 @@ exports.handler = (event, context, callback) => {
             if (data.Count) {
                 dataResult = data.Items.map(function(x) {
                     return {
-                        teamId: x.hashKey.S.split('#')[1],
+                        teamId1: x.hashKey.S.split('#')[1],
+                        teamId2: x.hashKey.S.split('#')[2],
                         userEmail: x.rangeKey.S.split('#')[1],
                         reqStat: x.reqStat.M
                     };

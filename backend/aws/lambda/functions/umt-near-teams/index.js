@@ -39,12 +39,13 @@ exports.handler = (event, context, callback) => {
         if (err) callback(err);
         else {
             let nextTokenResult = null;
+            let dataResult = [];
 
             if ('LastEvaluatedKey' in data)
                 nextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
             if (data.Count) {
-                const dataResult = data.Items.map(function(x) {
+                dataResult = data.Items.map(function(x) {
                     return {
                         id: x.hashKey.S.split('#')[1],
                         name: x.name.S,
@@ -54,14 +55,12 @@ exports.handler = (event, context, callback) => {
                         searchingPlayers: x.searchingPlayers.BOOL
                     };
                 });
-
-                callback(null, {
-                    items: dataResult,
-                    nextToken: nextTokenResult
-                });
             }
 
-            else callback(null, { items: [], nextToken: nextTokenResult });
+            callback(null, {
+                items: dataResult,
+                nextToken: nextTokenResult
+            });
         }
     });
 };
