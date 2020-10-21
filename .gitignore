@@ -8,7 +8,25 @@ docs
 _site
 .jekyll-cache
 
+# uxi
+3x
+**/_uxi/**/*.png
+**/_uxi/**/*.jpg
+**/_uxi/**/*.jpeg
+**/_uxi/**/*.ico
+**/_uxi/**/*.gif
+
 # Whitelist
 !backend/aws/lambda/layers/**/nodejs/.gitkeep
 !**/node_modules/umt-envs
 !**/node_modules/umt-utils
+!**/_uxi/**/franco_profile_bw_512x512.jpg
+!**/_uxi/**/jesus_profile_bw_512x512.jpg
+!**/_uxi/**/matias_profile_bw_512x512.jpg
+!**/_uxi/**/cup.png
+!**/_uxi/**/football_shoes.png
+!**/_uxi/**/key.png
+!**/_uxi/**/lock.png
+!**/_uxi/**/mailbox.png
+!**/_uxi/**/soccer_ball.png
+!**/_uxi/**/stadium.png
