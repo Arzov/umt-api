@@ -20,13 +20,13 @@ const nearTeams = (db, tableName, geohash, forJoin, limitScan, nextToken, fn) =>
     if (nextToken) {
         db.query({
             TableName: tableName,
-            IndexName: "geohash-idx",
-            KeyConditionExpression: "geohash = :v1 and begins_with (rangeKey, :v2)",
-            FilterExpression: "searchingPlayers = :v3",
+            IndexName: 'geohash-idx',
+            KeyConditionExpression: 'geohash = :v1 and begins_with (rangeKey, :v2)',
+            FilterExpression: forJoin ? 'searchingPlayers = :v3' : undefined,
             ExpressionAttributeValues: {
-                ":v1": { S: geohash },
-                ":v2": { S: umtEnvs.pfx.TEAM },
-                ":v3": { BOOL: forJoin }
+                ':v1': { S: geohash },
+                ':v2': { S: umtEnvs.pfx.TEAM },
+                ':v3': forJoin ? { BOOL: forJoin } : undefined
             },
             ExclusiveStartKey: JSON.parse(nextToken),
             Limit: limitScan
@@ -38,13 +38,13 @@ const nearTeams = (db, tableName, geohash, forJoin, limitScan, nextToken, fn) =>
     else {
         db.query({
             TableName: tableName,
-            IndexName: "geohash-idx",
-            KeyConditionExpression: "geohash = :v1 and begins_with (rangeKey, :v2)",
-            FilterExpression: "searchingPlayers = :v3",
+            IndexName: 'geohash-idx',
+            KeyConditionExpression: 'geohash = :v1 and begins_with (rangeKey, :v2)',
+            FilterExpression: forJoin ? 'searchingPlayers = :v3' : undefined,
             ExpressionAttributeValues: {
-                ":v1": { S: geohash },
-                ":v2": { S: umtEnvs.pfx.TEAM },
-                ":v3": { BOOL: forJoin }
+                ':v1': { S: geohash },
+                ':v2': { S: umtEnvs.pfx.TEAM },
+                ':v3': forJoin ? { BOOL: forJoin } : undefined
             },
             Limit: limitScan
         }, function(err, data) {

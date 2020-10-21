@@ -1,6 +1,7 @@
 
   CFDistributionUMTWeb:
     Type: AWS::CloudFront::Distribution
+    DependsOn: CMCertificateUMT
     Properties:
       DistributionConfig:
         CustomErrorResponses:
@@ -11,7 +12,7 @@
         Aliases:
           - !Ref AWSR53UMTDomain
         ViewerCertificate:
-          AcmCertificateArn: !ImportValue ARV-CMCertificateARVARN
+          AcmCertificateArn: !Ref CMCertificateUMT
           MinimumProtocolVersion: TLSv1.2_2018
           SslSupportMethod: sni-only        
         DefaultCacheBehavior: 
