@@ -8,7 +8,7 @@
           - ErrorCachingMinTTL: 300
             ErrorCode: 403
             ResponseCode: 200
-            ResponsePagePath: /start.html        
+            ResponsePagePath: /start/index.html        
         Aliases:
           - !Ref AWSR53UMTDomain
         ViewerCertificate:
