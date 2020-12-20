@@ -1,0 +1,21 @@
+# Backend AWS
+node_modules
+.vscode
+**/layers/**/nodejs
+**/layers/**/*.zip
+docs
+
+# Jekyll
+_site
+.jekyll-cache
+
+# uxi
+3x
+**/_uxi/**/*.png
+**/_uxi/**/*.jpg
+**/_uxi/**/*.jpeg
+**/_uxi/**/*.ico
+**/_uxi/**/*.gif
+
+# Whitelist
+!backend/aws/lambda/layers/**/nodejs/.gitkeep

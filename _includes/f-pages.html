@@ -1,0 +1,144 @@
+<div>
+    {% assign filter = "f-pages-" | append: (page.title | downcase | replace: " ", "-") %}
+    {% assign item = site.data[filter] %}
+
+    {% if page.title == item.name %}
+        {% assign title = "# "  | append: item.name %}
+        {{ title | markdownify }}
+
+        {{ item.intro | markdownify }}
+
+        <figure id="{{ item.imageId }}" class="content-img">
+            <figcaption><b></b></figcaption>
+            <input type="checkbox" id="zoom">
+            <label for="zoom">
+                <img>
+            </label>
+        </figure>
+
+        <br><br>
+        {% for item in item.subs %}
+            {% assign title = "### "  | append: item.name %}
+            {{ title | markdownify }}
+
+            <code id="{{ item.copy.id }}">{{ item.copy.path }}</code>
+            <img class="copy-btn" data-clipboard-target="#{{ item.copy.id }}">
+
+            <br><br>
+            {{ item.intro | markdownify }}
+
+            <br>
+            {% for item in item.attrs %}
+                {% if item.name == "LINKED COMPONENTS" %}
+                    {{ "**LINKED COMPONENTS**" | markdownify }}
+
+                    {% assign links = item.links  | join: " \| " %}
+                    {{ links | markdownify }}
+                {% endif %}
+
+                {% if item.name == "DATA" or item.name == "PROPS" %}
+                    {% assign title = "**"  | append: item.name | append: "**" %}
+                    {{ title | markdownify }}
+
+                    <div id="js" class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Values</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in item.data %}
+                                <tr>
+                                    <td><code><par>{{ item.field }}</par></code></td>
+                                    <td><code><type>{{ item.type }}</type></code></td>
+                                    <td>{{ item.desc | markdownify }}</td>
+                                    <td>{{ item.values }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+
+                <br>
+                {% if item.name == "COMPUTED" or item.name == "METHODS" %}
+                    {% assign title = "**"  | append: item.name | append: "**" %}
+                    {{ title | markdownify }}
+
+                    {% for item in item.methods %}
+                        <div id="js" class="highlight">
+                            <code>
+                                <fn>{{ item.name }}</fn>({% if item.params %}
+                                    {% assign params = item.params | map: "field" %}
+                                    {{ params | join: ", " }}
+                                {% endif %}) => <type>
+                                    {% if item.return %}
+                                        {{ item.return.type }}
+                                    {% else %}
+                                        void
+                                    {% endif %}
+                                </type>
+                            </code>
+                        </div>
+
+                        {{ item.desc | markdownify }}
+
+                        {% if item.params %}
+                            <b>Parameters</b>
+                            <div id="js" class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Values</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in item.params %}
+                                        <tr>
+                                            <td><code><par>{{ item.field }}</par></code></td>
+                                            <td><code><type>{{ item.type }}</type></code></td>
+                                            <td>{{ item.desc | markdownify }}</td>
+                                            <td>{{ item.values | markdownify }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+
+                        {% if item.return %}
+                            <b>Return</b>
+                            <div id="js" class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><code><type>{{ item.return.type }}</type></code></td>
+                                    <td>{{ item.return.desc }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        {% endif %}
+
+                        <br>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+            <br><br>
+        {% endfor %}
+    {% endif %}
+</div>

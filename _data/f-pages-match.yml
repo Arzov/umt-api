@@ -1,0 +1,104 @@
+name: Match
+intro: >
+  Vista donde el usuario puede ver las solicitudes enviadas y las solicitudes activas con
+  otros usuarios. En las **enviadas** o **pendientes** el usuario puede aceptar o rechazar las solicitudes.
+  En las **activas** puede acceder a un chat para acordar una fecha y cancha del partido a jugar.
+imageId: matchPage 
+subs:
+  - name: MatchMain
+    copy:
+      id: cp-main
+      path: pages\match\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También enviar a la vista [Chat](./chat) o actualizar una solicitud.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[MatchMobile](#matchmobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+      - name: COMPUTED
+        methods:
+          - name: activeMatches
+            desc: >
+              Retorna listado de encuentros activos.
+            return:
+              type: array[object]
+              desc: Listado de encuentros activos.
+          - name: requestMatches
+            desc: >
+              Retorna solicitudes pendientes.
+            return:
+              type: array[object]
+              desc: Listado de solicitudes pendientes.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >           	
+              Captura eventos generados por los componentes. Según los valores retornados puede
+              enviar a la vista [Chat](./chat) o actualizar una solicitud.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: MatchMobile
+    copy:
+      id: cp-mobile
+      path: pages\match\mobile\index.vue
+    intro: >
+      Componente de la vista [Match](#match) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[UserActiveMatchCard](#)"
+          - "[UserRequestMatchCard](#)"
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [MatchMain](#matchmain).
+          - field: activeMatches
+            type: array[object]
+            desc: Listado de solicitudes activas de rivales.
+          - field: requestMatches
+            type: array[object]
+            desc: Listado de solicitudes pendientes de rivales.
+      - name: METHODS
+        methods:
+          - name: toChat
+            desc: >
+              Emite evento para redireccionar a la vista [Chat](./chat).
+            params:
+              - field: match
+                type: object
+                desc: Información del match.
+            return:
+              type: object
+              desc: Evento a gatillar.
+          - name: updateMatch
+            desc: >
+              Emite evento para actualizar solicitud.
+            params:
+              - field: hashKey
+                type: string
+                desc: Email del usuario.
+              - field: rangeKey
+                type: string
+                desc: Email del rival.
+              - field: matchId
+                type: string
+                desc: Id del match.
+              - field: userStatus
+                type: string
+                desc: >
+                  Estado del match a actualizar. El usuario puede _aceptar_ (A), _cancelar_
+                  (C) o _rechazar_ (D) la solicitud de match.
+                values: A \| C \| D
+            return:
+              type: object
+              desc: Evento a gatillar.

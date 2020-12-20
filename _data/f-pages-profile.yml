@@ -1,0 +1,94 @@
+name: Profile
+intro: >
+  Vista donde el usuario puede revisar sus datos de la cuenta y eventualmente modificar sus valores
+  (filtros de búsqueda y atributos personales).
+imageId: profilePage 
+subs:
+  - name: ProfileMain
+    copy:
+      id: cp-main
+      path: pages\profile\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También guardar los datos del usuario o cerrar sesión.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[ProfileMobile](#profilemobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+          - field: userData
+            type: object
+            desc: Información del usuario.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >
+              Captura eventos generados por los componentes. Según los valores retornados puede guardar
+              los datos del usuario o cerrar sesión.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+  - name: ProfileMobile
+    copy:
+      id: cp-mobile
+      path: pages\profile\mobile\index.vue
+    intro: >
+      Componente de la vista [Profile](#profile) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[ProfileImage](#)"
+          - "[BirthdateInput](#)"
+          - "[GenderInput](#)"
+          - "[MatchFilterInput](#)"
+          - "[AgeFilterInput ](#)"
+      - name: DATA
+        data:
+          - field: decorator
+            type: object
+            desc: Decorador para campos en formulario.
+          - field: genderDecorator
+            type: object
+            desc: Decorador para selector de sexo.
+          - field: genderFilterDecorator
+            type: object
+            desc: Decorador para selector de sexo en filtros.
+          - field: formProfile
+            type: object
+            desc: Formulario de la vista.
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [ProfileMain](#profilemain).
+          - field: userData
+            type: object
+            desc: Información del usuario.
+      - name: COMPUTED
+        methods:
+          - name: _birthdate
+            desc: >
+              Separa fecha de nacimiento en día, mes y año.
+            return:
+              type: object
+              desc: Día, mes y año de la fecha de nacimiento.
+      - name: METHODS
+        methods:
+          - name: saveProfile
+            desc: >
+              Emite evento para guardar los datos del usuario.
+            return:
+              type: object
+              desc: Evento a gatillar.
+          - name: signOut
+            desc: >
+              Método para cerrar sesion.
+            return:
+              type: object
+              desc: Evento a gatillar.

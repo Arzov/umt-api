@@ -1,0 +1,88 @@
+name: Chat
+intro: >
+  Vista donde el usuario puede conversar con sus rivales, acordar fechas y canchas donde realizar
+  el partido de fútbol o _match_.
+imageId: chatPage 
+subs:
+  - name: ChatMain
+    copy:
+      id: cp-main
+      path: pages\chat\index.vue
+    intro: >
+      Vista principal que decide cual componente inicializar mobile o desktop.
+      También gatillar el evento para enviar un mensaje en el chat.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          - "[ChatMobile](#chatmobile)"
+      - name: DATA
+        data:
+          - field: event
+            type: object
+            desc: Evento que puede emitir el componente.
+      - name: COMPUTED
+        methods:
+          - name: messagesList
+            desc: Obtiene mensajes del chat desde el store, los transforma y elimina duplicados.
+            return:
+                type: array[object]
+                desc: Listado de mensajes del chat transformado.
+      - name: METHODS
+        methods:
+          - name: onEmit
+            desc: >
+              Captura evento generado por el componente [ChatMobile](#chatmobile)
+              para enviar mensaje.
+            params:
+              - field: event
+                type: object
+                desc: Evento emitido por el componente.
+          - name: removeDups
+            desc: >
+              Elimina mensajes duplicados desde un arreglo.
+            params:
+              - field: messages
+                type: array[object]
+                desc: Listado de mensajes a eliminar duplicados.
+            return:
+              type: array[object]
+              desc: Listado de mensajes sin duplicados.
+  - name: ChatMobile
+    copy:
+      id: cp-mobile
+      path: pages\chat\mobile\index.vue
+    intro: >
+      Componente de la vista [Chat](#chat) para dispositivos móviles.
+    attrs:
+      - name: LINKED COMPONENTS
+        links:
+          # TODO: Apuntar a los links correctos
+          - "[HeaderTitleChatMobile](#)"
+          - "[ChatMessageInput](#)"
+          - "[ChatMessage](#)"
+      - name: PROPS
+        data:
+          - field: event
+            type: object
+            desc: Evento a emitir hacia la vista [ChatMain](#chatmain).
+          - field: matchInfo
+            type: object
+            desc: Información básica del match para mostrar en el chat (foto de perfil del rival y nombre del rival).
+          - field: messagesList
+            type: array[string]
+            desc: Listado de mensajes del chat.
+      - name: METHODS
+        methods:
+          - name: addMessage
+            desc: >
+              Emite evento para enviar mensaje.
+            params:
+              - field: message
+                type: string
+                desc: Mensaje a enviar.
+            return:
+              type: object
+              desc: Evento a gatillar.
+          - name: scrollToLastMessage
+            desc: >
+              Desplaza la vista al último mensaje enviado.
