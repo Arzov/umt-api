@@ -71,31 +71,27 @@ status=$((status + $?))
 
 cd lambda/functions
 
-# lambdas="
-#     umt-add-user
-#     umt-add-team
-#     umt-add-teammember
-#     umt-add-teamchat
-#     umt-add-match
-#     umt-update-match
-#     umt-add-matchpatch
-#     umt-add-matchchat
-#     umt-add-stadium
-#     umt-add-court
-#     umt-get-user
-#     umt-update-user
-#     umt-near-teams
-#     umt-near-matches
-#     umt-list-teams
-#     umt-team-requests
-#     umt-teammember-requests
-#     umt-list-matches
-#     umt-match-requests
-#     umt-matchpatch-requests
-# "
-
 lambdas="
-umt-near-teams
+    umt-add-user
+    umt-add-team
+    umt-add-teammember
+    umt-add-teamchat
+    umt-add-match
+    umt-update-match
+    umt-add-matchpatch
+    umt-add-matchchat
+    umt-add-stadium
+    umt-add-court
+    umt-get-user
+    umt-update-user
+    umt-near-teams
+    umt-near-matches
+    umt-list-teams
+    umt-team-requests
+    umt-teammember-requests
+    umt-list-matches
+    umt-match-requests
+    umt-matchpatch-requests
 "
 
 for lambda in $lambdas
@@ -107,9 +103,9 @@ done
 
 # Detener servicios
 kill -9 $pids
-# docker kill aws-arzov
-# docker rm aws-arzov
-# docker network rm arzov-local-network
+docker kill aws-arzov
+docker rm aws-arzov
+docker network rm arzov-local-network
 
 # Remover archivos temporales
 cd ../../
