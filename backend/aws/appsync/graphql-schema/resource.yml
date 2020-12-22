@@ -5,8 +5,8 @@
       ApiId: !GetAtt ASGraphQLApiUMT.ApiId
       Definition: >
         type User {
-          email: String!
-          geohash: String!
+          email: String
+          geohash: String
           coords: String
           genderFilter: [String]
           ageMinFilter: Int
@@ -14,9 +14,9 @@
           matchFilter: [String]
           positions: [String]
           skills: String
-          foot: String!
-          weight: Int!
-          height: Int!
+          foot: String
+          weight: Int
+          height: Int
         }
         
         type UserList {
@@ -25,12 +25,12 @@
         }
 
         type Team {
-          id: String!
-          name: String!
+          id: String
+          name: String
           picture: String
           formation: String
-          geohash: String!
-          searchingPlayers: Boolean!
+          geohash: String
+          searchingPlayers: Boolean
         }
 
         type TeamList {
@@ -39,11 +39,11 @@
         }
 
         type TeamMember {
-          teamId: String!
-          userEmail: String!
+          teamId: String
+          userEmail: String
           position: String
           isCaptain: Boolean
-          role: [String!]!
+          role: [String]
           reqStat: String
           number: Int
           joinedOn: String
@@ -55,10 +55,10 @@
         }
 
         type TeamChat {
-          teamId: String!
-          userEmail: String!
-          sentOn: String!
-          msg: String!
+          teamId: String
+          userEmail: String
+          sentOn: String
+          msg: String
         }
 
         type TeamChatList {
@@ -67,20 +67,20 @@
         }
 
         type Match {
-          teamId1: String!
-          teamId2: String!
-          createdOn: String!
+          teamId1: String
+          teamId2: String
+          createdOn: String
           allowedPatches: Int
           positions: [String]
-          matchTypes: [String!]!
-          expireOn: String!
-          schedule: String!
-          reqStat: String!
-          geohash: String!
+          matchTypes: [String]
+          expireOn: String
+          schedule: String
+          reqStat: String
+          geohash: String
           stadiumGeohash: String
           stadiumId: String
           courtId: Int
-          genderFilter: [String!]!
+          genderFilter: [String]
         }
 
         type MatchList {
@@ -89,11 +89,11 @@
         }
 
         type MatchPatch {
-          teamId1: String!
-          teamId2: String!
-          userEmail: String!
+          teamId1: String
+          teamId2: String
+          userEmail: String
           reqStat: String
-          joinedOn: String!
+          joinedOn: String
         }
 
         type MatchPatchList {
@@ -102,11 +102,11 @@
         }
 
         type MatchChat {
-          teamId1: String!
-          teamId2: String!
-          userEmail: String!
-          sentOn: String!
-          msg: String!
+          teamId1: String
+          teamId2: String
+          userEmail: String
+          sentOn: String
+          msg: String
         }
 
         type MatchChatList {
@@ -115,11 +115,11 @@
         }
 
         type Stadium {
-          geohash: String!
-          id: String!
-          name: String!
-          matchTypes: [String!]!
-          coords: String!
+          geohash: String
+          id: String
+          name: String
+          matchTypes: [String]
+          coords: String
           address: String
         }
 
@@ -129,10 +129,10 @@
         }
 
         type Court {
-          stadiumId: String!
-          stadiumGeohash: String!
-          id: String!
-          matchTypes: [String!]!
+          stadiumId: String
+          stadiumGeohash: String
+          id: String
+          matchTypes: [String]
           material: String
         }
 
