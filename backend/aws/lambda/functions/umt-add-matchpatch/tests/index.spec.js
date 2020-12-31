@@ -24,7 +24,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         expect(response.teamId1).toBe('bayern')
         expect(response.teamId2).toBe('psg')
         expect(response.userEmail).toBe('franco.barrientos@arzov.com')
-        expect(response.reqStat).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
       }
 
       done()
@@ -42,7 +42,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.reqStat).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
       }
 
       done()
@@ -63,7 +63,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         expect(response.teamId1).toBe('chelsea')
         expect(response.teamId2).toBe('psg')
         expect(response.userEmail).toBe('franco.barrientos@arzov.com')
-        expect(response.reqStat).toStrictEqual({MR: {S: 'A'}, PR: {S: 'P'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({MR: {S: 'A'}, PR: {S: 'P'}})
       }
 
       done()
@@ -84,7 +84,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         expect(response.teamId1).toBe('man.united')
         expect(response.teamId2).toBe('realmadrid')
         expect(response.userEmail).toBe('svonko.vescovi@arzov.com')
-        expect(response.reqStat).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({MR: {S: 'A'}, PR: {S: 'A'}})
       }
 
       done()

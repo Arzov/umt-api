@@ -50,7 +50,7 @@ exports.handler = (event, context, callback) => {
                         id: x.hashKey.S.split('#')[1],
                         name: x.name.S,
                         picture: x.picture.S,
-                        formation: x.formation.M,
+                        formation: JSON.stringify(x.formation.M),
                         geohash: x.geohash.S,
                         searchingPlayers: x.searchingPlayers.BOOL
                     };

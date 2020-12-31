@@ -28,13 +28,13 @@ const getUser = (db, tableName, hashKey, rangeKey, fn) => {
                 fn(null, {
                     email: data.Item.hashKey.S.split('#')[1],
                     geohash: data.Item.geohash.S,
-                    coords: data.Item.coords.M,
+                    coords: JSON.stringify(data.Item.coords.M),
                     genderFilter: data.Item.genderFilter.SS,
                     ageMinFilter: data.Item.ageMinFilter.N,
                     ageMaxFilter: data.Item.ageMaxFilter.N,
                     matchFilter: data.Item.matchFilter.SS,
                     positions: data.Item.positions.SS,
-                    skills: data.Item.skills.S,
+                    skills: JSON.stringify(data.Item.skills.M),
                     foot: data.Item.foot.S,
                     weight: data.Item.weight.N,
                     height: data.Item.height.N

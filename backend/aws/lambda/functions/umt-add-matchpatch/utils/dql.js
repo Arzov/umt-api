@@ -53,7 +53,7 @@ const addMatchPatch = (db, tableName, hashKey, rangeKey, joinedOn, reqStat, fn) 
                 teamId2: hashKey.split('#')[2],
                 userEmail: rangeKey.split('#')[1],
                 joinedOn,
-                reqStat
+                reqStat: JSON.stringify(reqStat)
             });
     });
 }

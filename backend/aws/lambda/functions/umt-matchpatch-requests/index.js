@@ -34,7 +34,7 @@ exports.handler = (event, context, callback) => {
                         teamId1: x.hashKey.S.split('#')[1],
                         teamId2: x.hashKey.S.split('#')[2],
                         userEmail: x.rangeKey.S.split('#')[1],
-                        reqStat: x.reqStat.M
+                        reqStat: JSON.stringify(x.reqStat.M)
                     };
                 });
             }

@@ -40,7 +40,7 @@ exports.handler = (event, context, callback) => {
                     return {
                         teamId1: x.hashKey.S.split('#')[1],
                         teamId2: x.rangeKey.S.split('#')[1],
-                        reqStat: x.reqStat.M
+                        reqStat: JSON.stringify(x.reqStat.M)
                     };
                 });
             }
@@ -57,7 +57,7 @@ exports.handler = (event, context, callback) => {
                             return {
                                 teamId1: x.hashKey.S.split('#')[1],
                                 teamId2: x.rangeKey.S.split('#')[1],
-                                reqStat: x.reqStat.M
+                                reqStat: JSON.stringify(x.reqStat.M)
                             };
                         });
                     }

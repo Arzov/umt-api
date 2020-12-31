@@ -48,13 +48,13 @@ const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFilter
             fn(null, {
                 email: hashKey.split('#')[1],
                 geohash,
-                coords,
+                coords: JSON.stringify(coords),
                 ageMinFilter,
                 ageMaxFilter,
                 genderFilter,
                 matchFilter,
                 positions,
-                skills,
+                skills: JSON.stringify(skills),
                 foot,
                 weight,
                 height

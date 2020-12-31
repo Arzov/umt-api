@@ -29,9 +29,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('man.united')
         expect(response.userEmail).toBe('franco.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Admin', 'Player', 'Captain'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -52,9 +52,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('man.united')
         expect(response.userEmail).toBe('jesus.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Player'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'P'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'P'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -75,9 +75,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('man.united')
         expect(response.userEmail).toBe('matias.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Player'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
         expect(response.number).toBe('0')
       }
 
@@ -98,9 +98,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('fcbarcelona')
         expect(response.userEmail).toBe('jesus.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Admin', 'Player', 'Captain'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -121,9 +121,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('fcbarcelona')
         expect(response.userEmail).toBe('franco.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Player'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
         expect(response.number).toBe('0')
       }
 
@@ -144,9 +144,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('bayern')
         expect(response.userEmail).toBe('matias.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Admin', 'Player', 'Captain'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -167,9 +167,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('bayern')
         expect(response.userEmail).toBe('franco.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Player'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'P'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'P'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -190,9 +190,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('psg')
         expect(response.userEmail).toBe('diego.lagos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Admin', 'Player', 'Captain'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -213,9 +213,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('realmadrid')
         expect(response.userEmail).toBe('ivo.farias@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Admin', 'Player', 'Captain'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 
@@ -236,9 +236,9 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.teamId).toBe('chelsea')
         expect(response.userEmail).toBe('jesus.barrientos@arzov.com')
-        expect(response.position).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
+        expect(JSON.parse(response.position)).toStrictEqual(umtEnvs.dft.TEAMMEMBER.POSITION)
         expect(response.role).toStrictEqual(['Admin', 'Player', 'Captain'])
-        expect(response.reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'A'}})
         expect(response.number).toBe('0')
       }
 

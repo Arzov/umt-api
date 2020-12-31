@@ -52,13 +52,13 @@ const updateUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFil
         else fn(null, {
             email: hashKey.split('#')[1],
             geohash,
-            coords,
+            coords: JSON.stringify(coords),
             genderFilter,
             ageMinFilter,
             ageMaxFilter,
             matchFilter,
             positions,
-            skills,
+            skills: JSON.stringify(skills),
             foot,
             weight,
             height

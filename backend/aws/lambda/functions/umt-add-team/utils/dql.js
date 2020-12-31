@@ -38,7 +38,7 @@ const addTeam = (db, tableName, hashKey, rangeKey, geohash, name, picture, forma
                 geohash,
                 name,
                 picture,
-                formation,
+                formation: JSON.stringify(formation),
                 searchingPlayers
             });
     });

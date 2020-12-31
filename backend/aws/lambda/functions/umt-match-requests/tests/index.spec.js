@@ -21,10 +21,10 @@ describe('Test AWS Lambda: umt-match-requests', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.items[0].teamId1).toBe('man.united')
         expect(response.items[0].teamId2).toBe('psg')
-        expect(response.items[0].reqStat).toStrictEqual({AR: {S: 'A'}, RR: {S: 'P'}})
+        expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({AR: {S: 'A'}, RR: {S: 'P'}})
         expect(response.items[1].teamId1).toBe('bayern')
         expect(response.items[1].teamId2).toBe('man.united')
-        expect(response.items[1].reqStat).toStrictEqual({AR: {S: 'A'}, RR: {S: 'P'}})
+        expect(JSON.parse(response.items[1].reqStat)).toStrictEqual({AR: {S: 'A'}, RR: {S: 'P'}})
         expect(response.nextToken).toBe('{"rangeKey":{"S":"MATCH#psg"},"hashKey":{"S":"MATCH#man.united"}}&{"rangeKey":{"S":"MATCH#man.united"},"hashKey":{"S":"MATCH#bayern"}}')
       }
 

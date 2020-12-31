@@ -20,10 +20,10 @@ describe('Test AWS Lambda: umt-teammember-requests', () => {
         expect(data.StatusCode).toBe(200)
         expect(response.items[0].teamId).toBe('bayern')
         expect(response.items[0].userEmail).toBe('franco.barrientos@arzov.com')
-        expect(response.items[0].reqStat).toStrictEqual({TR: {S: 'P'}, PR: {S: 'A'}})
+        expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({TR: {S: 'P'}, PR: {S: 'A'}})
         expect(response.items[1].teamId).toBe('fcbarcelona')
         expect(response.items[1].userEmail).toBe('franco.barrientos@arzov.com')
-        expect(response.items[1].reqStat).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
+        expect(JSON.parse(response.items[1].reqStat)).toStrictEqual({TR: {S: 'A'}, PR: {S: 'P'}})
         expect(response.nextToken).toBe(null)
       }
 

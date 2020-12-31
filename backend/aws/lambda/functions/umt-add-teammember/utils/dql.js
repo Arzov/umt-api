@@ -36,9 +36,9 @@ const addTeamMember = (db, tableName, hashKey, rangeKey, position, role,
             fn(null, {
                 teamId: hashKey.split('#')[1],
                 userEmail: rangeKey.split('#')[1],
-                position,
+                position: JSON.stringify(position),
                 role,
-                reqStat,
+                reqStat: JSON.stringify(reqStat),
                 number,
                 joinedOn
             });

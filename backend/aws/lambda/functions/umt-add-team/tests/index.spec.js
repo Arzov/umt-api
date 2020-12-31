@@ -27,7 +27,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('realmadrid')
         expect(response.name).toBe('REAL MADRID')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
+        expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(false)
       }
 
@@ -50,7 +50,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('man.united')
         expect(response.name).toBe('MAN. UNITED')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
+        expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(false)
       }
 
@@ -73,7 +73,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('fcbarcelona')
         expect(response.name).toBe('FC BARCELONA')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
+        expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }
 
@@ -96,7 +96,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('psg')
         expect(response.name).toBe('PSG')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
+        expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }
 
@@ -119,7 +119,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('bayern')
         expect(response.name).toBe('BAYERN')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
+        expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }
 
@@ -142,7 +142,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('chelsea')
         expect(response.name).toBe('CHELSEA')
         expect(response.picture).toBe('')
-        expect(response.formation).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
+        expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }
 

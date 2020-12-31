@@ -32,7 +32,7 @@ exports.handler = function(event, context, callback) {
 						teamId2: data.Item.hashKey.S.split('#')[2],
 						userEmail: data.Item.rangeKey.S.split('#')[1],
 						joinedOn: data.Item.joinedOn.S,
-						reqStat: data.Item.reqStat.M
+						reqStat: JSON.stringify(data.Item.reqStat.M)
 					});
 				else 
 					dql.addMatchPatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey,

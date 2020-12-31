@@ -35,7 +35,7 @@ const addStadium = (db, tableName, hashKey, rangeKey, name, matchTypes, coords, 
                 geohash: rangeKey.split('#')[1],
                 name,
                 matchTypes,
-                coords,
+                coords: JSON.stringify(coords),
                 address
             });
     });
