@@ -29,6 +29,8 @@ describe('Test AWS Lambda: umt-get-user', () => {
         expect(response.matchFilter).toStrictEqual(['11v11', '5v5', '7v7'])
         expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
         expect(response.foot).toBe('R')
+        expect(response.weight).toBe('75')
+        expect(response.height).toBe('175')
       }
 
       done()

@@ -39,8 +39,8 @@ const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFilter
             'positions': { SS: positions },
             'skills': { M: skills },
             'foot': { S: foot },
-            'weight': { S: weight },
-            'height': { S: height }
+            'weight': { N: weight },
+            'height': { N: height }
         }
     }, function(err, data) {
         if (err) fn(err);
