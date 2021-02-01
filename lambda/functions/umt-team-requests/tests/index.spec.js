@@ -30,5 +30,4 @@ describe('Test AWS Lambda: umt-team-requests', () => {
       done()
     })
   }, 60000)
-
 })

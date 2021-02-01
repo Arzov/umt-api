@@ -35,5 +35,4 @@ describe('Test AWS Lambda: umt-update-user', () => {
       done()
     })
   }, 60000)
-
 })

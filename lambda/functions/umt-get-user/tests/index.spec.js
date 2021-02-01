@@ -8,7 +8,6 @@ describe('Test AWS Lambda: umt-get-user', () => {
   let params = {FunctionName: 'umt-get-user'}
 
   test('Respuesta desde AWS: Usuario franco.barrientos@arzov.com', (done) => {
-
     params.Payload = JSON.stringify(event)
 
     lambda.invoke(params, function(err, data) {

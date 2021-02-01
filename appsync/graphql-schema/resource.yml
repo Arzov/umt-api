@@ -168,6 +168,7 @@
 
         type Query {
           getUser(email: String!): User
+          getTeam(id: String!): Team
           nearTeams(geohash: String!, forJoin: Boolean!, nextToken: String): TeamList
           nearMatches(geohash: String!, id: String, nextToken: String): MatchList
           listTeams(email: String!, nextToken: String): TeamList

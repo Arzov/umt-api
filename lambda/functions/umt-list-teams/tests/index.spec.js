@@ -25,5 +25,4 @@ describe('Test AWS Lambda: umt-list-teams', () => {
       done()
     })
   }, 60000)
-
 })

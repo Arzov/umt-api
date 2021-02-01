@@ -90,6 +90,7 @@ lambdas="
     umt-add-stadium
     umt-add-court
     umt-get-user
+    umt-get-team
     umt-update-user
     umt-near-teams
     umt-near-matches
