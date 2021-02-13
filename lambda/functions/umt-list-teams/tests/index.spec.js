@@ -19,6 +19,11 @@ describe('Test AWS Lambda: umt-list-teams', () => {
 
         expect(data.StatusCode).toBe(200)
         expect(response.items[0].id).toBe('man.united')
+        expect(response.items[0].name).toBe('MAN. UNITED')
+        expect(response.items[0].picture).toBe('')
+        expect(JSON.parse(response.items[0].formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
+        expect(response.items[0].geohash).toBe('66jcfp')
+        expect(response.items[0].searchingPlayers).toBe(false)
         expect(response.nextToken).toBe(null)
       }
 
