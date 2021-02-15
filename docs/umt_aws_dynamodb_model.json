@@ -3,9 +3,10 @@
   "ModelMetadata": {
     "Author": "Franco Barrientos",
     "DateCreated": "Aug 26, 2020, 11:01 PM",
-    "DateLastModified": "Oct 11, 2020, 12:56 PM",
+    "DateLastModified": "Feb 15, 2021, 12:32 AM",
     "Description": "Modelo de datos para API de Umatch.",
-    "Version": "1.0"
+    "Version": "2.0",
+    "AWSService": "Amazon DynamoDB"
   },
   "DataModel": [
     {
@@ -88,10 +89,6 @@
         {
           "AttributeName": "allowedPatches",
           "AttributeType": "N"
-        },
-        {
-          "AttributeName": "matchTypes",
-          "AttributeType": "SS"
         },
         {
           "AttributeName": "expireOn",
@@ -782,7 +779,11 @@
             "name",
             "picture",
             "formation",
-            "searchingPlayers"
+            "searchingPlayers",
+            "matchFilter",
+            "genderFilter",
+            "ageMinFilter",
+            "ageMaxFilter"
           ]
         },
         {
@@ -829,11 +830,6 @@
               "allowedPatches": {
                 "N": "2"
               },
-              "matchTypes": {
-                "SS": [
-                  "5v5"
-                ]
-              },
               "expireOn": {
                 "S": "2020-06-27T21:27:51+00:00"
               },
@@ -865,12 +861,14 @@
             "reqStat",
             "createdOn",
             "allowedPatches",
-            "matchTypes",
             "expireOn",
             "schedule",
             "stadiumGeohash",
             "stadiumId",
-            "courtId"
+            "courtId",
+            "matchFilter",
+            "ageMinFilter",
+            "ageMaxFilter"
           ]
         },
         {
@@ -965,13 +963,6 @@
               "name": {
                 "S": "Club Deportivo Indepe"
               },
-              "matchTypes": {
-                "SS": [
-                  "5v5",
-                  "7v7",
-                  "11v11"
-                ]
-              },
               "address": {
                 "S": "Bezanilla 1410"
               }
@@ -980,8 +971,8 @@
           "NonKeyAttributes": [
             "coords",
             "name",
-            "matchTypes",
-            "address"
+            "address",
+            "matchFilter"
           ]
         },
         {
@@ -998,11 +989,6 @@
               "rangeKey": {
                 "S": "COURT#66jcfp#1"
               },
-              "matchTypes": {
-                "SS": [
-                  "7v7"
-                ]
-              },
               "material": {
                 "S": "Grass"
               }
@@ -1014,19 +1000,14 @@
               "rangeKey": {
                 "S": "COURT#66jcfp#2"
               },
-              "matchTypes": {
-                "SS": [
-                  "5v5"
-                ]
-              },
               "material": {
                 "S": "Cement"
               }
             }
           ],
           "NonKeyAttributes": [
-            "matchTypes",
-            "material"
+            "material",
+            "matchFilter"
           ]
         }
       ],
