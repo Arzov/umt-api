@@ -15,7 +15,7 @@ const dynamodb = new aws.DynamoDB(options);
 
 
 exports.handler = (event, context, callback) => {
-    let hashKey = `${umtEnvs.pfx.TEAM}${event.id}`;
+    const hashKey = `${umtEnvs.pfx.TEAM}${event.id}`;
 
     dql.getTeam(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, callback);
 };

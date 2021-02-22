@@ -16,17 +16,22 @@ const umtEnvs = require('umt-envs');
  * @param {Function} fn Funcion callback
  */
 const listTeams = (db, tableName, rangeKey, limitScan, nextToken, fn) => {
+    const idx = 'rangeKey-idx';
+    const keyExp = `rangeKey = :v1 and begins_with (hashKey, :v2)`
+    const filterExp = `reqStat.TR = :v3 and reqStat.PR = :v3`;
+    const expValues = {
+        ':v1': { S: rangeKey },
+        ':v2': { S: umtEnvs.pfx.TEAM },
+        ':v3': { S: 'A' }
+    };
+
     if (nextToken) {
         db.query({
             TableName: tableName,
-            IndexName: "rangeKey-idx",
-            KeyConditionExpression: "rangeKey = :v1 and begins_with (hashKey, :v2)",
-            FilterExpression: "reqStat.TR = :v3 and reqStat.PR = :v3",
-            ExpressionAttributeValues: {
-                ":v1": { S: rangeKey },
-                ":v2": { S: umtEnvs.pfx.TEAM },
-                ":v3": { S: 'A' }
-            },
+            IndexName: idx,
+            KeyConditionExpression: keyExp,
+            FilterExpression: filterExp,
+            ExpressionAttributeValues: expValues,
             ExclusiveStartKey: JSON.parse(nextToken),
             Limit: limitScan
         }, function(err, data) {
@@ -37,14 +42,10 @@ const listTeams = (db, tableName, rangeKey, limitScan, nextToken, fn) => {
     else {
         db.query({
             TableName: tableName,
-            IndexName: "rangeKey-idx",
-            KeyConditionExpression: "rangeKey = :v1 and begins_with (hashKey, :v2)",
-            FilterExpression: "reqStat.TR = :v3 and reqStat.PR = :v3",
-            ExpressionAttributeValues: {
-                ":v1": { S: rangeKey },
-                ":v2": { S: umtEnvs.pfx.TEAM },
-                ":v3": { S: 'A' }
-            },
+            IndexName: idx,
+            KeyConditionExpression: keyExp,
+            FilterExpression: filterExp,
+            ExpressionAttributeValues: expValues,
             Limit: limitScan
         }, function(err, data) {
             if (err) fn(err);

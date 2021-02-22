@@ -23,7 +23,9 @@ exports.handler = function(event, context, callback) {
 	const expireOn = moment().add(daysToExpire, 'days').format();
 	const allowedPatches = event.allowedPatches ? String(event.allowedPatches) : umtEnvs.dft.MATCH.ALLOWED_PATCHES;
 	const positions = event.positions ? event.positions : umtEnvs.dft.MATCH.POSITIONS;
-	const matchTypes = event.matchTypes;
+	const ageMinFilter = String(event.ageMinFilter);
+	const ageMaxFilter = String(event.ageMaxFilter);
+	const matchFilter = event.matchFilter;
 	// TODO: Revisar tiempo local vs tiempo del servidor (por lado del cliente en frontend)
 	const schedule = event.schedule ? JSON.parse(event.schedule) :
 		{day: {S: expireOn.split('T')[0]}, time: {S: expireOn.split('T')[1].substr(0, 5)}};
@@ -45,8 +47,9 @@ exports.handler = function(event, context, callback) {
             // Si no existe entonces agregar
             else 
                 dql.addMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, createdOn,
-					expireOn, allowedPatches, positions, matchTypes, schedule, reqStat, geohash,
-					stadiumGeohash, stadiumId, courtId, genderFilter, callback);
+					expireOn, allowedPatches, positions, ageMinFilter, ageMaxFilter, matchFilter,
+					schedule, reqStat, geohash, stadiumGeohash, stadiumId, courtId, genderFilter,
+					callback);
         }
     });
 };

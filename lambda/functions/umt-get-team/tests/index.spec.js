@@ -1,6 +1,6 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event = require('../events/event.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-get-team', () => {
 
@@ -8,7 +8,7 @@ describe('Test AWS Lambda: umt-get-team', () => {
   let params = {FunctionName: 'umt-get-team'}
 
   test('Respuesta desde AWS: Equipo MAN. UNITED', (done) => {
-    params.Payload = JSON.stringify(event)
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -22,6 +22,10 @@ describe('Test AWS Lambda: umt-get-team', () => {
         expect(response.geohash).toBe('66jcfp')
         expect(response.name).toBe('MAN. UNITED')
         expect(response.picture).toBe(umtEnvs.dft.TEAM.PICTURE)
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('40')
+        expect(response.genderFilter).toStrictEqual(['M'])
+        expect(response.matchFilter).toStrictEqual(['11v11', '5v5'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(false)
       }

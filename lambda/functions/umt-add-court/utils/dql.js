@@ -39,18 +39,18 @@ const getLastCourtId = (db, tableName, hashKey, prefix, fn) => {
  * @param {String} tableName Nombre de la tabla
  * @param {String} hashKey Id del club
  * @param {String} rangeKey Hash de geolocalizacion del club y id de la cancha
- * @param {String[]} matchTypes Tipo de juego soportado
+ * @param {String[]} matchFilter Tipo de juego soportado
  * @param {String} material Material
  * @param {Function} fn Funcion callback
  */
-const addCourt = (db, tableName, hashKey, rangeKey, matchTypes, material, fn) => {
+const addCourt = (db, tableName, hashKey, rangeKey, matchFilter, material, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
-            'hashKey': { S: hashKey },
-            'rangeKey': { S: rangeKey },
-            'matchTypes': { SS: matchTypes },
-            'material': { S: material }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey },
+            matchFilter: { SS: matchFilter },
+            material: { S: material }
         }
     }, function(err, data) {
         if (err) fn(err);
@@ -59,7 +59,7 @@ const addCourt = (db, tableName, hashKey, rangeKey, matchTypes, material, fn) =>
                 stadiumId: hashKey.split('#')[1],
                 stadiumGeohash: rangeKey.split('#')[1],
                 id: rangeKey.split('#')[2],
-                matchTypes,
+                matchFilter,
                 material
             });
     });

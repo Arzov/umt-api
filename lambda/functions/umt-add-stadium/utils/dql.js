@@ -11,19 +11,19 @@
  * @param {String} hashKey Id
  * @param {String} rangeKey Hash de geolocalizacion
  * @param {String} name Nombre
- * @param {String[]} matchTypes Tipo de juegos soportados
+ * @param {String[]} matchFilter Tipo de juegos soportados
  * @param {Object} coords Coordenadas de la ubicacion
  * @param {String} address Direccion
  * @param {Function} fn Funcion callback
  */
-const addStadium = (db, tableName, hashKey, rangeKey, name, matchTypes, coords, address, fn) => {
+const addStadium = (db, tableName, hashKey, rangeKey, name, matchFilter, coords, address, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
             'hashKey': { S: hashKey },
             'rangeKey': { S: rangeKey },
             'name': { S: name },
-            'matchTypes': { SS: matchTypes },
+            'matchFilter': { SS: matchFilter },
             'coords': { M: coords },
             'address': { S: address }
         }
@@ -34,7 +34,7 @@ const addStadium = (db, tableName, hashKey, rangeKey, name, matchTypes, coords, 
                 id: hashKey.split('#')[1],
                 geohash: rangeKey.split('#')[1],
                 name,
-                matchTypes,
+                matchFilter,
                 coords: JSON.stringify(coords),
                 address
             });

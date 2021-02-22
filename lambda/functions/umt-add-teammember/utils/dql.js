@@ -22,13 +22,13 @@ const addTeamMember = (db, tableName, hashKey, rangeKey, position, role,
     db.putItem({
         TableName: tableName,
         Item: {
-            'hashKey': { S: hashKey },
-            'rangeKey': { S: rangeKey },
-            'position': { M: position },
-            'role': { SS: role },
-            'reqStat': { M: reqStat },
-            'number': { N: number },
-            'joinedOn': { S: joinedOn }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey },
+            position: { M: position },
+            role: { SS: role },
+            reqStat: { M: reqStat },
+            number: { N: number },
+            joinedOn: { S: joinedOn }
         }
     }, function(err, data) {
         if (err) fn(err);

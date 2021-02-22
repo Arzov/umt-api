@@ -1,14 +1,14 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event = require('../events/event.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-matchpatch-requests', () => {
 
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
   let params = {FunctionName: 'umt-matchpatch-requests'}
 
-  test('Evaluar respuesta: Usuario (franco.barrientos@arzov.com)', (done) => {
-    params.Payload = JSON.stringify(event)
+  test('Evaluar respuesta: Usuario (svonko.vescovi@arzov.com)', (done) => {
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -18,9 +18,9 @@ describe('Test AWS Lambda: umt-matchpatch-requests', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
-        expect(response.items[0].teamId1).toBe('chelsea')
-        expect(response.items[0].teamId2).toBe('psg')
-        expect(response.items[0].userEmail).toBe('franco.barrientos@arzov.com')
+        expect(response.items[0].teamId1).toBe('fcbarcelona')
+        expect(response.items[0].teamId2).toBe('man.united')
+        expect(response.items[0].userEmail).toBe('svonko.vescovi@arzov.com')
         expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({MR: {S: 'A'}, PR: {S: 'P'}})
         expect(response.nextToken).toBe(null)
       }

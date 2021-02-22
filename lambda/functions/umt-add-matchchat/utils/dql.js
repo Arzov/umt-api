@@ -17,9 +17,9 @@ const addMatchChat = (db, tableName, hashKey, rangeKey, msg, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
-            'hashKey': { S: hashKey },
-            'rangeKey': { S: rangeKey },
-            'msg': { S: msg }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey },
+            msg: { S: msg }
         }
     }, function(err, data) {
         if (err) fn(err);

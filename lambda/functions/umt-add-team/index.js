@@ -19,10 +19,14 @@ exports.handler = function(event, context, callback) {
 	const name = umtUtils.cleanName(event.name);
 	const hashKey = `${umtEnvs.pfx.TEAM}${umtUtils.nameToId(name)}`;
 	const picture = event.picture ? event.picture : umtEnvs.dft.TEAM.PICTURE;
+	const ageMinFilter = String(event.ageMinFilter);
+	const ageMaxFilter = String(event.ageMaxFilter);
+	const matchFilter = event.matchFilter;
+	const genderFilter = event.genderFilter;
 	const formation = event.formation ? JSON.parse(event.formation) : umtEnvs.dft.TEAM.FORMATION;
-	const searchingPlayers = event.searchingPlayers;
+	const searchingPlayers = event.searchingPlayers ? event.searchingPlayers : false;
 	const geohash = event.geohash;
 
 	dql.addTeam(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, geohash, name, picture,
-		formation, searchingPlayers, callback);
+		ageMinFilter, ageMaxFilter, matchFilter, genderFilter, formation, searchingPlayers, callback);
 };

@@ -8,7 +8,6 @@
           email: String
           geohash: String
           coords: String
-          genderFilter: [String]
           ageMinFilter: Int
           ageMaxFilter: Int
           matchFilter: [String]
@@ -31,6 +30,10 @@
           formation: String
           geohash: String
           searchingPlayers: Boolean
+          genderFilter: [String]
+          ageMinFilter: Int
+          ageMaxFilter: Int
+          matchFilter: [String]
         }
 
         type TeamList {
@@ -72,15 +75,17 @@
           createdOn: String
           allowedPatches: Int
           positions: [String]
-          matchTypes: [String]
           expireOn: String
           schedule: String
           reqStat: String
           geohash: String
+          genderFilter: [String]
+          ageMinFilter: Int
+          ageMaxFilter: Int
+          matchFilter: [String]
           stadiumGeohash: String
           stadiumId: String
           courtId: Int
-          genderFilter: [String]
         }
 
         type MatchList {
@@ -118,7 +123,7 @@
           geohash: String
           id: String
           name: String
-          matchTypes: [String]
+          matchFilter: [String]
           coords: String
           address: String
         }
@@ -132,7 +137,7 @@
           stadiumId: String
           stadiumGeohash: String
           id: String
-          matchTypes: [String]
+          matchFilter: [String]
           material: String
         }
 
@@ -142,41 +147,187 @@
         }
 
         type Mutation {
-          addUser(latitude: Float!, longitude: Float!, email: String!, genderFilter: [String!]!,
-            ageMinFilter: Int!, ageMaxFilter: Int!, matchFilter: [String!]!, positions: [String],
-            skills: String, foot: String!, weight: Int!, height: Int!): User
-          addTeam(name: String!, geohash: String!, searchingPlayers: Boolean!): Team
-          addTeamMember(teamId: String!, userEmail: String!, position: String, role: [String],
-            reqStat: String!, number: Int!): TeamMember
-          addTeamChat(teamId: String!, userEmail: String!, msg: String!): TeamChat
-          addMatch(teamId1: String!, teamId2: String!, allowedPatches: Int!, positions: [String],
-            matchTypes: [String!]!, schedule: String, geohash: String!, stadiumGeohash: String,
-            stadiumId: String, courtId: Int, genderFilter: [String!]!): Match
-          addMatchPatch(teamId1: String!, teamId2: String!, userEmail: String!, reqStat: String): MatchPatch
-          addMatchChat(teamId1: String!, teamId2: String!, userEmail: String!, msg: String!): MatchChat
-          addStadium(latitude: Float!, longitude: Float!, name: String!, matchTypes: [String!]!,
-            address: String): Stadium
-          addCourt(stadiumId: String!, stadiumGeohash: String!, matchTypes: [String!]!,
-            material: String): Court
-          updateUser(latitude: Float!, longitude: Float!, email: String!, genderFilter: [String]!,
-            ageMinFilter: Int!, ageMaxFilter: Int!, matchFilter: [String]!, positions: [String]!,
-            skills: String!, foot: String!, weight: Int!, height: Int!): User
-          updateMatch(teamId1: String!, teamId2: String!, allowedPatches: Int!, positions: [String]!,
-            matchTypes: [String]!, schedule: String!, reqStat: String!, stadiumGeohash: String!,
-            stadiumId: String!, courtId: Int!, genderFilter: [String]!): Match
+          addUser(
+            latitude: Float!,
+            longitude: Float!,
+            email: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String!]!,
+            positions: [String],
+            skills: String,
+            foot: String!,
+            weight: Int!,
+            height: Int!
+          ): User
+
+          addTeam(
+            name: String!,
+            geohash: String!,
+            picture: String,
+            searchingPlayers: Boolean,
+            genderFilter: [String!]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String!]!
+          ): Team
+
+          addTeamMember(
+            teamId: String!,
+            userEmail: String!,
+            position: String,
+            role: [String],
+            reqStat: String!,
+            number: Int!
+          ): TeamMember
+
+          addTeamChat(
+            teamId: String!,
+            userEmail: String!,
+            msg: String!
+          ): TeamChat
+
+          addMatch(
+            teamId1: String!,
+            teamId2: String!,
+            allowedPatches: Int,
+            positions: [String],
+            matchFilter: [String!]!,
+            genderFilter: [String!]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            schedule: String,
+            geohash: String!,
+            stadiumGeohash: String,
+            stadiumId: String, courtId: Int
+          ): Match
+
+          addMatchPatch(
+            teamId1: String!,
+            teamId2: String!,
+            userEmail: String!,
+            reqStat: String
+          ): MatchPatch
+
+          addMatchChat(
+            teamId1: String!,
+            teamId2: String!,
+            userEmail: String!,
+            msg: String!
+          ): MatchChat
+
+          addStadium(
+            latitude: Float!,
+            longitude: Float!,
+            name: String!,
+            matchFilter: [String!]!,
+            address: String
+          ): Stadium
+
+          addCourt(
+            stadiumId: String!,
+            stadiumGeohash: String!,
+            matchFilter: [String!]!,
+            material: String
+          ): Court
+
+          updateUser(
+            latitude: Float!,
+            longitude: Float!,
+            email: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            positions: [String]!,
+            skills: String!,
+            foot: String!,
+            weight: Int!,
+            height: Int!
+          ): User
+
+          updateMatch(
+            teamId1: String!,
+            teamId2: String!,
+            allowedPatches: Int!,
+            positions: [String]!,
+            schedule: String!,
+            reqStat: String!,
+            genderFilter: [String]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            stadiumGeohash: String!,
+            stadiumId: String!,
+            courtId: Int!
+          ): Match
         }
 
         type Query {
-          getUser(email: String!): User
-          getTeam(id: String!): Team
-          nearTeams(geohash: String!, forJoin: Boolean!, nextToken: String): TeamList
-          nearMatches(geohash: String!, id: String, nextToken: String): MatchList
-          listTeams(email: String!, nextToken: String): TeamList
-          teamRequests(id: String!, nextToken: String): TeamMemberList
-          teamMemberRequests(email: String!, nextToken: String): TeamMemberList
-          listMatches(id: String, email: String, nextToken: String): MatchList
-          matchRequests(id: String!, nextToken: String): MatchList
-          matchPatchRequests(email: String!, nextToken: String): MatchPatchList
+          getUser(
+            email: String!
+          ): User
+
+          getTeam(
+            id: String!
+          ): Team
+
+          nearTeams(
+            ownTeams: [String],
+            geohash: String!,
+            forJoin: Boolean!,
+            gender: String!,
+            genderFilter: [String]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            nextToken: String
+          ): TeamList
+
+          getMatch(
+            teamId1: String!,
+            teamId2: String!
+          ): Match
+
+          nearMatches(
+            geohash: String!,
+            ownTeams: [String],
+            gender: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            nextToken: String
+          ): MatchList
+
+          listTeams(
+            email: String!,
+            nextToken: String
+          ): TeamList
+
+          teamRequests(
+            id: String!,
+            nextToken: String
+          ): TeamMemberList
+
+          teamMemberRequests(
+            email: String!,
+            nextToken: String
+          ): TeamMemberList
+
+          listMatches(
+            id: String,
+            email: String,
+            nextToken: String
+          ): MatchList
+
+          matchRequests(
+            id: String!,
+            nextToken: String
+          ): MatchList
+
+          matchPatchRequests(
+            email: String!,
+            nextToken: String
+          ): MatchPatchList
         }
         
         schema {

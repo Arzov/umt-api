@@ -20,8 +20,21 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = (event, context, callback) => {
     const geohash = event.geohash;
-    const hashKey = event.id ? `${umtEnvs.pfx.MATCH}${event.id}` : '';
+    let ownTeams = event.ownTeams ? event.ownTeams : ['']; // filtra equipos al que ya pertenece
+    const gender = event.gender;
+    const ageMinFilter = String(event.ageMinFilter);
+    const ageMaxFilter = String(event.ageMaxFilter);
+    let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
+
+    // Completar 'matchFilter' de largo 3 con ' '
+    const l = 3 - matchFilter.length
+    for (let i = 0; i < l; i++) { matchFilter.push(' ') }
+
+    // Prefijo a los id
+    ownTeams = ownTeams.map(function(x) {
+        return `${umtEnvs.pfx.TEAM}${x}`
+    })
 
     /**
      * El geohash del nextToken debe ser igual al geohash del equipo/usuario,
@@ -34,8 +47,8 @@ exports.handler = (event, context, callback) => {
         if (JSON.parse(nextToken).geohash.S !== geohash) nextToken = null;
     }
 
-    // TODO: Completar filtros de edad y sexo
-    dql.nearMatches(dynamodb, process.env.DB_UMT_001, geohash, hashKey, limitScan, nextToken, function(err, data) {
+    dql.nearMatches(dynamodb, process.env.DB_UMT_001, geohash, ownTeams, limitScan,
+        gender, ageMinFilter, ageMaxFilter, matchFilter, nextToken, function(err, data) {
         if (err) callback(err);
         else {
             let nextTokenResult = null;
@@ -46,14 +59,15 @@ exports.handler = (event, context, callback) => {
 
             if (data.Count) {
                 dataResult = data.Items.map(function(x) {
-                    if (hashKey !== x.rangeKey.S)
+                    // Filtrar 'rangeKey' ya que  dynamodb no lo permite en 'KeyConditionExpression'
+                    if (!ownTeams.includes(x.rangeKey.S))
                         return {
                             teamId1: x.hashKey.S.split('#')[1],
                             teamId2: x.rangeKey.S.split('#')[1],
                             createdOn: x.createdOn.S,
                             allowedPatches: x.allowedPatches.N,
                             positions: x.positions.SS,
-                            matchTypes: x.matchTypes.SS,
+                            matchFilter: x.matchFilter.SS,
                             expireOn: x.expireOn.S,
                             schedule: JSON.stringify(x.schedule.M),
                             reqStat: JSON.stringify(x.reqStat.M),
@@ -61,6 +75,8 @@ exports.handler = (event, context, callback) => {
                             stadiumGeohash: x.stadiumGeohash.S,
                             stadiumId: x.stadiumId.S,
                             courtId: x.courtId.N,
+                            ageMinFilter: x.ageMinFilter.N,
+                            ageMaxFilter: x.ageMaxFilter.N,
                             genderFilter: x.genderFilter.SS
                         };
                 }).filter(function (el) {return el != null});

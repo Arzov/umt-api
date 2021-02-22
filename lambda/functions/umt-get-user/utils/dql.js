@@ -29,7 +29,6 @@ const getUser = (db, tableName, hashKey, rangeKey, fn) => {
                     email: data.Item.hashKey.S.split('#')[1],
                     geohash: data.Item.geohash.S,
                     coords: JSON.stringify(data.Item.coords.M),
-                    genderFilter: data.Item.genderFilter.SS,
                     ageMinFilter: data.Item.ageMinFilter.N,
                     ageMaxFilter: data.Item.ageMaxFilter.N,
                     matchFilter: data.Item.matchFilter.SS,

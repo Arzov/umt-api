@@ -80,18 +80,19 @@ cd lambda/functions
 
 lambdas="
     umt-add-user
+    umt-update-user
     umt-add-team
     umt-add-teammember
     umt-add-teamchat
     umt-add-match
-    umt-update-match
     umt-add-matchpatch
     umt-add-matchchat
+    umt-update-match
     umt-add-stadium
     umt-add-court
     umt-get-user
     umt-get-team
-    umt-update-user
+    umt-get-match
     umt-near-teams
     umt-near-matches
     umt-list-teams

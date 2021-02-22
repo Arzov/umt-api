@@ -1,6 +1,6 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event01 = require('../events/event01.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-add-stadium', () => {
 
@@ -8,7 +8,7 @@ describe('Test AWS Lambda: umt-add-stadium', () => {
   let params = {FunctionName: 'umt-add-stadium'}
 
   test('Evaluar respuesta: Club (CLUB DEPORTIVO INDEPE)', (done) => {
-    params.Payload = JSON.stringify(event01)
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -21,7 +21,7 @@ describe('Test AWS Lambda: umt-add-stadium', () => {
         expect(response.geohash).toBe('66jcfp')
         expect(response.id).toBe('clubdeportivoindepe')
         expect(response.name).toBe('CLUB DEPORTIVO INDEPE')
-        expect(response.matchTypes).toStrictEqual(['5v5', '7v7', '11v11'])
+        expect(response.matchFilter).toStrictEqual(['5v5', '7v7', '11v11'])
         expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
         expect(response.address).toBe('')
       }

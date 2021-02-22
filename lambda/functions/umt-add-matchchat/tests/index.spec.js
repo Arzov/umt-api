@@ -1,7 +1,6 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event01 = require('../events/event01.json')
-const event02 = require('../events/event02.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-add-matchchat', () => {
 
@@ -9,7 +8,7 @@ describe('Test AWS Lambda: umt-add-matchchat', () => {
   let params = {FunctionName: 'umt-add-matchchat'}
 
   test('Evaluar respuesta: Match - Jugador (MAN. UNITED - REAL MADRID, svonko.vescovi@arzov.com)', (done) => {
-    params.Payload = JSON.stringify(event01)
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -30,7 +29,7 @@ describe('Test AWS Lambda: umt-add-matchchat', () => {
   }, 60000)
 
   test('Evaluar respuesta: Match - Jugador (MAN. UNITED - REAL MADRID, franco.barrientos@arzov.com)', (done) => {
-    params.Payload = JSON.stringify(event02)
+    params.Payload = JSON.stringify(events[1])
 
     lambda.invoke(params, function(err, data) {
       if (err) {

@@ -34,36 +34,42 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
  * @param {String} rangeKey Id del equipo solicitado
  * @param {String} allowedPatches Numero de parches permitidos
  * @param {String[]} positions Posiciones buscadas para parchar
- * @param {String[]} matchTypes Tipo de juego
+ * @param {String[]} matchFilter Tipo de juego
  * @param {Object} schedule Fecha de partido
  * @param {Object} reqStat Estado de la solicitud
  * @param {String} stadiumGeohash Hash de geolocalizacion del club deportivo
  * @param {String} stadiumId Id del club deportivo
  * @param {String} courtId Id de la cancha
- * @param {String[]} genderFilter Filtro de sexo
+ * @param {String[]} genderFilter Sexo de los equipos
+ * @param {String} ageMinFilter Edad minima de los jugadores
+ * @param {String} ageMaxFilter Edad maxima de los jugadores
  * @param {Function} fn Funcion callback
  */
-const updateMatch = (db, tableName, hashKey, rangeKey, allowedPatches, positions, matchTypes, schedule,
-    reqStat, stadiumGeohash, stadiumId, courtId, genderFilter, fn) => {
+const updateMatch = (db, tableName, hashKey, rangeKey, allowedPatches, positions, matchFilter, schedule,
+    reqStat, stadiumGeohash, stadiumId, courtId, genderFilter, ageMinFilter, ageMaxFilter, fn) => {
     db.updateItem({
         TableName: tableName,
         Key: {
-            "hashKey": { S: hashKey },
-            "rangeKey": { S: rangeKey }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey }
         },
-        UpdateExpression: "set allowedPatches = :v1, positions = :v2, matchTypes = :v3,\
-            schedule = :v4, reqStat = :v5, stadiumGeohash = :v6, stadiumId = :v7,\
-            courtId = :v8, genderFilter = :v9",
+        UpdateExpression: `
+            set allowedPatches = :v1, positions = :v2, matchFilter = :v3,
+            schedule = :v4, reqStat = :v5, stadiumGeohash = :v6, stadiumId = :v7,
+            courtId = :v8, genderFilter = :v9, ageMinFilter = :v10, ageMaxFilter = :v11
+        `,
         ExpressionAttributeValues: {
-            ":v1": { N: allowedPatches },
-            ":v2": { SS: positions },
-            ":v3": { SS: matchTypes },
-            ":v4": { M: schedule },
-            ":v5": { M: reqStat },
-            ":v6": { S: stadiumGeohash },
-            ":v7": { S: stadiumId },
-            ":v8": { N: courtId },
-            ":v9": { SS: genderFilter }
+            ':v1': { N: allowedPatches },
+            ':v2': { SS: positions },
+            ':v3': { SS: matchFilter },
+            ':v4': { M: schedule },
+            ':v5': { M: reqStat },
+            ':v6': { S: stadiumGeohash },
+            ':v7': { S: stadiumId },
+            ':v8': { N: courtId },
+            ':v9': { SS: genderFilter },
+            ':v10': { N: ageMinFilter },
+            ':v11': { N: ageMaxFilter }
         }
     }, function(err, data) {
         if (err) fn(err);
@@ -72,13 +78,15 @@ const updateMatch = (db, tableName, hashKey, rangeKey, allowedPatches, positions
             teamId2: rangeKey.split('#')[1],
             allowedPatches,
             positions,
-            matchTypes,
+            matchFilter,
             schedule: JSON.stringify(schedule),
             reqStat: JSON.stringify(reqStat),
             stadiumGeohash,
             stadiumId,
             courtId,
-            genderFilter
+            genderFilter,
+            ageMinFilter,
+            ageMaxFilter
         });
     });
 }
@@ -95,8 +103,8 @@ const deleteMatch = (db, tableName, hashKey, rangeKey, fn) => {
     db.deleteItem({
         TableName: tableName,
         Key: {
-            "hashKey": { S: hashKey },
-            "rangeKey": { S: rangeKey }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey }
         }
     },
     function(err, data) {

@@ -7,16 +7,38 @@
 const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
-let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 let limitScan = umtEnvs.gbl.MATCHES_SCAN_LIMIT;
 
 if (process.env.RUN_MODE === 'LOCAL') {
-    options = umtEnvs.dev.DYNAMODB_CONFIG;
+    optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
+    optionsLambda = umtEnvs.dev.LAMBDA_CONTAINER_CONFIG;
     limitScan = umtEnvs.dev.MATCHES_SCAN_LIMIT;
 }
 
-const dynamodb = new aws.DynamoDB(options);
+const lambda = new aws.Lambda(optionsLambda)
+const dynamodb = new aws.DynamoDB(optionsDynamodb);
+const getMatches = async (lambda, data, hashKey, rangeKey, idx1, idx2, callback) => {
+    const matches = [];
+    let params = { FunctionName: 'umt-get-match' };
 
+    for (const e in data.Items) {
+        params.Payload = JSON.stringify({
+            teamId1: data.Items[e][hashKey].S.split('#')[idx1],
+            teamId2: data.Items[e][rangeKey].S.split('#')[idx2]
+        });
+
+        matches.push(await new Promise(resolve => {
+            lambda.invoke(params, function(err, data) {
+                if (err) callback(err);
+                else resolve(JSON.parse(data.Payload));
+            })
+        }));
+    }
+
+    return matches;
+}
 
 exports.handler = (event, context, callback) => {
     const hashKey = `${umtEnvs.pfx.MATCH}${event.id}`;
@@ -27,7 +49,7 @@ exports.handler = (event, context, callback) => {
 
     if (event.id ) {
         dql.listOwnerMatches(dynamodb, process.env.DB_UMT_001, hashKey, limitScan,
-            ownerNextToken, function(err, data) {
+            ownerNextToken, async function(err, data) {
             if (err) callback(err);
             else {
                 let ownerNextTokenResult = null;
@@ -39,28 +61,20 @@ exports.handler = (event, context, callback) => {
                     ownerNextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
                 if (data.Count) {
-                    ownerDataResult = data.Items.map(function(x) {
-                        return {
-                            teamId1: x.hashKey.S.split('#')[1],
-                            teamId2: x.rangeKey.S.split('#')[1]
-                        };
-                    });
+                    ownerDataResult = await getMatches(lambda, data,
+                        'hashKey', 'rangeKey', 1, 1, callback);
                 }
 
                 dql.listGuestMatches(dynamodb, process.env.DB_UMT_001, hashKey, limitScan,
-                    guestNextToken, function(err, data) {
+                    guestNextToken, async function(err, data) {
                     if (err) callback(err);
                     else {
                         if ('LastEvaluatedKey' in data)
                             guestNextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
                         if (data.Count) {
-                            guestDataResult = data.Items.map(function(x) {
-                                return {
-                                    teamId1: x.hashKey.S.split('#')[1],
-                                    teamId2: x.rangeKey.S.split('#')[1]
-                                };
-                            });
+                            guestDataResult = await getMatches(lambda, data,
+                                'hashKey', 'rangeKey', 1, 1, callback);
                         }
 
                         ownerNextTokenResult = ownerNextTokenResult ? ownerNextTokenResult : '';
@@ -76,7 +90,7 @@ exports.handler = (event, context, callback) => {
         });
     } else
         dql.listPatchMatches(dynamodb, process.env.DB_UMT_001, rangeKey, limitScan,
-            patchNextToken, function(err, data) {
+            patchNextToken, async function(err, data) {
             if (err) callback(err);
             else {
                 let patchNextTokenResult = null;
@@ -86,12 +100,8 @@ exports.handler = (event, context, callback) => {
                     patchNextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
                 if (data.Count) {
-                    patchDataResult = data.Items.map(function(x) {
-                        return {
-                            teamId1: x.hashKey.S.split('#')[1],
-                            teamId2: x.hashKey.S.split('#')[2]
-                        };
-                    });
+                    patchDataResult = await getMatches(lambda, data,
+                        'hashKey', 'hashKey', 1, 2, callback);
                 }
 
                 callback(null, {

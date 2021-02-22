@@ -1,6 +1,6 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event = require('../events/event.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-update-user', () => {
 
@@ -8,7 +8,7 @@ describe('Test AWS Lambda: umt-update-user', () => {
   let params = {FunctionName: 'umt-update-user'}
 
   test('Evaluar respuesta desde AWS', (done) => {
-    params.Payload = JSON.stringify(event)
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -21,7 +21,6 @@ describe('Test AWS Lambda: umt-update-user', () => {
         expect(response.email).toBe('franco.barrientos@arzov.com')
         expect(response.geohash).toBe('66jcfp')
         expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
-        expect(response.genderFilter).toStrictEqual(['M'])
         expect(response.ageMinFilter).toBe('22')
         expect(response.ageMaxFilter).toBe('45')
         expect(response.matchFilter).toStrictEqual(['5v5', '7v7', '11v11'])

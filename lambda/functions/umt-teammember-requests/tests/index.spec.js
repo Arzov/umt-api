@@ -1,6 +1,6 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event = require('../events/event.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-teammember-requests', () => {
 
@@ -8,7 +8,7 @@ describe('Test AWS Lambda: umt-teammember-requests', () => {
   let params = {FunctionName: 'umt-teammember-requests'}
 
   test('Evaluar respuesta: Usuario (franco.barrientos@arzov.com)', (done) => {
-    params.Payload = JSON.stringify(event)
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {

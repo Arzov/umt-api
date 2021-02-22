@@ -1,8 +1,0 @@
-{
-  "teamId1": "chelsea",
-  "teamId2": "psg",
-  "matchTypes": ["7v7"],
-  "allowedPatches": 1,
-  "geohash": "66jcfp",
-  "genderFilter": ["M"]
-}

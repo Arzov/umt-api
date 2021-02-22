@@ -40,10 +40,10 @@ const addMatchPatch = (db, tableName, hashKey, rangeKey, joinedOn, reqStat, fn) 
     db.putItem({
         TableName: tableName,
         Item: {
-            'hashKey': { S: hashKey },
-            'rangeKey': { S: rangeKey },
-            'joinedOn': { S: joinedOn },
-            'reqStat': { M: reqStat }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey },
+            joinedOn: { S: joinedOn },
+            reqStat: { M: reqStat }
         }
     }, function(err, data) {
         if (err) fn(err);

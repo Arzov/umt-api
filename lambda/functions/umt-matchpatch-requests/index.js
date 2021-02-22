@@ -8,11 +8,14 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let limitScan = umtEnvs.gbl.REQUESTS_SCAN_LIMIT;
 
-if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
+if (process.env.RUN_MODE === 'LOCAL') {
+    options = umtEnvs.dev.DYNAMODB_CONFIG;
+    limitScan = umtEnvs.dev.REQUESTS_SCAN_LIMIT;
+}
 
 const dynamodb = new aws.DynamoDB(options);
-const limitScan = umtEnvs.gbl.REQUESTS_SCAN_LIMIT;
 
 
 exports.handler = (event, context, callback) => {

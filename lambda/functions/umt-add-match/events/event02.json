@@ -1,8 +1,0 @@
-{
-  "teamId1": "realmadrid",
-  "teamId2": "man.united",
-  "allowedPatches": 1,
-  "matchTypes": ["7v7"],
-  "geohash": "66jcfp",
-  "genderFilter": ["M"]
-}

@@ -20,13 +20,15 @@ exports.handler = function(event, context, callback) {
 	const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
 	const allowedPatches = String(event.allowedPatches);
 	const positions = event.positions;
-	const matchTypes = event.matchTypes;
+	const matchFilter = event.matchFilter;
 	const schedule = JSON.parse(event.schedule);
 	const reqStat = JSON.parse(event.reqStat);
 	const stadiumGeohash = event.stadiumGeohash;
 	const stadiumId = event.stadiumId;
 	const courtId = String(event.courtId);
 	const genderFilter = event.genderFilter;
+	const ageMinFilter = String(event.ageMinFilter);
+	const ageMaxFilter = String(event.ageMaxFilter);
 	const currDate = moment().format();
 
     dql.getMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, function(err, data) {
@@ -40,8 +42,8 @@ exports.handler = function(event, context, callback) {
 					dql.deleteMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, callback);
 				else
 					dql.updateMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, allowedPatches,
-						positions, matchTypes, schedule, reqStat, stadiumGeohash, stadiumId, courtId,
-						genderFilter, callback);
+						positions, matchFilter, schedule, reqStat, stadiumGeohash, stadiumId, courtId,
+						genderFilter, ageMinFilter, ageMaxFilter, callback);
 			}
 
             // La solicitud ya no existe

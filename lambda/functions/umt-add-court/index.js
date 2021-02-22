@@ -16,7 +16,7 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = function(event, context, callback) {
 	const hashKey = `${umtEnvs.pfx.STAD}${event.stadiumId}`;
-	const matchTypes = event.matchTypes;
+	const matchFilter = event.matchFilter;
 	const material = event.material ? event.material : umtEnvs.dft.MATERIAL;
 
 	// Obtener el id de la ultima cancha agregada para generar id actual
@@ -25,7 +25,7 @@ exports.handler = function(event, context, callback) {
         else {
 			const rangeKey = `${umtEnvs.pfx.COURT}${event.stadiumGeohash}#${lastId + 1}`;
 
-			dql.addCourt(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, matchTypes,
+			dql.addCourt(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, matchFilter,
 				material, callback);
         }
     });

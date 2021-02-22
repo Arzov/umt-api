@@ -20,7 +20,6 @@ exports.handler = function(event, context, callback) {
     const latitude = event.latitude;
 	const longitude = event.longitude;
 	const hashKey = `${umtEnvs.pfx.USR}${event.email}`;
-	const genderFilter = event.genderFilter;
 	const ageMinFilter = String(event.ageMinFilter);
 	const ageMaxFilter = String(event.ageMaxFilter);
 	const matchFilter = event.matchFilter;
@@ -33,6 +32,6 @@ exports.handler = function(event, context, callback) {
 	const geohash = ngeohash.encode(latitude, longitude, geohashLength);
 
     dql.updateUser(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, geohash, coords,
-        genderFilter, ageMinFilter, ageMaxFilter, matchFilter, positions, skills, foot, weight,
+        ageMinFilter, ageMaxFilter, matchFilter, positions, skills, foot, weight,
         height, callback);
 };

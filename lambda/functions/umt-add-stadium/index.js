@@ -24,9 +24,9 @@ exports.handler = function(event, context, callback) {
 	const coords = {LON: {N: String(longitude)}, LAT: {N: String(latitude)}};
 	const hashKey = `${umtEnvs.pfx.STAD}${umtUtils.nameToId(name)}`;
 	const rangeKey = `${umtEnvs.pfx.STAD}${ngeohash.encode(latitude, longitude, geohashLength)}`;
-	const matchTypes = event.matchTypes;
+	const matchFilter = event.matchFilter;
 	const address = event.address ? event.address : umtEnvs.dft.STADIUM.ADDRESS;
 
-	dql.addStadium(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, name, matchTypes, coords,
+	dql.addStadium(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, name, matchFilter, coords,
 		address, callback);
 };

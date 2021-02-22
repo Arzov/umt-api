@@ -12,7 +12,6 @@
  * @param {String} rangeKey Email
  * @param {String} geohash Hash de geolocalizacion
  * @param {Object} coords Coordenadas de latitud y longitud
- * @param {String[]} genderFilter Filtro de sexo
  * @param {String} ageMinFilter Filtro de edad minima
  * @param {String} ageMaxFilter Filtro de edad maxima
  * @param {String[]} matchFilter Filtro de tipo de juego
@@ -23,7 +22,7 @@
  * @param {String} height Estatura
  * @param {Function} fn Funcion callback
  */
-const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFilter, ageMinFilter,
+const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, ageMinFilter,
     ageMaxFilter, matchFilter, positions, skills, foot, weight, height, fn) => {
     db.putItem({
         TableName: tableName,
@@ -32,7 +31,6 @@ const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFilter
             'rangeKey': { S: rangeKey },
             'geohash': { S: geohash },
             'coords': { M: coords },
-            'genderFilter': { SS: genderFilter },
             'ageMinFilter': { N: ageMinFilter },
             'ageMaxFilter': { N: ageMaxFilter },
             'matchFilter': { SS: matchFilter },
@@ -51,7 +49,6 @@ const addUser = (db, tableName, hashKey, rangeKey, geohash, coords, genderFilter
                 coords: JSON.stringify(coords),
                 ageMinFilter,
                 ageMaxFilter,
-                genderFilter,
                 matchFilter,
                 positions,
                 skills: JSON.stringify(skills),

@@ -1,0 +1,15 @@
+[
+  {
+    "email": "franco.barrientos@arzov.com",
+    "latitude": -33.399435,
+    "longitude": -70.573615,
+    "ageMinFilter": 22,
+    "ageMaxFilter": 45,
+    "matchFilter": ["5v5", "7v7", "11v11"],
+    "positions": ["CF", "LW", "RW"],
+    "skills": "{\"ATT\":{\"N\":\"1\"},\"SPD\":{\"N\":\"1\"},\"TEC\":{\"N\":\"1\"},\"TWK\":{\"N\":\"1\"},\"FCE\":{\"N\":\"1\"},\"DEF\":{\"N\":\"1\"}}",
+    "foot": "R",
+    "weight": 80,
+    "height": 175
+  }
+]

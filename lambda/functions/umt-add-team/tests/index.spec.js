@@ -1,11 +1,6 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event01 = require('../events/event01.json')
-const event02 = require('../events/event02.json')
-const event03 = require('../events/event03.json')
-const event04 = require('../events/event04.json')
-const event05 = require('../events/event05.json')
-const event06 = require('../events/event06.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-add-team', () => {
 
@@ -13,7 +8,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
   let params = {FunctionName: 'umt-add-team'}
 
   test('Evaluar respuesta: Equipo (REAL MADRID)', (done) => {
-    params.Payload = JSON.stringify(event01)
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -27,6 +22,10 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('realmadrid')
         expect(response.name).toBe('REAL MADRID')
         expect(response.picture).toBe('')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('40')
+        expect(response.genderFilter).toStrictEqual(['M'])
+        expect(response.matchFilter).toStrictEqual(['5v5', '7v7', '11v11'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(false)
       }
@@ -36,7 +35,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
   }, 60000)
 
   test('Evaluar respuesta: Equipo (MAN. UNITED)', (done) => {
-    params.Payload = JSON.stringify(event02)
+    params.Payload = JSON.stringify(events[1])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -50,6 +49,10 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('man.united')
         expect(response.name).toBe('MAN. UNITED')
         expect(response.picture).toBe('')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('40')
+        expect(response.genderFilter).toStrictEqual(['M'])
+        expect(response.matchFilter).toStrictEqual(['5v5', '11v11'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(false)
       }
@@ -59,7 +62,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
   }, 60000)
 
   test('Evaluar respuesta: Equipo (FC BARCELONA)', (done) => {
-    params.Payload = JSON.stringify(event03)
+    params.Payload = JSON.stringify(events[2])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -73,6 +76,10 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('fcbarcelona')
         expect(response.name).toBe('FC BARCELONA')
         expect(response.picture).toBe('')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('40')
+        expect(response.genderFilter).toStrictEqual(['M'])
+        expect(response.matchFilter).toStrictEqual(['5v5'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }
@@ -82,7 +89,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
   }, 60000)
 
   test('Evaluar respuesta: Equipo (PSG)', (done) => {
-    params.Payload = JSON.stringify(event04)
+    params.Payload = JSON.stringify(events[3])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -96,6 +103,10 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('psg')
         expect(response.name).toBe('PSG')
         expect(response.picture).toBe('')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('40')
+        expect(response.genderFilter).toStrictEqual(['F'])
+        expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }
@@ -105,7 +116,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
   }, 60000)
 
   test('Evaluar respuesta: Equipo (BAYERN)', (done) => {
-    params.Payload = JSON.stringify(event05)
+    params.Payload = JSON.stringify(events[4])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -119,6 +130,10 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('bayern')
         expect(response.name).toBe('BAYERN')
         expect(response.picture).toBe('')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('40')
+        expect(response.genderFilter).toStrictEqual(['M', 'F'])
+        expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }
@@ -128,7 +143,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
   }, 60000)
 
   test('Evaluar respuesta: Equipo (CHELSEA)', (done) => {
-    params.Payload = JSON.stringify(event06)
+    params.Payload = JSON.stringify(events[5])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -142,6 +157,10 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.id).toBe('chelsea')
         expect(response.name).toBe('CHELSEA')
         expect(response.picture).toBe('')
+        expect(response.ageMinFilter).toBe('20')
+        expect(response.ageMaxFilter).toBe('40')
+        expect(response.genderFilter).toStrictEqual(['M'])
+        expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
       }

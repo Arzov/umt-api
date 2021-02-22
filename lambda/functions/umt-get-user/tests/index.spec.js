@@ -1,6 +1,6 @@
 const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
-const event = require('../events/event.json')
+const events = require('../events/events.json')
 
 describe('Test AWS Lambda: umt-get-user', () => {
 
@@ -8,7 +8,7 @@ describe('Test AWS Lambda: umt-get-user', () => {
   let params = {FunctionName: 'umt-get-user'}
 
   test('Respuesta desde AWS: Usuario franco.barrientos@arzov.com', (done) => {
-    params.Payload = JSON.stringify(event)
+    params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
       if (err) {
@@ -22,13 +22,12 @@ describe('Test AWS Lambda: umt-get-user', () => {
         expect(response.geohash).toBe('66jcfp')
         expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
         expect(JSON.parse(response.skills)).toStrictEqual(umtEnvs.dft.USER.SKILLS)
-        expect(response.genderFilter).toStrictEqual(['M'])
-        expect(response.ageMinFilter).toBe('20')
-        expect(response.ageMaxFilter).toBe('40')
+        expect(response.ageMinFilter).toBe('22')
+        expect(response.ageMaxFilter).toBe('45')
         expect(response.matchFilter).toStrictEqual(['11v11', '5v5', '7v7'])
         expect(response.positions).toStrictEqual(['CF', 'LW', 'RW'])
         expect(response.foot).toBe('R')
-        expect(response.weight).toBe('75')
+        expect(response.weight).toBe('80')
         expect(response.height).toBe('175')
       }
 

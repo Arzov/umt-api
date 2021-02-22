@@ -15,7 +15,7 @@ const dynamodb = new aws.DynamoDB(options);
 
 
 exports.handler = (event, context, callback) => {
-    let hashKey = `${umtEnvs.pfx.USR}${event.email}`;
+    const hashKey = `${umtEnvs.pfx.USR}${event.email}`;
 
     dql.getUser(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, callback);
 };

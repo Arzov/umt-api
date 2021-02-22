@@ -1,0 +1,63 @@
+[
+  {
+    "geohash": "66jcfp",
+    "gender": "M",
+    "genderFilter": ["M"],
+    "ageMinFilter": 18,
+    "ageMaxFilter": 50,
+    "matchFilter": ["5v5", "7v7"],
+    "forJoin": false,
+    "nextToken": null
+  },
+  {
+    "geohash": "66jcfp",
+    "gender": "M",
+    "genderFilter": ["M"],
+    "ageMinFilter": 18,
+    "ageMaxFilter": 40,
+    "matchFilter": ["7v7", "11v11"],
+    "forJoin": true,
+    "nextToken": null
+  },
+  {
+    "geohash": "66jcfp",
+    "gender": "F",
+    "genderFilter": ["F"],
+    "ageMinFilter": 18,
+    "ageMaxFilter": 40,
+    "matchFilter": ["7v7"],
+    "forJoin": true,
+    "nextToken": null
+  },
+  {
+    "geohash": "66jcfp",
+    "gender": "F",
+    "genderFilter": ["F"],
+    "ageMinFilter": 18,
+    "ageMaxFilter": 60,
+    "matchFilter": ["7v7"],
+    "forJoin": false,
+    "nextToken": null
+  },
+  {
+    "ownTeams": ["chelsea", "fcbarcelona"],
+    "geohash": "66jcfp",
+    "gender": "M",
+    "genderFilter": ["M"],
+    "ageMinFilter": 18,
+    "ageMaxFilter": 60,
+    "matchFilter": ["5v5", "7v7"],
+    "forJoin": false,
+    "nextToken": null
+  },
+  {
+    "geohash": "66jcfp",
+    "gender": "M",
+    "genderFilter": ["M", "F"],
+    "ageMinFilter": 18,
+    "ageMaxFilter": 60,
+    "matchFilter": ["5v5", "7v7"],
+    "forJoin": false,
+    "nextToken": null
+  }
+]
