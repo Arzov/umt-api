@@ -8,11 +8,16 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const moment = require('moment');
 const dql = require('utils/dql');
-let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
-if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
+if (process.env.RUN_MODE === 'LOCAL') {
+	optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
+	optionsLambda = umtEnvs.dev.LAMBDA_CONTAINER_CONFIG;
+}
 
-const dynamodb = new aws.DynamoDB(options);
+const dynamodb = new aws.DynamoDB(optionsDynamodb);
+const lambda = new aws.Lambda(optionsLambda)
 
 
 exports.handler = function(event, context, callback) {
@@ -31,23 +36,37 @@ exports.handler = function(event, context, callback) {
 	const ageMaxFilter = String(event.ageMaxFilter);
 	const currDate = moment().format();
 
-    dql.getMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, function(err, data) {
+    let params = { FunctionName: 'umt-get-match' };
+	params.Payload = JSON.stringify({
+		teamId1: event.teamId1,
+		teamId2: event.teamId2
+	});
+    lambda.invoke(params, function(err, data) {
         if (err) callback(err);
         else {
-            // Aun existe la solicitud
-			if (Object.entries(data).length > 0 && data.constructor === Object) {
+			const response = JSON.parse(data.Payload)
+
+            // Aun existe el partido
+			if (Object.entries(response).length > 0 && response.constructor === Object) {
 				if (reqStat.AR.S === 'C' || reqStat.AR.S === 'D' ||
 					reqStat.RR.S === 'C' || reqStat.RR.S === 'D' ||
-					currDate >= data.Item.expireOn.S)
+					currDate >= response.expireOn)
 					dql.deleteMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, callback);
 				else
 					dql.updateMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, allowedPatches,
 						positions, matchFilter, schedule, reqStat, stadiumGeohash, stadiumId, courtId,
-						genderFilter, ageMinFilter, ageMaxFilter, callback);
+						genderFilter, ageMinFilter, ageMaxFilter, response.geohash, response.coords,
+						callback);
 			}
 
-            // La solicitud ya no existe
-            else callback(null, {teamId1: ''});
+            // El partido ya no existe
+            else {
+				const err = new Error(JSON.stringify({
+					code: 'MatchNotExistsException',
+					message: `El partido no existe.`
+				}));
+				callback(err);
+			}
         }
 	});
 };

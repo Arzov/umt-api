@@ -32,6 +32,7 @@ describe('Test AWS Lambda: umt-get-match', () => {
         expect(response.ageMinFilter).toBe('20')
         expect(response.ageMaxFilter).toBe('40')
         expect(response.geohash).toBe('66jcfp')
+        expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
   
       done()

@@ -29,6 +29,7 @@
           picture: String
           formation: String
           geohash: String
+          coords: String
           searchingPlayers: Boolean
           genderFilter: [String]
           ageMinFilter: Int
@@ -79,6 +80,7 @@
           schedule: String
           reqStat: String
           geohash: String
+          coords: String
           genderFilter: [String]
           ageMinFilter: Int
           ageMaxFilter: Int
@@ -164,6 +166,8 @@
           addTeam(
             name: String!,
             geohash: String!,
+            latitude: Float!,
+            longitude: Float!,
             picture: String,
             searchingPlayers: Boolean,
             genderFilter: [String!]!,
@@ -198,6 +202,8 @@
             ageMaxFilter: Int!,
             schedule: String,
             geohash: String!,
+            latitude: Float!,
+            longitude: Float!,
             stadiumGeohash: String,
             stadiumId: String, courtId: Int
           ): Match

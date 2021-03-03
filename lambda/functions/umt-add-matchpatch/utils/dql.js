@@ -16,8 +16,8 @@ const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
     db.getItem({
         TableName: tableName,
         Key: {
-            "hashKey": { S: hashKey },
-            "rangeKey": { S: rangeKey }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey }
         }
     },
     function(err, data) {

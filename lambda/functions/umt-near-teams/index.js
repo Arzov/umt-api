@@ -70,6 +70,7 @@ exports.handler = (event, context, callback) => {
                         picture: x.picture.S,
                         formation: JSON.stringify(x.formation.M),
                         geohash: x.geohash.S,
+                        coords: JSON.stringify(x.coords.M),
                         searchingPlayers: x.searchingPlayers.BOOL,
                         ageMinFilter: x.ageMinFilter.N,
                         ageMaxFilter: x.ageMaxFilter.N,

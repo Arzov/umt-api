@@ -8,11 +8,16 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const moment = require('moment');
 const dql = require('utils/dql');
-let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
-if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
+if (process.env.RUN_MODE === 'LOCAL') {
+	optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
+	optionsLambda = umtEnvs.dev.LAMBDA_CONTAINER_CONFIG;
+}
 
-const dynamodb = new aws.DynamoDB(options);
+const dynamodb = new aws.DynamoDB(optionsDynamodb);
+const lambda = new aws.Lambda(optionsLambda)
 const daysToExpire = umtEnvs.gbl.DAYS_TO_EXPIRE;
 
 
@@ -35,21 +40,36 @@ exports.handler = function(event, context, callback) {
 	const courtId = event.courtId ? String(event.courtId) : umtEnvs.dft.MATCH.COURTID;
 	const genderFilter = event.genderFilter;
 	const reqStat = umtEnvs.dft.MATCH.REQSTAT;
+	const latitude = event.latitude;
+	const longitude = event.longitude;
+	const coords = {LON: {N: String(longitude)}, LAT: {N: String(latitude)}};
 
 	// Verificar si existe alguna solicitud desde el otro equipo
-    dql.getMatch(dynamodb, process.env.DB_UMT_001, rangeKey, hashKey, function(err, data) {
+    let params = { FunctionName: 'umt-get-match' };
+	params.Payload = JSON.stringify({
+		teamId1: event.teamId2,
+		teamId2: event.teamId1
+	});
+	lambda.invoke(params, function(err, data) {
         if (err) callback(err);
         else {
+			const response = JSON.parse(data.Payload)
+
             // Existe una solicitud y no ha expirado
-			if (Object.entries(data).length > 0 && data.constructor === Object && createdOn < data.Item.expireOn.S)
-				callback(null, {teamId1: event.teamId2});
+			if (Object.entries(response).length > 0 && response.constructor === Object && createdOn < response.expireOn) {
+				let err = new Error(JSON.stringify({
+					code: 'MatchExistsException',
+					message: `Ya existe una solicitud desde el equipo rival.`
+				}));
+				callback(err);
+			}
 
             // Si no existe entonces agregar
             else 
                 dql.addMatch(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, createdOn,
 					expireOn, allowedPatches, positions, ageMinFilter, ageMaxFilter, matchFilter,
-					schedule, reqStat, geohash, stadiumGeohash, stadiumId, courtId, genderFilter,
-					callback);
+					schedule, reqStat, geohash, coords, stadiumGeohash, stadiumId, courtId,
+					genderFilter, callback);
         }
     });
 };

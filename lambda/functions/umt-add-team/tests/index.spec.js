@@ -28,6 +28,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.matchFilter).toStrictEqual(['5v5', '7v7', '11v11'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(false)
+        expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -55,6 +56,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.matchFilter).toStrictEqual(['5v5', '11v11'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(false)
+        expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -82,6 +84,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.matchFilter).toStrictEqual(['5v5'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
+        expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -109,6 +112,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
+        expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -136,6 +140,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
+        expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -163,6 +168,28 @@ describe('Test AWS Lambda: umt-add-team', () => {
         expect(response.matchFilter).toStrictEqual(['7v7'])
         expect(JSON.parse(response.formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.searchingPlayers).toBe(true)
+        expect(JSON.parse(response.coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
+      }
+
+      done()
+    })
+  }, 60000)
+
+  test('Evaluar respuesta: Equipo existente (CHELSEA)', (done) => {
+    params.Payload = JSON.stringify(events[5])
+
+    lambda.invoke(params, function(err, data) {
+      if (err) {
+        console.log(err)
+        expect(err.StatusCode).toBe(200)
+      } else {
+        let response = JSON.parse(data.Payload)
+
+        expect(data.StatusCode).toBe(200)
+        expect(JSON.parse(response.errorMessage)).toStrictEqual({
+					code: 'TeamExistsException',
+					message: 'El equipo ya existe.'
+				})
       }
 
       done()

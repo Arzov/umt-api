@@ -18,6 +18,7 @@ describe('Test AWS Lambda: umt-near-matches', () => {
         let response = JSON.parse(data.Payload)
 
         expect(data.StatusCode).toBe(200)
+        expect(response.items).toStrictEqual([])
         expect(response.nextToken).toBe(null) 
       }
 

@@ -19,25 +19,27 @@
  * @param {Object} formation Formación para cada tipo de juego
  * @param {Boolean} searchingPlayers Indicador de busqueda de nuevos integrantes
  * @param {String} geohash Hash de geolocalizacion
+ * @param {Object} coords Coordenadas de la ubicacion
  * @param {Function} fn Funcion callback
  */
 const addTeam = (db, tableName, hashKey, rangeKey, geohash, name, picture,
     ageMinFilter, ageMaxFilter, matchFilter, genderFilter, formation,
-    searchingPlayers, fn) => {
+    searchingPlayers, coords, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
-            'hashKey': { S: hashKey },
-            'rangeKey': { S: rangeKey },
-            'geohash': { S: geohash },
-            'name': { S: name },
-            'picture': { S: picture },
-            'ageMinFilter': { N: ageMinFilter },
-            'ageMaxFilter': { N: ageMaxFilter },
-            'matchFilter': { SS: matchFilter },
-            'genderFilter': { SS: genderFilter },
-            'formation': { M: formation },
-            'searchingPlayers': { BOOL: searchingPlayers }
+            hashKey: { S: hashKey },
+            rangeKey: { S: rangeKey },
+            geohash: { S: geohash },
+            name: { S: name },
+            picture: { S: picture },
+            ageMinFilter: { N: ageMinFilter },
+            ageMaxFilter: { N: ageMaxFilter },
+            matchFilter: { SS: matchFilter },
+            genderFilter: { SS: genderFilter },
+            formation: { M: formation },
+            searchingPlayers: { BOOL: searchingPlayers },
+            coords: { M: coords }
         }
     }, function(err, data) {
         if (err) fn(err);
@@ -52,7 +54,8 @@ const addTeam = (db, tableName, hashKey, rangeKey, geohash, name, picture,
                 matchFilter,
                 genderFilter,
                 formation: JSON.stringify(formation),
-                searchingPlayers
+                searchingPlayers,
+                coords: JSON.stringify(coords)
             });
     });
 }

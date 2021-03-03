@@ -5,28 +5,6 @@
 
 
 /**
- * Obtiene un partido
- * @param {Object} db Conexion a DynamoDB
- * @param {String} tableName Nombre de la tabla
- * @param {String} hashKey Id del equipo solicitante
- * @param {String} rangeKey Id del equipo solicitado
- * @param {Function} fn Funcion callback
- */
-const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
-    db.getItem({
-        TableName: tableName,
-        Key: {
-            "hashKey": { S: hashKey },
-            "rangeKey": { S: rangeKey }
-        }
-    },
-    function(err, data) {
-        if (err) fn(err);
-        else fn(null, data);
-    });
-}
-
-/**
  * Crea un match entre equipos
  * @param {Object} db Conexion a DynamoDB
  * @param {String} tableName Nombre de la tabla
@@ -42,6 +20,7 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
  * @param {Object} schedule Horario y fecha del encuentro
  * @param {Object} reqStat Estado de la solicitud
  * @param {String} geohash Hash de geolocalizacion
+ * @param {Object} coords Coordenadas de la ubicacion
  * @param {String} stadiumGeohash Hash de geolocalizacion del club deportivo
  * @param {String} stadiumId Id del club deportivo donde se jugara
  * @param {String} courtId Id de la cancha donde se jugara el partido
@@ -50,7 +29,7 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
  */
 const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowedPatches,
     positions, ageMinFilter, ageMaxFilter, matchFilter, schedule, reqStat, geohash,
-    stadiumGeohash, stadiumId, courtId, genderFilter, fn) => {
+    coords, stadiumGeohash, stadiumId, courtId, genderFilter, fn) => {
     db.putItem({
         TableName: tableName,
         Item: {
@@ -66,6 +45,7 @@ const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowed
             schedule: { M: schedule },
             reqStat: { M: reqStat },
             geohash: { S: geohash },
+            coords: { M: coords },
             stadiumGeohash: { S: stadiumGeohash },
             stadiumId: { S: stadiumId },
             courtId: { N: courtId },
@@ -87,6 +67,7 @@ const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowed
                 schedule: JSON.stringify(schedule),
                 reqStat: JSON.stringify(reqStat),
                 geohash,
+                coords: JSON.stringify(coords),
                 stadiumGeohash,
                 stadiumId,
                 courtId,
@@ -95,5 +76,4 @@ const addMatch = (db, tableName, hashKey, rangeKey, createdOn, expireOn, allowed
     });
 }
 
-module.exports.getMatch = getMatch;
 module.exports.addMatch = addMatch;

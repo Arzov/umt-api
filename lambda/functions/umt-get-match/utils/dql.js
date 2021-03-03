@@ -40,6 +40,7 @@ const getTeam = (db, tableName, hashKey, rangeKey, fn) => {
                     ageMinFilter: data.Item.ageMinFilter.N,
                     ageMaxFilter: data.Item.ageMaxFilter.N,
                     geohash: data.Item.geohash.S,
+                    coords: JSON.stringify(data.Item.coords.M),
                     expireOn: data.Item.expireOn.S,
                     createdOn: data.Item.createdOn.S
                 });

@@ -33,7 +33,7 @@ exports.handler = (event, context, callback) => {
 
     // Prefijo a los id
     ownTeams = ownTeams.map(function(x) {
-        return `${umtEnvs.pfx.TEAM}${x}`
+        return `${umtEnvs.pfx.MATCH}${x}`
     })
 
     /**
@@ -72,6 +72,7 @@ exports.handler = (event, context, callback) => {
                             schedule: JSON.stringify(x.schedule.M),
                             reqStat: JSON.stringify(x.reqStat.M),
                             geohash: x.geohash.S,
+                            coords: JSON.stringify(x.coords.M),
                             stadiumGeohash: x.stadiumGeohash.S,
                             stadiumId: x.stadiumId.S,
                             courtId: x.courtId.N,

@@ -2,6 +2,8 @@
   {
     "name": "Real Madrid",
     "geohash": "66jcfp",
+    "latitude": -33.399435,
+    "longitude": -70.573615,
     "ageMinFilter": 20,
     "ageMaxFilter": 40,
     "matchFilter": ["5v5", "7v7", "11v11"],
@@ -11,6 +13,8 @@
   {
     "name": "Man. united",
     "geohash": "66jcfp",
+    "latitude": -33.399435,
+    "longitude": -70.573615,
     "ageMinFilter": 20,
     "ageMaxFilter": 40,
     "matchFilter": ["5v5", "11v11"],
@@ -20,6 +24,8 @@
   {
     "name": "Fc Barcelona",
     "geohash": "66jcfp",
+    "latitude": -33.399435,
+    "longitude": -70.573615,
     "ageMinFilter": 20,
     "ageMaxFilter": 40,
     "matchFilter": ["5v5"],
@@ -29,6 +35,8 @@
   {
     "name": "PSG",
     "geohash": "66jcfp",
+    "latitude": -33.399435,
+    "longitude": -70.573615,
     "ageMinFilter": 20,
     "ageMaxFilter": 40,
     "matchFilter": ["7v7"],
@@ -38,6 +46,8 @@
   {
     "name": "Bayern",
     "geohash": "66jcfp",
+    "latitude": -33.399435,
+    "longitude": -70.573615,
     "ageMinFilter": 20,
     "ageMaxFilter": 40,
     "matchFilter": ["7v7"],
@@ -47,6 +57,8 @@
   {
     "name": "Chelsea",
     "geohash": "66jcfp",
+    "latitude": -33.399435,
+    "longitude": -70.573615,
     "ageMinFilter": 20,
     "ageMaxFilter": 40,
     "matchFilter": ["7v7"],

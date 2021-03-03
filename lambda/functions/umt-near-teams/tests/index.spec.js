@@ -30,7 +30,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].searchingPlayers).toBe(true)
         expect(JSON.parse(response.items[0].formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.items[0].picture).toBe('')
-        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
+        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}")
+        expect(JSON.parse(response.items[0].coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -59,7 +60,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].searchingPlayers).toBe(true)
         expect(JSON.parse(response.items[0].formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.items[0].picture).toBe('')
-        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
+        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}")
+        expect(JSON.parse(response.items[0].coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -88,7 +90,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].searchingPlayers).toBe(true)
         expect(JSON.parse(response.items[0].formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.items[0].picture).toBe('')
-        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
+        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}")
+        expect(JSON.parse(response.items[0].coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -116,7 +119,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].searchingPlayers).toBe(true)
         expect(JSON.parse(response.items[0].formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.items[0].picture).toBe('')
-        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
+        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}")
+        expect(JSON.parse(response.items[0].coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -144,7 +148,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].searchingPlayers).toBe(false)
         expect(JSON.parse(response.items[0].formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.items[0].picture).toBe('')
-        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
+        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}")
+        expect(JSON.parse(response.items[0].coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()
@@ -172,7 +177,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         expect(response.items[0].searchingPlayers).toBe(true)
         expect(JSON.parse(response.items[0].formation)).toStrictEqual(umtEnvs.dft.TEAM.FORMATION)
         expect(response.items[0].picture).toBe('')
-        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}") 
+        expect(response.nextToken).toStrictEqual("{\"rangeKey\":{\"S\":\"TEAM#psg\"},\"hashKey\":{\"S\":\"TEAM#psg\"},\"geohash\":{\"S\":\"66jcfp\"}}")
+        expect(JSON.parse(response.items[0].coords)).toStrictEqual({LON: {N: '-70.573615'}, LAT: {N: '-33.399435'}})
       }
 
       done()

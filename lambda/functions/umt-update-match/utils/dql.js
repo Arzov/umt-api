@@ -5,28 +5,6 @@
 
 
 /**
- * Obtiene un partido
- * @param {Object} db Conexion a DynamoDB
- * @param {String} tableName Nombre de la tabla
- * @param {String} hashKey Id del equipo solicitante
- * @param {String} rangeKey Id del equipo solicitado
- * @param {Function} fn Funcion callback
- */
-const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
-    db.getItem({
-        TableName: tableName,
-        Key: {
-            "hashKey": { S: hashKey },
-            "rangeKey": { S: rangeKey }
-        }
-    },
-    function(err, data) {
-        if (err) fn(err);
-        else fn(null, data);
-    });
-}
-
-/**
  * Actualiza informacion del partido
  * @param {Object} db Conexion a DynamoDB
  * @param {String} tableName Nombre de la tabla
@@ -43,10 +21,13 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
  * @param {String[]} genderFilter Sexo de los equipos
  * @param {String} ageMinFilter Edad minima de los jugadores
  * @param {String} ageMaxFilter Edad maxima de los jugadores
+ * @param {String} geohash Hash de geolocalizacion (solo para entregar en output)
+ * @param {Object} coords Coordenadas de la ubicacion (solo para entregar en output)
  * @param {Function} fn Funcion callback
  */
 const updateMatch = (db, tableName, hashKey, rangeKey, allowedPatches, positions, matchFilter, schedule,
-    reqStat, stadiumGeohash, stadiumId, courtId, genderFilter, ageMinFilter, ageMaxFilter, fn) => {
+    reqStat, stadiumGeohash, stadiumId, courtId, genderFilter, ageMinFilter, ageMaxFilter, geohash,
+    coords, fn) => {
     db.updateItem({
         TableName: tableName,
         Key: {
@@ -86,7 +67,9 @@ const updateMatch = (db, tableName, hashKey, rangeKey, allowedPatches, positions
             courtId,
             genderFilter,
             ageMinFilter,
-            ageMaxFilter
+            ageMaxFilter,
+            geohash,
+            coords
         });
     });
 }
@@ -109,10 +92,15 @@ const deleteMatch = (db, tableName, hashKey, rangeKey, fn) => {
     },
     function(err, data) {
         if (err) fn(err);
-        else fn(null, {teamId1: ''});
+        else {
+            const err = new Error(JSON.stringify({
+                code: 'MatchDeletedException',
+                message: `Partido eliminado.`
+            }));
+            fn(err);
+        }
     });
 }
 
-module.exports.getMatch = getMatch;
 module.exports.updateMatch = updateMatch;
 module.exports.deleteMatch = deleteMatch;
