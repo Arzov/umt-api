@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "async": "^3.2.0",
+    "moment": "^2.26.0",
+    "ngeohash": "^0.6.3"
+  }
+}

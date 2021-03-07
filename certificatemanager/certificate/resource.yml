@@ -1,0 +1,11 @@
+
+  CMCertificateUMT:
+    Type: AWS::CertificateManager::Certificate
+    Properties: 
+      DomainName: umatch.arzov.com
+      DomainValidationOptions:
+        - DomainName: umatch.arzov.com
+          ValidationDomain: arzov.com
+      SubjectAlternativeNames:
+        - "*.umatch.arzov.com"
+      ValidationMethod: EMAIL

@@ -1,0 +1,13 @@
+
+  LDFunctionUMTAddMatchChat:
+    Type: AWS::Serverless::Function
+    DependsOn:
+      - LDLayerUMTEnvs
+      - LDLayerUMTExt
+    Properties:
+      FunctionName: umt-add-matchchat
+      CodeUri: lambda/functions/umt-add-matchchat/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs
+        - !Ref LDLayerUMTExt

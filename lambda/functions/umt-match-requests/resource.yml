@@ -1,0 +1,10 @@
+
+  LDFunctionUMTMatchRequests:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-match-requests
+      CodeUri: lambda/functions/umt-match-requests/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs

@@ -1,0 +1,10 @@
+
+  LDFunctionUMTGetTeam:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-get-team
+      CodeUri: lambda/functions/umt-get-team/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs

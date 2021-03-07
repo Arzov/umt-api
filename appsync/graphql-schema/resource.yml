@@ -1,0 +1,342 @@
+
+  ASGraphQLSchemaUMT:
+    Type: AWS::AppSync::GraphQLSchema
+    Properties: 
+      ApiId: !GetAtt ASGraphQLApiUMT.ApiId
+      Definition: >
+        type User {
+          email: String
+          geohash: String
+          coords: String
+          ageMinFilter: Int
+          ageMaxFilter: Int
+          matchFilter: [String]
+          positions: [String]
+          skills: String
+          foot: String
+          weight: Int
+          height: Int
+        }
+        
+        type UserList {
+          items: [User]
+          nextToken: String
+        }
+
+        type Team {
+          id: String
+          name: String
+          picture: String
+          formation: String
+          geohash: String
+          coords: String
+          searchingPlayers: Boolean
+          genderFilter: [String]
+          ageMinFilter: Int
+          ageMaxFilter: Int
+          matchFilter: [String]
+        }
+
+        type TeamList {
+          items: [Team]
+          nextToken: String
+        }
+
+        type TeamMember {
+          teamId: String
+          userEmail: String
+          position: String
+          isCaptain: Boolean
+          role: [String]
+          reqStat: String
+          number: Int
+          joinedOn: String
+        }
+
+        type TeamMemberList {
+          items: [TeamMember]
+          nextToken: String
+        }
+
+        type TeamChat {
+          teamId: String
+          userEmail: String
+          sentOn: String
+          msg: String
+        }
+
+        type TeamChatList {
+          items: [TeamChat]
+          nextToken: String
+        }
+
+        type Match {
+          teamId1: String
+          teamId2: String
+          createdOn: String
+          allowedPatches: Int
+          positions: [String]
+          expireOn: String
+          schedule: String
+          reqStat: String
+          geohash: String
+          coords: String
+          genderFilter: [String]
+          ageMinFilter: Int
+          ageMaxFilter: Int
+          matchFilter: [String]
+          stadiumGeohash: String
+          stadiumId: String
+          courtId: Int
+        }
+
+        type MatchList {
+          items: [Match]
+          nextToken: String
+        }
+
+        type MatchPatch {
+          teamId1: String
+          teamId2: String
+          userEmail: String
+          reqStat: String
+          joinedOn: String
+        }
+
+        type MatchPatchList {
+          items: [MatchPatch]
+          nextToken: String
+        }
+
+        type MatchChat {
+          teamId1: String
+          teamId2: String
+          userEmail: String
+          sentOn: String
+          msg: String
+        }
+
+        type MatchChatList {
+          items: [MatchChat]
+          nextToken: String
+        }
+
+        type Stadium {
+          geohash: String
+          id: String
+          name: String
+          matchFilter: [String]
+          coords: String
+          address: String
+        }
+
+        type StadiumList {
+          items: [Stadium]
+          nextToken: String
+        }
+
+        type Court {
+          stadiumId: String
+          stadiumGeohash: String
+          id: String
+          matchFilter: [String]
+          material: String
+        }
+
+        type CourtList {
+          items: [Court]
+          nextToken: String
+        }
+
+        type Mutation {
+          addUser(
+            latitude: Float!,
+            longitude: Float!,
+            email: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String!]!,
+            positions: [String],
+            skills: String,
+            foot: String!,
+            weight: Int!,
+            height: Int!
+          ): User
+
+          addTeam(
+            name: String!,
+            geohash: String!,
+            latitude: Float!,
+            longitude: Float!,
+            picture: String,
+            searchingPlayers: Boolean,
+            genderFilter: [String!]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String!]!
+          ): Team
+
+          addTeamMember(
+            teamId: String!,
+            userEmail: String!,
+            position: String,
+            role: [String],
+            reqStat: String!,
+            number: Int!
+          ): TeamMember
+
+          addTeamChat(
+            teamId: String!,
+            userEmail: String!,
+            msg: String!
+          ): TeamChat
+
+          addMatch(
+            teamId1: String!,
+            teamId2: String!,
+            allowedPatches: Int,
+            positions: [String],
+            matchFilter: [String!]!,
+            genderFilter: [String!]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            schedule: String,
+            geohash: String!,
+            latitude: Float!,
+            longitude: Float!,
+            stadiumGeohash: String,
+            stadiumId: String, courtId: Int
+          ): Match
+
+          addMatchPatch(
+            teamId1: String!,
+            teamId2: String!,
+            userEmail: String!,
+            reqStat: String
+          ): MatchPatch
+
+          addMatchChat(
+            teamId1: String!,
+            teamId2: String!,
+            userEmail: String!,
+            msg: String!
+          ): MatchChat
+
+          addStadium(
+            latitude: Float!,
+            longitude: Float!,
+            name: String!,
+            matchFilter: [String!]!,
+            address: String
+          ): Stadium
+
+          addCourt(
+            stadiumId: String!,
+            stadiumGeohash: String!,
+            matchFilter: [String!]!,
+            material: String
+          ): Court
+
+          updateUser(
+            latitude: Float!,
+            longitude: Float!,
+            email: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            positions: [String]!,
+            skills: String!,
+            foot: String!,
+            weight: Int!,
+            height: Int!
+          ): User
+
+          updateMatch(
+            teamId1: String!,
+            teamId2: String!,
+            allowedPatches: Int!,
+            positions: [String]!,
+            schedule: String!,
+            reqStat: String!,
+            genderFilter: [String]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            stadiumGeohash: String!,
+            stadiumId: String!,
+            courtId: Int!
+          ): Match
+        }
+
+        type Query {
+          getUser(
+            email: String!
+          ): User
+
+          getTeam(
+            id: String!
+          ): Team
+
+          nearTeams(
+            ownTeams: [String],
+            geohash: String!,
+            forJoin: Boolean!,
+            gender: String!,
+            genderFilter: [String]!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            nextToken: String
+          ): TeamList
+
+          getMatch(
+            teamId1: String!,
+            teamId2: String!
+          ): Match
+
+          nearMatches(
+            geohash: String!,
+            ownTeams: [String],
+            gender: String!,
+            ageMinFilter: Int!,
+            ageMaxFilter: Int!,
+            matchFilter: [String]!,
+            nextToken: String
+          ): MatchList
+
+          listTeams(
+            email: String!,
+            nextToken: String
+          ): TeamList
+
+          teamRequests(
+            id: String!,
+            nextToken: String
+          ): TeamMemberList
+
+          teamMemberRequests(
+            email: String!,
+            nextToken: String
+          ): TeamMemberList
+
+          listMatches(
+            id: String,
+            email: String,
+            nextToken: String
+          ): MatchList
+
+          matchRequests(
+            id: String!,
+            nextToken: String
+          ): MatchList
+
+          matchPatchRequests(
+            email: String!,
+            nextToken: String
+          ): MatchPatchList
+        }
+        
+        schema {
+          query: Query
+          mutation: Mutation
+        }

@@ -1,0 +1,13 @@
+Outputs:
+  ASGraphQLApiUMTUrl:
+    Value: !GetAtt ASGraphQLApiUMT.GraphQLUrl
+    Export:
+      Name: UMT-ASGraphQLApiUMTUrl
+  CFDistributionUMTWebId:
+    Value: !Ref CFDistributionUMTWeb
+    Export:
+      Name: UMT-CFDistributionUMTWebId
+  S3BucketUMTWebId:
+    Value: !Ref S3BucketUMTWeb
+    Export:
+      Name: UMT-S3BucketUMTWebId

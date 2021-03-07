@@ -1,0 +1,47 @@
+[
+  {
+    "teamId1": "man.united",
+    "teamId2": "realmadrid",
+    "allowedPatches": 2,
+    "positions": ["GK"],
+    "matchFilter": ["5v5", "11v11"],
+    "ageMinFilter": 20,
+    "ageMaxFilter": 40,
+    "schedule": "{\"day\":{\"S\":\"2020-11-03\"},\"time\":{\"S\":\"20:50\"}}",
+    "reqStat": "{\"AR\":{\"S\":\"A\"},\"RR\":{\"S\":\"A\"}}",
+    "stadiumGeohash": "",
+    "stadiumId": "",
+    "courtId": 0,
+    "genderFilter": ["M"]
+  },
+  {
+    "teamId1": "psg",
+    "teamId2": "realmadrid",
+    "allowedPatches": 2,
+    "positions": ["GK"],
+    "matchFilter": ["5v5", "11v11"],
+    "ageMinFilter": 20,
+    "ageMaxFilter": 40,
+    "schedule": "{\"day\":{\"S\":\"2020-11-03\"},\"time\":{\"S\":\"20:50\"}}",
+    "reqStat": "{\"AR\":{\"S\":\"A\"},\"RR\":{\"S\":\"A\"}}",
+    "stadiumGeohash": "",
+    "stadiumId": "",
+    "courtId": 0,
+    "genderFilter": ["M"]
+  },
+  {
+    "teamId1": "chelsea",
+    "teamId2": "realmadrid",
+    "allowedPatches": 2,
+    "positions": ["GK"],
+    "matchFilter": ["7v7"],
+    "ageMinFilter": 20,
+    "ageMaxFilter": 40,
+    "schedule": "{\"day\":{\"S\":\"2020-11-03\"},\"time\":{\"S\":\"20:50\"}}",
+    "reqStat": "{\"AR\":{\"S\":\"C\"},\"RR\":{\"S\":\"A\"}}",
+    "stadiumGeohash": "",
+    "stadiumId": "",
+    "courtId": 0,
+    "genderFilter": ["M"]
+  }
+]

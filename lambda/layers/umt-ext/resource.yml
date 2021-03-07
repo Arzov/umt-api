@@ -1,0 +1,8 @@
+
+  LDLayerUMTExt:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      LayerName: umt-ext
+      Content: lambda/layers/umt-ext/
+      CompatibleRuntimes:
+        - nodejs12.x

@@ -1,0 +1,13 @@
+
+  LDFunctionUMTUpdateUser:
+    Type: AWS::Serverless::Function
+    DependsOn:
+      - LDLayerUMTExt
+      - LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-update-user
+      CodeUri: lambda/functions/umt-update-user/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTExt
+        - !Ref LDLayerUMTEnvs

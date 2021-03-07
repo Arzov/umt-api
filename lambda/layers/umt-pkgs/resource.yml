@@ -1,0 +1,8 @@
+
+  LDLayerUMTPkgs:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      LayerName: umt-pkgs
+      Content: lambda/layers/umt-pkgs/
+      CompatibleRuntimes:
+        - nodejs12.x

@@ -1,0 +1,10 @@
+
+  LDFunctionUMTGetMatch:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-get-match
+      CodeUri: lambda/functions/umt-get-match/
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs

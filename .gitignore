@@ -1,0 +1,13 @@
+# Backend AWS
+**/node_modules/*
+.vscode
+*.~vsdx
+
+# Jekyll
+_site
+.jekyll-cache
+
+# Whitelist
+!lambda/layers/**/nodejs/.gitkeep
+!**/node_modules/umt-envs
+!**/node_modules/umt-utils

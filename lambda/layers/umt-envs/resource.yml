@@ -1,0 +1,8 @@
+
+  LDLayerUMTEnvs:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      LayerName: umt-envs
+      Content: lambda/layers/umt-envs/
+      CompatibleRuntimes:
+        - nodejs12.x

@@ -1,0 +1,10 @@
+
+  S3BucketUMTWeb:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref AWSS3WebBucket
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false      
