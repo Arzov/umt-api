@@ -3,12 +3,14 @@ name: CI
 
 on:
   pull_request:
-    branches: [ master, release, develop ]
+    branches: [ develop ]
+  push:
+    branches: [ develop ]
 
 jobs:
 
-  test-backend:
-    name: Test backend
+  test:
+    name: Test backend de AWS
     runs-on: ubuntu-latest
 
     steps:
@@ -17,38 +19,36 @@ jobs:
       - name: Variables para DEV
         if: github.base_ref == 'develop'
         run: |
+          echo "GLOBAL"
+          echo ::set-env name=ENV_SO::${{ secrets.ENV_SO }}
           echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_DEV }}
           echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_DEV }}
           echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_DEV }}
+          echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_DEV }}
+          echo "UMT"
           echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_DEV }}
           echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
-          echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_DEV }}
     
-      - name: Variables para STG
-        if: github.base_ref == 'release'
-        run: |
-          echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_STG }}
-          echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_STG }}
-          echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_STG }}
-          echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_STG }}
-          echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_STG }}
-          echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_STG }}
+      # TODO: Terminar estos flujos (decidir si seran mediante pull request)
+      # - name: Variables para STG
+      #   if: github.base_ref == 'release'
+      #   run: |
+      #     echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_STG }}
+      #     echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_STG }}
+      #     echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_STG }}
+      #     echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_STG }}
+      #     echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_STG }}
+      #     echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_STG }}
 
-      - name: Variables para PRD
-        if: github.base_ref == 'master'
-        run: |
-          echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_PRD }}
-          echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_PRD }}
-          echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_PRD }}
-          echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_PRD }}
-          echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_PRD }}
-          echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_PRD }}
-
-      - name: Instalar AWS CLI 2
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
+      # - name: Variables para PRD
+      #   if: github.base_ref == 'master'
+      #   run: |
+      #     echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_PRD }}
+      #     echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_PRD }}
+      #     echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_PRD }}
+      #     echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_PRD }}
+      #     echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_PRD }}
+      #     echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_PRD }}
 
       - name: Pruebas AWS Lambda
         run: |
