@@ -8,47 +8,24 @@ on:
 jobs:
 
   deploy:
-    name: Deploy en AWS
-    runs-on: ubuntu-latest
+    name: Despliegue
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Variables para DEV
-        if: github.base_ref == 'develop'
-        run: |
-          echo "GLOBAL"
-          echo ::set-env name=ENV_SO::${{ secrets.ENV_SO }}
-          echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_DEV }}
-          echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_DEV }}
-          echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_DEV }}
-          echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_DEV }}
-          echo "UMT"
-          echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_DEV }}
-          echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
-    
-      # TODO: Terminar estos flujos (decidir si seran mediante pull request)
-      # - name: Variables para STG
-      #   if: github.base_ref == 'release'
-      #   run: |
-      #     echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_STG }}
-      #     echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_STG }}
-      #     echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_STG }}
-      #     echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_STG }}
-      #     echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_STG }}
-      #     echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_STG }}
-
-      # - name: Variables para PRD
-      #   if: github.base_ref == 'master'
-      #   run: |
-      #     echo ::set-env name=AWS_ACCESS_KEY_ID::${{ secrets.AWS_ACCESS_KEY_PRD }}
-      #     echo ::set-env name=AWS_SECRET_ACCESS_KEY::${{ secrets.AWS_SECRET_KEY_PRD }}
-      #     echo ::set-env name=AWS_DEFAULT_REGION::${{ secrets.AWS_REGION_PRD }}
-      #     echo ::set-env name=AWS_S3_WEB_BUCKET::${{ secrets.AWS_S3_WEB_BUCKET_PRD }}
-      #     echo ::set-env name=AWS_S3_ARTIFACTS_BUCKET::${{ secrets.AWS_S3_ARTIFACTS_BUCKET_PRD }}
-      #     echo ::set-env name=AWS_R53_UMT_DOMAIN::${{ secrets.AWS_R53_UMT_DOMAIN_PRD }}
-
-      - name: Deploy
+      - name: Despliegue en AWS
+        if: github.ref == 'refs/heads/develop'
+        env:
+          # GLOBAL
+          ENV_SO: ${{ secrets.ENV_SO }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_DEV }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY_DEV }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION_DEV }}
+          AWS_R53_UMT_DOMAIN: ${{ secrets.AWS_R53_UMT_DOMAIN_DEV }}
+          # UMT
+          AWS_S3_WEB_BUCKET: ${{ secrets.AWS_S3_WEB_BUCKET_DEV }}
+          AWS_S3_ARTIFACTS_BUCKET: ${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
         run: |
           chmod +x deploy.sh
           ./deploy.sh

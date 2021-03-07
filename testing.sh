@@ -23,10 +23,7 @@ status=$?
 #  Levantar servicio AWS DynamoDB
 # ----------------------------------------------------------
 
-docker network create arzov-local-network
-docker run --name aws-arzov -d -p 8000:8000 \
-    --network arzov-local-network \
-    --network-alias arzov \
+docker run --name aws-arzov-dynamodb -d -p 8000:8000 \
     amazon/dynamodb-local \
     -jar DynamoDBLocal.jar \
     -inMemory -sharedDb
@@ -66,7 +63,7 @@ params="
     ParameterKey=AWSS3WebBucket,ParameterValue=$AWS_S3_WEB_BUCKET
     ParameterKey=AWSR53UMTDomain,ParameterValue=$AWS_R53_UMT_DOMAIN
 "
-$sam local start-lambda --docker-network arzov-local-network -t template.yml \
+$sam local start-lambda -t template.yml \
     --parameter-overrides $params \
     --env-vars lambda/functions/env.json & pids="${pids-} $!"
 status=$((status + $?))
@@ -78,29 +75,33 @@ status=$((status + $?))
 
 cd lambda/functions
 
+# lambdas="
+#     umt-add-user
+#     umt-update-user
+#     umt-add-team
+#     umt-add-teammember
+#     umt-add-teamchat
+#     umt-add-match
+#     umt-add-matchpatch
+#     umt-add-matchchat
+#     umt-update-match
+#     umt-add-stadium
+#     umt-add-court
+#     umt-get-user
+#     umt-get-team
+#     umt-get-match
+#     umt-near-teams
+#     umt-near-matches
+#     umt-list-teams
+#     umt-team-requests
+#     umt-teammember-requests
+#     umt-list-matches
+#     umt-match-requests
+#     umt-matchpatch-requests
+# "
+
 lambdas="
-    umt-add-user
-    umt-update-user
     umt-add-team
-    umt-add-teammember
-    umt-add-teamchat
-    umt-add-match
-    umt-add-matchpatch
-    umt-add-matchchat
-    umt-update-match
-    umt-add-stadium
-    umt-add-court
-    umt-get-user
-    umt-get-team
-    umt-get-match
-    umt-near-teams
-    umt-near-matches
-    umt-list-teams
-    umt-team-requests
-    umt-teammember-requests
-    umt-list-matches
-    umt-match-requests
-    umt-matchpatch-requests
 "
 
 for lambda in $lambdas
@@ -112,9 +113,9 @@ done
 
 # Detener servicios
 kill -9 $pids
-docker kill aws-arzov
-docker rm aws-arzov
-docker network rm arzov-local-network
+docker kill aws-arzov-dynamodb
+docker rm aws-arzov-dynamodb
+# docker network rm arzov-local-network
 
 # Remover archivos temporales
 cd ../../
