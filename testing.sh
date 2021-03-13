@@ -23,7 +23,10 @@ status=$?
 #  Levantar servicio AWS DynamoDB
 # ----------------------------------------------------------
 
-docker run --name aws-arzov-dynamodb -d -p 8000:8000 \
+docker run \
+    --name aws-arzov-dynamodb \
+    -d \
+    -p 8000:8000 \
     amazon/dynamodb-local \
     -jar DynamoDBLocal.jar \
     -inMemory -sharedDb
@@ -40,7 +43,11 @@ do
     ln="${tables[$table]}"
     cd $table
     awk "NR >= ${ln}" resource.yml > tmp.yml
-    aws dynamodb create-table --cli-input-yaml file://tmp.yml --endpoint-url http://localhost:8000 --region localhost > null.log
+    aws dynamodb create-table \
+        --cli-input-yaml file://tmp.yml \
+        --endpoint-url http://127.0.0.1:8000 \
+        --cli-connect-timeout 60000 \
+        > null.log
     rm tmp.yml; rm null.log; cd ../
 done
 
@@ -63,7 +70,9 @@ params="
     ParameterKey=AWSS3WebBucket,ParameterValue=$AWS_S3_WEB_BUCKET
     ParameterKey=AWSR53UMTDomain,ParameterValue=$AWS_R53_UMT_DOMAIN
 "
-$sam local start-lambda -t template.yml \
+ping -c 3 host.docker.internal
+$sam local start-lambda \
+    -t template.yml \
     --parameter-overrides $params \
     --env-vars lambda/functions/env.json & pids="${pids-} $!"
 status=$((status + $?))
@@ -112,7 +121,7 @@ do
 done
 
 # Detener servicios
-kill -9 $pids
+kill $pids
 docker kill aws-arzov-dynamodb
 docker rm aws-arzov-dynamodb
 # docker network rm arzov-local-network
