@@ -24,9 +24,10 @@ status=$?
 # ----------------------------------------------------------
 
 docker run \
-    --name aws-arzov-dynamodb \
-    -d \
+    --name arzov-dynamodb \
+    --network bridge \
     -p 8000:8000 \
+    -d \
     amazon/dynamodb-local \
     -jar DynamoDBLocal.jar \
     -inMemory -sharedDb
@@ -70,9 +71,9 @@ params="
     ParameterKey=AWSS3WebBucket,ParameterValue=$AWS_S3_WEB_BUCKET
     ParameterKey=AWSR53UMTDomain,ParameterValue=$AWS_R53_UMT_DOMAIN
 "
-ping -c 3 host.docker.internal
 $sam local start-lambda \
     -t template.yml \
+    --docker-network bridge \
     --parameter-overrides $params \
     --env-vars lambda/functions/env.json & pids="${pids-} $!"
 status=$((status + $?))
@@ -122,8 +123,8 @@ done
 
 # Detener servicios
 kill $pids
-docker kill aws-arzov-dynamodb
-docker rm aws-arzov-dynamodb
+docker kill arzov-dynamodb
+docker rm arzov-dynamodb
 # docker network rm arzov-local-network
 
 # Remover archivos temporales
