@@ -6,7 +6,7 @@
       - LDLayerUMTPkgs
     Properties:
       FunctionName: umt-add-team
-      CodeUri: lambda/functions/umt-add-team/
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-add-team/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs

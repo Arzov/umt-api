@@ -20,5 +20,7 @@ Parameters:
     Type: String
   AWSR53UMTDomain: 
     Type: String
+  HostRoot: 
+    Type: String
 
 Resources:

@@ -3,20 +3,14 @@
 # Testing backend en AWS
 # Author : Franco Barrientos <franco.barrientos@arzov.com>
 # ==========================================================
+set -o errexit
 
-sam="sam"
-
-if [[ $ENV_SO == "windows" ]]
-then
-    sam="sam.cmd"
-fi
 
 # ----------------------------------------------------------
 #  Generar template.yml
 # ----------------------------------------------------------
 
 chmod +x samtemplate.sh; ./samtemplate.sh
-status=$?
 
 
 # ----------------------------------------------------------
@@ -25,7 +19,6 @@ status=$?
 
 docker run \
     --name arzov-dynamodb \
-    --network bridge \
     -p 8000:8000 \
     -d \
     amazon/dynamodb-local \
@@ -67,16 +60,16 @@ cd umt-ext/nodejs; npm install; cd ../../
 cd ../../
 
 params="
+    ParameterKey=HostRoot,ParameterValue=$HOST_ROOT
     ParameterKey=AWSDefaultRegion,ParameterValue=$AWS_DEFAULT_REGION
     ParameterKey=AWSS3WebBucket,ParameterValue=$AWS_S3_WEB_BUCKET
     ParameterKey=AWSR53UMTDomain,ParameterValue=$AWS_R53_UMT_DOMAIN
 "
-$sam local start-lambda \
+sam local start-lambda \
     -t template.yml \
-    --docker-network bridge \
+    --host 0.0.0.0 \
     --parameter-overrides $params \
     --env-vars lambda/functions/env.json & pids="${pids-} $!"
-status=$((status + $?))
 
 
 # ----------------------------------------------------------
@@ -116,20 +109,20 @@ lambdas="
 
 for lambda in $lambdas
 do
-    cd $lambda; npm install; npm run test
-    status=$((status + $?))
+    cd $lambda; npm install
+    cd ../
+done
+
+for lambda in $lambdas
+do
+    cd $lambda; npm run test
     cd ../
 done
 
 # Detener servicios
 kill $pids
-docker kill arzov-dynamodb
-docker rm arzov-dynamodb
-# docker network rm arzov-local-network
+docker rm arzov-dynamodb -f
 
 # Remover archivos temporales
 cd ../../
 rm template.yml
-status=$((status + $?))
-
-exit $status

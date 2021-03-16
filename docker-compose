@@ -1,0 +1,6 @@
+#!/bin/bash
+# Git Bash shell:
+(export MSYS_NO_PATHCONV=1; "docker-compose.exe" "$@")
+
+# MSYS2 mingw64 shell:
+#(export MSYS2_ARG_CONV_EXCL="*"; winpty "docker-compose.exe" "$@")

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  test-executor:
+    image: arzov/umt-api-aws
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PWD}:/var/opt:rw
+    environment:
+      - HOST_ROOT=${PWD}
+    network_mode: host
+    env_file: env.list
+    entrypoint: ./testing.sh

@@ -13,12 +13,11 @@ let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') {
 	optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
-	optionsLambda = umtEnvs.dev.LAMBDA_CONTAINER_CONFIG;
+	optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
 }
 
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda)
-
 
 exports.handler = function(event, context, callback) {
 	const name = umtUtils.cleanName(event.name);

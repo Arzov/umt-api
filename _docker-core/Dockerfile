@@ -10,5 +10,4 @@ RUN ./aws_sam.sh
 RUN ./nodejs.sh
 RUN ./ping.sh
 RUN ./docker.sh
-EXPOSE 3001
-WORKDIR /
+WORKDIR /var/opt
