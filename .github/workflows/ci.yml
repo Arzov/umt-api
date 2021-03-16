@@ -15,36 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Configurar host.docker.internal
-        run: |
-          sudo echo "$(ip route show | awk "/default/ {print $ 3}") host.docker.internal" | sudo tee -a /etc/hosts
-          sudo echo export DOCKER_GATEWAY_HOST=`echo "$(ip route show | awk "/default/ {print $ 3}")"` >> .bash_profile
-          source .bash_profile
-          docker version
-        
-      # - name: Configurar host.docker.internal
-      #   run: |
-      #     export DOCKER_GATEWAY_HOST=172.17.0.1
-      #     sudo echo "10.1.0.1 host.docker.internal" >> /etc/hosts
-
-      # - name: Reinstalar Docker
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get -y install lsb-release apt-transport-https ca-certificates curl gnupg
-      #     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-      #     echo \
-      #       "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-      #       $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-      #     sudo apt-get update
-      #     sudo apt-get -y install docker-ce docker-ce-cli containerd.io
-      #     sudo apt-get -y install systemd
-      #     sudo systemctl start docker
-
       - name: Pruebas de AWS Lambda
         if: github.ref == 'refs/heads/develop'
         env:
           # GLOBAL
-          ENV_SO: ${{ secrets.ENV_SO }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_DEV }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY_DEV }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION_DEV }}
@@ -53,5 +27,4 @@ jobs:
           AWS_S3_WEB_BUCKET: ${{ secrets.AWS_S3_WEB_BUCKET_DEV }}
           AWS_S3_ARTIFACTS_BUCKET: ${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
         run: |
-          chmod +x testing.sh
-          ./testing.sh
+          docker-compose up

@@ -1,5 +1,6 @@
 # backend AWS
 **/node_modules/*
+node_modules
 .vscode
 *.~vsdx
 

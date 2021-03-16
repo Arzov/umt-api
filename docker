@@ -3,4 +3,4 @@
 (export MSYS_NO_PATHCONV=1; "docker.exe" "$@")
 
 # MSYS2 mingw64 shell:
-(export MSYS2_ARG_CONV_EXCL="*"; winpty "docker.exe" "$@")
+#(export MSYS2_ARG_CONV_EXCL="*"; winpty "docker.exe" "$@")
