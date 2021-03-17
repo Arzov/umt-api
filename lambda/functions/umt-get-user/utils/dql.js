@@ -1,28 +1,31 @@
 /**
- * Queries sobre AWS DynamoDB
+ * Queries on AWS DynamoDB
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-
 /**
- * Obtiene informacion del usuario
- * @param {Object} db Conexion a DynamoDB
- * @param {String} tableName Nombre de la tabla
+ * Get user
+ * @param {Object} db DynamoDB client
+ * @param {String} tableName Table name
  * @param {String} hashKey Email
  * @param {String} rangeKey Email
- * @param {Function} fn Funcion callback
+ * @param {Function} fn Callback
  */
 const getUser = (db, tableName, hashKey, rangeKey, fn) => {
-    db.getItem({
-        TableName: tableName,
-        Key: {
-            'hashKey': { S: hashKey },
-            'rangeKey': { S: rangeKey }
-        }
-    }, function(err, data) {
-        if (err) return fn(err);
-        else
-            if (Object.keys(data).length === 0 && data.constructor === Object) {
+    db.getItem(
+        {
+            TableName: tableName,
+            Key: {
+                hashKey: { S: hashKey },
+                rangeKey: { S: rangeKey },
+            },
+        },
+        function (err, data) {
+            if (err) return fn(err);
+            else if (
+                Object.keys(data).length === 0 &&
+                data.constructor === Object
+            ) {
                 fn(null, {});
             } else {
                 fn(null, {
@@ -36,10 +39,11 @@ const getUser = (db, tableName, hashKey, rangeKey, fn) => {
                     skills: JSON.stringify(data.Item.skills.M),
                     foot: data.Item.foot.S,
                     weight: data.Item.weight.N,
-                    height: data.Item.height.N
+                    height: data.Item.height.N,
                 });
             }
-    });
-}
+        }
+    );
+};
 
-module.exports.getUser = getUser
+module.exports.getUser = getUser;

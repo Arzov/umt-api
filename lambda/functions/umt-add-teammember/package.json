@@ -1,22 +1,19 @@
 {
-  "name": "umt-add-teammember",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "files": [
-    "index.js",
-    "utils/"
-  ],
-  "author": "",
-  "license": "ISC",
-  "optionalDependencies": {
-    "moment": "^2.26.0"
-  },
-  "devDependencies": {
-    "aws-sdk": "^2.683.0",
-    "jest": "^26.0.1"
-  }
+    "name": "umt-add-teammember",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "files": [
+        "index.js",
+        "utils/"
+    ],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "aws-sdk": "^2.683.0",
+        "jest": "^26.0.1"
+    }
 }

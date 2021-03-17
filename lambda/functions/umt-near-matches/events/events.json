@@ -1,19 +1,19 @@
 [
-  {
-    "geohash": "66jcfp",
-    "ownTeams": ["man.united"],
-    "gender": "M",
-    "ageMinFilter": 18,
-    "ageMaxFilter": 40,
-    "matchFilter": ["5v5"],
-    "nextToken": null
-  },
-  {
-    "geohash": "66jcfp",
-    "gender": "M",
-    "ageMinFilter": 18,
-    "ageMaxFilter": 40,
-    "matchFilter": ["11v11"],
-    "nextToken": null
-  }
+    {
+        "geohash": "66jcfp",
+        "ownTeams": ["man.united"],
+        "gender": "M",
+        "ageMinFilter": 18,
+        "ageMaxFilter": 40,
+        "matchFilter": ["5v5"],
+        "nextToken": null
+    },
+    {
+        "geohash": "66jcfp",
+        "gender": "M",
+        "ageMinFilter": 18,
+        "ageMaxFilter": 40,
+        "matchFilter": ["11v11"],
+        "nextToken": null
+    }
 ]

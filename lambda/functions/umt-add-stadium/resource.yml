@@ -7,7 +7,7 @@
       - LDLayerUMTPkgs
     Properties:
       FunctionName: umt-add-stadium
-      CodeUri: lambda/functions/umt-add-stadium/
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-add-stadium/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs

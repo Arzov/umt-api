@@ -1,28 +1,31 @@
 /**
- * Queries sobre AWS DynamoDB
+ * Queries on AWS DynamoDB
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-
 /**
- * Obtiene informacion del partido
- * @param {Object} db Conexion a DynamoDB
- * @param {String} tableName Nombre de la tabla
- * @param {String} hashKey Id del equipo organizador
- * @param {String} rangeKey Id del equipo invitado
- * @param {Function} fn Funcion callback
+ * Get match
+ * @param {Object} db DynamoDB client
+ * @param {String} tableName Table name
+ * @param {String} hashKey Applicant team id
+ * @param {String} rangeKey Requested team id
+ * @param {Function} fn Callback
  */
-const getTeam = (db, tableName, hashKey, rangeKey, fn) => {
-    db.getItem({
-        TableName: tableName,
-        Key: {
-            hashKey: { S: hashKey },
-            rangeKey: { S: rangeKey }
-        }
-    }, function(err, data) {
-        if (err) return fn(err);
-        else
-            if (Object.keys(data).length === 0 && data.constructor === Object) {
+const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
+    db.getItem(
+        {
+            TableName: tableName,
+            Key: {
+                hashKey: { S: hashKey },
+                rangeKey: { S: rangeKey },
+            },
+        },
+        function (err, data) {
+            if (err) return fn(err);
+            else if (
+                Object.keys(data).length === 0 &&
+                data.constructor === Object
+            ) {
                 fn(null, {});
             } else {
                 fn(null, {
@@ -31,7 +34,7 @@ const getTeam = (db, tableName, hashKey, rangeKey, fn) => {
                     allowedPatches: data.Item.allowedPatches.N,
                     positions: data.Item.positions.SS,
                     matchFilter: data.Item.matchFilter.SS,
-                    schedule: JSON.stringify(data.Item.schedule.M),
+                    schedule: data.Item.schedule.S,
                     reqStat: JSON.stringify(data.Item.reqStat.M),
                     stadiumGeohash: data.Item.stadiumGeohash.S,
                     stadiumId: data.Item.stadiumId.S,
@@ -42,10 +45,11 @@ const getTeam = (db, tableName, hashKey, rangeKey, fn) => {
                     geohash: data.Item.geohash.S,
                     coords: JSON.stringify(data.Item.coords.M),
                     expireOn: data.Item.expireOn.S,
-                    createdOn: data.Item.createdOn.S
+                    createdOn: data.Item.createdOn.S,
                 });
             }
-    });
-}
+        }
+    );
+};
 
-module.exports.getTeam = getTeam
+module.exports.getMatch = getMatch;

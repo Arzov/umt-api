@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==========================================================
-# Instalar Unzip
-# Author : Franco Barrientos <franco.barrientos@arzov.com>
+# Install Unzip
+# @author : Franco Barrientos <franco.barrientos@arzov.com>
 # ==========================================================
 
 apt-get -y install unzip

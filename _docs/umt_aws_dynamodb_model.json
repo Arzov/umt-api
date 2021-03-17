@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "Franco Barrientos",
     "DateCreated": "Aug 26, 2020, 11:01 PM",
-    "DateLastModified": "Feb 15, 2021, 12:32 AM",
+    "DateLastModified": "Mar 17, 2021, 10:11 PM",
     "Description": "Modelo de datos para API de Umatch.",
     "Version": "2.0",
     "AWSService": "Amazon DynamoDB"
@@ -96,7 +96,7 @@
         },
         {
           "AttributeName": "schedule",
-          "AttributeType": "M"
+          "AttributeType": "S"
         },
         {
           "AttributeName": "stadiumGeohash",
@@ -465,7 +465,10 @@
             "foot",
             "weight",
             "height"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "TeamMember",
@@ -670,7 +673,10 @@
             "reqStat",
             "joinedOn",
             "number"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "TeamChat",
@@ -704,7 +710,10 @@
           ],
           "NonKeyAttributes": [
             "msg"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Team",
@@ -776,15 +785,18 @@
           ],
           "NonKeyAttributes": [
             "geohash",
-            "name",
-            "picture",
-            "formation",
-            "searchingPlayers",
             "matchFilter",
             "genderFilter",
             "ageMinFilter",
-            "ageMaxFilter"
-          ]
+            "ageMaxFilter",
+            "name",
+            "picture",
+            "formation",
+            "searchingPlayers"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Match",
@@ -834,14 +846,7 @@
                 "S": "2020-06-27T21:27:51+00:00"
               },
               "schedule": {
-                "M": {
-                  "day": {
-                    "S": "2020-09-02"
-                  },
-                  "time": {
-                    "S": "18:45"
-                  }
-                }
+                "S": "2020-06-27T21:27:51+00:00"
               },
               "stadiumGeohash": {
                 "S": "66jcfp"
@@ -856,7 +861,10 @@
           ],
           "NonKeyAttributes": [
             "geohash",
+            "matchFilter",
             "genderFilter",
+            "ageMinFilter",
+            "ageMaxFilter",
             "positions",
             "reqStat",
             "createdOn",
@@ -865,11 +873,11 @@
             "schedule",
             "stadiumGeohash",
             "stadiumId",
-            "courtId",
-            "matchFilter",
-            "ageMinFilter",
-            "ageMaxFilter"
-          ]
+            "courtId"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "MatchPatch",
@@ -900,7 +908,10 @@
           "NonKeyAttributes": [
             "reqStat",
             "joinedOn"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "MatchChat",
@@ -934,7 +945,10 @@
           ],
           "NonKeyAttributes": [
             "msg"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Stadium",
@@ -970,10 +984,13 @@
           ],
           "NonKeyAttributes": [
             "coords",
+            "matchFilter",
             "name",
-            "address",
-            "matchFilter"
-          ]
+            "address"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Court",
@@ -1006,9 +1023,12 @@
             }
           ],
           "NonKeyAttributes": [
-            "material",
-            "matchFilter"
-          ]
+            "matchFilter",
+            "material"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         }
       ],
       "GlobalSecondaryIndexes": [

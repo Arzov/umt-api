@@ -1,35 +1,47 @@
 #!/bin/bash
 # ==========================================================
-# Testing backend en AWS
-# Author : Franco Barrientos <franco.barrientos@arzov.com>
+# Run tests locally for AWS
+# @author : Franco Barrientos <franco.barrientos@arzov.com>
 # ==========================================================
 set -o errexit
 
 
 # ----------------------------------------------------------
-#  Generar template.yml
+#  Parameters
+# ----------------------------------------------------------
+
+DYNAMODB_SERVICE_IP=172.17.0.1
+DYNAMODB_PORT=8000
+DYNAMODB_TEMPLATE_START_LINE=5
+DYNAMODB_CONN_TIMEOUT=60000
+
+LAMBDA_SERVICE_IP=0.0.0.0
+
+
+# ----------------------------------------------------------
+#  Create template.yml
 # ----------------------------------------------------------
 
 chmod +x samtemplate.sh; ./samtemplate.sh
 
 
 # ----------------------------------------------------------
-#  Levantar servicio AWS DynamoDB
+#  Start AWS DynamoDB service
 # ----------------------------------------------------------
 
 docker run \
     --name arzov-dynamodb \
-    -p 8000:8000 \
+    -p $DYNAMODB_PORT:$DYNAMODB_PORT \
     -d \
     amazon/dynamodb-local \
     -jar DynamoDBLocal.jar \
     -inMemory -sharedDb
 
-# Crear tablas
+# Create tables
 cd dynamodb/tables
 
 declare -A tables=(
-  [umt-001]=5
+  [umt-001]=$DYNAMODB_TEMPLATE_START_LINE
 )
 
 for table in "${!tables[@]}"
@@ -39,8 +51,8 @@ do
     awk "NR >= ${ln}" resource.yml > tmp.yml
     aws dynamodb create-table \
         --cli-input-yaml file://tmp.yml \
-        --endpoint-url http://127.0.0.1:8000 \
-        --cli-connect-timeout 60000 \
+        --endpoint-url http://$DYNAMODB_SERVICE_IP:$DYNAMODB_PORT \
+        --cli-connect-timeout $DYNAMODB_CONN_TIMEOUT \
         > null.log
     rm tmp.yml; rm null.log; cd ../
 done
@@ -49,10 +61,10 @@ cd ../../
 
 
 # ----------------------------------------------------------
-#  Levantar servicio AWS Lambda
+#  Start AWS Lambda service
 # ----------------------------------------------------------
 
-# Instalar layers
+# Install layers
 cd lambda/layers
 
 cd umt-ext/nodejs; npm install; cd ../../
@@ -67,62 +79,66 @@ params="
 "
 sam local start-lambda \
     -t template.yml \
-    --host 0.0.0.0 \
+    --host $LAMBDA_SERVICE_IP \
     --parameter-overrides $params \
     --env-vars lambda/functions/env.json & pids="${pids-} $!"
 
 
 # ----------------------------------------------------------
-#  Pruebas AWS Lambda
+#  Execute AWS Lambda
 # ----------------------------------------------------------
 
 cd lambda/functions
 
-# lambdas="
-#     umt-add-user
-#     umt-update-user
-#     umt-add-team
-#     umt-add-teammember
-#     umt-add-teamchat
-#     umt-add-match
-#     umt-add-matchpatch
-#     umt-add-matchchat
-#     umt-update-match
-#     umt-add-stadium
-#     umt-add-court
-#     umt-get-user
-#     umt-get-team
-#     umt-get-match
-#     umt-near-teams
-#     umt-near-matches
-#     umt-list-teams
-#     umt-team-requests
-#     umt-teammember-requests
-#     umt-list-matches
-#     umt-match-requests
-#     umt-matchpatch-requests
-# "
-
 lambdas="
+    umt-add-user
+    umt-update-user
     umt-add-team
+    umt-add-teammember
+    umt-add-teamchat
+    umt-add-match
+    umt-add-matchpatch
+    umt-add-matchchat
+    umt-update-match
+    umt-add-stadium
+    umt-add-court
+    umt-get-user
+    umt-get-team
+    umt-get-match
+    umt-near-teams
+    umt-near-matches
+    umt-list-teams
+    umt-team-requests
+    umt-teammember-requests
+    umt-list-matches
+    umt-match-requests
+    umt-matchpatch-requests
 "
 
+# Install dependencies
 for lambda in $lambdas
 do
-    cd $lambda; npm install
-    cd ../
+    echo
+    echo "----------------------------"
+    echo "Installing lambda: $lambda"
+    echo "----------------------------"
+    cd $lambda; npm install; cd ../
 done
 
+# Execute tests
 for lambda in $lambdas
 do
-    cd $lambda; npm run test
-    cd ../
+    echo
+    echo "----------------------------"
+    echo "Executing lambda: $lambda"
+    echo "----------------------------"
+    cd $lambda; npm run test; cd ../
 done
 
-# Detener servicios
+# Stop services
 kill $pids
 docker rm arzov-dynamodb -f
 
-# Remover archivos temporales
+# Remove temp files
 cd ../../
 rm template.yml

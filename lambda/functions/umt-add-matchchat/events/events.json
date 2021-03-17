@@ -1,14 +1,14 @@
 [
-  {
-    "teamId1": "man.united",
-    "teamId2": "realmadrid",
-    "userEmail": "svonko.vescovi@arzov.com",
-    "msg": "Hola, como estan?"
-  },
-  {
-    "teamId1": "man.united",
-    "teamId2": "realmadrid",
-    "userEmail": "franco.barrientos@arzov.com",
-    "msg": "A que hora jugamos?"
-  }
+    {
+        "teamId1": "man.united",
+        "teamId2": "realmadrid",
+        "userEmail": "svonko.vescovi@arzov.com",
+        "msg": "Hola, como estan?"
+    },
+    {
+        "teamId1": "man.united",
+        "teamId2": "realmadrid",
+        "userEmail": "franco.barrientos@arzov.com",
+        "msg": "A que hora jugamos?"
+    }
 ]

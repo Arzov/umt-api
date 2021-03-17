@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==========================================================
-# Instalar Ping
-# Author : Franco Barrientos <franco.barrientos@arzov.com>
+# Install Ping
+# @author : Franco Barrientos <franco.barrientos@arzov.com>
 # ==========================================================
 
 apt update

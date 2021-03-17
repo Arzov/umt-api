@@ -1,8 +1,7 @@
 /**
- * Obtener equipo
+ * Get team
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
-
 
 const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
@@ -12,7 +11,6 @@ let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
 
 const dynamodb = new aws.DynamoDB(options);
-
 
 exports.handler = (event, context, callback) => {
     const hashKey = `${umtEnvs.pfx.TEAM}${event.id}`;

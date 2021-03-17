@@ -4,7 +4,7 @@
     DependsOn: LDLayerUMTEnvs
     Properties:
       FunctionName: umt-list-teams
-      CodeUri: lambda/functions/umt-list-teams/
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-list-teams/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs

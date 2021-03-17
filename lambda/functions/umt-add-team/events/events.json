@@ -1,68 +1,68 @@
 [
-  {
-    "name": "Real Madrid",
-    "geohash": "66jcfp",
-    "latitude": -33.399435,
-    "longitude": -70.573615,
-    "ageMinFilter": 20,
-    "ageMaxFilter": 40,
-    "matchFilter": ["5v5", "7v7", "11v11"],
-    "genderFilter": ["M"],
-    "searchingPlayers": false
-  },
-  {
-    "name": "Man. united",
-    "geohash": "66jcfp",
-    "latitude": -33.399435,
-    "longitude": -70.573615,
-    "ageMinFilter": 20,
-    "ageMaxFilter": 40,
-    "matchFilter": ["5v5", "11v11"],
-    "genderFilter": ["M"],
-    "searchingPlayers": false
-  },
-  {
-    "name": "Fc Barcelona",
-    "geohash": "66jcfp",
-    "latitude": -33.399435,
-    "longitude": -70.573615,
-    "ageMinFilter": 20,
-    "ageMaxFilter": 40,
-    "matchFilter": ["5v5"],
-    "genderFilter": ["M"],
-    "searchingPlayers": true
-  },
-  {
-    "name": "PSG",
-    "geohash": "66jcfp",
-    "latitude": -33.399435,
-    "longitude": -70.573615,
-    "ageMinFilter": 20,
-    "ageMaxFilter": 40,
-    "matchFilter": ["7v7"],
-    "genderFilter": ["F"],
-    "searchingPlayers": true
-  },
-  {
-    "name": "Bayern",
-    "geohash": "66jcfp",
-    "latitude": -33.399435,
-    "longitude": -70.573615,
-    "ageMinFilter": 20,
-    "ageMaxFilter": 40,
-    "matchFilter": ["7v7"],
-    "genderFilter": ["M", "F"],
-    "searchingPlayers": true
-  },
-  {
-    "name": "Chelsea",
-    "geohash": "66jcfp",
-    "latitude": -33.399435,
-    "longitude": -70.573615,
-    "ageMinFilter": 20,
-    "ageMaxFilter": 40,
-    "matchFilter": ["7v7"],
-    "genderFilter": ["M"],
-    "searchingPlayers": true
-  }
+    {
+        "name": "Real Madrid",
+        "geohash": "66jcfp",
+        "latitude": -33.399435,
+        "longitude": -70.573615,
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "matchFilter": ["5v5", "7v7", "11v11"],
+        "genderFilter": ["M"],
+        "searchingPlayers": false
+    },
+    {
+        "name": "Man. united",
+        "geohash": "66jcfp",
+        "latitude": -33.399435,
+        "longitude": -70.573615,
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "matchFilter": ["5v5", "11v11"],
+        "genderFilter": ["M"],
+        "searchingPlayers": false
+    },
+    {
+        "name": "Fc Barcelona",
+        "geohash": "66jcfp",
+        "latitude": -33.399435,
+        "longitude": -70.573615,
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "matchFilter": ["5v5"],
+        "genderFilter": ["M"],
+        "searchingPlayers": true
+    },
+    {
+        "name": "PSG",
+        "geohash": "66jcfp",
+        "latitude": -33.399435,
+        "longitude": -70.573615,
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "matchFilter": ["7v7"],
+        "genderFilter": ["F"],
+        "searchingPlayers": true
+    },
+    {
+        "name": "Bayern",
+        "geohash": "66jcfp",
+        "latitude": -33.399435,
+        "longitude": -70.573615,
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "matchFilter": ["7v7"],
+        "genderFilter": ["M", "F"],
+        "searchingPlayers": true
+    },
+    {
+        "name": "Chelsea",
+        "geohash": "66jcfp",
+        "latitude": -33.399435,
+        "longitude": -70.573615,
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "matchFilter": ["7v7"],
+        "genderFilter": ["M"],
+        "searchingPlayers": true
+    }
 ]

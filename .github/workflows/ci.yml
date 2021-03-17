@@ -10,12 +10,13 @@ on:
 jobs:
 
   test:
-    name: Pruebas
+    name: Testing on AWS Lambda
     runs-on: ubuntu-20.04
+
     steps:
       - uses: actions/checkout@v2
 
-      - name: Pruebas de AWS Lambda
+      - name: Run tests
         if: github.ref == 'refs/heads/develop'
         env:
           # GLOBAL
@@ -28,4 +29,4 @@ jobs:
           AWS_S3_ARTIFACTS_BUCKET: ${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
         run: |
           chmod +x testing.sh
-          docker-compose up
+          docker-compose up test-executor

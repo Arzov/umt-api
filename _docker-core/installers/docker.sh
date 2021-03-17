@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==========================================================
-# Instalar Docker
-# Author : Franco Barrientos <franco.barrientos@arzov.com>
+# Install Docker
+# @author : Franco Barrientos <franco.barrientos@arzov.com>
 # ==========================================================
 
 apt-get update

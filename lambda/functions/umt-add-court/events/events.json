@@ -1,20 +1,20 @@
 [
-  {
-    "stadiumId": "clubdeportivoindepe",
-    "stadiumGeohash": "66jcfp",
-    "matchFilter": ["7v7"],
-    "material": "Grass"
-  },
-  {
-    "stadiumId": "clubdeportivoindepe",
-    "stadiumGeohash": "66jcfp",
-    "matchFilter": ["5v5"],
-    "material": "Cement"
-  },
-  {
-    "stadiumId": "clubdeportivoindepe",
-    "stadiumGeohash": "66jcfp",
-    "matchFilter": ["5v5"],
-    "material": "Wood"
-  }
+    {
+        "stadiumId": "clubdeportivoindepe",
+        "stadiumGeohash": "66jcfp",
+        "matchFilter": ["7v7"],
+        "material": "Grass"
+    },
+    {
+        "stadiumId": "clubdeportivoindepe",
+        "stadiumGeohash": "66jcfp",
+        "matchFilter": ["5v5"],
+        "material": "Cement"
+    },
+    {
+        "stadiumId": "clubdeportivoindepe",
+        "stadiumGeohash": "66jcfp",
+        "matchFilter": ["5v5"],
+        "material": "Wood"
+    }
 ]

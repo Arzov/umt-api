@@ -1,19 +1,19 @@
 {
-  "name": "umt-team-requests",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "files": [
-    "index.js",
-    "utils/"
-  ],
-  "devDependencies": {
-    "aws-sdk": "^2.683.0",
-    "jest": "^25.1.0"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "umt-team-requests",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "files": [
+        "index.js",
+        "utils/"
+    ],
+    "devDependencies": {
+        "aws-sdk": "^2.683.0",
+        "jest": "^25.1.0"
+    },
+    "author": "",
+    "license": "ISC"
 }

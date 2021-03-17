@@ -1,31 +1,43 @@
 /**
- * Queries sobre AWS DynamoDB
+ * Queries on AWS DynamoDB
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
-
 
 const umtEnvs = require('umt-envs');
 
 /**
- * Obtiene equipos cercanos
- * @param {Object} db Conexion a DynamoDB
- * @param {String} tableName Nombre de la tabla
- * @param {String} geohash Hash de geolocalizacion
- * @param {Boolean} forJoin Indica si se busca equipos disponibles para unirse
- * @param {Integer} limitScan Limite de equipos a obtener para paginacion
- * @param {String[]} ownTeams Equipos ya perteneciente
- * @param {String} gender Sexo a del usuario
- * @param {String[]} genderFilter Sexo a filtrar
- * @param {String} ageMinFilter Edad minima a filtrar
- * @param {String} ageMaxFilter Edad maxima a filtrar
- * @param {String[]} matchFilter Tipo de juego a filtrar
- * @param {String} nextToken Ultimo equipo para paginacion
- * @param {Function} fn Funcion callback
+ * Get near teams
+ * @param {Object} db DynamoDB client
+ * @param {String} tableName Team name
+ * @param {String} geohash Geolocation hash
+ * @param {Boolean} forJoin Indicator if want to join in a team
+ * @param {String[]} ownTeams Player's teams
+ * @param {String} gender Player's gender
+ * @param {String[]} genderFilter Team's gender filter
+ * @param {String} ageMinFilter Min. age filter
+ * @param {String} ageMaxFilter Max. age filter
+ * @param {String[]} matchFilter Match types filter
+ * @param {Integer} limitScan Query limit scan result
+ * @param {String} nextToken Last query scanned object
+ * @param {Function} fn Callback
  */
-const nearTeams = (db, tableName, geohash, forJoin, limitScan, ownTeams, gender,
-    genderFilter, ageMinFilter, ageMaxFilter, matchFilter, nextToken, fn) => {
-    const idx = `geohash-idx`
-    const keyExp = `geohash = :v1 and begins_with (rangeKey, :v2)`
+const nearTeams = (
+    db,
+    tableName,
+    geohash,
+    forJoin,
+    ownTeams,
+    gender,
+    genderFilter,
+    ageMinFilter,
+    ageMaxFilter,
+    matchFilter,
+    limitScan,
+    nextToken,
+    fn
+) => {
+    const idx = `geohash-idx`;
+    const keyExp = `geohash = :v1 and begins_with (rangeKey, :v2)`;
     const filterExp1 = `
         contains (genderFilter, :v3)
         and (contains (matchFilter, :v4) or contains (matchFilter, :v5) or contains (matchFilter, :v6))
@@ -47,36 +59,41 @@ const nearTeams = (db, tableName, geohash, forJoin, limitScan, ownTeams, gender,
         ':v7': { N: ageMinFilter },
         ':v8': { N: ageMaxFilter },
         ':v9': { SS: ownTeams },
-        ':v10': forJoin ? { BOOL: forJoin } : undefined
+        ':v10': forJoin ? { BOOL: forJoin } : undefined,
     };
 
     if (nextToken) {
-        db.query({
-            TableName: tableName,
-            IndexName: idx,
-            KeyConditionExpression: keyExp,
-            FilterExpression: forJoin ? filterExp1 : filterExp2,
-            ExpressionAttributeValues: expValues,
-            ExclusiveStartKey: JSON.parse(nextToken),
-            Limit: limitScan
-        }, function(err, data) {
-            if (err) fn(err);
-            else fn(null, data);
-        });
+        db.query(
+            {
+                TableName: tableName,
+                IndexName: idx,
+                KeyConditionExpression: keyExp,
+                FilterExpression: forJoin ? filterExp1 : filterExp2,
+                ExpressionAttributeValues: expValues,
+                ExclusiveStartKey: JSON.parse(nextToken),
+                Limit: limitScan,
+            },
+            function (err, data) {
+                if (err) fn(err);
+                else fn(null, data);
+            }
+        );
+    } else {
+        db.query(
+            {
+                TableName: tableName,
+                IndexName: idx,
+                KeyConditionExpression: keyExp,
+                FilterExpression: forJoin ? filterExp1 : filterExp2,
+                ExpressionAttributeValues: expValues,
+                Limit: limitScan,
+            },
+            function (err, data) {
+                if (err) fn(err);
+                else fn(null, data);
+            }
+        );
     }
-    else {
-        db.query({
-            TableName: tableName,
-            IndexName: idx,
-            KeyConditionExpression: keyExp,
-            FilterExpression: forJoin ? filterExp1 : filterExp2,
-            ExpressionAttributeValues: expValues,
-            Limit: limitScan
-        }, function(err, data) {
-            if (err) fn(err);
-            else fn(null, data);
-        });
-    }
-}
+};
 
 module.exports.nearTeams = nearTeams;
