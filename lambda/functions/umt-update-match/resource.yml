@@ -6,7 +6,7 @@
       - LDLayerUMTExt
     Properties:
       FunctionName: umt-update-match
-      CodeUri: lambda/functions/umt-update-match/
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-update-match/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs

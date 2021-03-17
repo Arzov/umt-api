@@ -13,7 +13,7 @@ let limitScan = umtEnvs.gbl.MATCHES_SCAN_LIMIT;
 
 if (process.env.RUN_MODE === 'LOCAL') {
     optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
-    optionsLambda = umtEnvs.dev.LAMBDA_CONTAINER_CONFIG;
+    optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
     limitScan = umtEnvs.dev.MATCHES_SCAN_LIMIT;
 }
 

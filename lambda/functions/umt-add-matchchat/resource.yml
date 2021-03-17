@@ -6,7 +6,7 @@
       - LDLayerUMTExt
     Properties:
       FunctionName: umt-add-matchchat
-      CodeUri: lambda/functions/umt-add-matchchat/
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-add-matchchat/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs

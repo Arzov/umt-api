@@ -6,7 +6,7 @@
       - LDLayerUMTEnvs
     Properties:
       FunctionName: umt-add-user
-      CodeUri: lambda/functions/umt-add-user/
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-add-user/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTExt

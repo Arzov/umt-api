@@ -13,7 +13,7 @@ let limitScan = umtEnvs.gbl.TEAMS_SCAN_LIMIT;
 
 if (process.env.RUN_MODE === 'LOCAL') {
     optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
-    optionsLambda = umtEnvs.dev.LAMBDA_CONTAINER_CONFIG;
+    optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
     limitScan = umtEnvs.dev.TEAMS_SCAN_LIMIT;
 }
 

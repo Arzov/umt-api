@@ -5,7 +5,7 @@
       - LDLayerUMTEnvs
     Properties:
       FunctionName: umt-add-court
-      CodeUri: lambda/functions/umt-add-court/
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-add-court/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs

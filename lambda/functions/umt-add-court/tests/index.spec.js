@@ -2,12 +2,12 @@ const aws = require('aws-sdk')
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs')
 const events = require('../events/events.json')
 
-describe('Test AWS Lambda: umt-add-court', () => {
 
+describe('Test AWS Lambda: umt-add-court', () => {
   let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG)
   let params = {FunctionName: 'umt-add-court'}
 
-  test('Evaluar respuesta: Cancha (#1)', (done) => {
+  test('Evaluate: Court (#1)', (done) => {
     params.Payload = JSON.stringify(events[0])
 
     lambda.invoke(params, function(err, data) {
@@ -29,7 +29,7 @@ describe('Test AWS Lambda: umt-add-court', () => {
     })
   }, 60000)
 
-  test('Evaluar respuesta: Cancha (#2)', (done) => {
+  test('Evaluate: Court (#2)', (done) => {
     params.Payload = JSON.stringify(events[1])
 
     lambda.invoke(params, function(err, data) {
@@ -51,7 +51,7 @@ describe('Test AWS Lambda: umt-add-court', () => {
     })
   }, 60000)
 
-  test('Evaluar respuesta: Cancha (#3)', (done) => {
+  test('Evaluate: Court (#3)', (done) => {
     params.Payload = JSON.stringify(events[2])
 
     lambda.invoke(params, function(err, data) {

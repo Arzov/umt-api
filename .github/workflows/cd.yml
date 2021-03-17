@@ -8,17 +8,16 @@ on:
 jobs:
 
   deploy:
-    name: Despliegue
+    name: Deploy to AWS
     runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Despliegue en AWS
+      - name: Run deploy
         if: github.ref == 'refs/heads/develop'
         env:
           # GLOBAL
-          ENV_SO: ${{ secrets.ENV_SO }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_DEV }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY_DEV }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION_DEV }}
@@ -28,4 +27,4 @@ jobs:
           AWS_S3_ARTIFACTS_BUCKET: ${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
         run: |
           chmod +x deploy.sh
-          ./deploy.sh
+          docker-compose up deploy-executor
