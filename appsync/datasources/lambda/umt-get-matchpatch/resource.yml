@@ -1,0 +1,10 @@
+
+  ASDataSourceUMTLDGetMatchPatch:
+    Type: AWS::AppSync::DataSource
+    Properties: 
+      ApiId: !GetAtt ASGraphQLApiUMT.ApiId
+      LambdaConfig:
+        LambdaFunctionArn: !GetAtt LDFunctionUMTGetMatchPatch.Arn
+      Name: LDGetMatchPatch
+      ServiceRoleArn: !ImportValue ARV-IARoleARVAppSyncARN
+      Type: AWS_LAMBDA

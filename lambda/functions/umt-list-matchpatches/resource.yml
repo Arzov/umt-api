@@ -1,0 +1,10 @@
+
+  LDFunctionUMTListMatchPatches:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-list-matchpatches
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-list-matchpatches/" ] ]
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs

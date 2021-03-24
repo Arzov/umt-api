@@ -62,7 +62,7 @@ const addMatchPatch = (
                 fn(null, {
                     teamId1: hashKey.split('#')[1],
                     teamId2: hashKey.split('#')[2],
-                    userEmail: rangeKey.split('#')[1],
+                    email: rangeKey.split('#')[1],
                     joinedOn,
                     reqStat: JSON.stringify(reqStat),
                 });

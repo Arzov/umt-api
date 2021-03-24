@@ -14,7 +14,7 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = function (event, context, callback) {
     const hashKey = `${umtEnvs.pfx.MATCH}${event.teamId1}#${event.teamId2}`;
-    const rangeKey = `${umtEnvs.pfx.PATCH}${event.userEmail}`;
+    const rangeKey = `${umtEnvs.pfx.PATCH}${event.email}`;
     const joinedOn = new Date().toISOString();
     const reqStat = JSON.parse(event.reqStat);
 
@@ -35,7 +35,7 @@ exports.handler = function (event, context, callback) {
                         callback(null, {
                             teamId1: data.Item.hashKey.S.split('#')[1],
                             teamId2: data.Item.hashKey.S.split('#')[2],
-                            userEmail: data.Item.rangeKey.S.split('#')[1],
+                            email: data.Item.rangeKey.S.split('#')[1],
                             joinedOn: data.Item.joinedOn.S,
                             reqStat: JSON.stringify(data.Item.reqStat.M),
                         });

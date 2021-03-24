@@ -2,11 +2,11 @@ const aws = require('aws-sdk');
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs');
 const events = require('../events/events.json');
 
-describe('Test AWS Lambda: umt-teammember-requests', () => {
+describe('Test AWS Lambda: umt-list-matchpatches', () => {
     let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG);
-    let params = { FunctionName: 'umt-teammember-requests' };
+    let params = { FunctionName: 'umt-list-matchpatches' };
 
-    test('Evaluate: User (franco.barrientos@arzov.com)', (done) => {
+    test('Evaluate: Match (MAN. UNITED - REAL MADRID)', (done) => {
         params.Payload = JSON.stringify(events[0]);
 
         lambda.invoke(params, function (err, data) {
@@ -17,23 +17,15 @@ describe('Test AWS Lambda: umt-teammember-requests', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(response.items[0].teamId).toBe('bayern');
+                expect(response.items[0].teamId1).toBe('man.united');
+                expect(response.items[0].teamId2).toBe('realmadrid');
                 expect(response.items[0].email).toBe(
-                    'franco.barrientos@arzov.com'
+                    'svonko.vescovi@arzov.com'
                 );
                 expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({
-                    TR: { S: 'P' },
+                    MR: { S: 'A' },
                     PR: { S: 'A' },
                 });
-                expect(response.items[1].teamId).toBe('fcbarcelona');
-                expect(response.items[1].email).toBe(
-                    'franco.barrientos@arzov.com'
-                );
-                expect(JSON.parse(response.items[1].reqStat)).toStrictEqual({
-                    TR: { S: 'A' },
-                    PR: { S: 'P' },
-                });
-                expect(response.nextToken).toBe(null);
             }
 
             done();

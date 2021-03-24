@@ -90,29 +90,37 @@ sam local start-lambda \
 
 cd lambda/functions
 
+# lambdas="
+#     umt-add-user
+#     umt-update-user
+#     umt-add-team
+#     umt-add-teammember
+#     umt-add-teamchat
+#     umt-add-match
+#     umt-add-matchpatch
+#     umt-add-matchchat
+#     umt-update-match
+#     umt-add-stadium
+#     umt-add-court
+#     umt-get-user
+#     umt-get-team
+#     umt-get-match
+#     umt-near-teams
+#     umt-near-matches
+#     umt-list-teams
+#     umt-team-requests
+#     umt-teammember-requests
+#     umt-list-matches
+#     umt-match-requests
+#     umt-matchpatch-requests
+# "
+
 lambdas="
-    umt-add-user
-    umt-update-user
-    umt-add-team
-    umt-add-teammember
-    umt-add-teamchat
     umt-add-match
     umt-add-matchpatch
-    umt-add-matchchat
     umt-update-match
-    umt-add-stadium
-    umt-add-court
-    umt-get-user
-    umt-get-team
-    umt-get-match
-    umt-near-teams
-    umt-near-matches
-    umt-list-teams
-    umt-team-requests
-    umt-teammember-requests
-    umt-list-matches
-    umt-match-requests
-    umt-matchpatch-requests
+    umt-get-matchpatch
+    umt-list-matchpatches
 "
 
 # Install dependencies

@@ -1,5 +1,5 @@
 /**
- * Add a message into the team chat
+ * Get match patch
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
@@ -12,18 +12,15 @@ if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
 
 const dynamodb = new aws.DynamoDB(options);
 
-exports.handler = function (event, context, callback) {
-    const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
-    const sentOn = new Date().toISOString();
-    const rangeKey = `${umtEnvs.pfx.CHAT}${sentOn}#${event.email}`;
-    const msg = event.msg;
+exports.handler = (event, context, callback) => {
+    const hashKey = `${umtEnvs.pfx.MATCH}${event.teamId1}#${event.teamId2}`;
+    const rangeKey = `${umtEnvs.pfx.PATCH}${event.email}`;
 
-    dql.addTeamChat(
+    dql.getMatchPatch(
         dynamodb,
         process.env.DB_UMT_001,
         hashKey,
         rangeKey,
-        msg,
         callback
     );
 };

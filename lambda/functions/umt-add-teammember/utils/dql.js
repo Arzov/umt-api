@@ -46,7 +46,7 @@ const addTeamMember = (
             else
                 fn(null, {
                     teamId: hashKey.split('#')[1],
-                    userEmail: rangeKey.split('#')[1],
+                    email: rangeKey.split('#')[1],
                     position: JSON.stringify(position),
                     role,
                     reqStat: JSON.stringify(reqStat),

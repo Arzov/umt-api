@@ -18,7 +18,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('man.united');
-                expect(response.userEmail).toBe('franco.barrientos@arzov.com');
+                expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -50,7 +50,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('man.united');
-                expect(response.userEmail).toBe('jesus.barrientos@arzov.com');
+                expect(response.email).toBe('jesus.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -78,7 +78,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('man.united');
-                expect(response.userEmail).toBe('matias.barrientos@arzov.com');
+                expect(response.email).toBe('matias.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -106,7 +106,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('fcbarcelona');
-                expect(response.userEmail).toBe('jesus.barrientos@arzov.com');
+                expect(response.email).toBe('jesus.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -138,7 +138,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('fcbarcelona');
-                expect(response.userEmail).toBe('franco.barrientos@arzov.com');
+                expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -166,7 +166,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('bayern');
-                expect(response.userEmail).toBe('matias.barrientos@arzov.com');
+                expect(response.email).toBe('matias.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -198,7 +198,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('bayern');
-                expect(response.userEmail).toBe('franco.barrientos@arzov.com');
+                expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -226,7 +226,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('psg');
-                expect(response.userEmail).toBe('nadia.sepulveda@arzov.com');
+                expect(response.email).toBe('nadia.sepulveda@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -258,7 +258,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('realmadrid');
-                expect(response.userEmail).toBe('ivo.farias@arzov.com');
+                expect(response.email).toBe('ivo.farias@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -290,7 +290,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('chelsea');
-                expect(response.userEmail).toBe('jesus.barrientos@arzov.com');
+                expect(response.email).toBe('jesus.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
@@ -322,7 +322,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId).toBe('bayern');
-                expect(response.userEmail).toBe('nadia.sepulveda@arzov.com');
+                expect(response.email).toBe('nadia.sepulveda@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );

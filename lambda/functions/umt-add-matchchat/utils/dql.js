@@ -28,7 +28,7 @@ const addMatchChat = (db, tableName, hashKey, rangeKey, msg, fn) => {
                 fn(null, {
                     teamId1: hashKey.split('#')[1],
                     teamId2: hashKey.split('#')[2],
-                    userEmail: rangeKey.split('#')[2],
+                    email: rangeKey.split('#')[2],
                     sentOn: rangeKey.split('#')[1],
                     msg,
                 });

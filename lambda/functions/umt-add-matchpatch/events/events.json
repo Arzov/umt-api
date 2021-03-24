@@ -2,19 +2,19 @@
     {
         "teamId1": "man.united",
         "teamId2": "realmadrid",
-        "userEmail": "svonko.vescovi@arzov.com",
+        "email": "svonko.vescovi@arzov.com",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId1": "man.united",
         "teamId2": "realmadrid",
-        "userEmail": "svonko.vescovi@arzov.com",
+        "email": "svonko.vescovi@arzov.com",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
     },
     {
         "teamId1": "fcbarcelona",
         "teamId2": "man.united",
-        "userEmail": "svonko.vescovi@arzov.com",
+        "email": "svonko.vescovi@arzov.com",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
     }
 ]
