@@ -1,5 +1,5 @@
 /**
- * Get near matches
+ * Get near matches for patch
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
@@ -7,21 +7,48 @@ const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
 let limitScan = umtEnvs.gbl.MATCHES_SCAN_LIMIT;
-let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') {
-    options = umtEnvs.dev.DYNAMODB_CONFIG;
+    optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
+    optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
     limitScan = umtEnvs.dev.MATCHES_SCAN_LIMIT;
 }
 
-const dynamodb = new aws.DynamoDB(options);
+const lambda = new aws.Lambda(optionsLambda);
+const dynamodb = new aws.DynamoDB(optionsDynamodb);
+const filterJoinedMatches = async (lambda, data, email, callback) => {
+    const matches = [];
+    let params = { FunctionName: 'umt-get-matchpatch' };
+
+    for (const e in data.Items) {
+        params.Payload = JSON.stringify({
+            teamId1: data.Items[e][hashKey].S.split('#')[idx1],
+            teamId2: data.Items[e][rangeKey].S.split('#')[idx2],
+            email,
+        });
+
+        matches.push(
+            await new Promise((resolve) => {
+                lambda.invoke(params, function (err, data) {
+                    if (err) callback(err);
+                    else resolve(JSON.parse(data.Payload));
+                });
+            })
+        );
+    }
+
+    return matches;
+};
 
 exports.handler = (event, context, callback) => {
+    const email = event.email;
     const geohash = event.geohash;
-    let ownTeams = event.ownTeams ? event.ownTeams : ['']; // filter player's teams
     const gender = event.gender;
     const ageMinFilter = String(event.ageMinFilter);
     const ageMaxFilter = String(event.ageMaxFilter);
+    let ownTeams = event.ownTeams ? event.ownTeams : ['']; // filter player's teams
     let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
 
@@ -58,7 +85,7 @@ exports.handler = (event, context, callback) => {
         matchFilter,
         limitScan,
         nextToken,
-        function (err, data) {
+        async function (err, data) {
             if (err) callback(err);
             else {
                 let nextTokenResult = null;
@@ -70,8 +97,9 @@ exports.handler = (event, context, callback) => {
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
                         /**
-                         *  Manual filter of `rangeKey` due to DynamoDB doesn't allow
-                         *  filter this field in `KeyConditionExpression`
+                         *  Manual filter of `rangeKey` due to DynamoDB
+                         *  doesn't allow filter this field in
+                         *  `KeyConditionExpression`
                          */
                         if (!ownTeams.includes(x.rangeKey.S))
                             return {
@@ -96,6 +124,13 @@ exports.handler = (event, context, callback) => {
                     }).filter(function (el) {
                         return el != null;
                     });
+
+                    dataResult = await filterJoinedMatches(
+                        lambda,
+                        dataResult,
+                        email,
+                        callback
+                    );
                 }
 
                 callback(null, {

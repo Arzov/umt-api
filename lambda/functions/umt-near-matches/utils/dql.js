@@ -36,10 +36,17 @@ const nearMatches = (
     const keyExp = `geohash = :v1 and begins_with (rangeKey, :v2)`;
     const filterExp = `
         not contains (:v3, hashKey)
-        and allowedPatches > :v4 and reqStat.AR = :v5 and reqStat.RR = :v5
+        and allowedPatches > :v4
+        and reqStat.AR = :v5
+        and reqStat.RR = :v5
         and contains (genderFilter, :v6)
-        and ageMinFilter >= :v7 and ageMaxFilter <= :v8
-        and (contains (matchFilter, :v9) or contains (matchFilter, :v10) or contains (matchFilter, :v11))
+        and ageMinFilter >= :v7
+        and ageMaxFilter <= :v8
+        and (
+            contains (matchFilter, :v9)
+            or contains (matchFilter, :v10)
+            or contains (matchFilter, :v11)
+        )
     `;
     const expValues = {
         ':v1': { S: geohash },
