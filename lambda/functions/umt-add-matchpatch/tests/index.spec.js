@@ -71,4 +71,28 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
             done();
         });
     }, 60000);
+
+    test('Evaluate: Patch - Match (franco.barrientos@arzov.com, AC MILAN - BAYERN)', (done) => {
+        params.Payload = JSON.stringify(events[3]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                let response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('acmilan');
+                expect(response.teamId2).toBe('bayern');
+                expect(response.email).toBe('franco.barrientos@arzov.com');
+                expect(JSON.parse(response.reqStat)).toStrictEqual({
+                    MR: { S: 'A' },
+                    PR: { S: 'A' },
+                });
+            }
+
+            done();
+        });
+    }, 60000);
 });

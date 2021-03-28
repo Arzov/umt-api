@@ -43,5 +43,20 @@
         "stadiumId": "",
         "courtId": 0,
         "genderFilter": ["M"]
+    },
+    {
+        "teamId1": "acmilan",
+        "teamId2": "bayern",
+        "allowedPatches": 2,
+        "positions": ["GK"],
+        "matchFilter": ["5v5", "7v7", "11v11"],
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "schedule": "",
+        "reqStat": "{\"AR\":{\"S\":\"A\"},\"RR\":{\"S\":\"A\"}}",
+        "stadiumGeohash": "",
+        "stadiumId": "",
+        "courtId": 0,
+        "genderFilter": ["M", "F"]
     }
 ]

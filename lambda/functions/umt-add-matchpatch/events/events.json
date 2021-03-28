@@ -16,5 +16,11 @@
         "teamId2": "man.united",
         "email": "svonko.vescovi@arzov.com",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
+    },
+    {
+        "teamId1": "acmilan",
+        "teamId2": "bayern",
+        "email": "franco.barrientos@arzov.com",
+        "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     }
 ]

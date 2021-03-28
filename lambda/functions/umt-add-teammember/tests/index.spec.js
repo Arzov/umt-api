@@ -337,4 +337,32 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
             done();
         });
     }, 60000);
+
+    test('Evaluate: Team - Member (AC MILAN - nadia.sepulveda@arzov.com)', (done) => {
+        params.Payload = JSON.stringify(events[11]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                let response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(response.teamId).toBe('acmilan');
+                expect(response.email).toBe('nadia.sepulveda@arzov.com');
+                expect(JSON.parse(response.position)).toStrictEqual(
+                    umtEnvs.dft.TEAMMEMBER.POSITION
+                );
+                expect(response.role).toStrictEqual(['Player']);
+                expect(JSON.parse(response.reqStat)).toStrictEqual({
+                    TR: { S: 'A' },
+                    PR: { S: 'A' },
+                });
+                expect(response.number).toBe('0');
+            }
+
+            done();
+        });
+    }, 60000);
 });

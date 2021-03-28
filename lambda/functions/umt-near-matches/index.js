@@ -22,21 +22,26 @@ const filterJoinedMatches = async (lambda, data, email, callback) => {
     const matches = [];
     let params = { FunctionName: 'umt-get-matchpatch' };
 
-    for (const e in data.Items) {
+    for (const e in data) {
         params.Payload = JSON.stringify({
-            teamId1: data.Items[e][hashKey].S.split('#')[idx1],
-            teamId2: data.Items[e][rangeKey].S.split('#')[idx2],
+            teamId1: data[e].teamId1,
+            teamId2: data[e].teamId2,
             email,
         });
 
-        matches.push(
-            await new Promise((resolve) => {
-                lambda.invoke(params, function (err, data) {
-                    if (err) callback(err);
-                    else resolve(JSON.parse(data.Payload));
-                });
-            })
-        );
+        const result = await new Promise((resolve) => {
+            lambda.invoke(params, function (err, data) {
+                if (err) callback(err);
+                else resolve(JSON.parse(data.Payload));
+            });
+        });
+
+        if (
+            Object.entries(result).length <= 0 ||
+            result.constructor !== Object
+        ) {
+            matches.push(data[e]);
+        }
     }
 
     return matches;
@@ -125,6 +130,7 @@ exports.handler = (event, context, callback) => {
                         return el != null;
                     });
 
+                    // Drop already joined matches
                     dataResult = await filterJoinedMatches(
                         lambda,
                         dataResult,

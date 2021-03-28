@@ -67,7 +67,7 @@ cd ../../
 # Install layers
 cd lambda/layers
 
-cd umt-ext/nodejs; npm install; cd ../../
+cd umt-ext/nodejs; yarn; cd ../../
 
 cd ../../
 
@@ -121,6 +121,7 @@ lambdas="
     umt-update-match
     umt-get-matchpatch
     umt-list-matchpatches
+    umt-near-matches
 "
 
 # Install dependencies
@@ -130,7 +131,7 @@ do
     echo "----------------------------"
     echo "Installing lambda: $lambda"
     echo "----------------------------"
-    cd $lambda; npm install; cd ../
+    cd $lambda; yarn; cd ../
 done
 
 # Execute tests

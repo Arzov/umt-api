@@ -4,30 +4,6 @@
  */
 
 /**
- * Get a patch
- * @param {Object} db DynamoDB client
- * @param {String} tableName Table name
- * @param {String} hashKey Applicant team id + Requested team id
- * @param {String} rangeKey Email del parche
- * @param {Function} fn Callback
- */
-const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
-    db.getItem(
-        {
-            TableName: tableName,
-            Key: {
-                hashKey: { S: hashKey },
-                rangeKey: { S: rangeKey },
-            },
-        },
-        function (err, data) {
-            if (err) fn(err);
-            else fn(null, data);
-        }
-    );
-};
-
-/**
  * Add a patch in the match
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
@@ -70,5 +46,4 @@ const addMatchPatch = (
     );
 };
 
-module.exports.getMatchPatch = getMatchPatch;
 module.exports.addMatchPatch = addMatchPatch;

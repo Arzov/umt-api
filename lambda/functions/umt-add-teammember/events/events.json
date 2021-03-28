@@ -59,5 +59,10 @@
         "teamId": "bayern",
         "email": "nadia.sepulveda@arzov.com",
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
+    },
+    {
+        "teamId": "acmilan",
+        "email": "nadia.sepulveda@arzov.com",
+        "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     }
 ]
