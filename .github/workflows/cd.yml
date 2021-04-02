@@ -1,21 +1,28 @@
+# ==============================
 # Continuous Deployment
+# ==============================
 name: CD
 
 on:
-  push:
+  pull_request:
+    types: [ closed ] 
     branches: [ develop ]
 
 jobs:
 
   deploy:
+    if: github.event.pull_request.merged == true
     name: Deploy to AWS
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run deploy
-        if: github.ref == 'refs/heads/develop'
+      # ------------------------------
+      # Run deploy DEV
+      # ------------------------------
+      - name: Run deploy DEV
+        if: github.base_ref == 'develop'
         env:
           # GLOBAL
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_DEV }}
