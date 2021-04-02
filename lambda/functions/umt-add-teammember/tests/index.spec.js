@@ -354,7 +354,11 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(JSON.parse(response.position)).toStrictEqual(
                     umtEnvs.dft.TEAMMEMBER.POSITION
                 );
-                expect(response.role).toStrictEqual(['Player']);
+                expect(response.role).toStrictEqual([
+                    'Admin',
+                    'Player',
+                    'Captain',
+                ]);
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     TR: { S: 'A' },
                     PR: { S: 'A' },

@@ -22,7 +22,6 @@ exports.handler = function (event, context, callback) {
         dynamodb,
         process.env.DB_UMT_001,
         hashKey,
-        umtEnvs.pfx.COURT,
         function (err, lastId) {
             if (err) callback(err);
             else {

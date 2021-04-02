@@ -58,5 +58,20 @@
         "stadiumId": "",
         "courtId": 0,
         "genderFilter": ["M", "F"]
+    },
+    {
+        "teamId1": "fcbarcelona",
+        "teamId2": "man.united",
+        "allowedPatches": 0,
+        "positions": [""],
+        "matchFilter": ["5v5"],
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "schedule": "",
+        "reqStat": "{\"AR\":{\"S\":\"A\"},\"RR\":{\"S\":\"A\"}}",
+        "stadiumGeohash": "",
+        "stadiumId": "",
+        "courtId": 0,
+        "genderFilter": ["M"]
     }
 ]

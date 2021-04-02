@@ -63,6 +63,7 @@
     {
         "teamId": "acmilan",
         "email": "nadia.sepulveda@arzov.com",
+        "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     }
 ]
