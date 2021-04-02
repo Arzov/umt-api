@@ -36,8 +36,8 @@ describe('Test AWS Lambda: umt-near-matches', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(response.items[0].teamId1).toBe('man.united');
-                expect(response.items[0].teamId2).toBe('realmadrid');
+                expect(response.items[0].teamId1).toBe('acmilan');
+                expect(response.items[0].teamId2).toBe('bayern');
                 expect(response.nextToken).toBe(null);
             }
 

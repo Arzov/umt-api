@@ -14,7 +14,7 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = function (event, context, callback) {
     const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
-    const rangeKey = `${umtEnvs.pfx.MEM}${event.userEmail}`;
+    const rangeKey = `${umtEnvs.pfx.MEM}${event.email}`;
     const position = umtEnvs.dft.TEAMMEMBER.POSITION;
     const role = event.role ? event.role : umtEnvs.dft.TEAMMEMBER.ROLE;
     const reqStat = JSON.parse(event.reqStat);

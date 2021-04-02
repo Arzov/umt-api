@@ -1,63 +1,69 @@
 [
     {
         "teamId": "man.united",
-        "userEmail": "franco.barrientos@arzov.com",
+        "email": "franco.barrientos@arzov.com",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "man.united",
-        "userEmail": "jesus.barrientos@arzov.com",
+        "email": "jesus.barrientos@arzov.com",
         "reqStat": "{\"TR\":{\"S\":\"P\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "man.united",
-        "userEmail": "matias.barrientos@arzov.com",
+        "email": "matias.barrientos@arzov.com",
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
     },
     {
         "teamId": "fcbarcelona",
-        "userEmail": "jesus.barrientos@arzov.com",
+        "email": "jesus.barrientos@arzov.com",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "fcbarcelona",
-        "userEmail": "franco.barrientos@arzov.com",
+        "email": "franco.barrientos@arzov.com",
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
     },
     {
         "teamId": "bayern",
-        "userEmail": "matias.barrientos@arzov.com",
+        "email": "matias.barrientos@arzov.com",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "bayern",
-        "userEmail": "franco.barrientos@arzov.com",
+        "email": "franco.barrientos@arzov.com",
         "reqStat": "{\"TR\":{\"S\":\"P\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "psg",
-        "userEmail": "nadia.sepulveda@arzov.com",
+        "email": "nadia.sepulveda@arzov.com",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "realmadrid",
-        "userEmail": "ivo.farias@arzov.com",
+        "email": "ivo.farias@arzov.com",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "chelsea",
-        "userEmail": "jesus.barrientos@arzov.com",
+        "email": "jesus.barrientos@arzov.com",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "bayern",
-        "userEmail": "nadia.sepulveda@arzov.com",
+        "email": "nadia.sepulveda@arzov.com",
+        "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
+    },
+    {
+        "teamId": "acmilan",
+        "email": "nadia.sepulveda@arzov.com",
+        "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     }
 ]

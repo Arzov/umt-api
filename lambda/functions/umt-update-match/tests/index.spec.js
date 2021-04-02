@@ -84,4 +84,56 @@ describe('Test AWS Lambda: umt-update-match', () => {
             done();
         });
     }, 60000);
+
+    test('Evaluate: Match (AC MILAN - BAYERN)', (done) => {
+        params.Payload = JSON.stringify(events[3]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                let response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('acmilan');
+                expect(response.teamId2).toBe('bayern');
+                expect(response.allowedPatches).toBe('2');
+                expect(response.ageMinFilter).toBe('20');
+                expect(response.ageMaxFilter).toBe('40');
+                expect(JSON.parse(response.reqStat)).toStrictEqual({
+                    AR: { S: 'A' },
+                    RR: { S: 'A' },
+                });
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Match (FC BARCELONA - MAN. UNITED)', (done) => {
+        params.Payload = JSON.stringify(events[4]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                let response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('fcbarcelona');
+                expect(response.teamId2).toBe('man.united');
+                expect(response.allowedPatches).toBe('0');
+                expect(response.ageMinFilter).toBe('20');
+                expect(response.ageMaxFilter).toBe('40');
+                expect(JSON.parse(response.reqStat)).toStrictEqual({
+                    AR: { S: 'A' },
+                    RR: { S: 'A' },
+                });
+            }
+
+            done();
+        });
+    }, 60000);
 });

@@ -19,7 +19,7 @@ describe('Test AWS Lambda: umt-add-matchchat', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('man.united');
                 expect(response.teamId2).toBe('realmadrid');
-                expect(response.userEmail).toBe('svonko.vescovi@arzov.com');
+                expect(response.email).toBe('svonko.vescovi@arzov.com');
                 expect(response.msg).toBe('Hola, como estan?');
             }
 
@@ -40,7 +40,7 @@ describe('Test AWS Lambda: umt-add-matchchat', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('man.united');
                 expect(response.teamId2).toBe('realmadrid');
-                expect(response.userEmail).toBe('franco.barrientos@arzov.com');
+                expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(response.msg).toBe('A que hora jugamos?');
             }
 

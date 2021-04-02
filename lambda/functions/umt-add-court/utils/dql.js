@@ -3,15 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+const umtEnvs = require('umt-envs');
+
 /**
  * Get `id` of latest court added
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
  * @param {String} hashKey Sport club id
- * @param {String} prefix Filter prefix
  * @param {Function} fn Callback
  */
-const getLastCourtId = (db, tableName, hashKey, prefix, fn) => {
+const getLastCourtId = (db, tableName, hashKey, fn) => {
     db.query(
         {
             TableName: tableName,
@@ -20,7 +21,7 @@ const getLastCourtId = (db, tableName, hashKey, prefix, fn) => {
                 'hashKey = :v1 and begins_with ( rangeKey, :v2 )',
             ExpressionAttributeValues: {
                 ':v1': { S: hashKey },
-                ':v2': { S: prefix },
+                ':v2': { S: umtEnvs.pfx.COURT },
             },
             ScanIndexForward: false,
             Limit: 1,

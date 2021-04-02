@@ -19,7 +19,7 @@ describe('Test AWS Lambda: umt-matchpatch-requests', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].teamId1).toBe('fcbarcelona');
                 expect(response.items[0].teamId2).toBe('man.united');
-                expect(response.items[0].userEmail).toBe(
+                expect(response.items[0].email).toBe(
                     'svonko.vescovi@arzov.com'
                 );
                 expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({

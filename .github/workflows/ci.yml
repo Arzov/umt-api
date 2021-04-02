@@ -1,4 +1,6 @@
+# ==============================
 # Continuous Integration
+# ==============================
 name: CI
 
 on:
@@ -11,13 +13,16 @@ jobs:
 
   test:
     name: Testing on AWS Lambda
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run tests
-        if: github.ref == 'refs/heads/develop'
+      # ------------------------------
+      # Run tests DEV
+      # ------------------------------
+      - name: Run tests DEV
+        if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
         env:
           # GLOBAL
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_DEV }}

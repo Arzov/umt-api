@@ -39,7 +39,7 @@ exports.handler = (event, context, callback) => {
                     dataResult = data.Items.map(function (x) {
                         return {
                             teamId: x.hashKey.S.split('#')[1],
-                            userEmail: x.rangeKey.S.split('#')[1],
+                            email: x.rangeKey.S.split('#')[1],
                             reqStat: JSON.stringify(x.reqStat.M),
                         };
                     });

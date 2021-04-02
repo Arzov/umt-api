@@ -10,4 +10,5 @@ RUN ./aws_sam.sh
 RUN ./nodejs.sh
 RUN ./ping.sh
 RUN ./docker.sh
+RUN npm i -g yarn
 WORKDIR /var/opt

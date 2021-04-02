@@ -67,7 +67,7 @@ cd ../../
 # Install layers
 cd lambda/layers
 
-cd umt-ext/nodejs; npm install; cd ../../
+cd umt-ext/nodejs; yarn; cd ../../
 
 cd ../../
 
@@ -90,29 +90,38 @@ sam local start-lambda \
 
 cd lambda/functions
 
+# lambdas="
+#     umt-add-user
+#     umt-update-user
+#     umt-add-team
+#     umt-add-teammember
+#     umt-add-teamchat
+#     umt-add-match
+#     umt-add-matchpatch
+#     umt-add-matchchat
+#     umt-update-match
+#     umt-add-stadium
+#     umt-add-court
+#     umt-get-user
+#     umt-get-team
+#     umt-get-match
+#     umt-near-teams
+#     umt-near-matches
+#     umt-list-teams
+#     umt-team-requests
+#     umt-teammember-requests
+#     umt-list-matches
+#     umt-match-requests
+#     umt-matchpatch-requests
+# "
+
 lambdas="
-    umt-add-user
-    umt-update-user
-    umt-add-team
-    umt-add-teammember
-    umt-add-teamchat
     umt-add-match
     umt-add-matchpatch
-    umt-add-matchchat
     umt-update-match
-    umt-add-stadium
-    umt-add-court
-    umt-get-user
-    umt-get-team
-    umt-get-match
-    umt-near-teams
+    umt-get-matchpatch
+    umt-list-matchpatches
     umt-near-matches
-    umt-list-teams
-    umt-team-requests
-    umt-teammember-requests
-    umt-list-matches
-    umt-match-requests
-    umt-matchpatch-requests
 "
 
 # Install dependencies
@@ -122,7 +131,7 @@ do
     echo "----------------------------"
     echo "Installing lambda: $lambda"
     echo "----------------------------"
-    cd $lambda; npm install; cd ../
+    cd $lambda; yarn; cd ../
 done
 
 # Execute tests

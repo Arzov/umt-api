@@ -3,6 +3,7 @@
 node_modules
 .vscode
 *.~vsdx
+template.yml
 
 # jekyll
 _site

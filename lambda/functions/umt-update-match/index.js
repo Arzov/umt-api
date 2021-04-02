@@ -43,7 +43,7 @@ exports.handler = function (event, context, callback) {
         else {
             const response = JSON.parse(data.Payload);
 
-            // Aun existe el partido
+            // The match still exist
             if (
                 Object.entries(response).length > 0 &&
                 response.constructor === Object
@@ -85,7 +85,7 @@ exports.handler = function (event, context, callback) {
                     );
             }
 
-            // El partido ya no existe
+            // The match doesn't exist
             else {
                 const err = new Error(
                     JSON.stringify({

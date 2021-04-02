@@ -4,6 +4,9 @@
     Properties: 
       ApiId: !GetAtt ASGraphQLApiUMT.ApiId
       Definition: >
+        # ============================
+        # Types
+        # ============================
         type User {
           email: String
           geohash: String
@@ -44,7 +47,7 @@
 
         type TeamMember {
           teamId: String
-          userEmail: String
+          email: String
           position: String
           isCaptain: Boolean
           role: [String]
@@ -60,7 +63,7 @@
 
         type TeamChat {
           teamId: String
-          userEmail: String
+          email: String
           sentOn: String
           msg: String
         }
@@ -98,7 +101,7 @@
         type MatchPatch {
           teamId1: String
           teamId2: String
-          userEmail: String
+          email: String
           reqStat: String
           joinedOn: String
         }
@@ -111,7 +114,7 @@
         type MatchChat {
           teamId1: String
           teamId2: String
-          userEmail: String
+          email: String
           sentOn: String
           msg: String
         }
@@ -148,6 +151,10 @@
           nextToken: String
         }
 
+
+        # ============================
+        # Mutations
+        # ============================
         type Mutation {
           addUser(
             latitude: Float!,
@@ -178,7 +185,7 @@
 
           addTeamMember(
             teamId: String!,
-            userEmail: String!,
+            email: String!,
             position: String,
             role: [String],
             reqStat: String!,
@@ -187,7 +194,7 @@
 
           addTeamChat(
             teamId: String!,
-            userEmail: String!,
+            email: String!,
             msg: String!
           ): TeamChat
 
@@ -211,14 +218,14 @@
           addMatchPatch(
             teamId1: String!,
             teamId2: String!,
-            userEmail: String!,
+            email: String!,
             reqStat: String
           ): MatchPatch
 
           addMatchChat(
             teamId1: String!,
             teamId2: String!,
-            userEmail: String!,
+            email: String!,
             msg: String!
           ): MatchChat
 
@@ -268,6 +275,10 @@
           ): Match
         }
 
+
+        # ============================
+        # Queries
+        # ============================
         type Query {
           getUser(
             email: String!
@@ -334,8 +345,24 @@
             email: String!,
             nextToken: String
           ): MatchPatchList
+
+          listMatchPatches(
+            teamId1: String!,
+            teamId2: String!,
+            nextToken: String
+          ): MatchPatchList
+
+          getMatchPatch(
+            teamId1: String!,
+            teamId2: String!,
+            email: String!
+          ): MatchPatch
         }
-        
+
+
+        # ============================
+        # Schema
+        # ============================
         schema {
           query: Query
           mutation: Mutation

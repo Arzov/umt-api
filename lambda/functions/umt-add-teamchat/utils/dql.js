@@ -27,7 +27,7 @@ const addTeamChat = (db, tableName, hashKey, rangeKey, msg, fn) => {
             else
                 fn(null, {
                     teamId: hashKey.split('#')[1],
-                    userEmail: rangeKey.split('#')[2],
+                    email: rangeKey.split('#')[2],
                     sentOn: rangeKey.split('#')[1],
                     msg,
                 });

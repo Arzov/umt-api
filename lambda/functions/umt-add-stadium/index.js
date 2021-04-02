@@ -23,12 +23,12 @@ exports.handler = function (event, context, callback) {
         LON: { N: String(longitude) },
         LAT: { N: String(latitude) },
     };
-    const hashKey = `${umtEnvs.pfx.STAD}${umtUtils.nameToId(name)}`;
-    const rangeKey = `${umtEnvs.pfx.STAD}${ngeohash.encode(
+    const hashKey = `${umtEnvs.pfx.STAD}${ngeohash.encode(
         latitude,
         longitude,
         geohashLength
     )}`;
+    const rangeKey = `${umtEnvs.pfx.STAD}${umtUtils.nameToId(name)}`;
     const matchFilter = event.matchFilter;
     const address = event.address ? event.address : umtEnvs.dft.STADIUM.ADDRESS;
 

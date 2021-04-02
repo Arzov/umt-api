@@ -7,8 +7,8 @@
  * Add a sport club
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
- * @param {String} hashKey Id
- * @param {String} rangeKey Geolocation hash
+ * @param {String} hashKey Geolocation hash
+ * @param {String} rangeKey Id
  * @param {String} name Name
  * @param {String[]} matchFilter Match types supported
  * @param {Object} coords Location coordinates
@@ -42,8 +42,8 @@ const addStadium = (
             if (err) fn(err);
             else
                 fn(null, {
-                    id: hashKey.split('#')[1],
-                    geohash: rangeKey.split('#')[1],
+                    geohash: hashKey.split('#')[1],
+                    id: rangeKey.split('#')[1],
                     name,
                     matchFilter,
                     coords: JSON.stringify(coords),

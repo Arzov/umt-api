@@ -18,7 +18,7 @@ describe('Test AWS Lambda: umt-team-requests', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].teamId).toBe('man.united');
-                expect(response.items[0].userEmail).toBe(
+                expect(response.items[0].email).toBe(
                     'jesus.barrientos@arzov.com'
                 );
                 expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({
@@ -26,7 +26,7 @@ describe('Test AWS Lambda: umt-team-requests', () => {
                     PR: { S: 'A' },
                 });
                 expect(response.items[1].teamId).toBe('man.united');
-                expect(response.items[1].userEmail).toBe(
+                expect(response.items[1].email).toBe(
                     'matias.barrientos@arzov.com'
                 );
                 expect(JSON.parse(response.items[1].reqStat)).toStrictEqual({
