@@ -19,7 +19,10 @@ describe('Test AWS Lambda: umt-update-match', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('man.united');
                 expect(response.teamId2).toBe('realmadrid');
-                expect(response.allowedPatches).toBe('2');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '2' },
+                });
                 expect(response.positions).toStrictEqual(['GK']);
                 expect(response.matchFilter).toStrictEqual(['5v5', '11v11']);
                 expect(response.ageMinFilter).toBe('20');
@@ -98,7 +101,10 @@ describe('Test AWS Lambda: umt-update-match', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('acmilan');
                 expect(response.teamId2).toBe('bayern');
-                expect(response.allowedPatches).toBe('2');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '2' },
+                });
                 expect(response.ageMinFilter).toBe('20');
                 expect(response.ageMaxFilter).toBe('40');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
@@ -124,7 +130,10 @@ describe('Test AWS Lambda: umt-update-match', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('fcbarcelona');
                 expect(response.teamId2).toBe('man.united');
-                expect(response.allowedPatches).toBe('0');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '0' },
+                });
                 expect(response.ageMinFilter).toBe('20');
                 expect(response.ageMaxFilter).toBe('40');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({

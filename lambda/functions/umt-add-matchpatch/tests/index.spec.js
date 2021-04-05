@@ -24,6 +24,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                     MR: { S: 'A' },
                     PR: { S: 'A' },
                 });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();
@@ -41,9 +42,9 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(JSON.parse(response.reqStat)).toStrictEqual({
-                    MR: { S: 'A' },
-                    PR: { S: 'A' },
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchExistsException',
+                    message: `El jugador ya participa del partido.`,
                 });
             }
 
@@ -62,10 +63,14 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('fcbarcelona');
+                expect(response.teamId2).toBe('man.united');
+                expect(response.email).toBe('svonko.vescovi@arzov.com');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'P' },
                 });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();
@@ -90,6 +95,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                     MR: { S: 'A' },
                     PR: { S: 'A' },
                 });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();

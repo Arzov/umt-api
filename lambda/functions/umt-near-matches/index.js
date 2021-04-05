@@ -111,7 +111,7 @@ exports.handler = (event, context, callback) => {
                                 teamId1: x.hashKey.S.split('#')[1],
                                 teamId2: x.rangeKey.S.split('#')[1],
                                 createdOn: x.createdOn.S,
-                                allowedPatches: x.allowedPatches.N,
+                                patches: x.patches.N,
                                 positions: x.positions.SS,
                                 matchFilter: x.matchFilter.SS,
                                 expireOn: x.expireOn.S,

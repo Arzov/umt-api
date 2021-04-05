@@ -24,7 +24,7 @@ describe('Test AWS Lambda: umt-list-teams', () => {
                     umtEnvs.dft.TEAM.FORMATION
                 );
                 expect(response.items[0].geohash).toBe('66jcfp');
-                expect(response.items[0].searchingPlayers).toBe(false);
+                expect(response.items[0].searching).toBe(false);
                 expect(JSON.parse(response.items[0].coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },

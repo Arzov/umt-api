@@ -26,7 +26,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(response.items[0].ageMaxFilter).toBe('40');
                 expect(response.items[0].genderFilter).toStrictEqual(['M']);
                 expect(response.items[0].matchFilter).toStrictEqual(['7v7']);
-                expect(response.items[0].searchingPlayers).toBe(true);
+                expect(response.items[0].searching).toBe(true);
                 expect(JSON.parse(response.items[0].formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
@@ -66,7 +66,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                     'M',
                 ]);
                 expect(response.items[0].matchFilter).toStrictEqual(['7v7']);
-                expect(response.items[0].searchingPlayers).toBe(true);
+                expect(response.items[0].searching).toBe(true);
                 expect(JSON.parse(response.items[0].formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
@@ -106,7 +106,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                     'M',
                 ]);
                 expect(response.items[0].matchFilter).toStrictEqual(['7v7']);
-                expect(response.items[0].searchingPlayers).toBe(true);
+                expect(response.items[0].searching).toBe(true);
                 expect(JSON.parse(response.items[0].formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
@@ -142,7 +142,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(response.items[0].ageMaxFilter).toBe('40');
                 expect(response.items[0].genderFilter).toStrictEqual(['F']);
                 expect(response.items[0].matchFilter).toStrictEqual(['7v7']);
-                expect(response.items[0].searchingPlayers).toBe(true);
+                expect(response.items[0].searching).toBe(true);
                 expect(JSON.parse(response.items[0].formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
@@ -181,7 +181,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                     '11v11',
                     '5v5',
                 ]);
-                expect(response.items[0].searchingPlayers).toBe(false);
+                expect(response.items[0].searching).toBe(false);
                 expect(JSON.parse(response.items[0].formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
@@ -220,7 +220,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                     'M',
                 ]);
                 expect(response.items[0].matchFilter).toStrictEqual(['7v7']);
-                expect(response.items[0].searchingPlayers).toBe(true);
+                expect(response.items[0].searching).toBe(true);
                 expect(JSON.parse(response.items[0].formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );

@@ -15,8 +15,11 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = function (event, context, callback) {
     const hashKey = `${umtEnvs.pfx.MATCH}${event.teamId1}#${event.teamId2}`;
     const sentOn = new Date().toISOString();
-    const rangeKey = `${umtEnvs.pfx.CHAT}${sentOn}#${event.email}`;
+    const rangeKey = `${umtEnvs.pfx.MATCH_CHAT}${sentOn}#${event.email}`;
     const msg = event.msg;
+    const expireOn = event.expireOn;
+    const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
+    const GSI1SK = `${umtEnvs.pfx.MATCH_CHAT}${sentOn}`;
 
     dql.addMatchChat(
         dynamodb,
@@ -24,6 +27,10 @@ exports.handler = function (event, context, callback) {
         hashKey,
         rangeKey,
         msg,
+        expireOn,
+        GSI1PK,
+        GSI1SK,
+        sentOn,
         callback
     );
 };

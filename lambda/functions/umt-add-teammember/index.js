@@ -14,12 +14,13 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = function (event, context, callback) {
     const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
-    const rangeKey = `${umtEnvs.pfx.MEM}${event.email}`;
-    const position = umtEnvs.dft.TEAMMEMBER.POSITION;
-    const role = event.role ? event.role : umtEnvs.dft.TEAMMEMBER.ROLE;
+    const rangeKey = `${umtEnvs.pfx.TEAM_MEMBER}${event.email}`;
+    const position = umtEnvs.dft.TEAM_MEMBER.POSITION;
+    const role = event.role ? event.role : umtEnvs.dft.TEAM_MEMBER.ROLE;
     const reqStat = JSON.parse(event.reqStat);
-    const number = umtEnvs.dft.TEAMMEMBER.NUMBER;
+    const number = umtEnvs.dft.TEAM_MEMBER.NUMBER;
     const joinedOn = new Date().toISOString();
+    const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
 
     dql.addTeamMember(
         dynamodb,
@@ -31,6 +32,7 @@ exports.handler = function (event, context, callback) {
         reqStat,
         number,
         joinedOn,
+        GSI1PK,
         callback
     );
 };

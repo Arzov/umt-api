@@ -18,9 +18,9 @@ const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = function (event, context, callback) {
-    const hashKey = `${umtEnvs.pfx.MATCH}${event.teamId1}`;
+    const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId1}`;
     const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
-    const allowedPatches = String(event.allowedPatches);
+    const patches = JSON.parse(event.patches);
     const positions = event.positions;
     const matchFilter = event.matchFilter;
     const schedule = event.schedule;
@@ -68,7 +68,7 @@ exports.handler = function (event, context, callback) {
                         process.env.DB_UMT_001,
                         hashKey,
                         rangeKey,
-                        allowedPatches,
+                        patches,
                         positions,
                         matchFilter,
                         schedule,

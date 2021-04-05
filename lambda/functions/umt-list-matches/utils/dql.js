@@ -4,6 +4,31 @@
  */
 
 const umtEnvs = require('umt-envs');
+const umtUtils = require('umt-utils');
+
+/**
+ * Parse match data
+ * @param {String} data Matches data
+ * @param {Function} fn Callback
+ */
+const parseData = (data, fn) => {
+    let result = {
+        Count: data.Count,
+        Items: [],
+        LastEvaluatedKey: null,
+    };
+
+    if ('LastEvaluatedKey' in data)
+        result.LastEvaluatedKey = JSON.stringify(data.LastEvaluatedKey);
+
+    if (result.Count) {
+        result.Items = data.Items.map((m) => {
+            return umtUtils.parseMatchOutput(m);
+        });
+    }
+
+    fn(null, result);
+};
 
 /**
  * Get team matches like owner
@@ -35,7 +60,7 @@ const listOwnerMatches = (db, tableName, hashKey, limitScan, nextToken, fn) => {
             },
             function (err, data) {
                 if (err) fn(err);
-                else fn(null, data);
+                else parseData(data, fn);
             }
         );
     } else {
@@ -49,7 +74,7 @@ const listOwnerMatches = (db, tableName, hashKey, limitScan, nextToken, fn) => {
             },
             function (err, data) {
                 if (err) fn(err);
-                else fn(null, data);
+                else parseData(data, fn);
             }
         );
     }
@@ -59,24 +84,17 @@ const listOwnerMatches = (db, tableName, hashKey, limitScan, nextToken, fn) => {
  * Get team matches like guest
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
- * @param {String} rangeKey Team id
+ * @param {String} GSI1PK Team id
  * @param {Integer} limitScan Query limit scan result
  * @param {String} nextToken Last query scanned object
  * @param {Function} fn Callback
  */
-const listGuestMatches = (
-    db,
-    tableName,
-    rangeKey,
-    limitScan,
-    nextToken,
-    fn
-) => {
-    const idx = 'rangeKey-idx';
-    const keyExp = `rangeKey = :v1 and begins_with (hashKey, :v2)`;
+const listGuestMatches = (db, tableName, GSI1PK, limitScan, nextToken, fn) => {
+    const idx = 'GSI1';
+    const keyExp = `GSI1PK = :v1 and begins_with (GSI1SK, :v2)`;
     const filterExp = `reqStat.AR = :v3 and reqStat.RR = :v3`;
     const expValues = {
-        ':v1': { S: rangeKey },
+        ':v1': { S: GSI1PK },
         ':v2': { S: umtEnvs.pfx.MATCH },
         ':v3': { S: 'A' },
     };
@@ -94,7 +112,7 @@ const listGuestMatches = (
             },
             function (err, data) {
                 if (err) fn(err);
-                else fn(null, data);
+                else parseData(data, fn);
             }
         );
     } else {
@@ -109,7 +127,7 @@ const listGuestMatches = (
             },
             function (err, data) {
                 if (err) fn(err);
-                else fn(null, data);
+                else parseData(data, fn);
             }
         );
     }
@@ -119,24 +137,17 @@ const listGuestMatches = (
  * Get patch matches
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
- * @param {String} rangeKey Email
+ * @param {String} GSI1PK User email
  * @param {Integer} limitScan Query limit scan result
  * @param {String} nextToken Last query scanned object
  * @param {Function} fn Callback
  */
-const listPatchMatches = (
-    db,
-    tableName,
-    rangeKey,
-    limitScan,
-    nextToken,
-    fn
-) => {
-    const idx = 'rangeKey-idx';
-    const keyExp = `rangeKey = :v1 and begins_with (hashKey, :v2)`;
+const listPatchMatches = (db, tableName, GSI1PK, limitScan, nextToken, fn) => {
+    const idx = 'GSI1';
+    const keyExp = `GSI1PK = :v1 and begins_with (GSI1SK, :v2)`;
     const filterExp = `reqStat.MR = :v3 and reqStat.PR = :v3`;
     const expValues = {
-        ':v1': { S: rangeKey },
+        ':v1': { S: GSI1PK },
         ':v2': { S: umtEnvs.pfx.MATCH },
         ':v3': { S: 'A' },
     };

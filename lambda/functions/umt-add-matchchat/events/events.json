@@ -3,12 +3,14 @@
         "teamId1": "man.united",
         "teamId2": "realmadrid",
         "email": "svonko.vescovi@arzov.com",
-        "msg": "Hola, como estan?"
+        "msg": "Hola, como estan?",
+        "expireOn": "2021-04-04T20:36:57.562Z"
     },
     {
         "teamId1": "man.united",
         "teamId2": "realmadrid",
         "email": "franco.barrientos@arzov.com",
-        "msg": "A que hora jugamos?"
+        "msg": "A que hora jugamos?",
+        "expireOn": "2021-04-04T20:36:57.562Z"
     }
 ]

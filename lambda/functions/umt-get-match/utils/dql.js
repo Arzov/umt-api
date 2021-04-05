@@ -3,6 +3,8 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+const umtUtils = require('umt-utils');
+
 /**
  * Get match
  * @param {Object} db DynamoDB client
@@ -28,25 +30,7 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
             ) {
                 fn(null, {});
             } else {
-                fn(null, {
-                    teamId1: data.Item.hashKey.S.split('#')[1],
-                    teamId2: data.Item.rangeKey.S.split('#')[1],
-                    allowedPatches: data.Item.allowedPatches.N,
-                    positions: data.Item.positions.SS,
-                    matchFilter: data.Item.matchFilter.SS,
-                    schedule: data.Item.schedule.S,
-                    reqStat: JSON.stringify(data.Item.reqStat.M),
-                    stadiumGeohash: data.Item.stadiumGeohash.S,
-                    stadiumId: data.Item.stadiumId.S,
-                    courtId: data.Item.courtId.N,
-                    genderFilter: data.Item.genderFilter.SS,
-                    ageMinFilter: data.Item.ageMinFilter.N,
-                    ageMaxFilter: data.Item.ageMaxFilter.N,
-                    geohash: data.Item.geohash.S,
-                    coords: JSON.stringify(data.Item.coords.M),
-                    expireOn: data.Item.expireOn.S,
-                    createdOn: data.Item.createdOn.S,
-                });
+                fn(null, umtUtils.parseMatchOutput(data.Item));
             }
         }
     );

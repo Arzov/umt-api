@@ -8,11 +8,26 @@
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
  * @param {String} hashKey Team id
- * @param {String} rangeKey Message send date + Player email
+ * @param {String} rangeKey Message send date + User email
  * @param {String} msg Message
+ * @param {String} expireOn Message expire date
+ * @param {String} GSI1PK User email
+ * @param {String} GSI1SK Message send date
+ * @param {String} sentOn Message send date
  * @param {Function} fn Callback
  */
-const addTeamChat = (db, tableName, hashKey, rangeKey, msg, fn) => {
+const addTeamChat = (
+    db,
+    tableName,
+    hashKey,
+    rangeKey,
+    msg,
+    expireOn,
+    GSI1PK,
+    GSI1SK,
+    sentOn,
+    fn
+) => {
     db.putItem(
         {
             TableName: tableName,
@@ -20,6 +35,10 @@ const addTeamChat = (db, tableName, hashKey, rangeKey, msg, fn) => {
                 hashKey: { S: hashKey },
                 rangeKey: { S: rangeKey },
                 msg: { S: msg },
+                expireOn: { S: expireOn },
+                GSI1PK: { S: GSI1PK },
+                GSI1SK: { S: GSI1SK },
+                sentOn: { S: sentOn },
             },
         },
         function (err, data) {
@@ -27,9 +46,10 @@ const addTeamChat = (db, tableName, hashKey, rangeKey, msg, fn) => {
             else
                 fn(null, {
                     teamId: hashKey.split('#')[1],
-                    email: rangeKey.split('#')[2],
-                    sentOn: rangeKey.split('#')[1],
+                    email: GSI1PK.split('#')[1],
+                    sentOn,
                     msg,
+                    expireOn,
                 });
         }
     );

@@ -28,7 +28,7 @@ describe('Test AWS Lambda: umt-get-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searchingPlayers).toBe(false);
+                expect(response.searching).toBe(false);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },

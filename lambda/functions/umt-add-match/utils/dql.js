@@ -11,7 +11,7 @@
  * @param {String} rangeKey Requested team id
  * @param {String} createdOn Creation date
  * @param {String} expireOn Due date
- * @param {String} allowedPatches Allowed patches number
+ * @param {Object} patches Allowed patches
  * @param {String[]} positions Positions required for patch
  * @param {String} ageMinFilter Min. players age
  * @param {String} ageMaxFilter Max. players age
@@ -24,6 +24,8 @@
  * @param {String} stadiumId Sport club id
  * @param {String} courtId Court id
  * @param {String[]} genderFilter Gender of players
+ * @param {String} GSI1PK Requested team id
+ * @param {String} GSI1SK Applicant team id
  * @param {Function} fn Callback
  */
 const addMatch = (
@@ -33,7 +35,7 @@ const addMatch = (
     rangeKey,
     createdOn,
     expireOn,
-    allowedPatches,
+    patches,
     positions,
     ageMinFilter,
     ageMaxFilter,
@@ -46,6 +48,8 @@ const addMatch = (
     stadiumId,
     courtId,
     genderFilter,
+    GSI1PK,
+    GSI1SK,
     fn
 ) => {
     db.putItem(
@@ -56,7 +60,7 @@ const addMatch = (
                 rangeKey: { S: rangeKey },
                 createdOn: { S: createdOn },
                 expireOn: { S: expireOn },
-                allowedPatches: { N: allowedPatches },
+                patches: { M: patches },
                 positions: { SS: positions },
                 ageMinFilter: { N: ageMinFilter },
                 ageMaxFilter: { N: ageMaxFilter },
@@ -69,6 +73,8 @@ const addMatch = (
                 stadiumId: { S: stadiumId },
                 courtId: { N: courtId },
                 genderFilter: { SS: genderFilter },
+                GSI1PK: { S: GSI1PK },
+                GSI1SK: { S: GSI1SK },
             },
         },
         function (err, data) {
@@ -79,7 +85,7 @@ const addMatch = (
                     teamId2: rangeKey.split('#')[1],
                     createdOn,
                     expireOn,
-                    allowedPatches,
+                    patches: JSON.stringify(patches),
                     positions,
                     ageMinFilter,
                     ageMaxFilter,

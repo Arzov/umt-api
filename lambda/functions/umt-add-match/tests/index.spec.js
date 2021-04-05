@@ -19,7 +19,10 @@ describe('Test AWS Lambda: umt-add-match', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('man.united');
                 expect(response.teamId2).toBe('realmadrid');
-                expect(response.allowedPatches).toBe('1');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '1' },
+                });
                 expect(response.positions).toStrictEqual(['']);
                 expect(response.ageMinFilter).toBe('20');
                 expect(response.ageMaxFilter).toBe('40');
@@ -77,7 +80,10 @@ describe('Test AWS Lambda: umt-add-match', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('fcbarcelona');
                 expect(response.teamId2).toBe('man.united');
-                expect(response.allowedPatches).toBe('0');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '0' },
+                });
                 expect(response.positions).toStrictEqual(['']);
                 expect(response.ageMinFilter).toBe('20');
                 expect(response.ageMaxFilter).toBe('40');
@@ -114,7 +120,10 @@ describe('Test AWS Lambda: umt-add-match', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('chelsea');
                 expect(response.teamId2).toBe('realmadrid');
-                expect(response.allowedPatches).toBe('0');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '0' },
+                });
                 expect(response.positions).toStrictEqual(['']);
                 expect(response.ageMinFilter).toBe('20');
                 expect(response.ageMaxFilter).toBe('40');
@@ -151,7 +160,10 @@ describe('Test AWS Lambda: umt-add-match', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('acmilan');
                 expect(response.teamId2).toBe('bayern');
-                expect(response.allowedPatches).toBe('0');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '0' },
+                });
                 expect(response.positions).toStrictEqual(['']);
                 expect(response.ageMinFilter).toBe('20');
                 expect(response.ageMaxFilter).toBe('40');

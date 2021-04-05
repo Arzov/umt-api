@@ -20,30 +20,46 @@ const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = function (event, context, callback) {
     const name = umtUtils.cleanName(event.name);
+
     const hashKey = `${umtEnvs.pfx.TEAM}${umtUtils.nameToId(name)}`;
+
+    const rangeKey = `${umtEnvs.pfx.METADATA}${umtUtils.nameToId(name)}`;
+
     const picture = event.picture ? event.picture : umtEnvs.dft.TEAM.PICTURE;
+
     const ageMinFilter = String(event.ageMinFilter);
+
     const ageMaxFilter = String(event.ageMaxFilter);
+
     const matchFilter = event.matchFilter;
+
     const genderFilter = event.genderFilter;
+
     const formation = event.formation
         ? JSON.parse(event.formation)
         : umtEnvs.dft.TEAM.FORMATION;
-    const searchingPlayers = event.searchingPlayers
-        ? event.searchingPlayers
-        : false;
+
+    const searching = event.searching ? event.searching : false;
+
     const geohash = event.geohash;
+
     const latitude = event.latitude;
+
     const longitude = event.longitude;
+
     const coords = {
         LON: { N: String(longitude) },
         LAT: { N: String(latitude) },
     };
 
+    const createdOn = new Date().toISOString();
+
     let params = { FunctionName: 'umt-get-team' };
+
     params.Payload = JSON.stringify({
         id: umtUtils.nameToId(name),
     });
+
     lambda.invoke(params, function (err, data) {
         if (err) callback(err);
         else {
@@ -65,7 +81,7 @@ exports.handler = function (event, context, callback) {
                     dynamodb,
                     process.env.DB_UMT_001,
                     hashKey,
-                    hashKey,
+                    rangeKey,
                     geohash,
                     name,
                     picture,
@@ -74,8 +90,9 @@ exports.handler = function (event, context, callback) {
                     matchFilter,
                     genderFilter,
                     formation,
-                    searchingPlayers,
+                    searching,
                     coords,
+                    createdOn,
                     callback
                 );
             }

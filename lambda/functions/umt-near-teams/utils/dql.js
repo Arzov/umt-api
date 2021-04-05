@@ -42,7 +42,7 @@ const nearTeams = (
         contains (genderFilter, :v3)
         and (contains (matchFilter, :v4) or contains (matchFilter, :v5) or contains (matchFilter, :v6))
         and ageMinFilter >= :v7 and ageMaxFilter <= :v8 and not contains (:v9, hashKey)
-        and searchingPlayers = :v10
+        and searching = :v10
     `;
     const filterExp2 = `
         genderFilter = :v3

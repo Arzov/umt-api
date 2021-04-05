@@ -20,7 +20,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('man.united');
                 expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual([
                     'Admin',
@@ -52,7 +52,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('man.united');
                 expect(response.email).toBe('jesus.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual(['Player']);
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
@@ -80,7 +80,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('man.united');
                 expect(response.email).toBe('matias.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual(['Player']);
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
@@ -108,7 +108,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('fcbarcelona');
                 expect(response.email).toBe('jesus.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual([
                     'Admin',
@@ -140,7 +140,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('fcbarcelona');
                 expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual(['Player']);
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
@@ -168,7 +168,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('bayern');
                 expect(response.email).toBe('matias.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual([
                     'Admin',
@@ -200,7 +200,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('bayern');
                 expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual(['Player']);
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
@@ -228,7 +228,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('psg');
                 expect(response.email).toBe('nadia.sepulveda@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual([
                     'Admin',
@@ -260,7 +260,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('realmadrid');
                 expect(response.email).toBe('ivo.farias@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual([
                     'Admin',
@@ -292,7 +292,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('chelsea');
                 expect(response.email).toBe('jesus.barrientos@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual([
                     'Admin',
@@ -324,7 +324,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('bayern');
                 expect(response.email).toBe('nadia.sepulveda@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual(['Player']);
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
@@ -352,7 +352,7 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
                 expect(response.teamId).toBe('acmilan');
                 expect(response.email).toBe('nadia.sepulveda@arzov.com');
                 expect(JSON.parse(response.position)).toStrictEqual(
-                    umtEnvs.dft.TEAMMEMBER.POSITION
+                    umtEnvs.dft.TEAM_MEMBER.POSITION
                 );
                 expect(response.role).toStrictEqual([
                     'Admin',

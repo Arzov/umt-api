@@ -16,9 +16,10 @@
  * @param {String[]} matchFilter Match types which team participate
  * @param {String[]} genderFilter Gender of the players
  * @param {Object} formation Team formation for each mathc type
- * @param {Boolean} searchingPlayers Searchimg new team members indicator
+ * @param {Boolean} searching Searching new team members indicator
  * @param {String} geohash Geolocation hash
  * @param {Object} coords Location coordinates
+ * @param {String} createdOn Creation date of the team
  * @param {Function} fn Callback
  */
 const addTeam = (
@@ -34,8 +35,9 @@ const addTeam = (
     matchFilter,
     genderFilter,
     formation,
-    searchingPlayers,
+    searching,
     coords,
+    createdOn,
     fn
 ) => {
     db.putItem(
@@ -52,8 +54,9 @@ const addTeam = (
                 matchFilter: { SS: matchFilter },
                 genderFilter: { SS: genderFilter },
                 formation: { M: formation },
-                searchingPlayers: { BOOL: searchingPlayers },
+                searching: { BOOL: searching },
                 coords: { M: coords },
+                createdOn: { S: createdOn },
             },
         },
         function (err, data) {
@@ -69,8 +72,9 @@ const addTeam = (
                     matchFilter,
                     genderFilter,
                     formation: JSON.stringify(formation),
-                    searchingPlayers,
+                    searching,
                     coords: JSON.stringify(coords),
+                    createdOn,
                 });
         }
     );

@@ -2,7 +2,7 @@
     {
         "teamId1": "man.united",
         "teamId2": "realmadrid",
-        "allowedPatches": 2,
+        "patches": "{\"CP\":{\"N\":\"0\"},\"NP\":{\"N\":\"2\"}}",
         "positions": ["GK"],
         "matchFilter": ["5v5", "11v11"],
         "ageMinFilter": 20,
@@ -17,7 +17,7 @@
     {
         "teamId1": "psg",
         "teamId2": "realmadrid",
-        "allowedPatches": 2,
+        "patches": "{\"CP\":{\"N\":\"0\"},\"NP\":{\"N\":\"2\"}}",
         "positions": ["GK"],
         "matchFilter": ["5v5", "11v11"],
         "ageMinFilter": 20,
@@ -32,7 +32,7 @@
     {
         "teamId1": "chelsea",
         "teamId2": "realmadrid",
-        "allowedPatches": 2,
+        "patches": "{\"CP\":{\"N\":\"0\"},\"NP\":{\"N\":\"2\"}}",
         "positions": ["GK"],
         "matchFilter": ["7v7"],
         "ageMinFilter": 20,
@@ -47,7 +47,7 @@
     {
         "teamId1": "acmilan",
         "teamId2": "bayern",
-        "allowedPatches": 2,
+        "patches": "{\"CP\":{\"N\":\"0\"},\"NP\":{\"N\":\"2\"}}",
         "positions": ["GK"],
         "matchFilter": ["5v5", "7v7", "11v11"],
         "ageMinFilter": 20,
@@ -62,7 +62,7 @@
     {
         "teamId1": "fcbarcelona",
         "teamId2": "man.united",
-        "allowedPatches": 0,
+        "patches": "{\"CP\":{\"N\":\"0\"},\"NP\":{\"N\":\"0\"}}",
         "positions": [""],
         "matchFilter": ["5v5"],
         "ageMinFilter": 20,

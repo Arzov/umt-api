@@ -36,7 +36,7 @@ const nearMatches = (
     const keyExp = `geohash = :v1 and begins_with (rangeKey, :v2)`;
     const filterExp = `
         not contains (:v3, hashKey)
-        and allowedPatches > :v4
+        and patches > :v4
         and reqStat.AR = :v5
         and reqStat.RR = :v5
         and contains (genderFilter, :v6)

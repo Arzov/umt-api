@@ -1,5 +1,5 @@
 /**
- * Add sport club
+ * Add a sport club or stadium
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
@@ -17,20 +17,27 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = function (event, context, callback) {
     const name = umtUtils.cleanName(event.name.toUpperCase().trim());
+
     const latitude = event.latitude;
+
     const longitude = event.longitude;
+
     const coords = {
         LON: { N: String(longitude) },
         LAT: { N: String(latitude) },
     };
-    const hashKey = `${umtEnvs.pfx.STAD}${ngeohash.encode(
-        latitude,
-        longitude,
-        geohashLength
-    )}`;
-    const rangeKey = `${umtEnvs.pfx.STAD}${umtUtils.nameToId(name)}`;
+
+    const hashKey = `${umtEnvs.pfx.STADIUM}${umtUtils.nameToId(name)}`;
+
+    const geohash = ngeohash.encode(latitude, longitude, geohashLength);
+
+    const rangeKey = `${umtEnvs.pfx.STADIUM}${geohash}`;
+
     const matchFilter = event.matchFilter;
+
     const address = event.address ? event.address : umtEnvs.dft.STADIUM.ADDRESS;
+
+    const createdOn = new Date().toISOString();
 
     dql.addStadium(
         dynamodb,
@@ -41,6 +48,8 @@ exports.handler = function (event, context, callback) {
         matchFilter,
         coords,
         address,
+        geohash,
+        createdOn,
         callback
     );
 };

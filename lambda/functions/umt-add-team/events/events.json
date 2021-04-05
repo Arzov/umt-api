@@ -8,7 +8,7 @@
         "ageMaxFilter": 40,
         "matchFilter": ["5v5", "7v7", "11v11"],
         "genderFilter": ["M"],
-        "searchingPlayers": false
+        "searching": false
     },
     {
         "name": "Man. united",
@@ -19,7 +19,7 @@
         "ageMaxFilter": 40,
         "matchFilter": ["5v5", "11v11"],
         "genderFilter": ["M"],
-        "searchingPlayers": false
+        "searching": false
     },
     {
         "name": "Fc Barcelona",
@@ -30,7 +30,7 @@
         "ageMaxFilter": 40,
         "matchFilter": ["5v5"],
         "genderFilter": ["M"],
-        "searchingPlayers": true
+        "searching": true
     },
     {
         "name": "PSG",
@@ -41,7 +41,7 @@
         "ageMaxFilter": 40,
         "matchFilter": ["7v7"],
         "genderFilter": ["F"],
-        "searchingPlayers": true
+        "searching": true
     },
     {
         "name": "Bayern",
@@ -52,7 +52,7 @@
         "ageMaxFilter": 40,
         "matchFilter": ["7v7"],
         "genderFilter": ["M", "F"],
-        "searchingPlayers": true
+        "searching": true
     },
     {
         "name": "Chelsea",
@@ -63,7 +63,7 @@
         "ageMaxFilter": 40,
         "matchFilter": ["7v7"],
         "genderFilter": ["M"],
-        "searchingPlayers": true
+        "searching": true
     },
     {
         "name": "AC Milan",
@@ -74,6 +74,6 @@
         "ageMaxFilter": 40,
         "matchFilter": ["5v5", "7v7", "11v11"],
         "genderFilter": ["M", "F"],
-        "searchingPlayers": true
+        "searching": true
     }
 ]

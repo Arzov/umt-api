@@ -19,9 +19,11 @@ const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = function (event, context, callback) {
     const hashKey = `${umtEnvs.pfx.MATCH}${event.teamId1}#${event.teamId2}`;
-    const rangeKey = `${umtEnvs.pfx.PATCH}${event.email}`;
+    const rangeKey = `${umtEnvs.pfx.MATCH_PATCH}${event.email}`;
     const joinedOn = new Date().toISOString();
     const reqStat = JSON.parse(event.reqStat);
+    const expireOn = event.expireOn;
+    const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
 
     // Validate if the patch player is already in the match
     if (reqStat.PR.S === 'P') {
@@ -41,15 +43,15 @@ exports.handler = function (event, context, callback) {
                 if (
                     Object.entries(response).length > 0 &&
                     response.constructor === Object
-                )
-                    callback(null, {
-                        teamId1: response.teamId1,
-                        teamId2: response.teamId2,
-                        email: response.email,
-                        joinedOn: response.joinedOn,
-                        reqStat: response.reqStat,
-                    });
-                else
+                ) {
+                    let err = new Error(
+                        JSON.stringify({
+                            code: 'MatchPatchExistsException',
+                            message: `El jugador ya participa del partido.`,
+                        })
+                    );
+                    callback(err);
+                } else
                     dql.addMatchPatch(
                         dynamodb,
                         process.env.DB_UMT_001,
@@ -57,6 +59,8 @@ exports.handler = function (event, context, callback) {
                         rangeKey,
                         joinedOn,
                         reqStat,
+                        expireOn,
+                        GSI1PK,
                         callback
                     );
             }
@@ -69,6 +73,8 @@ exports.handler = function (event, context, callback) {
             rangeKey,
             joinedOn,
             reqStat,
+            expireOn,
+            GSI1PK,
             callback
         );
 };

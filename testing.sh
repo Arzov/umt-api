@@ -118,10 +118,10 @@ cd lambda/functions
 lambdas="
     umt-add-match
     umt-add-matchpatch
+    umt-add-matchchat
     umt-update-match
-    umt-get-matchpatch
-    umt-list-matchpatches
-    umt-near-matches
+    umt-get-match
+    umt-list-matches
 "
 
 # Install dependencies
@@ -146,7 +146,7 @@ done
 
 # Stop services
 kill $pids
-docker rm arzov-dynamodb -f
+# docker rm arzov-dynamodb -f
 
 # Remove temp files
 cd ../../

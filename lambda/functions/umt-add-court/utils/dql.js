@@ -9,10 +9,11 @@ const umtEnvs = require('umt-envs');
  * Get `id` of latest court added
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
- * @param {String} hashKey Sport club id
+ * @param {String} hashKey Stadium id
+ * @param {String} rangeKey Geohash of stadium
  * @param {Function} fn Callback
  */
-const getLastCourtId = (db, tableName, hashKey, fn) => {
+const getLastCourtId = (db, tableName, hashKey, rangeKey, fn) => {
     db.query(
         {
             TableName: tableName,
@@ -21,7 +22,7 @@ const getLastCourtId = (db, tableName, hashKey, fn) => {
                 'hashKey = :v1 and begins_with ( rangeKey, :v2 )',
             ExpressionAttributeValues: {
                 ':v1': { S: hashKey },
-                ':v2': { S: umtEnvs.pfx.COURT },
+                ':v2': { S: rangeKey },
             },
             ScanIndexForward: false,
             Limit: 1,
@@ -41,10 +42,11 @@ const getLastCourtId = (db, tableName, hashKey, fn) => {
  * Add a court
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
- * @param {String} hashKey Sport club id
- * @param {String} rangeKey Geolocation sport club hash + Court id
+ * @param {String} hashKey Stadium id
+ * @param {String} rangeKey Geolocation of stadium + Court id
  * @param {String[]} matchFilter Match type supported
  * @param {String} material Material
+ * @param {String} createdOn Creation date of the court
  * @param {Function} fn Callback
  */
 const addCourt = (
@@ -54,6 +56,7 @@ const addCourt = (
     rangeKey,
     matchFilter,
     material,
+    createdOn,
     fn
 ) => {
     db.putItem(
@@ -64,6 +67,7 @@ const addCourt = (
                 rangeKey: { S: rangeKey },
                 matchFilter: { SS: matchFilter },
                 material: { S: material },
+                createdOn: { S: createdOn },
             },
         },
         function (err, data) {
@@ -75,6 +79,7 @@ const addCourt = (
                     id: rangeKey.split('#')[2],
                     matchFilter,
                     material,
+                    createdOn,
                 });
         }
     );

@@ -13,7 +13,8 @@ if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
 const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = (event, context, callback) => {
-    const hashKey = `${umtEnvs.pfx.USR}${event.email}`;
+    const hashKey = `${umtEnvs.pfx.USER}${event.email}`;
+    const rangeKey = `${umtEnvs.pfx.METADATA}${event.email}`;
 
-    dql.getUser(dynamodb, process.env.DB_UMT_001, hashKey, hashKey, callback);
+    dql.getUser(dynamodb, process.env.DB_UMT_001, hashKey, rangeKey, callback);
 };

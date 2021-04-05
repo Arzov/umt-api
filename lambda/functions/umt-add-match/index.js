@@ -16,41 +16,60 @@ if (process.env.RUN_MODE === 'LOCAL') {
 
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda);
-const daysToExpire = umtEnvs.gbl.DAYS_TO_EXPIRE;
 
 exports.handler = function (event, context, callback) {
-    const hashKey = `${umtEnvs.pfx.MATCH}${event.teamId1}`;
+    const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId1}`;
+
     const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
+
+    const GSI1PK = `${umtEnvs.pfx.TEAM}${event.teamId2}`;
+
+    const GSI1SK = `${umtEnvs.pfx.MATCH}${event.teamId1}`;
+
     const createdOn = new Date().toISOString();
 
     let expireOn = new Date();
-    expireOn.setDate(new Date().getDate() + daysToExpire);
+    expireOn.setDate(new Date().getDate() + umtEnvs.gbl.MATCH_DAYS_TO_EXPIRE);
     expireOn = expireOn.toISOString();
 
-    const allowedPatches = event.allowedPatches
-        ? String(event.allowedPatches)
-        : umtEnvs.dft.MATCH.ALLOWED_PATCHES;
+    const patches = event.patches
+        ? JSON.parse(event.patches)
+        : umtEnvs.dft.MATCH.PATCHES;
+
     const positions = event.positions
         ? event.positions
         : umtEnvs.dft.MATCH.POSITIONS;
+
     const ageMinFilter = String(event.ageMinFilter);
+
     const ageMaxFilter = String(event.ageMaxFilter);
+
     const matchFilter = event.matchFilter;
+
     const schedule = event.schedule ? event.schedule : expireOn;
+
     const geohash = event.geohash;
+
     const stadiumGeohash = event.stadiumGeohash
         ? event.stadiumGeohash
         : umtEnvs.dft.MATCH.STADIUMGEOHASH;
+
     const stadiumId = event.stadiumId
         ? event.stadiumId
         : umtEnvs.dft.MATCH.STADIUMID;
+
     const courtId = event.courtId
         ? String(event.courtId)
         : umtEnvs.dft.MATCH.COURTID;
+
     const genderFilter = event.genderFilter;
+
     const reqStat = umtEnvs.dft.MATCH.REQSTAT;
+
     const latitude = event.latitude;
+
     const longitude = event.longitude;
+
     const coords = {
         LON: { N: String(longitude) },
         LAT: { N: String(latitude) },
@@ -89,7 +108,7 @@ exports.handler = function (event, context, callback) {
                     rangeKey,
                     createdOn,
                     expireOn,
-                    allowedPatches,
+                    patches,
                     positions,
                     ageMinFilter,
                     ageMaxFilter,
@@ -102,6 +121,8 @@ exports.handler = function (event, context, callback) {
                     stadiumId,
                     courtId,
                     genderFilter,
+                    GSI1PK,
+                    GSI1SK,
                     callback
                 );
         }
