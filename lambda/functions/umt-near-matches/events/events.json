@@ -4,6 +4,7 @@
         "ownTeams": ["man.united"],
         "email": "franco.barrientos@arzov.com",
         "gender": "M",
+        "age": 30,
         "ageMinFilter": 18,
         "ageMaxFilter": 40,
         "matchFilter": ["5v5"],
@@ -12,6 +13,7 @@
     {
         "geohash": "66jcfp",
         "gender": "M",
+        "age": 30,
         "email": "svonko.vescovi@arzov.com",
         "ageMinFilter": 18,
         "ageMaxFilter": 40,

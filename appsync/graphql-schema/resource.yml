@@ -317,6 +317,7 @@
             geohash: String!,
             ownTeams: [String],
             gender: String!,
+            age: Int!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
             matchFilter: [String]!,

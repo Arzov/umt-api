@@ -12,6 +12,7 @@ const umtEnvs = require('umt-envs');
  * @param {String} geohash Geolocation hash
  * @param {String[]} ownTeams Player's teams
  * @param {String} gender Player gender
+ * @param {String} age Player age
  * @param {String} ageMinFilter Min. age filter
  * @param {String} ageMaxFilter Max. age filter
  * @param {String[]} matchFilter Match types filter
@@ -25,6 +26,7 @@ const nearMatches = (
     geohash,
     ownTeams,
     gender,
+    age,
     ageMinFilter,
     ageMaxFilter,
     matchFilter,
@@ -45,10 +47,11 @@ const nearMatches = (
         and contains (genderFilter, :v7)
         and ageMinFilter >= :v8
         and ageMaxFilter <= :v9
+        and :v10 between ageMinFilter and ageMaxFilter
         and (
-            contains (matchFilter, :v10)
-            or contains (matchFilter, :v11)
+            contains (matchFilter, :v11)
             or contains (matchFilter, :v12)
+            or contains (matchFilter, :v13)
         )
     `;
     const expValues = {
@@ -61,9 +64,10 @@ const nearMatches = (
         ':v7': { S: gender },
         ':v8': { N: ageMinFilter },
         ':v9': { N: ageMaxFilter },
-        ':v10': { S: matchFilter[0] },
-        ':v11': { S: matchFilter[1] },
-        ':v12': { S: matchFilter[2] },
+        ':v10': { N: age },
+        ':v11': { S: matchFilter[0] },
+        ':v12': { S: matchFilter[1] },
+        ':v13': { S: matchFilter[2] },
     };
 
     if (nextToken) {

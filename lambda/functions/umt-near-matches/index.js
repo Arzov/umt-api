@@ -51,12 +51,13 @@ exports.handler = (event, context, callback) => {
     const email = event.email;
     const geohash = event.geohash;
     const gender = event.gender;
+    const age = String(event.age);
     const ageMinFilter = String(event.ageMinFilter);
     const ageMaxFilter = String(event.ageMaxFilter);
+
     let ownTeams = event.ownTeams ? event.ownTeams : ['']; // filter player's teams
     let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
-    // TODO: pass age from user to filter too
 
     // Fill with ' ' array 'matchFilter' of size 3
     const l = 3 - matchFilter.length;
@@ -86,6 +87,7 @@ exports.handler = (event, context, callback) => {
         geohash,
         ownTeams,
         gender,
+        age,
         ageMinFilter,
         ageMaxFilter,
         matchFilter,
