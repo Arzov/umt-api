@@ -8,12 +8,12 @@ const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
-let limitScan = umtEnvs.gbl.MATCHPATCHES_SCAN_LIMIT;
+let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 
 if (process.env.RUN_MODE === 'LOCAL') {
     optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
     optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
-    limitScan = umtEnvs.dev.MATCHPATCHES_SCAN_LIMIT;
+    limitScan = umtEnvs.dev.SCAN_LIMIT;
 }
 
 const lambda = new aws.Lambda(optionsLambda);

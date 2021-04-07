@@ -25,7 +25,7 @@ exports.handler = function (event, context, callback) {
     const expireOn = event.expireOn;
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
 
-    // Validate if the patch player is already in the match
+    // Request from match to player
     if (reqStat.PR.S === 'P') {
         let params = { FunctionName: 'umt-get-matchpatch' };
 
@@ -65,7 +65,10 @@ exports.handler = function (event, context, callback) {
                     );
             }
         });
-    } else
+    }
+    // Request from player to match
+    // TODO: Increment count in match's patches field
+    else
         dql.addMatchPatch(
             dynamodb,
             process.env.DB_UMT_001,

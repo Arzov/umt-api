@@ -8,25 +8,25 @@ const umtEnvs = require('umt-envs');
 const dql = require('utils/dql');
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
-let limitScan = umtEnvs.gbl.TEAMS_SCAN_LIMIT;
+let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 
 if (process.env.RUN_MODE === 'LOCAL') {
     optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
     optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
-    limitScan = umtEnvs.dev.TEAMS_SCAN_LIMIT;
+    limitScan = umtEnvs.dev.SCAN_LIMIT;
 }
 
 const lambda = new aws.Lambda(optionsLambda);
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 
 exports.handler = (event, context, callback) => {
-    const rangeKey = `${umtEnvs.pfx.MEM}${event.email}`;
+    const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
     const nextToken = event.nextToken;
 
     dql.listTeams(
         dynamodb,
         process.env.DB_UMT_001,
-        rangeKey,
+        GSI1PK,
         limitScan,
         nextToken,
         async function (err, data) {
