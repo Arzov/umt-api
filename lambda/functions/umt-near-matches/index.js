@@ -56,6 +56,7 @@ exports.handler = (event, context, callback) => {
     let ownTeams = event.ownTeams ? event.ownTeams : ['']; // filter player's teams
     let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
+    // TODO: pass age from user to filter too
 
     // Fill with ' ' array 'matchFilter' of size 3
     const l = 3 - matchFilter.length;
@@ -102,16 +103,16 @@ exports.handler = (event, context, callback) => {
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
                         /**
-                         *  Manual filter of `rangeKey` due to DynamoDB
+                         *  Manual filter of `hashKey` due to DynamoDB
                          *  doesn't allow filter this field in
                          *  `KeyConditionExpression`
                          */
-                        if (!ownTeams.includes(x.rangeKey.S))
+                        if (!ownTeams.includes(x.hashKey.S))
                             return {
                                 teamId1: x.hashKey.S.split('#')[1],
                                 teamId2: x.rangeKey.S.split('#')[1],
                                 createdOn: x.createdOn.S,
-                                patches: x.patches.N,
+                                patches: JSON.stringify(x.patches.M),
                                 positions: x.positions.SS,
                                 matchFilter: x.matchFilter.SS,
                                 expireOn: x.expireOn.S,

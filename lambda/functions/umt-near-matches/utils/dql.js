@@ -32,34 +32,37 @@ const nearMatches = (
     nextToken,
     fn
 ) => {
-    const idx = `geohash-idx`;
-    const keyExp = `geohash = :v1 and begins_with (rangeKey, :v2)`;
+    const idx = `geohash-GSI1`;
+    const keyExp = `geohash = :v1 and begins_with (hashKey, :v2)`;
     const filterExp = `
-        not contains (:v3, hashKey)
-        and patches > :v4
-        and reqStat.AR = :v5
-        and reqStat.RR = :v5
-        and contains (genderFilter, :v6)
-        and ageMinFilter >= :v7
-        and ageMaxFilter <= :v8
+        begins_with (rangeKey, :v3)
+        and not contains (:v4, rangeKey)
+        and patches.CP < patches.NP
+        and patches.NP > :v5
+        and reqStat.AR = :v6
+        and reqStat.RR = :v6
+        and contains (genderFilter, :v7)
+        and ageMinFilter >= :v8
+        and ageMaxFilter <= :v9
         and (
-            contains (matchFilter, :v9)
-            or contains (matchFilter, :v10)
+            contains (matchFilter, :v10)
             or contains (matchFilter, :v11)
+            or contains (matchFilter, :v12)
         )
     `;
     const expValues = {
         ':v1': { S: geohash },
-        ':v2': { S: umtEnvs.pfx.MATCH },
-        ':v3': { SS: ownTeams },
-        ':v4': { N: '0' },
-        ':v5': { S: 'A' },
-        ':v6': { S: gender },
-        ':v7': { N: ageMinFilter },
-        ':v8': { N: ageMaxFilter },
-        ':v9': { S: matchFilter[0] },
-        ':v10': { S: matchFilter[1] },
-        ':v11': { S: matchFilter[2] },
+        ':v2': { S: umtEnvs.pfx.TEAM },
+        ':v3': { S: umtEnvs.pfx.MATCH },
+        ':v4': { SS: ownTeams },
+        ':v5': { N: '0' },
+        ':v6': { S: 'A' },
+        ':v7': { S: gender },
+        ':v8': { N: ageMinFilter },
+        ':v9': { N: ageMaxFilter },
+        ':v10': { S: matchFilter[0] },
+        ':v11': { S: matchFilter[1] },
+        ':v12': { S: matchFilter[2] },
     };
 
     if (nextToken) {
