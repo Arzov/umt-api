@@ -102,33 +102,25 @@ exports.handler = (event, context, callback) => {
 
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
-                        /**
-                         *  Manual filter of `hashKey` due to DynamoDB
-                         *  doesn't allow filter this field in
-                         *  `KeyConditionExpression`
-                         */
-                        if (!ownTeams.includes(x.hashKey.S))
-                            return {
-                                teamId1: x.hashKey.S.split('#')[1],
-                                teamId2: x.rangeKey.S.split('#')[1],
-                                createdOn: x.createdOn.S,
-                                patches: JSON.stringify(x.patches.M),
-                                positions: x.positions.SS,
-                                matchFilter: x.matchFilter.SS,
-                                expireOn: x.expireOn.S,
-                                schedule: x.schedule.S,
-                                reqStat: JSON.stringify(x.reqStat.M),
-                                geohash: x.geohash.S,
-                                coords: JSON.stringify(x.coords.M),
-                                stadiumGeohash: x.stadiumGeohash.S,
-                                stadiumId: x.stadiumId.S,
-                                courtId: x.courtId.N,
-                                ageMinFilter: x.ageMinFilter.N,
-                                ageMaxFilter: x.ageMaxFilter.N,
-                                genderFilter: x.genderFilter.SS,
-                            };
-                    }).filter(function (el) {
-                        return el != null;
+                        return {
+                            teamId1: x.hashKey.S.split('#')[1],
+                            teamId2: x.rangeKey.S.split('#')[1],
+                            createdOn: x.createdOn.S,
+                            patches: JSON.stringify(x.patches.M),
+                            positions: x.positions.SS,
+                            matchFilter: x.matchFilter.SS,
+                            expireOn: x.expireOn.S,
+                            schedule: x.schedule.S,
+                            reqStat: JSON.stringify(x.reqStat.M),
+                            geohash: x.geohash.S,
+                            coords: JSON.stringify(x.coords.M),
+                            stadiumGeohash: x.stadiumGeohash.S,
+                            stadiumId: x.stadiumId.S,
+                            courtId: x.courtId.N,
+                            ageMinFilter: x.ageMinFilter.N,
+                            ageMaxFilter: x.ageMaxFilter.N,
+                            genderFilter: x.genderFilter.SS,
+                        };
                     });
 
                     // Drop already joined matches

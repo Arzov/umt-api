@@ -37,6 +37,7 @@ const nearMatches = (
     const filterExp = `
         begins_with (rangeKey, :v3)
         and not contains (:v4, rangeKey)
+        and not contains (:v4, GSI1SK)
         and patches.CP < patches.NP
         and patches.NP > :v5
         and reqStat.AR = :v6
