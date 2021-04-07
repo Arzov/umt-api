@@ -16,6 +16,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
             } else {
                 let response = JSON.parse(data.Payload);
 
+                console.log(response);
+
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('chelsea');
                 expect(response.items[1].id).toBe('fcbarcelona');
@@ -53,6 +55,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(err.StatusCode).toBe(400);
             } else {
                 let response = JSON.parse(data.Payload);
+
+                console.log(response);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('bayern');
@@ -94,6 +98,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
             } else {
                 let response = JSON.parse(data.Payload);
 
+                console.log(response);
+
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('bayern');
                 expect(response.items[1].id).toBe('psg');
@@ -134,6 +140,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
             } else {
                 let response = JSON.parse(data.Payload);
 
+                console.log(response);
+
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('psg');
                 expect(response.items[0].geohash).toBe('66jcfp');
@@ -169,6 +177,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(err.StatusCode).toBe(400);
             } else {
                 let response = JSON.parse(data.Payload);
+
+                console.log(response);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('man.united');
@@ -208,6 +218,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(err.StatusCode).toBe(400);
             } else {
                 let response = JSON.parse(data.Payload);
+
+                console.log(response);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('bayern');

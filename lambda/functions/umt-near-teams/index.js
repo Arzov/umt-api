@@ -21,6 +21,7 @@ exports.handler = (event, context, callback) => {
     const geohash = event.geohash;
     const forJoin = event.forJoin; // true: search team for join, false: search teams to play
     const gender = event.gender;
+    const age = String(event.age);
     const genderFilter = event.genderFilter;
     const ageMinFilter = String(event.ageMinFilter);
     const ageMaxFilter = String(event.ageMaxFilter);
@@ -56,6 +57,7 @@ exports.handler = (event, context, callback) => {
         forJoin,
         ownTeams,
         gender,
+        age,
         genderFilter,
         ageMinFilter,
         ageMaxFilter,
@@ -73,10 +75,8 @@ exports.handler = (event, context, callback) => {
 
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
-                        const id = x.hashKey.S.split('#')[1];
-
                         return {
-                            id,
+                            id: x.hashKey.S.split('#')[1],
                             name: x.name.S,
                             picture: x.picture.S,
                             formation: JSON.stringify(x.formation.M),

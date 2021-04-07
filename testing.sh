@@ -139,6 +139,7 @@ lambdas="
     umt-list-matchpatches
     umt-matchpatch-requests
     umt-near-matches
+    umt-near-teams
 "
 
 # Install dependencies

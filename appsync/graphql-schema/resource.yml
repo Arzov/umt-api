@@ -301,6 +301,7 @@
             geohash: String!,
             forJoin: Boolean!,
             gender: String!,
+            age: Int!,
             genderFilter: [String]!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
