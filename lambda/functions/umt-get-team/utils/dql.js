@@ -39,7 +39,6 @@ const getTeam = (db, tableName, hashKey, rangeKey, fn) => {
                     formation: JSON.stringify(data.Item.formation.M),
                     geohash: data.Item.geohash.S,
                     coords: JSON.stringify(data.Item.coords.M),
-                    searching: data.Item.searching.BOOL,
                     createdOn: data.Item.createdOn.S,
                 });
             }

@@ -34,7 +34,6 @@
           formation: String
           geohash: String
           coords: String
-          searching: Boolean
           genderFilter: [String]
           ageMinFilter: Int
           ageMaxFilter: Int
@@ -181,7 +180,6 @@
             latitude: Float!,
             longitude: Float!,
             picture: String,
-            searching: Boolean,
             genderFilter: [String!]!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,

@@ -82,7 +82,6 @@ exports.handler = (event, context, callback) => {
                             formation: JSON.stringify(x.formation.M),
                             geohash: x.geohash.S,
                             coords: JSON.stringify(x.coords.M),
-                            searching: x.searching.BOOL,
                             ageMinFilter: x.ageMinFilter.N,
                             ageMaxFilter: x.ageMaxFilter.N,
                             genderFilter: x.genderFilter.SS,

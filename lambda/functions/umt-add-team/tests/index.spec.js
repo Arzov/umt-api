@@ -32,7 +32,6 @@ describe('Test AWS Lambda: umt-add-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searching).toBe(false);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },
@@ -65,7 +64,6 @@ describe('Test AWS Lambda: umt-add-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searching).toBe(false);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },
@@ -98,7 +96,6 @@ describe('Test AWS Lambda: umt-add-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searching).toBe(true);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },
@@ -131,7 +128,6 @@ describe('Test AWS Lambda: umt-add-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searching).toBe(true);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },
@@ -164,7 +160,6 @@ describe('Test AWS Lambda: umt-add-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searching).toBe(true);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },
@@ -197,7 +192,6 @@ describe('Test AWS Lambda: umt-add-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searching).toBe(true);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },
@@ -255,7 +249,6 @@ describe('Test AWS Lambda: umt-add-team', () => {
                 expect(JSON.parse(response.formation)).toStrictEqual(
                     umtEnvs.dft.TEAM.FORMATION
                 );
-                expect(response.searching).toBe(true);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },

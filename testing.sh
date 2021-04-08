@@ -118,27 +118,10 @@ cd lambda/functions
 # "
 
 lambdas="
-    umt-add-user
-    umt-update-user
     umt-add-team
-    umt-add-teammember
-    umt-add-teamchat
-    umt-add-match
-    umt-add-matchpatch
-    umt-add-matchchat
-    umt-match-requests
-    umt-update-match
-    umt-add-stadium
-    umt-add-court
-    umt-get-user
     umt-get-team
-    umt-get-match
-    umt-get-matchpatch
+    umt-add-teammember
     umt-list-teams
-    umt-list-matches
-    umt-list-matchpatches
-    umt-matchpatch-requests
-    umt-near-matches
     umt-near-teams
 "
 

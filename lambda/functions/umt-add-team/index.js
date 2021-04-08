@@ -39,8 +39,6 @@ exports.handler = function (event, context, callback) {
         ? JSON.parse(event.formation)
         : umtEnvs.dft.TEAM.FORMATION;
 
-    const searching = event.searching ? event.searching : false;
-
     const geohash = event.geohash;
 
     const latitude = event.latitude;
@@ -90,7 +88,6 @@ exports.handler = function (event, context, callback) {
                     matchFilter,
                     genderFilter,
                     formation,
-                    searching,
                     coords,
                     createdOn,
                     callback

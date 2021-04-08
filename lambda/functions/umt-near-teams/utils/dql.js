@@ -51,8 +51,7 @@ const nearTeams = (
         and ageMaxFilter <= :v8
         and begins_with (rangeKey, :v9)
         and not contains (:v10, rangeKey)
-        and searching = :v11
-        and :v12 between ageMinFilter and ageMaxFilter
+        and :v11 between ageMinFilter and ageMaxFilter
     `; // search from user for join in a team
     const filterExp2 = `
         genderFilter = :v3
@@ -77,8 +76,7 @@ const nearTeams = (
         ':v8': { N: ageMaxFilter },
         ':v9': { S: umtEnvs.pfx.METADATA },
         ':v10': { SS: ownTeams },
-        ':v11': forJoin ? { BOOL: forJoin } : undefined,
-        ':v12': forJoin ? { N: age } : undefined,
+        ':v11': forJoin ? { N: age } : undefined,
     };
 
     if (nextToken) {

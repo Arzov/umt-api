@@ -16,7 +16,6 @@
  * @param {String[]} matchFilter Match types which team participate
  * @param {String[]} genderFilter Gender of the players
  * @param {Object} formation Team formation for each mathc type
- * @param {Boolean} searching Searching new team members indicator
  * @param {String} geohash Geolocation hash
  * @param {Object} coords Location coordinates
  * @param {String} createdOn Creation date of the team
@@ -35,7 +34,6 @@ const addTeam = (
     matchFilter,
     genderFilter,
     formation,
-    searching,
     coords,
     createdOn,
     fn
@@ -54,7 +52,6 @@ const addTeam = (
                 matchFilter: { SS: matchFilter },
                 genderFilter: { SS: genderFilter },
                 formation: { M: formation },
-                searching: { BOOL: searching },
                 coords: { M: coords },
                 createdOn: { S: createdOn },
             },
@@ -72,7 +69,6 @@ const addTeam = (
                     matchFilter,
                     genderFilter,
                     formation: JSON.stringify(formation),
-                    searching,
                     coords: JSON.stringify(coords),
                     createdOn,
                 });
