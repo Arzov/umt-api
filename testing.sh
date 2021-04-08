@@ -120,7 +120,7 @@ cd lambda/functions
 lambdas="
     umt-add-team
     umt-add-teammember
-    umt-team-requests
+    umt-teammember-requests
 "
 
 # Install dependencies

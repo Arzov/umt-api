@@ -17,13 +17,13 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = (event, context, callback) => {
-    const rangeKey = `${umtEnvs.pfx.MEM}${event.email}`;
+    const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
     const nextToken = event.nextToken;
 
     dql.teamMemberRequests(
         dynamodb,
         process.env.DB_UMT_001,
-        rangeKey,
+        GSI1PK,
         limitScan,
         nextToken,
         function (err, data) {

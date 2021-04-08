@@ -16,8 +16,6 @@ describe('Test AWS Lambda: umt-team-requests', () => {
             } else {
                 let response = JSON.parse(data.Payload);
 
-                console.log(response);
-
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].teamId).toBe('man.united');
                 expect(response.items[0].email).toBe(
