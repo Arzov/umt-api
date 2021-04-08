@@ -97,26 +97,25 @@ lambdas="
     umt-add-teammember
     umt-add-teamchat
     umt-add-match
+    umt-update-match
     umt-add-matchpatch
+    umt-add-matchchat
+    umt-match-requests
+    umt-add-stadium
+    umt-add-court
+    umt-get-user
+    umt-get-team
+    umt-get-match
+    umt-get-matchpatch
+    umt-near-teams
+    umt-near-matches
+    umt-list-teams
+    umt-team-requests
+    umt-teammember-requests
+    umt-list-matches
+    umt-list-matchpatches
+    umt-matchpatch-requests
 "
-#     umt-add-matchchat
-#     umt-match-requests
-#     umt-update-match
-#     umt-add-stadium
-#     umt-add-court
-#     umt-get-user
-#     umt-get-team
-#     umt-get-match
-#     umt-get-matchpatch
-#     umt-near-teams
-#     umt-near-matches
-#     umt-list-teams
-#     umt-team-requests
-#     umt-teammember-requests
-#     umt-list-matches
-#     umt-list-matchpatches
-#     umt-matchpatch-requests
-# "
 
 # Install dependencies
 for lambda in $lambdas

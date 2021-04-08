@@ -21,7 +21,7 @@ describe('Test AWS Lambda: umt-add-match', () => {
                 expect(response.teamId2).toBe('realmadrid');
                 expect(JSON.parse(response.patches)).toStrictEqual({
                     CP: { N: '0' },
-                    NP: { N: '1' },
+                    NP: { N: '0' },
                 });
                 expect(response.positions).toStrictEqual(['']);
                 expect(response.ageMinFilter).toBe('20');
@@ -181,6 +181,50 @@ describe('Test AWS Lambda: umt-add-match', () => {
                 expect(response.stadiumId).toBe('');
                 expect(response.courtId).toBe('0');
                 expect(response.genderFilter).toStrictEqual(['M', 'F']);
+                expect(JSON.parse(response.coords)).toStrictEqual({
+                    LON: { N: '-70.573615' },
+                    LAT: { N: '-33.399435' },
+                });
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Match (REAL MADRID - FC BARCELONA)', (done) => {
+        params.Payload = JSON.stringify(events[5]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                let response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('realmadrid');
+                expect(response.teamId2).toBe('fcbarcelona');
+                expect(JSON.parse(response.patches)).toStrictEqual({
+                    CP: { N: '0' },
+                    NP: { N: '0' },
+                });
+                expect(response.positions).toStrictEqual(['']);
+                expect(response.ageMinFilter).toBe('20');
+                expect(response.ageMaxFilter).toBe('40');
+                expect(response.matchFilter).toStrictEqual([
+                    '5v5',
+                    '7v7',
+                    '11v11',
+                ]);
+                expect(JSON.parse(response.reqStat)).toStrictEqual({
+                    AR: { S: 'A' },
+                    RR: { S: 'P' },
+                });
+                expect(response.geohash).toBe('66jcfp');
+                expect(response.stadiumGeohash).toBe('');
+                expect(response.stadiumId).toBe('');
+                expect(response.courtId).toBe('0');
+                expect(response.genderFilter).toStrictEqual(['M']);
                 expect(JSON.parse(response.coords)).toStrictEqual({
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },

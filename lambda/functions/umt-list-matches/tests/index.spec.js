@@ -37,8 +37,8 @@ describe('Test AWS Lambda: umt-list-matches', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(response.items[0].teamId1).toBe('man.united');
-                expect(response.items[0].teamId2).toBe('realmadrid');
+                expect(response.items[0].teamId1).toBe('fcbarcelona');
+                expect(response.items[0].teamId2).toBe('man.united');
                 expect(response.nextToken).toBe(null);
             }
 

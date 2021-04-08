@@ -19,55 +19,28 @@ const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = function (event, context, callback) {
     const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId1}`;
-
     const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
-
     const GSI1PK = `${umtEnvs.pfx.TEAM}${event.teamId2}`;
-
     const GSI1SK = `${umtEnvs.pfx.MATCH}${event.teamId1}`;
-
     const createdOn = new Date().toISOString();
 
     let expireOn = new Date();
     expireOn.setDate(new Date().getDate() + umtEnvs.gbl.MATCH_DAYS_TO_EXPIRE);
     expireOn = expireOn.toISOString();
 
-    const patches = event.patches
-        ? JSON.parse(event.patches)
-        : umtEnvs.dft.MATCH.PATCHES;
-
-    const positions = event.positions
-        ? event.positions
-        : umtEnvs.dft.MATCH.POSITIONS;
-
+    const patches = umtEnvs.dft.MATCH.PATCHES;
+    const positions = umtEnvs.dft.MATCH.POSITIONS;
     const ageMinFilter = String(event.ageMinFilter);
-
     const ageMaxFilter = String(event.ageMaxFilter);
-
     const matchFilter = event.matchFilter;
-
-    const schedule = event.schedule ? event.schedule : expireOn;
-
+    const schedule = expireOn;
     const geohash = event.geohash;
-
-    const stadiumGeohash = event.stadiumGeohash
-        ? event.stadiumGeohash
-        : umtEnvs.dft.MATCH.STADIUMGEOHASH;
-
-    const stadiumId = event.stadiumId
-        ? event.stadiumId
-        : umtEnvs.dft.MATCH.STADIUMID;
-
-    const courtId = event.courtId
-        ? String(event.courtId)
-        : umtEnvs.dft.MATCH.COURTID;
-
+    const stadiumGeohash = umtEnvs.dft.MATCH.STADIUMGEOHASH;
+    const stadiumId = umtEnvs.dft.MATCH.STADIUMID;
+    const courtId = umtEnvs.dft.MATCH.COURTID;
     const genderFilter = event.genderFilter;
-
     const reqStat = umtEnvs.dft.MATCH.REQSTAT;
-
     const latitude = event.latitude;
-
     const longitude = event.longitude;
 
     const coords = {

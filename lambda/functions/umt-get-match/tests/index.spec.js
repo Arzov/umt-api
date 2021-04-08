@@ -20,7 +20,7 @@ describe('Test AWS Lambda: umt-get-match', () => {
                 expect(response.teamId1).toBe('man.united');
                 expect(response.teamId2).toBe('realmadrid');
                 expect(JSON.parse(response.patches)).toStrictEqual({
-                    CP: { N: '0' },
+                    CP: { N: '1' },
                     NP: { N: '2' },
                 });
                 expect(response.positions).toStrictEqual(['GK']);

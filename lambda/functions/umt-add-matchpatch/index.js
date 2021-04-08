@@ -80,6 +80,8 @@ exports.handler = function (event, context, callback) {
     const expireOn = event.expireOn;
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
 
+    // TODO: validate if the player belong to one of the team in the match
+
     // Validate first if the player already has a request in the match
     let params = { FunctionName: 'umt-get-matchpatch' };
 
@@ -198,7 +200,7 @@ exports.handler = function (event, context, callback) {
                         }
 
                         // Check if the patches vacancy are not full
-                        if (patches.CP.N >= patches.NP.N) {
+                        else if (patches.CP.N >= patches.NP.N) {
                             const err = new Error(
                                 JSON.stringify({
                                     code: 'MatchPatchFullException',

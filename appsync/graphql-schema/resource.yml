@@ -205,18 +205,13 @@
           addMatch(
             teamId1: String!,
             teamId2: String!,
-            patches: String,
-            positions: [String],
             matchFilter: [String!]!,
             genderFilter: [String!]!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
-            schedule: String,
             geohash: String!,
             latitude: Float!,
-            longitude: Float!,
-            stadiumGeohash: String,
-            stadiumId: String, courtId: Int
+            longitude: Float!
           ): Match
 
           addMatchPatch(
