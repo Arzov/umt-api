@@ -93,9 +93,9 @@ exports.handler = function (event, context, callback) {
                 response.constructor === Object &&
                 createdOn < response.expireOn
             ) {
-                let err = new Error(
+                const err = new Error(
                     JSON.stringify({
-                        code: 'MatchExistsException',
+                        code: 'MatchExistException',
                         message: `Ya existe una solicitud desde el equipo rival.`,
                     })
                 );

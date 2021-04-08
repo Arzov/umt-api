@@ -19,7 +19,7 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = (event, context, callback) => {
     let ownTeams = event.ownTeams ? event.ownTeams : [''];
     const geohash = event.geohash;
-    const forJoin = event.forJoin; // true: search team for join, false: search teams to play
+    const forJoin = event.forJoin; // true: search team for join, false: search teams to play with
     const gender = event.gender;
     const age = String(event.age);
     const genderFilter = event.genderFilter;

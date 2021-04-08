@@ -43,7 +43,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchPatchExistsException',
+                    code: 'MatchPatchExistException',
                     message: `El jugador ya participa del partido.`,
                 });
             }
@@ -77,8 +77,29 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         });
     }, 60000);
 
-    test('Evaluate: Patch - Match (franco.barrientos@arzov.com, AC MILAN - BAYERN)', (done) => {
+    test('Evaluate: Match - Patch (FC BARCELONA - MAN. UNITED, svonko.vescovi@arzov.com)', (done) => {
         params.Payload = JSON.stringify(events[3]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                let response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchRequestException',
+                    message: `Ya existe una solicitud para el jugador.`,
+                });
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Patch - Match (franco.barrientos@arzov.com, AC MILAN - BAYERN)', (done) => {
+        params.Payload = JSON.stringify(events[4]);
 
         lambda.invoke(params, function (err, data) {
             if (err) {

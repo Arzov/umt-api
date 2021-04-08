@@ -58,7 +58,7 @@ describe('Test AWS Lambda: umt-add-match', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchExistsException',
+                    code: 'MatchExistException',
                     message: `Ya existe una solicitud desde el equipo rival.`,
                 });
             }

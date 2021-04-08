@@ -214,7 +214,7 @@ describe('Test AWS Lambda: umt-add-team', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'TeamExistsException',
+                    code: 'TeamExistException',
                     message: 'El equipo ya existe.',
                 });
             }

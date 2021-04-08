@@ -18,10 +18,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('chelsea');
-                expect(response.items[1].id).toBe('fcbarcelona');
-                expect(response.items[2].id).toBe('man.united');
                 expect(response.nextToken).toStrictEqual(
-                    '{"rangeKey":{"S":"META#man.united"},"hashKey":{"S":"TM#man.united"},"geohash":{"S":"66jcfp"}}'
+                    '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
             }
 
@@ -43,9 +41,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(response.items[0].id).toBe('acmilan');
                 expect(response.items[1].id).toBe('bayern');
                 expect(response.items[2].id).toBe('chelsea');
-                expect(response.items[3].id).toBe('man.united');
                 expect(response.nextToken).toStrictEqual(
-                    '{"rangeKey":{"S":"META#man.united"},"hashKey":{"S":"TM#man.united"},"geohash":{"S":"66jcfp"}}'
+                    '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
             }
 
@@ -67,7 +64,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(response.items[0].id).toBe('acmilan');
                 expect(response.items[1].id).toBe('bayern');
                 expect(response.nextToken).toStrictEqual(
-                    '{"rangeKey":{"S":"META#man.united"},"hashKey":{"S":"TM#man.united"},"geohash":{"S":"66jcfp"}}'
+                    '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
             }
 
@@ -88,7 +85,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.items).toStrictEqual([]);
                 expect(response.nextToken).toStrictEqual(
-                    '{"rangeKey":{"S":"META#man.united"},"hashKey":{"S":"TM#man.united"},"geohash":{"S":"66jcfp"}}'
+                    '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
             }
 
@@ -108,10 +105,8 @@ describe('Test AWS Lambda: umt-near-teams', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('chelsea');
-                expect(response.items[1].id).toBe('fcbarcelona');
-                expect(response.items[2].id).toBe('man.united');
                 expect(response.nextToken).toStrictEqual(
-                    '{"rangeKey":{"S":"META#man.united"},"hashKey":{"S":"TM#man.united"},"geohash":{"S":"66jcfp"}}'
+                    '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
             }
 
@@ -133,7 +128,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(response.items[0].id).toBe('acmilan');
                 expect(response.items[1].id).toBe('bayern');
                 expect(response.nextToken).toStrictEqual(
-                    '{"rangeKey":{"S":"META#man.united"},"hashKey":{"S":"TM#man.united"},"geohash":{"S":"66jcfp"}}'
+                    '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
             }
 

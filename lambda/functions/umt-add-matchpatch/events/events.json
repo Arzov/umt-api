@@ -21,6 +21,13 @@
         "expireOn": "2021-04-04T20:36:57.562Z"
     },
     {
+        "teamId1": "fcbarcelona",
+        "teamId2": "man.united",
+        "email": "svonko.vescovi@arzov.com",
+        "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}",
+        "expireOn": "2021-04-04T20:36:57.562Z"
+    },
+    {
         "teamId1": "acmilan",
         "teamId2": "bayern",
         "email": "franco.barrientos@arzov.com",

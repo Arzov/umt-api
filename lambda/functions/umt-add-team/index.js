@@ -67,9 +67,9 @@ exports.handler = function (event, context, callback) {
                 Object.entries(response).length > 0 &&
                 response.constructor === Object
             ) {
-                let err = new Error(
+                const err = new Error(
                     JSON.stringify({
-                        code: 'TeamExistsException',
+                        code: 'TeamExistException',
                         message: 'El equipo ya existe.',
                     })
                 );

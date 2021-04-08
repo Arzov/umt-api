@@ -89,7 +89,7 @@ exports.handler = function (event, context, callback) {
             else {
                 const err = new Error(
                     JSON.stringify({
-                        code: 'MatchNotExistsException',
+                        code: 'MatchNotExistException',
                         message: `El partido no existe.`,
                     })
                 );

@@ -44,12 +44,22 @@ exports.handler = function (event, context, callback) {
                     Object.entries(response).length > 0 &&
                     response.constructor === Object
                 ) {
+                    const responseReqStat = JSON.parse(response.reqStat);
                     let err = new Error(
                         JSON.stringify({
-                            code: 'MatchPatchExistsException',
+                            code: 'MatchPatchExistException',
                             message: `El jugador ya participa del partido.`,
                         })
                     );
+
+                    if (responseReqStat.PR.S == 'P')
+                        err = new Error(
+                            JSON.stringify({
+                                code: 'MatchPatchRequestException',
+                                message: `Ya existe una solicitud para el jugador.`,
+                            })
+                        );
+
                     callback(err);
                 } else
                     dql.addMatchPatch(

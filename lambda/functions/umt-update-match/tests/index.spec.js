@@ -58,7 +58,7 @@ describe('Test AWS Lambda: umt-update-match', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchNotExistsException',
+                    code: 'MatchNotExistException',
                     message: `El partido no existe.`,
                 });
             }
