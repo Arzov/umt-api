@@ -19,7 +19,7 @@ const teamRequests = (db, tableName, hashKey, limitScan, nextToken, fn) => {
     const filterExp = `reqStat.TR = :v3 or reqStat.PR = :v3`;
     const expValues = {
         ':v1': { S: hashKey },
-        ':v2': { S: umtEnvs.pfx.MEM },
+        ':v2': { S: umtEnvs.pfx.TEAM_MEMBER },
         ':v3': { S: 'P' },
     };
 
