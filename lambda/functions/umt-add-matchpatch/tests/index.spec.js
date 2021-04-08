@@ -14,7 +14,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('man.united');
@@ -39,7 +39,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
@@ -60,7 +60,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('fcbarcelona');
@@ -85,7 +85,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
@@ -106,7 +106,9 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
+
+                console.log(response);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('acmilan');

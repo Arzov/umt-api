@@ -55,6 +55,8 @@ exports.handler = (event, context, callback) => {
     const ageMinFilter = String(event.ageMinFilter);
     const ageMaxFilter = String(event.ageMaxFilter);
 
+    // TODO: Filter expired or already played matched respect to the schedule date
+
     let ownTeams = event.ownTeams ? event.ownTeams : ['']; // filter player's teams
     let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
