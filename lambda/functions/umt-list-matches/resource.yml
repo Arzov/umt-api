@@ -3,11 +3,9 @@
     Type: AWS::Serverless::Function
     DependsOn:
       - LDLayerUMTEnvs
-      - LDLayerUMTPkgs
     Properties:
       FunctionName: umt-list-matches
       CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-list-matches/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs
-        - !Ref LDLayerUMTPkgs

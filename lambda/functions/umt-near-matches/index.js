@@ -5,7 +5,9 @@
 
 const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const umtUtils = require('umt-utils');
 const dql = require('utils/dql');
+
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
@@ -18,6 +20,8 @@ if (process.env.RUN_MODE === 'LOCAL') {
 
 const lambda = new aws.Lambda(optionsLambda);
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
+
+// Filter already joined matches
 const filterJoinedMatches = async (lambda, data, email, callback) => {
     const matches = [];
     let params = { FunctionName: 'umt-get-matchpatch' };
@@ -36,12 +40,9 @@ const filterJoinedMatches = async (lambda, data, email, callback) => {
             });
         });
 
-        if (
-            Object.entries(result).length <= 0 ||
-            result.constructor !== Object
-        ) {
-            matches.push(data[e]);
-        }
+        const isEmpty = umtUtils.isObjectEmpty(result);
+
+        if (isEmpty) matches.push(data[e]);
     }
 
     return matches;

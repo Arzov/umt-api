@@ -14,9 +14,8 @@
  * @param {String} expireOn Expire date of the match
  * @param {String} GSI1PK User email
  * @param {String} GSI1SK Applicant team id + Requested team id
- * @param {Function} fn Callback
  */
-const addMatchPatch = (
+const addMatchPatch = async (
     db,
     tableName,
     hashKey,
@@ -24,35 +23,35 @@ const addMatchPatch = (
     joinedOn,
     reqStat,
     expireOn,
-    GSI1PK,
-    fn
+    GSI1PK
 ) => {
-    db.putItem(
-        {
-            TableName: tableName,
-            Item: {
-                hashKey: { S: hashKey },
-                rangeKey: { S: rangeKey },
-                joinedOn: { S: joinedOn },
-                reqStat: { M: reqStat },
-                expireOn: { S: expireOn },
-                GSI1PK: { S: GSI1PK },
-                GSI1SK: { S: hashKey },
-            },
-        },
-        function (err, data) {
-            if (err) fn(err);
-            else
-                fn(null, {
-                    teamId1: hashKey.split('#')[1],
-                    teamId2: hashKey.split('#')[2],
-                    email: GSI1PK.split('#')[1],
-                    joinedOn,
-                    reqStat: JSON.stringify(reqStat),
-                    expireOn,
-                });
-        }
-    );
+    try {
+        await db
+            .putItem({
+                TableName: tableName,
+                Item: {
+                    hashKey: { S: hashKey },
+                    rangeKey: { S: rangeKey },
+                    joinedOn: { S: joinedOn },
+                    reqStat: { M: reqStat },
+                    expireOn: { S: expireOn },
+                    GSI1PK: { S: GSI1PK },
+                    GSI1SK: { S: hashKey },
+                },
+            })
+            .promise();
+
+        return {
+            teamId1: hashKey.split('#')[1],
+            teamId2: hashKey.split('#')[2],
+            email: GSI1PK.split('#')[1],
+            joinedOn,
+            reqStat: JSON.stringify(reqStat),
+            expireOn,
+        };
+    } catch (err) {
+        return err;
+    }
 };
 
 module.exports.addMatchPatch = addMatchPatch;

@@ -30,14 +30,14 @@
     {
         "teamId1": "fcbarcelona",
         "teamId2": "man.united",
-        "email": "franco.barrientos@arzov.com",
+        "email": "ivo.farias@arzov.com",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}",
         "expireOn": "2021-04-04T20:36:57.562Z"
     },
     {
         "teamId1": "acmilan",
         "teamId2": "bayern",
-        "email": "franco.barrientos@arzov.com",
+        "email": "ivo.farias@arzov.com",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}",
         "expireOn": "2021-04-04T20:36:57.562Z"
     },
@@ -46,6 +46,13 @@
         "teamId2": "fcbarcelona",
         "email": "svonko.vescovi@arzov.com",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}",
+        "expireOn": "2021-04-04T20:36:57.562Z"
+    },
+    {
+        "teamId1": "realmadrid",
+        "teamId2": "fcbarcelona",
+        "email": "ivo.farias@arzov.com",
+        "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}",
         "expireOn": "2021-04-04T20:36:57.562Z"
     }
 ]

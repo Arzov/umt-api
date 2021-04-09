@@ -144,7 +144,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         });
     }, 60000);
 
-    test('Evaluate: Patch - Match (franco.barrientos@arzov.com, FC BARCELONA - MAN. UNITED)', (done) => {
+    test('Evaluate: Patch - Match (ivo.farias@arzov.com, FC BARCELONA - MAN. UNITED)', (done) => {
         params.Payload = JSON.stringify(events[4]);
 
         lambda.invoke(params, function (err, data) {
@@ -165,7 +165,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         });
     }, 60000);
 
-    test('Evaluate: Patch - Match (franco.barrientos@arzov.com, AC MILAN - BAYERN)', (done) => {
+    test('Evaluate: Patch - Match (ivo.farias@arzov.com, AC MILAN - BAYERN)', (done) => {
         params.Payload = JSON.stringify(events[5]);
 
         lambda.invoke(params, function (err, data) {
@@ -178,7 +178,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('acmilan');
                 expect(response.teamId2).toBe('bayern');
-                expect(response.email).toBe('franco.barrientos@arzov.com');
+                expect(response.email).toBe('ivo.farias@arzov.com');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'A' },
@@ -209,6 +209,27 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                     PR: { S: 'P' },
                 });
                 expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Match - Patch (ivo.farias@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
+        params.Payload = JSON.stringify(events[7]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                const response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchExistException',
+                    message: `El jugador ya participa del partido.`,
+                });
             }
 
             done();

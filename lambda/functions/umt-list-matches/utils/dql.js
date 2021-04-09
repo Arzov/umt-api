@@ -4,7 +4,6 @@
  */
 
 const umtEnvs = require('umt-envs');
-const umtUtils = require('umt-utils');
 
 /**
  * Parse match data
@@ -23,7 +22,25 @@ const parseData = (data, fn) => {
 
     if (result.Count) {
         result.Items = data.Items.map((m) => {
-            return umtUtils.parseMatchOutput(m);
+            return {
+                teamId1: m.hashKey.S.split('#')[1],
+                teamId2: m.rangeKey.S.split('#')[1],
+                patches: JSON.stringify(m.patches.M),
+                positions: m.positions.SS,
+                matchFilter: m.matchFilter.SS,
+                schedule: m.schedule.S,
+                reqStat: JSON.stringify(m.reqStat.M),
+                stadiumGeohash: m.stadiumGeohash.S,
+                stadiumId: m.stadiumId.S,
+                courtId: m.courtId.N,
+                genderFilter: m.genderFilter.SS,
+                ageMinFilter: m.ageMinFilter.N,
+                ageMaxFilter: m.ageMaxFilter.N,
+                geohash: m.geohash.S,
+                coords: JSON.stringify(m.coords.M),
+                expireOn: m.expireOn.S,
+                createdOn: m.createdOn.S,
+            };
         });
     }
 

@@ -5,7 +5,9 @@
 
 const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const umtUtils = require('umt-utils');
 const dql = require('utils/dql');
+
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
@@ -60,12 +62,9 @@ exports.handler = function (event, context, callback) {
         if (err) callback(err);
         else {
             const response = JSON.parse(data.Payload);
+            const isEmpty = umtUtils.isObjectEmpty(response);
 
-            if (
-                Object.entries(response).length > 0 &&
-                response.constructor === Object &&
-                createdOn < response.expireOn
-            ) {
+            if (!isEmpty && createdOn < response.expireOn) {
                 const err = new Error(
                     JSON.stringify({
                         code: 'MatchExistException',
