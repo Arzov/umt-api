@@ -21,7 +21,7 @@ describe('Test AWS Lambda: umt-update-match', () => {
                 expect(response.teamId2).toBe('realmadrid');
                 expect(JSON.parse(response.patches)).toStrictEqual({
                     CP: { N: '0' },
-                    NP: { N: '2' },
+                    NP: { N: '3' },
                 });
                 expect(response.positions).toStrictEqual(['GK']);
                 expect(response.matchFilter).toStrictEqual(['5v5', '11v11']);
@@ -40,6 +40,7 @@ describe('Test AWS Lambda: umt-update-match', () => {
                     LON: { N: '-70.573615' },
                     LAT: { N: '-33.399435' },
                 });
+                expect(response.schedule).toBe('9999-04-04T20:36:57.562Z');
             }
 
             done();
@@ -111,6 +112,7 @@ describe('Test AWS Lambda: umt-update-match', () => {
                     AR: { S: 'A' },
                     RR: { S: 'A' },
                 });
+                expect(response.schedule).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();

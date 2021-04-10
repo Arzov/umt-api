@@ -3,10 +3,10 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
-const umtUtils = require('umt-utils');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+const fns = require('utils/fns');
 
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
@@ -21,33 +21,6 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const lambda = new aws.Lambda(optionsLambda);
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 
-// Filter already joined matches
-const filterJoinedMatches = async (lambda, data, email, callback) => {
-    const matches = [];
-    let params = { FunctionName: 'umt-get-matchpatch' };
-
-    for (const e in data) {
-        params.Payload = JSON.stringify({
-            teamId1: data[e].teamId1,
-            teamId2: data[e].teamId2,
-            email,
-        });
-
-        const result = await new Promise((resolve) => {
-            lambda.invoke(params, function (err, data) {
-                if (err) callback(err);
-                else resolve(JSON.parse(data.Payload));
-            });
-        });
-
-        const isEmpty = umtUtils.isObjectEmpty(result);
-
-        if (isEmpty) matches.push(data[e]);
-    }
-
-    return matches;
-};
-
 exports.handler = (event, context, callback) => {
     const email = event.email;
     const geohash = event.geohash;
@@ -55,8 +28,7 @@ exports.handler = (event, context, callback) => {
     const age = String(event.age);
     const ageMinFilter = String(event.ageMinFilter);
     const ageMaxFilter = String(event.ageMaxFilter);
-
-    // TODO: Filter expired or already played matched respect to the schedule date
+    const currDate = new Date().toISOString();
 
     let ownTeams = event.ownTeams ? event.ownTeams : ['']; // filter player's teams
     let matchFilter = event.matchFilter;
@@ -94,6 +66,7 @@ exports.handler = (event, context, callback) => {
         ageMinFilter,
         ageMaxFilter,
         matchFilter,
+        currDate,
         limitScan,
         nextToken,
         async function (err, data) {
@@ -129,7 +102,7 @@ exports.handler = (event, context, callback) => {
                     });
 
                     // Drop already joined matches
-                    dataResult = await filterJoinedMatches(
+                    dataResult = await fns.filterJoinedMatches(
                         lambda,
                         dataResult,
                         email,

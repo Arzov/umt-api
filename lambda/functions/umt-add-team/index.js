@@ -3,9 +3,9 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const umtUtils = require('umt-utils');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
 
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
@@ -21,19 +21,12 @@ const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = function (event, context, callback) {
     const name = umtUtils.cleanName(event.name);
-
     const hashKey = `${umtEnvs.pfx.TEAM}${umtUtils.nameToId(name)}`;
-
     const rangeKey = `${umtEnvs.pfx.METADATA}${umtUtils.nameToId(name)}`;
-
     const picture = event.picture ? event.picture : umtEnvs.dft.TEAM.PICTURE;
-
     const ageMinFilter = String(event.ageMinFilter);
-
     const ageMaxFilter = String(event.ageMaxFilter);
-
     const matchFilter = event.matchFilter;
-
     const genderFilter = event.genderFilter;
 
     const formation = event.formation
@@ -41,9 +34,7 @@ exports.handler = function (event, context, callback) {
         : umtEnvs.dft.TEAM.FORMATION;
 
     const geohash = event.geohash;
-
     const latitude = event.latitude;
-
     const longitude = event.longitude;
 
     const coords = {

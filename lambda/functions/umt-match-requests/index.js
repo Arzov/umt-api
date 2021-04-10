@@ -3,9 +3,10 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 
@@ -18,9 +19,11 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = (event, context, callback) => {
     const hashKey = `${umtEnvs.pfx.TEAM}${event.id}`;
+
     const ownerNextToken = event.nextToken
         ? event.nextToken.split('&')[0]
         : null;
+
     const guestNextToken = event.nextToken
         ? event.nextToken.split('&')[1]
         : null;

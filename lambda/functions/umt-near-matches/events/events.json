@@ -14,10 +14,10 @@
         "geohash": "66jcfp",
         "gender": "M",
         "age": 30,
-        "email": "svonko.vescovi@arzov.com",
+        "email": "matias.barrientos@arzov.com",
         "ageMinFilter": 18,
         "ageMaxFilter": 40,
-        "matchFilter": ["11v11"],
-        "nextToken": null
+        "matchFilter": ["5v5", "7v7", "11v11"],
+        "nextToken": "{\"rangeKey\":{\"S\":\"MTCH#man.united\"},\"hashKey\":{\"S\":\"TM#fcbarcelona\"},\"geohash\":{\"S\":\"66jcfp\"}}"
     }
 ]

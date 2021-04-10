@@ -3,9 +3,9 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const umtUtils = require('umt-utils');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
 
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;

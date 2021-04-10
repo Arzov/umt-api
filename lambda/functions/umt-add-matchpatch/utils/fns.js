@@ -5,7 +5,12 @@
 
 const umtUtils = require('umt-utils');
 
-// Indicates if the user belong to a given team
+/**
+ * Indicates if the user belong to a given team
+ * @param {Object} lambda Lambda client
+ * @param {String} teamId Team id
+ * @param {String} email User email
+ */
 const belongToTeam = async (lambda, teamId, email) => {
     let params = { FunctionName: 'umt-get-teammember' };
 
@@ -24,7 +29,13 @@ const belongToTeam = async (lambda, teamId, email) => {
     return !umtUtils.isObjectEmpty(result);
 };
 
-// Get match's patch information if exist
+/**
+ * Get match's patch information if exist
+ * @param {Object} lambda Lambda client
+ * @param {String} teamId1 Applicant team id
+ * @param {String} teamId2 Requested team id
+ * @param {String} email User email
+ */
 const getMatchPatch = async (lambda, teamId1, teamId2, email) => {
     let params = { FunctionName: 'umt-get-matchpatch' };
 
@@ -46,7 +57,12 @@ const getMatchPatch = async (lambda, teamId1, teamId2, email) => {
     return result;
 };
 
-// Get match information
+/**
+ * Get match information
+ * @param {Object} lambda Lambda client
+ * @param {String} teamId1 Applicant team id
+ * @param {String} teamId2 Requested team id
+ */
 const getMatch = async (lambda, teamId1, teamId2) => {
     let params = { FunctionName: 'umt-get-match' };
 
@@ -67,8 +83,12 @@ const getMatch = async (lambda, teamId1, teamId2) => {
     return result;
 };
 
-// Update match information
-const updateMatch = async (lambda, match, callback) => {
+/**
+ * Update match information
+ * @param {Object} lambda Lambda client
+ * @param {Object} match Match information to update
+ */
+const updateMatch = async (lambda, match) => {
     match.patches.CP.N = String(match.patches.CP.N);
     match.patches.NP.N = String(match.patches.NP.N);
 

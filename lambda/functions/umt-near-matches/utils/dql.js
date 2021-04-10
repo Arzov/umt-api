@@ -16,6 +16,7 @@ const umtEnvs = require('umt-envs');
  * @param {String} ageMinFilter Min. age filter
  * @param {String} ageMaxFilter Max. age filter
  * @param {String[]} matchFilter Match types filter
+ * @param {String} currDate Current date
  * @param {Integer} limitScan Query limit scan result
  * @param {String} nextToken Last query scanned object
  * @param {Function} fn Callback
@@ -30,6 +31,7 @@ const nearMatches = (
     ageMinFilter,
     ageMaxFilter,
     matchFilter,
+    currDate,
     limitScan,
     nextToken,
     fn
@@ -53,6 +55,7 @@ const nearMatches = (
             or contains (matchFilter, :v12)
             or contains (matchFilter, :v13)
         )
+        and schedule >= :v14
     `;
     const expValues = {
         ':v1': { S: geohash },
@@ -68,6 +71,7 @@ const nearMatches = (
         ':v11': { S: matchFilter[0] },
         ':v12': { S: matchFilter[1] },
         ':v13': { S: matchFilter[2] },
+        ':v14': { S: currDate },
     };
 
     if (nextToken) {

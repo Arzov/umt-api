@@ -3,8 +3,8 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
 const fns = require('utils/fns');
 

@@ -3,9 +3,10 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;

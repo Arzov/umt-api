@@ -3,9 +3,10 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;

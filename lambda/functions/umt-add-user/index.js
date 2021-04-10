@@ -3,10 +3,11 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
 const ngeohash = require('ngeohash');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
@@ -15,17 +16,11 @@ const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = function (event, context, callback) {
     const latitude = event.latitude;
-
     const longitude = event.longitude;
-
     const hashKey = `${umtEnvs.pfx.USER}${event.email}`;
-
     const rangeKey = `${umtEnvs.pfx.METADATA}${event.email}`;
-
     const ageMinFilter = String(event.ageMinFilter);
-
     const ageMaxFilter = String(event.ageMaxFilter);
-
     const matchFilter = event.matchFilter;
 
     const positions = event.positions
@@ -37,9 +32,7 @@ exports.handler = function (event, context, callback) {
         : umtEnvs.dft.USER.SKILLS;
 
     const foot = event.foot;
-
     const weight = String(event.weight);
-
     const height = String(event.height);
 
     const coords = {

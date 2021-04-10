@@ -3,9 +3,10 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+const fns = require('utils/fns');
 
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
@@ -20,38 +21,8 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const lambda = new aws.Lambda(optionsLambda);
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 
-/**
- * Get match info for a list of matches
- * @param {Object} lambda Lambda client
- * @param {Object} data List of matches
- * @param {Function} fn Callback
- */
-const getMatches = async (lambda, data, fn) => {
-    const matches = [];
-    let params = { FunctionName: 'umt-get-match' };
-
-    for (const e in data.Items) {
-        params.Payload = JSON.stringify({
-            teamId1: data.Items[e].hashKey.S.split('#')[1],
-            teamId2: data.Items[e].hashKey.S.split('#')[2],
-        });
-
-        matches.push(
-            await new Promise((resolve) => {
-                lambda.invoke(params, function (err, data) {
-                    if (err) fn(err);
-                    else resolve(JSON.parse(data.Payload));
-                });
-            })
-        );
-    }
-
-    return matches;
-};
-
 exports.handler = (event, context, callback) => {
     const hashKey = `${umtEnvs.pfx.TEAM}${event.id}`;
-
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
 
     const ownerNextToken = event.nextToken
@@ -132,7 +103,7 @@ exports.handler = (event, context, callback) => {
                         );
 
                     if (data.Count) {
-                        patchDataResult = await getMatches(
+                        patchDataResult = await fns.getMatches(
                             lambda,
                             data,
                             callback

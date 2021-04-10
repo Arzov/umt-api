@@ -4,48 +4,7 @@
  */
 
 const umtEnvs = require('umt-envs');
-
-/**
- * Parse match data
- * @param {String} data Matches data
- * @param {Function} fn Callback
- */
-const parseData = (data, fn) => {
-    let result = {
-        Count: data.Count,
-        Items: [],
-        LastEvaluatedKey: null,
-    };
-
-    if ('LastEvaluatedKey' in data)
-        result.LastEvaluatedKey = JSON.stringify(data.LastEvaluatedKey);
-
-    if (result.Count) {
-        result.Items = data.Items.map((m) => {
-            return {
-                teamId1: m.hashKey.S.split('#')[1],
-                teamId2: m.rangeKey.S.split('#')[1],
-                patches: JSON.stringify(m.patches.M),
-                positions: m.positions.SS,
-                matchFilter: m.matchFilter.SS,
-                schedule: m.schedule.S,
-                reqStat: JSON.stringify(m.reqStat.M),
-                stadiumGeohash: m.stadiumGeohash.S,
-                stadiumId: m.stadiumId.S,
-                courtId: m.courtId.N,
-                genderFilter: m.genderFilter.SS,
-                ageMinFilter: m.ageMinFilter.N,
-                ageMaxFilter: m.ageMaxFilter.N,
-                geohash: m.geohash.S,
-                coords: JSON.stringify(m.coords.M),
-                expireOn: m.expireOn.S,
-                createdOn: m.createdOn.S,
-            };
-        });
-    }
-
-    fn(null, result);
-};
+const fns = require('./fns');
 
 /**
  * Get team matches like owner
@@ -77,7 +36,7 @@ const listOwnerMatches = (db, tableName, hashKey, limitScan, nextToken, fn) => {
             },
             function (err, data) {
                 if (err) fn(err);
-                else parseData(data, fn);
+                else fns.parseData(data, fn);
             }
         );
     } else {
@@ -91,7 +50,7 @@ const listOwnerMatches = (db, tableName, hashKey, limitScan, nextToken, fn) => {
             },
             function (err, data) {
                 if (err) fn(err);
-                else parseData(data, fn);
+                else fns.parseData(data, fn);
             }
         );
     }
@@ -129,7 +88,7 @@ const listGuestMatches = (db, tableName, GSI1PK, limitScan, nextToken, fn) => {
             },
             function (err, data) {
                 if (err) fn(err);
-                else parseData(data, fn);
+                else fns.parseData(data, fn);
             }
         );
     } else {
@@ -144,7 +103,7 @@ const listGuestMatches = (db, tableName, GSI1PK, limitScan, nextToken, fn) => {
             },
             function (err, data) {
                 if (err) fn(err);
-                else parseData(data, fn);
+                else fns.parseData(data, fn);
             }
         );
     }
