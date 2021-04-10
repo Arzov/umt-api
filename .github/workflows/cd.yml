@@ -34,4 +34,4 @@ jobs:
           AWS_S3_ARTIFACTS_BUCKET: ${{ secrets.AWS_S3_ARTIFACTS_BUCKET_DEV }}
         run: |
           chmod +x deploy.sh
-          docker-compose up deploy-executor
+          docker-compose up --exit-code-from deploy-executor deploy-executor

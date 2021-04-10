@@ -8,12 +8,13 @@
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
  * @param {String} hashKey Team id
- * @param {String} rangeKey Player email
+ * @param {String} rangeKey User email
  * @param {Object} position Player position in team formation
  * @param {String[]} role Player role ('Captain', 'Player', 'Admin')
  * @param {Object} reqStat Request status
  * @param {String} number Player number
  * @param {String} joinedOn Join date
+ * @param {String} GSI1PK User email
  * @param {Function} fn Callback
  */
 const addTeamMember = (
@@ -26,6 +27,7 @@ const addTeamMember = (
     reqStat,
     number,
     joinedOn,
+    GSI1PK,
     fn
 ) => {
     db.putItem(
@@ -39,6 +41,8 @@ const addTeamMember = (
                 reqStat: { M: reqStat },
                 number: { N: number },
                 joinedOn: { S: joinedOn },
+                GSI1PK: { S: GSI1PK },
+                GSI1SK: { S: hashKey },
             },
         },
         function (err, data) {

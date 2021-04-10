@@ -6,7 +6,7 @@ describe('Test AWS Lambda: umt-match-requests', () => {
     let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG);
     let params = { FunctionName: 'umt-match-requests' };
 
-    test('Evaluate: Team (MAN. UNITED)', (done) => {
+    test('Evaluate: Team (REAL MADRID)', (done) => {
         params.Payload = JSON.stringify(events[0]);
 
         lambda.invoke(params, function (err, data) {
@@ -17,12 +17,13 @@ describe('Test AWS Lambda: umt-match-requests', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(response.items[0].teamId1).toBe('fcbarcelona');
-                expect(response.items[0].teamId2).toBe('man.united');
+                expect(response.items[0].teamId1).toBe('realmadrid');
+                expect(response.items[0].teamId2).toBe('fcbarcelona');
                 expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({
                     AR: { S: 'A' },
                     RR: { S: 'P' },
                 });
+
                 expect(response.nextToken).toBe('&');
             }
 

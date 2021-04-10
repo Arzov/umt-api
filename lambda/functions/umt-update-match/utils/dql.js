@@ -9,7 +9,7 @@
  * @param {String} tableName Table name
  * @param {String} hashKey Applicant team id
  * @param {String} rangeKey Requested team id
- * @param {String} allowedPatches Allowed patches number
+ * @param {Object} patches Allowed patches
  * @param {String[]} positions Positions required for patch
  * @param {String[]} matchFilter Match types
  * @param {String} schedule Match date
@@ -29,7 +29,7 @@ const updateMatch = (
     tableName,
     hashKey,
     rangeKey,
-    allowedPatches,
+    patches,
     positions,
     matchFilter,
     schedule,
@@ -40,8 +40,8 @@ const updateMatch = (
     genderFilter,
     ageMinFilter,
     ageMaxFilter,
-    geohash,
-    coords,
+    geohash, // just for return not for update
+    coords, // just for return not for update
     fn
 ) => {
     db.updateItem(
@@ -52,12 +52,12 @@ const updateMatch = (
                 rangeKey: { S: rangeKey },
             },
             UpdateExpression: `
-            set allowedPatches = :v1, positions = :v2, matchFilter = :v3,
+            set patches = :v1, positions = :v2, matchFilter = :v3,
             schedule = :v4, reqStat = :v5, stadiumGeohash = :v6, stadiumId = :v7,
             courtId = :v8, genderFilter = :v9, ageMinFilter = :v10, ageMaxFilter = :v11
         `,
             ExpressionAttributeValues: {
-                ':v1': { N: allowedPatches },
+                ':v1': { M: patches },
                 ':v2': { SS: positions },
                 ':v3': { SS: matchFilter },
                 ':v4': { S: schedule },
@@ -76,7 +76,7 @@ const updateMatch = (
                 fn(null, {
                     teamId1: hashKey.split('#')[1],
                     teamId2: rangeKey.split('#')[1],
-                    allowedPatches,
+                    patches: JSON.stringify(patches),
                     positions,
                     matchFilter,
                     schedule,

@@ -31,7 +31,7 @@ const getMatch = (db, tableName, hashKey, rangeKey, fn) => {
                 fn(null, {
                     teamId1: data.Item.hashKey.S.split('#')[1],
                     teamId2: data.Item.rangeKey.S.split('#')[1],
-                    allowedPatches: data.Item.allowedPatches.N,
+                    patches: JSON.stringify(data.Item.patches.M),
                     positions: data.Item.positions.SS,
                     matchFilter: data.Item.matchFilter.SS,
                     schedule: data.Item.schedule.S,

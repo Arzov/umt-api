@@ -1,13 +1,14 @@
 /**
- * Add sport club
+ * Add a sport club or stadium
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
-const ngeohash = require('ngeohash');
 const umtUtils = require('umt-utils');
+const ngeohash = require('ngeohash');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
 const geohashLength = umtEnvs.gbl.GEOHASH_LENGTH;
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
@@ -19,18 +20,18 @@ exports.handler = function (event, context, callback) {
     const name = umtUtils.cleanName(event.name.toUpperCase().trim());
     const latitude = event.latitude;
     const longitude = event.longitude;
+
     const coords = {
         LON: { N: String(longitude) },
         LAT: { N: String(latitude) },
     };
-    const hashKey = `${umtEnvs.pfx.STAD}${ngeohash.encode(
-        latitude,
-        longitude,
-        geohashLength
-    )}`;
-    const rangeKey = `${umtEnvs.pfx.STAD}${umtUtils.nameToId(name)}`;
+
+    const hashKey = `${umtEnvs.pfx.STADIUM}${umtUtils.nameToId(name)}`;
+    const geohash = ngeohash.encode(latitude, longitude, geohashLength);
+    const rangeKey = `${umtEnvs.pfx.STADIUM}${geohash}`;
     const matchFilter = event.matchFilter;
     const address = event.address ? event.address : umtEnvs.dft.STADIUM.ADDRESS;
+    const createdOn = new Date().toISOString();
 
     dql.addStadium(
         dynamodb,
@@ -41,6 +42,8 @@ exports.handler = function (event, context, callback) {
         matchFilter,
         coords,
         address,
+        geohash,
+        createdOn,
         callback
     );
 };

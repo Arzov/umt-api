@@ -11,11 +11,6 @@
         "reqStat": "{\"TR\":{\"S\":\"P\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
-        "teamId": "man.united",
-        "email": "matias.barrientos@arzov.com",
-        "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
-    },
-    {
         "teamId": "fcbarcelona",
         "email": "jesus.barrientos@arzov.com",
         "role": ["Admin", "Player", "Captain"],

@@ -4,6 +4,7 @@
     DependsOn:
       - LDLayerUMTEnvs
       - LDLayerUMTExt
+      - LDLayerUMTPkgs
     Properties:
       FunctionName: umt-add-match
       CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-add-match/" ] ]
@@ -11,3 +12,4 @@
       Layers:
         - !Ref LDLayerUMTEnvs
         - !Ref LDLayerUMTExt
+        - !Ref LDLayerUMTPkgs

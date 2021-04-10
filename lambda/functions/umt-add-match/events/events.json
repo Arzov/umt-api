@@ -2,7 +2,6 @@
     {
         "teamId1": "man.united",
         "teamId2": "realmadrid",
-        "allowedPatches": 1,
         "geohash": "66jcfp",
         "latitude": -33.399435,
         "longitude": -70.573615,
@@ -14,7 +13,6 @@
     {
         "teamId1": "realmadrid",
         "teamId2": "man.united",
-        "allowedPatches": 1,
         "geohash": "66jcfp",
         "latitude": -33.399435,
         "longitude": -70.573615,
@@ -55,5 +53,16 @@
         "ageMaxFilter": 40,
         "matchFilter": ["5v5", "7v7", "11v11"],
         "genderFilter": ["M", "F"]
+    },
+    {
+        "teamId1": "realmadrid",
+        "teamId2": "fcbarcelona",
+        "geohash": "66jcfp",
+        "latitude": -33.399435,
+        "longitude": -70.573615,
+        "ageMinFilter": 20,
+        "ageMaxFilter": 40,
+        "matchFilter": ["5v5", "7v7", "11v11"],
+        "genderFilter": ["M"]
     }
 ]

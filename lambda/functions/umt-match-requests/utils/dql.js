@@ -66,7 +66,7 @@ const matchOwnerRequests = (
  * Get team requests like guest
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
- * @param {String} rangeKey Team id
+ * @param {String} GSI1PK Team id
  * @param {Integer} limitScan Query limit scan result
  * @param {String} nextToken Last query scanned object
  * @param {Function} fn Callback
@@ -74,16 +74,16 @@ const matchOwnerRequests = (
 const matchGuestRequests = (
     db,
     tableName,
-    rangeKey,
+    GSI1PK,
     limitScan,
     nextToken,
     fn
 ) => {
-    const idx = 'rangeKey-idx';
-    const keyExp = `rangeKey = :v1 and begins_with (hashKey, :v2)`;
+    const idx = 'GSI1';
+    const keyExp = `GSI1PK = :v1 and begins_with (GSI1SK, :v2)`;
     const filterExp = `reqStat.AR = :v3 or reqStat.RR = :v3`;
     const expValues = {
-        ':v1': { S: rangeKey },
+        ':v1': { S: GSI1PK },
         ':v2': { S: umtEnvs.pfx.MATCH },
         ':v3': { S: 'P' },
     };

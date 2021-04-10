@@ -7,8 +7,8 @@
  * Get match patch
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
- * @param {String} hashKey Team id 1 + Team id 2
- * @param {String} rangeKey Email
+ * @param {String} hashKey Applicant team id + Requested team id
+ * @param {String} rangeKey User email
  * @param {Function} fn Callback
  */
 const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
@@ -34,6 +34,7 @@ const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
                     email: data.Item.rangeKey.S.split('#')[1],
                     reqStat: JSON.stringify(data.Item.reqStat.M),
                     joinedOn: data.Item.joinedOn.S,
+                    expireOn: data.Item.expireOn.S,
                 });
             }
         }

@@ -14,7 +14,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('man.united');
@@ -24,6 +24,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                     MR: { S: 'A' },
                     PR: { S: 'A' },
                 });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();
@@ -38,12 +39,12 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(JSON.parse(response.reqStat)).toStrictEqual({
-                    MR: { S: 'A' },
-                    PR: { S: 'A' },
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchExistException',
+                    message: `El jugador ya participa del partido.`,
                 });
             }
 
@@ -59,12 +60,37 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('fcbarcelona');
+                expect(response.teamId2).toBe('man.united');
+                expect(response.email).toBe('svonko.vescovi@arzov.com');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'P' },
+                });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Match - Patch (FC BARCELONA - MAN. UNITED, svonko.vescovi@arzov.com)', (done) => {
+        params.Payload = JSON.stringify(events[2]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                const response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchRequestException',
+                    message: `Ya existe una solicitud para el jugador.`,
                 });
             }
 
@@ -72,7 +98,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         });
     }, 60000);
 
-    test('Evaluate: Patch - Match (franco.barrientos@arzov.com, AC MILAN - BAYERN)', (done) => {
+    test('Evaluate: Patch - Match (svonko.vescovi@arzov.com, FC BARCELONA - MAN. UNITED)', (done) => {
         params.Payload = JSON.stringify(events[3]);
 
         lambda.invoke(params, function (err, data) {
@@ -80,15 +106,129 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
             } else {
-                let response = JSON.parse(data.Payload);
+                const response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('fcbarcelona');
+                expect(response.teamId2).toBe('man.united');
+                expect(response.email).toBe('svonko.vescovi@arzov.com');
+                expect(JSON.parse(response.reqStat)).toStrictEqual({
+                    MR: { S: 'A' },
+                    PR: { S: 'A' },
+                });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Patch - Match (svonko.vescovi@arzov.com, FC BARCELONA - MAN. UNITED)', (done) => {
+        params.Payload = JSON.stringify(events[3]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                const response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchExistException',
+                    message: `El jugador ya participa del partido.`,
+                });
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Patch - Match (ivo.farias@arzov.com, FC BARCELONA - MAN. UNITED)', (done) => {
+        params.Payload = JSON.stringify(events[4]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                const response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchFullException',
+                    message: `No quedan cupos en el partido.`,
+                });
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Patch - Match (ivo.farias@arzov.com, AC MILAN - BAYERN)', (done) => {
+        params.Payload = JSON.stringify(events[5]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                const response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.teamId1).toBe('acmilan');
                 expect(response.teamId2).toBe('bayern');
-                expect(response.email).toBe('franco.barrientos@arzov.com');
+                expect(response.email).toBe('ivo.farias@arzov.com');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'A' },
+                });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Match - Patch (svonko.vescovi@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
+        params.Payload = JSON.stringify(events[6]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                const response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(response.teamId1).toBe('realmadrid');
+                expect(response.teamId2).toBe('fcbarcelona');
+                expect(response.email).toBe('svonko.vescovi@arzov.com');
+                expect(JSON.parse(response.reqStat)).toStrictEqual({
+                    MR: { S: 'A' },
+                    PR: { S: 'P' },
+                });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
+            }
+
+            done();
+        });
+    }, 60000);
+
+    test('Evaluate: Match - Patch (ivo.farias@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
+        params.Payload = JSON.stringify(events[7]);
+
+        lambda.invoke(params, function (err, data) {
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            } else {
+                const response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code: 'MatchPatchExistException',
+                    message: `El jugador ya participa del partido.`,
                 });
             }
 

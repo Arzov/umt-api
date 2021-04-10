@@ -1,0 +1,10 @@
+
+  ASDataSourceUMTLDGetTeamMember:
+    Type: AWS::AppSync::DataSource
+    Properties: 
+      ApiId: !GetAtt ASGraphQLApiUMT.ApiId
+      LambdaConfig:
+        LambdaFunctionArn: !GetAtt LDFunctionUMTGetTeamMember.Arn
+      Name: LDGetTeamMember
+      ServiceRoleArn: !ImportValue ARV-IARoleARVAppSyncARN
+      Type: AWS_LAMBDA

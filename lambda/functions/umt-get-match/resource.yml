@@ -1,7 +1,8 @@
 
   LDFunctionUMTGetMatch:
     Type: AWS::Serverless::Function
-    DependsOn: LDLayerUMTEnvs
+    DependsOn:
+      - LDLayerUMTEnvs
     Properties:
       FunctionName: umt-get-match
       CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-get-match/" ] ]

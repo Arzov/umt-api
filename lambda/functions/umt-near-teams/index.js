@@ -3,15 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
-let limitScan = umtEnvs.gbl.TEAMS_SCAN_LIMIT;
+
+let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') {
     options = umtEnvs.dev.DYNAMODB_CONFIG;
-    limitScan = umtEnvs.dev.TEAMS_SCAN_LIMIT;
+    limitScan = umtEnvs.dev.SCAN_LIMIT;
 }
 
 const dynamodb = new aws.DynamoDB(options);
@@ -19,8 +20,9 @@ const dynamodb = new aws.DynamoDB(options);
 exports.handler = (event, context, callback) => {
     let ownTeams = event.ownTeams ? event.ownTeams : [''];
     const geohash = event.geohash;
-    const forJoin = event.forJoin; // true: search team for join, false: search teams to play
+    const forJoin = event.forJoin; // true: search team for join, false: search teams to play with
     const gender = event.gender;
+    const age = String(event.age);
     const genderFilter = event.genderFilter;
     const ageMinFilter = String(event.ageMinFilter);
     const ageMaxFilter = String(event.ageMaxFilter);
@@ -56,6 +58,7 @@ exports.handler = (event, context, callback) => {
         forJoin,
         ownTeams,
         gender,
+        age,
         genderFilter,
         ageMinFilter,
         ageMaxFilter,
@@ -73,16 +76,13 @@ exports.handler = (event, context, callback) => {
 
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
-                        const id = x.hashKey.S.split('#')[1];
-
                         return {
-                            id,
+                            id: x.hashKey.S.split('#')[1],
                             name: x.name.S,
                             picture: x.picture.S,
                             formation: JSON.stringify(x.formation.M),
                             geohash: x.geohash.S,
                             coords: JSON.stringify(x.coords.M),
-                            searchingPlayers: x.searchingPlayers.BOOL,
                             ageMinFilter: x.ageMinFilter.N,
                             ageMaxFilter: x.ageMaxFilter.N,
                             genderFilter: x.genderFilter.SS,

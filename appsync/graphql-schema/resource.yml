@@ -28,12 +28,12 @@
 
         type Team {
           id: String
+          createdOn: String
           name: String
           picture: String
           formation: String
           geohash: String
           coords: String
-          searchingPlayers: Boolean
           genderFilter: [String]
           ageMinFilter: Int
           ageMaxFilter: Int
@@ -49,7 +49,6 @@
           teamId: String
           email: String
           position: String
-          isCaptain: Boolean
           role: [String]
           reqStat: String
           number: Int
@@ -65,6 +64,7 @@
           teamId: String
           email: String
           sentOn: String
+          expireOn: String
           msg: String
         }
 
@@ -77,7 +77,7 @@
           teamId1: String
           teamId2: String
           createdOn: String
-          allowedPatches: Int
+          patches: String
           positions: [String]
           expireOn: String
           schedule: String
@@ -104,6 +104,7 @@
           email: String
           reqStat: String
           joinedOn: String
+          expireOn: String
         }
 
         type MatchPatchList {
@@ -117,6 +118,7 @@
           email: String
           sentOn: String
           msg: String
+          expireOn: String
         }
 
         type MatchChatList {
@@ -127,6 +129,7 @@
         type Stadium {
           geohash: String
           id: String
+          createdOn: String
           name: String
           matchFilter: [String]
           coords: String
@@ -142,6 +145,7 @@
           stadiumId: String
           stadiumGeohash: String
           id: String
+          createdOn: String
           matchFilter: [String]
           material: String
         }
@@ -176,7 +180,6 @@
             latitude: Float!,
             longitude: Float!,
             picture: String,
-            searchingPlayers: Boolean,
             genderFilter: [String!]!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
@@ -195,38 +198,36 @@
           addTeamChat(
             teamId: String!,
             email: String!,
-            msg: String!
+            msg: String!,
+            expireOn: String!
           ): TeamChat
 
           addMatch(
             teamId1: String!,
             teamId2: String!,
-            allowedPatches: Int,
-            positions: [String],
             matchFilter: [String!]!,
             genderFilter: [String!]!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
-            schedule: String,
             geohash: String!,
             latitude: Float!,
-            longitude: Float!,
-            stadiumGeohash: String,
-            stadiumId: String, courtId: Int
+            longitude: Float!
           ): Match
 
           addMatchPatch(
             teamId1: String!,
             teamId2: String!,
             email: String!,
-            reqStat: String
+            reqStat: String,
+            expireOn: String!
           ): MatchPatch
 
           addMatchChat(
             teamId1: String!,
             teamId2: String!,
             email: String!,
-            msg: String!
+            msg: String!,
+            expireOn: String!
           ): MatchChat
 
           addStadium(
@@ -241,7 +242,7 @@
             stadiumId: String!,
             stadiumGeohash: String!,
             matchFilter: [String!]!,
-            material: String
+            material: String!
           ): Court
 
           updateUser(
@@ -261,7 +262,7 @@
           updateMatch(
             teamId1: String!,
             teamId2: String!,
-            allowedPatches: Int!,
+            patches: String!,
             positions: [String]!,
             schedule: String!,
             reqStat: String!,
@@ -288,11 +289,17 @@
             id: String!
           ): Team
 
+          getTeamMember(
+            teamId: String!,
+            email: String!
+          ): TeamMember
+
           nearTeams(
             ownTeams: [String],
             geohash: String!,
             forJoin: Boolean!,
             gender: String!,
+            age: Int!,
             genderFilter: [String]!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
@@ -309,6 +316,7 @@
             geohash: String!,
             ownTeams: [String],
             gender: String!,
+            age: Int!,
             ageMinFilter: Int!,
             ageMaxFilter: Int!,
             matchFilter: [String]!,

@@ -21,6 +21,7 @@ describe('Test AWS Lambda: umt-add-matchchat', () => {
                 expect(response.teamId2).toBe('realmadrid');
                 expect(response.email).toBe('svonko.vescovi@arzov.com');
                 expect(response.msg).toBe('Hola, como estan?');
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();
@@ -42,6 +43,7 @@ describe('Test AWS Lambda: umt-add-matchchat', () => {
                 expect(response.teamId2).toBe('realmadrid');
                 expect(response.email).toBe('franco.barrientos@arzov.com');
                 expect(response.msg).toBe('A que hora jugamos?');
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();

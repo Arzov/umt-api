@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "Franco Barrientos",
     "DateCreated": "Aug 26, 2020, 11:01 PM",
-    "DateLastModified": "Apr 02, 2021, 11:53 AM",
+    "DateLastModified": "Apr 07, 2021, 09:09 PM",
     "Description": "Modelo de datos para API de Umatch.",
     "Version": "2.0",
     "AWSService": "Amazon DynamoDB"
@@ -131,10 +131,6 @@
           "AttributeType": "N"
         },
         {
-          "AttributeName": "searching",
-          "AttributeType": "BOOL"
-        },
-        {
           "AttributeName": "number",
           "AttributeType": "N"
         },
@@ -149,6 +145,10 @@
         {
           "AttributeName": "patches",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "sentOn",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -164,7 +164,7 @@
                 "S": "USR#franco.barrientos@arzov.com"
               },
               "rangeKey": {
-                "S": "USR#franco.barrientos@arzov.com"
+                "S": "META#franco.barrientos@arzov.com"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -236,7 +236,7 @@
                 "S": "USR#jesus.barrientos@arzov.com"
               },
               "rangeKey": {
-                "S": "USR#jesus.barrientos@arzov.com"
+                "S": "META#jesus.barrientos@arzov.com"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -300,7 +300,7 @@
                 "S": "USR#matias.barrientos@arzov.com"
               },
               "rangeKey": {
-                "S": "USR#matias.barrientos@arzov.com"
+                "S": "META#matias.barrientos@arzov.com"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -370,7 +370,7 @@
                 "S": "USR#svonko.vescovi@arzov.com"
               },
               "rangeKey": {
-                "S": "USR#svonko.vescovi@arzov.com"
+                "S": "META#svonko.vescovi@arzov.com"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -440,7 +440,7 @@
                 "S": "USR#diego.lagos@arzov.com"
               },
               "rangeKey": {
-                "S": "USR#diego.lagos@arzov.com"
+                "S": "META#diego.lagos@arzov.com"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -504,7 +504,7 @@
                 "S": "USR#ivo.farias@arzov.com"
               },
               "rangeKey": {
-                "S": "USR#ivo.farias@arzov.com"
+                "S": "META#ivo.farias@arzov.com"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -568,7 +568,7 @@
                 "S": "USR#nadia.sepulveda@arzov.com"
               },
               "rangeKey": {
-                "S": "USR#nadia.sepulveda@arzov.com"
+                "S": "META#nadia.sepulveda@arzov.com"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -639,10 +639,7 @@
             "foot",
             "weight",
             "height"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "TeamMember",
@@ -653,10 +650,10 @@
           "TableData": [
             {
               "hashKey": {
-                "S": "TEAM#man.united"
+                "S": "TM#man.united"
               },
               "rangeKey": {
-                "S": "USR#franco.barrientos@arzov.com"
+                "S": "TM_MBR#franco.barrientos@arzov.com"
               },
               "position": {
                 "M": {
@@ -728,15 +725,15 @@
                 "S": "USR#franco.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "TEAM#man.united"
+                "S": "TM#man.united"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#man.united"
+                "S": "TM#man.united"
               },
               "rangeKey": {
-                "S": "USR#jesus.barrientos@arzov.com"
+                "S": "TM_MBR#jesus.barrientos@arzov.com"
               },
               "position": {
                 "M": {
@@ -806,15 +803,15 @@
                 "S": "USR#jesus.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "TEAM#man.united"
+                "S": "TM#man.united"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#fcbarcelona"
+                "S": "TM#fcbarcelona"
               },
               "rangeKey": {
-                "S": "USR#jesus.barrientos@arzov.com"
+                "S": "TM_MBR#jesus.barrientos@arzov.com"
               },
               "position": {
                 "M": {
@@ -886,95 +883,95 @@
                 "S": "USR#jesus.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "TEAM#fcbarcelona"
+                "S": "TM#fcbarcelona"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#bayern"
+                "S": "TM#bayern"
               },
               "rangeKey": {
+                "S": "TM_MBR#matias.barrientos@arzov.com"
+              },
+              "position": {
+                "M": {
+                  "5v5": {
+                    "M": {
+                      "P": {
+                        "S": ""
+                      },
+                      "X": {
+                        "N": "-1"
+                      },
+                      "Y": {
+                        "N": "-1"
+                      }
+                    }
+                  },
+                  "7v7": {
+                    "M": {
+                      "P": {
+                        "S": ""
+                      },
+                      "X": {
+                        "N": "-1"
+                      },
+                      "Y": {
+                        "N": "-1"
+                      }
+                    }
+                  },
+                  "11v11": {
+                    "M": {
+                      "P": {
+                        "S": ""
+                      },
+                      "X": {
+                        "N": "-1"
+                      },
+                      "Y": {
+                        "N": "-1"
+                      }
+                    }
+                  }
+                }
+              },
+              "role": {
+                "SS": [
+                  "Admin",
+                  "Player",
+                  "Captain"
+                ]
+              },
+              "reqStat": {
+                "M": {
+                  "TR": {
+                    "S": "A"
+                  },
+                  "PR": {
+                    "S": "A"
+                  }
+                }
+              },
+              "joinedOn": {
+                "S": "2021-03-20T20:36:57.562Z"
+              },
+              "number": {
+                "N": "0"
+              },
+              "GSI1PK": {
                 "S": "USR#matias.barrientos@arzov.com"
               },
-              "position": {
-                "M": {
-                  "5v5": {
-                    "M": {
-                      "P": {
-                        "S": ""
-                      },
-                      "X": {
-                        "N": "-1"
-                      },
-                      "Y": {
-                        "N": "-1"
-                      }
-                    }
-                  },
-                  "7v7": {
-                    "M": {
-                      "P": {
-                        "S": ""
-                      },
-                      "X": {
-                        "N": "-1"
-                      },
-                      "Y": {
-                        "N": "-1"
-                      }
-                    }
-                  },
-                  "11v11": {
-                    "M": {
-                      "P": {
-                        "S": ""
-                      },
-                      "X": {
-                        "N": "-1"
-                      },
-                      "Y": {
-                        "N": "-1"
-                      }
-                    }
-                  }
-                }
-              },
-              "role": {
-                "SS": [
-                  "Admin",
-                  "Player",
-                  "Captain"
-                ]
-              },
-              "reqStat": {
-                "M": {
-                  "TR": {
-                    "S": "A"
-                  },
-                  "PR": {
-                    "S": "A"
-                  }
-                }
-              },
-              "joinedOn": {
-                "S": "2021-03-20T20:36:57.562Z"
-              },
-              "number": {
-                "N": "0"
-              },
-              "GSI1PK": {
-                "S": "USR#matias.barrientos@arzov.com"
-              },
               "GSI1SK": {
-                "S": "TEAM#bayern"
+                "S": "TM#bayern"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#psg"
+                "S": "TM#psg"
               },
               "rangeKey": {
-                "S": "USR#nadia.sepulveda@arzov.com"
+                "S": "TM_MBR#nadia.sepulveda@arzov.com"
               },
               "position": {
                 "M": {
@@ -1046,15 +1043,15 @@
                 "S": "USR#nadia.sepulveda@arzov.com"
               },
               "GSI1SK": {
-                "S": "TEAM#psg"
+                "S": "TM#psg"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#realmadrid"
+                "S": "TM#realmadrid"
               },
               "rangeKey": {
-                "S": "USR#ivo.farias@arzov.com"
+                "S": "TM_MBR#ivo.farias@arzov.com"
               },
               "position": {
                 "M": {
@@ -1126,15 +1123,15 @@
                 "S": "USR#ivo.farias@arzov.com"
               },
               "GSI1SK": {
-                "S": "TEAM#realmadrid"
+                "S": "TM#realmadrid"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#chelsea"
+                "S": "TM#chelsea"
               },
               "rangeKey": {
-                "S": "USR#jesus.barrientos@arzov.com"
+                "S": "TM_MBR#jesus.barrientos@arzov.com"
               },
               "position": {
                 "M": {
@@ -1206,15 +1203,15 @@
                 "S": "USR#jesus.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "TEAM#chelsea"
+                "S": "TM#chelsea"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#acmilan"
+                "S": "TM#acmilan"
               },
               "rangeKey": {
-                "S": "USR#nadia.sepulveda@arzov.com"
+                "S": "TM_MBR#nadia.sepulveda@arzov.com"
               },
               "position": {
                 "M": {
@@ -1286,7 +1283,7 @@
                 "S": "USR#nadia.sepulveda@arzov.com"
               },
               "GSI1SK": {
-                "S": "TEAM#acmilan"
+                "S": "TM#acmilan"
               }
             }
           ],
@@ -1298,10 +1295,7 @@
             "number",
             "GSI1PK",
             "GSI1SK"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "TeamChat",
@@ -1312,10 +1306,10 @@
           "TableData": [
             {
               "hashKey": {
-                "S": "USR#matias.barrientos@arzov.com"
+                "S": "TM#man.united"
               },
               "rangeKey": {
-                "S": "CHAT#2021-04-04T20:36:57.562Z"
+                "S": "TM_CHAT#2021-04-04T20:36:57.562Z#matias.barrientos@arzov.com"
               },
               "msg": {
                 "S": "Jajajaja"
@@ -1324,18 +1318,21 @@
                 "S": "2021-04-24T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "TEAM#man.united"
+                "S": "USR#matias.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "CHAT#2021-04-04T20:36:57.562Z"
+                "S": "TM_CHAT#2021-04-04T20:36:57.562Z"
+              },
+              "sentOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "USR#franco.barrientos@arzov.com"
+                "S": "TM#man.united"
               },
               "rangeKey": {
-                "S": "CHAT#2021-04-04T20:37:57.562Z"
+                "S": "TM_CHAT#2021-04-04T20:37:57.562Z#franco.barrientos@arzov.com"
               },
               "msg": {
                 "S": "Buena cabros! Alguien juega?"
@@ -1344,10 +1341,13 @@
                 "S": "2021-04-24T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "TEAM#man.united"
+                "S": "USR#franco.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "CHAT#2021-04-04T20:37:57.562Z"
+                "S": "TM_CHAT#2021-04-04T20:37:57.562Z"
+              },
+              "sentOn": {
+                "S": "2021-04-04T20:37:57.562Z"
               }
             }
           ],
@@ -1355,11 +1355,9 @@
             "msg",
             "expireOn",
             "GSI1PK",
-            "GSI1SK"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+            "GSI1SK",
+            "sentOn"
+          ]
         },
         {
           "FacetName": "Team",
@@ -1370,10 +1368,10 @@
           "TableData": [
             {
               "hashKey": {
-                "S": "TEAM#realmadrid"
+                "S": "TM#realmadrid"
               },
               "rangeKey": {
-                "S": "TEAM#realmadrid"
+                "S": "META#realmadrid"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1422,16 +1420,16 @@
                   }
                 }
               },
-              "searching": {
-                "BOOL": false
+              "createdOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#man.united"
+                "S": "TM#man.united"
               },
               "rangeKey": {
-                "S": "TEAM#man.united"
+                "S": "META#man.united"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1479,16 +1477,16 @@
                   }
                 }
               },
-              "searching": {
-                "BOOL": false
+              "createdOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#fcbarcelona"
+                "S": "TM#fcbarcelona"
               },
               "rangeKey": {
-                "S": "TEAM#fcbarcelona"
+                "S": "META#fcbarcelona"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1535,16 +1533,16 @@
                   }
                 }
               },
-              "searching": {
-                "BOOL": true
+              "createdOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#psg"
+                "S": "TM#psg"
               },
               "rangeKey": {
-                "S": "TEAM#psg"
+                "S": "META#psg"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1591,16 +1589,16 @@
                   }
                 }
               },
-              "searching": {
-                "BOOL": true
+              "createdOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#bayern"
+                "S": "TM#bayern"
               },
               "rangeKey": {
-                "S": "TEAM#bayern"
+                "S": "META#bayern"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1648,16 +1646,16 @@
                   }
                 }
               },
-              "searching": {
-                "BOOL": true
+              "createdOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#chelsea"
+                "S": "TM#chelsea"
               },
               "rangeKey": {
-                "S": "TEAM#chelsea"
+                "S": "META#chelsea"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1704,16 +1702,16 @@
                   }
                 }
               },
-              "searching": {
-                "BOOL": true
+              "createdOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "TEAM#acmilan"
+                "S": "TM#acmilan"
               },
               "rangeKey": {
-                "S": "TEAM#acmilan"
+                "S": "META#acmilan"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1763,8 +1761,8 @@
                   }
                 }
               },
-              "searching": {
-                "BOOL": true
+              "createdOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             }
           ],
@@ -1778,11 +1776,8 @@
             "name",
             "picture",
             "formation",
-            "searching"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+            "createdOn"
+          ]
         },
         {
           "FacetName": "Match",
@@ -1793,10 +1788,10 @@
           "TableData": [
             {
               "hashKey": {
-                "S": "MATCH#man.united"
+                "S": "TM#man.united"
               },
               "rangeKey": {
-                "S": "MATCH#realmadrid"
+                "S": "MTCH#realmadrid"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1848,10 +1843,10 @@
                 "S": "2021-04-04T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "MATCH#realmadrid"
+                "S": "TM#realmadrid"
               },
               "GSI1SK": {
-                "S": "MATCH#man.united"
+                "S": "MTCH#man.united"
               },
               "patches": {
                 "M": {
@@ -1866,10 +1861,10 @@
             },
             {
               "hashKey": {
-                "S": "MATCH#acmilan"
+                "S": "TM#acmilan"
               },
               "rangeKey": {
-                "S": "MATCH#bayern"
+                "S": "MTCH#bayern"
               },
               "geohash": {
                 "S": "66jcfp"
@@ -1923,10 +1918,10 @@
                 "S": "2021-04-04T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "MATCH#bayern"
+                "S": "TM#bayern"
               },
               "GSI1SK": {
-                "S": "MATCH#acmilan"
+                "S": "MTCH#acmilan"
               },
               "patches": {
                 "M": {
@@ -1958,10 +1953,7 @@
             "GSI1PK",
             "GSI1SK",
             "patches"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "MatchPatch",
@@ -1972,10 +1964,10 @@
           "TableData": [
             {
               "hashKey": {
-                "S": "USR#svonko.vescovi@arzov.com"
+                "S": "MTCH#man.united#realmadrid"
               },
               "rangeKey": {
-                "S": "PATCH#2021-04-02T20:36:57.562Z"
+                "S": "MTCH_PCH#svonko.vescovi@arzov.com"
               },
               "reqStat": {
                 "M": {
@@ -1994,18 +1986,18 @@
                 "S": "2021-04-02T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "MATCH#man.united#realmadrid"
+                "S": "USR#svonko.vescovi@arzov.com"
               },
               "GSI1SK": {
-                "S": "PATCH#2021-04-02T20:36:57.562Z"
+                "S": "MTCH#man.united#realmadrid"
               }
             },
             {
               "hashKey": {
-                "S": "USR#franco.barrientos@arzov.com"
+                "S": "MTCH#acmilan#bayern"
               },
               "rangeKey": {
-                "S": "PATCH#2021-04-02T20:36:57.562Z"
+                "S": "MTCH_PCH#franco.barrientos@arzov.com"
               },
               "reqStat": {
                 "M": {
@@ -2024,10 +2016,10 @@
                 "S": "2021-04-02T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "MATCH#acmilan#bayern"
+                "S": "USR#franco.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "PATCH#2021-04-02T20:36:57.562Z"
+                "S": "MTCH#acmilan#bayern"
               }
             }
           ],
@@ -2037,10 +2029,7 @@
             "joinedOn",
             "GSI1PK",
             "GSI1SK"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "MatchChat",
@@ -2051,10 +2040,10 @@
           "TableData": [
             {
               "hashKey": {
-                "S": "USR#svonko.vescovi@arzov.com"
+                "S": "MTCH#man.united#realmadrid"
               },
               "rangeKey": {
-                "S": "CHAT#2021-04-04T20:36:57.562Z"
+                "S": "MTCH_CHAT#2021-04-04T20:36:57.562Z#svonko.vescovi@arzov.com"
               },
               "msg": {
                 "S": "Hola, como estan?"
@@ -2063,18 +2052,21 @@
                 "S": "2021-04-04T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "MATCH#man.united#realmadrid"
+                "S": "USR#svonko.vescovi@arzov.com"
               },
               "GSI1SK": {
-                "S": "CHAT#2021-04-04T20:36:57.562Z"
+                "S": "MTCH_CHAT#2021-04-04T20:36:57.562Z"
+              },
+              "sentOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             },
             {
               "hashKey": {
-                "S": "USR#franco.barrientos@arzov.com"
+                "S": "MTCH#man.united#realmadrid"
               },
               "rangeKey": {
-                "S": "CHAT#2021-04-04T20:36:57.562Z"
+                "S": "MTCH_CHAT#2021-04-04T20:36:57.562Z#franco.barrientos@arzov.com"
               },
               "msg": {
                 "S": "A que hora jugamos?"
@@ -2083,10 +2075,13 @@
                 "S": "2021-04-04T20:36:57.562Z"
               },
               "GSI1PK": {
-                "S": "MATCH#man.united#realmadrid"
+                "S": "USR#franco.barrientos@arzov.com"
               },
               "GSI1SK": {
-                "S": "CHAT#2021-04-04T20:36:57.562Z"
+                "S": "MTCH_CHAT#2021-04-04T20:36:57.562Z"
+              },
+              "sentOn": {
+                "S": "2021-04-04T20:36:57.562Z"
               }
             }
           ],
@@ -2094,11 +2089,9 @@
             "msg",
             "expireOn",
             "GSI1PK",
-            "GSI1SK"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+            "GSI1SK",
+            "sentOn"
+          ]
         },
         {
           "FacetName": "Stadium",
@@ -2136,19 +2129,20 @@
               },
               "name": {
                 "S": "CLUB DEPORTIVO INDEPE"
+              },
+              "createdOn": {
+                "S": "2021-03-21T20:36:57.562Z"
               }
             }
           ],
           "NonKeyAttributes": [
+            "geohash",
             "coords",
             "matchFilter",
             "name",
-            "address",
-            "geohash"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+            "createdOn",
+            "address"
+          ]
         },
         {
           "FacetName": "Court",
@@ -2162,12 +2156,15 @@
                 "S": "STAD#clubdeportivoindepe"
               },
               "rangeKey": {
-                "S": "COURT#66jcfp#1"
+                "S": "CRT#66jcfp#1"
               },
               "matchFilter": {
                 "SS": [
                   "7v7"
                 ]
+              },
+              "createdOn": {
+                "S": "2021-03-21T20:36:57.562Z"
               },
               "material": {
                 "S": "Grass"
@@ -2178,12 +2175,15 @@
                 "S": "STAD#clubdeportivoindepe"
               },
               "rangeKey": {
-                "S": "COURT#66jcfp#2"
+                "S": "CRT#66jcfp#2"
               },
               "matchFilter": {
                 "SS": [
                   "5v5"
                 ]
+              },
+              "createdOn": {
+                "S": "2021-03-21T20:36:57.562Z"
               },
               "material": {
                 "S": "Cement"
@@ -2192,11 +2192,9 @@
           ],
           "NonKeyAttributes": [
             "matchFilter",
+            "createdOn",
             "material"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         }
       ],
       "GlobalSecondaryIndexes": [

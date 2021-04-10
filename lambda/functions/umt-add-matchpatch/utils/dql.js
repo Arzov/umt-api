@@ -8,42 +8,50 @@
  * @param {Object} db DynamoDB client
  * @param {String} tableName Table name
  * @param {String} hashKey Applicant team id + Requested team id
- * @param {String} rangeKey Patch email
+ * @param {String} rangeKey User email
  * @param {String} joinedOn Join date
  * @param {Object} reqStat Request status
- * @param {Function} fn Callback
+ * @param {String} expireOn Expire date of the match
+ * @param {String} GSI1PK User email
+ * @param {String} GSI1SK Applicant team id + Requested team id
  */
-const addMatchPatch = (
+const addMatchPatch = async (
     db,
     tableName,
     hashKey,
     rangeKey,
     joinedOn,
     reqStat,
-    fn
+    expireOn,
+    GSI1PK
 ) => {
-    db.putItem(
-        {
-            TableName: tableName,
-            Item: {
-                hashKey: { S: hashKey },
-                rangeKey: { S: rangeKey },
-                joinedOn: { S: joinedOn },
-                reqStat: { M: reqStat },
-            },
-        },
-        function (err, data) {
-            if (err) fn(err);
-            else
-                fn(null, {
-                    teamId1: hashKey.split('#')[1],
-                    teamId2: hashKey.split('#')[2],
-                    email: rangeKey.split('#')[1],
-                    joinedOn,
-                    reqStat: JSON.stringify(reqStat),
-                });
-        }
-    );
+    try {
+        await db
+            .putItem({
+                TableName: tableName,
+                Item: {
+                    hashKey: { S: hashKey },
+                    rangeKey: { S: rangeKey },
+                    joinedOn: { S: joinedOn },
+                    reqStat: { M: reqStat },
+                    expireOn: { S: expireOn },
+                    GSI1PK: { S: GSI1PK },
+                    GSI1SK: { S: hashKey },
+                },
+            })
+            .promise();
+
+        return {
+            teamId1: hashKey.split('#')[1],
+            teamId2: hashKey.split('#')[2],
+            email: GSI1PK.split('#')[1],
+            joinedOn,
+            reqStat: JSON.stringify(reqStat),
+            expireOn,
+        };
+    } catch (err) {
+        return err;
+    }
 };
 
 module.exports.addMatchPatch = addMatchPatch;

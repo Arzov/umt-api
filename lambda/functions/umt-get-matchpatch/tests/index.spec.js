@@ -24,6 +24,7 @@ describe('Test AWS Lambda: umt-get-matchpatch', () => {
                     MR: { S: 'A' },
                     PR: { S: 'A' },
                 });
+                expect(response.expireOn).toBe('2021-04-04T20:36:57.562Z');
             }
 
             done();

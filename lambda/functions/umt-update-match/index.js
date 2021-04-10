@@ -3,9 +3,11 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
-const aws = require('aws-sdk');
 const umtEnvs = require('umt-envs');
+const umtUtils = require('umt-utils');
+const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
@@ -18,9 +20,9 @@ const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = function (event, context, callback) {
-    const hashKey = `${umtEnvs.pfx.MATCH}${event.teamId1}`;
+    const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId1}`;
     const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
-    const allowedPatches = String(event.allowedPatches);
+    const patches = JSON.parse(event.patches);
     const positions = event.positions;
     const matchFilter = event.matchFilter;
     const schedule = event.schedule;
@@ -42,12 +44,10 @@ exports.handler = function (event, context, callback) {
         if (err) callback(err);
         else {
             const response = JSON.parse(data.Payload);
+            const isEmpty = umtUtils.isObjectEmpty(response);
 
             // The match still exist
-            if (
-                Object.entries(response).length > 0 &&
-                response.constructor === Object
-            ) {
+            if (!isEmpty) {
                 if (
                     reqStat.AR.S === 'C' ||
                     reqStat.AR.S === 'D' ||
@@ -68,7 +68,7 @@ exports.handler = function (event, context, callback) {
                         process.env.DB_UMT_001,
                         hashKey,
                         rangeKey,
-                        allowedPatches,
+                        patches,
                         positions,
                         matchFilter,
                         schedule,
@@ -89,7 +89,7 @@ exports.handler = function (event, context, callback) {
             else {
                 const err = new Error(
                     JSON.stringify({
-                        code: 'MatchNotExistsException',
+                        code: 'MatchNotExistException',
                         message: `El partido no existe.`,
                     })
                 );
