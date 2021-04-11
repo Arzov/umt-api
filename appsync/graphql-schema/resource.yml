@@ -4,9 +4,6 @@
     Properties: 
       ApiId: !GetAtt ASGraphQLApiUMT.ApiId
       Definition: >
-        # ============================
-        # Types
-        # ============================
         type User {
           email: String
           geohash: String
@@ -155,10 +152,6 @@
           nextToken: String
         }
 
-
-        # ============================
-        # Mutations
-        # ============================
         type Mutation {
           addUser(
             latitude: Float!,
@@ -276,10 +269,6 @@
           ): Match
         }
 
-
-        # ============================
-        # Queries
-        # ============================
         type Query {
           getUser(
             email: String!
@@ -367,10 +356,6 @@
           ): MatchPatch
         }
 
-
-        # ============================
-        # Schema
-        # ============================
         schema {
           query: Query
           mutation: Mutation

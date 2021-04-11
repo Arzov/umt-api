@@ -20,7 +20,7 @@ chmod +x samtemplate.sh; ./samtemplate.sh
 # Install layers
 cd lambda/layers
 
-cd umt-ext/nodejs; npm install; cd ../../
+cd umt-ext/nodejs; yarn; cd ../../
 
 cd ../../
 
