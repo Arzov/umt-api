@@ -1,8 +1,7 @@
 #!/bin/bash
 # ==========================================================
-# Install Curl
+# Install Bash
 # @author : Franco Barrientos <franco.barrientos@arzov.com>
 # ==========================================================
 
-apt-get update
-apt-get -y install curl
+apk add bash

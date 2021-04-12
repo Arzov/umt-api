@@ -1,14 +1,9 @@
-FROM ubuntu:20.04
+FROM node:lts-alpine3.13
+ENV GLIBC_VER=2.31-r0
 COPY installers /installers
 WORKDIR /installers
-ARG DEBIAN_FRONTEND=noninteractive
-RUN ./curl.sh
-RUN ./unzip.sh
-RUN ./wget.sh
-RUN ./aws.sh
-RUN ./aws_sam.sh
-RUN ./nodejs.sh
-RUN ./ping.sh
-RUN ./docker.sh
-RUN npm i -g yarn
+RUN sh bash.sh
+RUN sh aws.sh
+RUN sh aws_sam.sh
+RUN sh docker.sh
 WORKDIR /var/opt
