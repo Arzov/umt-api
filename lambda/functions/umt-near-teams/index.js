@@ -37,7 +37,7 @@ exports.handler = (event, context, callback) => {
 
     // Prefix to id
     ownTeams = ownTeams.map(function (x) {
-        return `${umtEnvs.pfx.TEAM}${x}`;
+        return `${umtEnvs.pfx.METADATA}${x}`;
     });
 
     /**
