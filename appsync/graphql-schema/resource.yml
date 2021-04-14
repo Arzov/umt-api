@@ -182,10 +182,8 @@
           addTeamMember(
             teamId: String!,
             email: String!,
-            position: String,
             role: [String],
-            reqStat: String!,
-            number: Int!
+            reqStat: String!
           ): TeamMember
 
           addTeamChat(
