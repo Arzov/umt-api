@@ -18,7 +18,6 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const dynamodb = new aws.DynamoDB(options);
 
 exports.handler = (event, context, callback) => {
-    let ownTeams = event.ownTeams ? event.ownTeams : [''];
     const geohash = event.geohash;
     const forJoin = event.forJoin; // true: search team for join, false: search teams to play with
     const gender = event.gender;
@@ -26,6 +25,8 @@ exports.handler = (event, context, callback) => {
     const genderFilter = event.genderFilter;
     const ageMinFilter = String(event.ageMinFilter);
     const ageMaxFilter = String(event.ageMaxFilter);
+
+    let ownTeams = event.ownTeams ? event.ownTeams : [''];
     let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
 
@@ -36,8 +37,8 @@ exports.handler = (event, context, callback) => {
     }
 
     // Prefix to id
-    ownTeams = ownTeams.map(function (x) {
-        return `${umtEnvs.pfx.METADATA}${x}`;
+    ownTeams = ownTeams.map(function (teamId) {
+        return `${umtEnvs.pfx.METADATA}${teamId}`;
     });
 
     /**
@@ -65,7 +66,7 @@ exports.handler = (event, context, callback) => {
         matchFilter,
         limitScan,
         nextToken,
-        function (err, data) {
+        async function (err, data) {
             if (err) callback(err);
             else {
                 let nextTokenResult = null;
@@ -75,20 +76,53 @@ exports.handler = (event, context, callback) => {
                     nextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
                 if (data.Count) {
-                    dataResult = data.Items.map(function (x) {
-                        return {
-                            id: x.hashKey.S.split('#')[1],
-                            name: x.name.S,
-                            picture: x.picture.S,
-                            formation: JSON.stringify(x.formation.M),
-                            geohash: x.geohash.S,
-                            coords: JSON.stringify(x.coords.M),
-                            ageMinFilter: x.ageMinFilter.N,
-                            ageMaxFilter: x.ageMaxFilter.N,
-                            genderFilter: x.genderFilter.SS,
-                            matchFilter: x.matchFilter.SS,
-                        };
-                    });
+                    if (forJoin)
+                        dataResult = data.Items.map(function (team) {
+                            return {
+                                id: team.hashKey.S.split('#')[1],
+                                name: team.name.S,
+                                picture: team.picture.S,
+                                formation: JSON.stringify(team.formation.M),
+                                geohash: team.geohash.S,
+                                coords: JSON.stringify(team.coords.M),
+                                ageMinFilter: team.ageMinFilter.N,
+                                ageMaxFilter: team.ageMaxFilter.N,
+                                genderFilter: team.genderFilter.SS,
+                                matchFilter: team.matchFilter.SS,
+                            };
+                        });
+                    else {
+                        ownTeams = ownTeams.map(function (teamId) {
+                            return `${umtEnvs.pfx.TEAM}${teamId.split('#')[1]}`;
+                        });
+
+                        // Filter teams that already has a match with user's teams
+                        for (const i in data.Items) {
+                            const team = data.Items[i];
+                            const existMatch = await dql.existMatches(
+                                dynamodb,
+                                process.env.DB_UMT_001,
+                                team.hashKey.S,
+                                ownTeams,
+                                limitScan,
+                                null
+                            );
+
+                            if (!existMatch)
+                                dataResult.push({
+                                    id: team.hashKey.S.split('#')[1],
+                                    name: team.name.S,
+                                    picture: team.picture.S,
+                                    formation: JSON.stringify(team.formation.M),
+                                    geohash: team.geohash.S,
+                                    coords: JSON.stringify(team.coords.M),
+                                    ageMinFilter: team.ageMinFilter.N,
+                                    ageMaxFilter: team.ageMaxFilter.N,
+                                    genderFilter: team.genderFilter.SS,
+                                    matchFilter: team.matchFilter.SS,
+                                });
+                        }
+                    }
                 }
 
                 callback(null, {

@@ -3,11 +3,9 @@
     Type: AWS::Serverless::Function
     DependsOn:
       - LDLayerUMTEnvs
-      - LDLayerUMTExt
     Properties:
       FunctionName: umt-add-teamchat
       CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-add-teamchat/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs
-        - !Ref LDLayerUMTExt

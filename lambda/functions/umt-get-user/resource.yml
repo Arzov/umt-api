@@ -1,10 +1,13 @@
 
   LDFunctionUMTGetUser:
     Type: AWS::Serverless::Function
-    DependsOn: LDLayerUMTEnvs
+    DependsOn:
+      - LDLayerUMTEnvs
+      - LDLayerUMTPkgs
     Properties:
       FunctionName: umt-get-user
       CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-get-user/" ] ]
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs
+        - !Ref LDLayerUMTPkgs

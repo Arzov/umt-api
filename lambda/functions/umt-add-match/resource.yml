@@ -3,7 +3,6 @@
     Type: AWS::Serverless::Function
     DependsOn:
       - LDLayerUMTEnvs
-      - LDLayerUMTExt
       - LDLayerUMTPkgs
     Properties:
       FunctionName: umt-add-match
@@ -11,5 +10,4 @@
       Role: !ImportValue ARV-IARoleARVLambdaARN
       Layers:
         - !Ref LDLayerUMTEnvs
-        - !Ref LDLayerUMTExt
         - !Ref LDLayerUMTPkgs

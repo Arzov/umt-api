@@ -3,6 +3,8 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+const umtUtils = require('umt-utils');
+
 /**
  * Get user
  * @param {Object} db DynamoDB client
@@ -22,10 +24,7 @@ const getUser = (db, tableName, hashKey, rangeKey, fn) => {
         },
         function (err, data) {
             if (err) return fn(err);
-            else if (
-                Object.keys(data).length === 0 &&
-                data.constructor === Object
-            ) {
+            else if (umtUtils.isObjectEmpty(data)) {
                 fn(null, {});
             } else {
                 fn(null, {
