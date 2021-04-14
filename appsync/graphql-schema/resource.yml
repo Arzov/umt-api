@@ -282,6 +282,7 @@
           ): TeamMember
 
           nearTeams(
+            email: String!,
             ownTeams: [String],
             geohash: String!,
             forJoin: Boolean!,
@@ -300,6 +301,7 @@
           ): Match
 
           nearMatches(
+            email: String!,
             geohash: String!,
             ownTeams: [String],
             gender: String!,

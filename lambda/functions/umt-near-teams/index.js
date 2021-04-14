@@ -4,20 +4,25 @@
  */
 
 const umtEnvs = require('umt-envs');
+const umtUtils = require('umt-utils');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
 
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
-let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
 if (process.env.RUN_MODE === 'LOCAL') {
-    options = umtEnvs.dev.DYNAMODB_CONFIG;
+    optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
+    optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
     limitScan = umtEnvs.dev.SCAN_LIMIT;
 }
 
-const dynamodb = new aws.DynamoDB(options);
+const dynamodb = new aws.DynamoDB(optionsDynamodb);
+const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = (event, context, callback) => {
+    const email = event.email;
     const geohash = event.geohash;
     const forJoin = event.forJoin; // true: search team for join, false: search teams to play with
     const gender = event.gender;
@@ -76,22 +81,42 @@ exports.handler = (event, context, callback) => {
                     nextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
                 if (data.Count) {
-                    if (forJoin)
-                        dataResult = data.Items.map(function (team) {
-                            return {
-                                id: team.hashKey.S.split('#')[1],
-                                name: team.name.S,
-                                picture: team.picture.S,
-                                formation: JSON.stringify(team.formation.M),
-                                geohash: team.geohash.S,
-                                coords: JSON.stringify(team.coords.M),
-                                ageMinFilter: team.ageMinFilter.N,
-                                ageMaxFilter: team.ageMaxFilter.N,
-                                genderFilter: team.genderFilter.SS,
-                                matchFilter: team.matchFilter.SS,
-                            };
-                        });
-                    else {
+                    if (forJoin) {
+                        // Filter teams that already has a request with the user
+                        for (const i in data.Items) {
+                            const team = data.Items[i];
+
+                            let params = { FunctionName: 'umt-get-teammember' };
+
+                            params.Payload = JSON.stringify({
+                                teamId: team.hashKey.S.split('#')[1],
+                                email,
+                            });
+
+                            const result = await new Promise(
+                                (resolve, reject) => {
+                                    lambda.invoke(params, function (err, data) {
+                                        if (err) reject(err);
+                                        else resolve(JSON.parse(data.Payload));
+                                    });
+                                }
+                            );
+
+                            if (umtUtils.isObjectEmpty(result))
+                                dataResult.push({
+                                    id: team.hashKey.S.split('#')[1],
+                                    name: team.name.S,
+                                    picture: team.picture.S,
+                                    formation: JSON.stringify(team.formation.M),
+                                    geohash: team.geohash.S,
+                                    coords: JSON.stringify(team.coords.M),
+                                    ageMinFilter: team.ageMinFilter.N,
+                                    ageMaxFilter: team.ageMaxFilter.N,
+                                    genderFilter: team.genderFilter.SS,
+                                    matchFilter: team.matchFilter.SS,
+                                });
+                        }
+                    } else {
                         ownTeams = ownTeams.map(function (teamId) {
                             return `${umtEnvs.pfx.TEAM}${teamId.split('#')[1]}`;
                         });

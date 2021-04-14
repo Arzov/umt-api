@@ -40,7 +40,6 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].id).toBe('acmilan');
                 expect(response.items[1].id).toBe('bayern');
-                expect(response.items[2].id).toBe('chelsea');
                 expect(response.nextToken).toStrictEqual(
                     '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
@@ -61,8 +60,7 @@ describe('Test AWS Lambda: umt-near-teams', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(response.items[0].id).toBe('acmilan');
-                expect(response.items[1].id).toBe('bayern');
+                expect(response.items).toStrictEqual([]);
                 expect(response.nextToken).toStrictEqual(
                     '{"rangeKey":{"S":"MTCH#man.united"},"hashKey":{"S":"TM#fcbarcelona"},"geohash":{"S":"66jcfp"}}'
                 );
