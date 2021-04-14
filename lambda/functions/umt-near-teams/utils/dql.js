@@ -8,7 +8,7 @@ const umtEnvs = require('umt-envs');
 /**
  * Get near teams
  * @param {Object} db DynamoDB client
- * @param {String} tableName Team name
+ * @param {String} tableName Table name
  * @param {String} geohash Geolocation hash
  * @param {Boolean} forJoin Indicator if want to join in a team
  * @param {String[]} ownTeams Player's teams
@@ -113,4 +113,94 @@ const nearTeams = (
     }
 };
 
+/**
+ * Indicate if exist matches between team and a list of teams
+ * @param {Object} db DynamoDB client
+ * @param {String} tableName Table name
+ * @param {String} teamId Team id
+ * @param {String[]} ownTeams Player's teams
+ * @param {Integer} limitScan Query limit scan result
+ * @param {String} nextToken Last query scanned object
+ */
+const existMatches = async (
+    db,
+    tableName,
+    teamId,
+    ownTeams,
+    limitScan,
+    nextToken // TODO: think about this!
+) => {
+    // When teamId is the requested team
+    const idx = `GSI1`;
+    const keyExp1 = `GSI1PK = :v1 and begins_with (GSI1SK, :v2)`;
+    const filterExp1 = `contains (:v3, hashKey)`;
+
+    // When teamId is the applicant team
+    const keyExp2 = `hashKey = :v1 and begins_with (rangeKey, :v2)`;
+    const filterExp2 = `contains (:v3, GSI1PK)`;
+
+    const expValues = {
+        ':v1': { S: teamId },
+        ':v2': { S: umtEnvs.pfx.MATCH },
+        ':v3': { SS: ownTeams },
+    };
+
+    try {
+        let requestedMatches = null;
+        let applicantMatches = null;
+
+        if (nextToken) {
+            requestedMatches = await db
+                .query({
+                    TableName: tableName,
+                    IndexName: idx,
+                    KeyConditionExpression: keyExp1,
+                    FilterExpression: filterExp1,
+                    ExpressionAttributeValues: expValues,
+                    ExclusiveStartKey: JSON.parse(nextToken),
+                    Limit: limitScan,
+                })
+                .promise();
+
+            applicantMatches = await db
+                .query({
+                    TableName: tableName,
+                    KeyConditionExpression: keyExp2,
+                    FilterExpression: filterExp2,
+                    ExpressionAttributeValues: expValues,
+                    ExclusiveStartKey: JSON.parse(nextToken),
+                    Limit: limitScan,
+                })
+                .promise();
+        } else {
+            requestedMatches = await db
+                .query({
+                    TableName: tableName,
+                    IndexName: idx,
+                    KeyConditionExpression: keyExp1,
+                    FilterExpression: filterExp1,
+                    ExpressionAttributeValues: expValues,
+                    Limit: limitScan,
+                })
+                .promise();
+
+            applicantMatches = await db
+                .query({
+                    TableName: tableName,
+                    KeyConditionExpression: keyExp2,
+                    FilterExpression: filterExp2,
+                    ExpressionAttributeValues: expValues,
+                    Limit: limitScan,
+                })
+                .promise();
+        }
+
+        if (requestedMatches.Count || applicantMatches.Count) return true;
+        else return false;
+    } catch (err) {
+        return err;
+    }
+};
+
 module.exports.nearTeams = nearTeams;
+module.exports.existMatches = existMatches;
