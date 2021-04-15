@@ -282,6 +282,7 @@
           ): TeamMember
 
           nearTeams(
+            email: String!,
             ownTeams: [String],
             geohash: String!,
             forJoin: Boolean!,
