@@ -26,7 +26,11 @@ const belongToTeam = async (lambda, teamId, email) => {
         });
     });
 
-    return !umtUtils.isObjectEmpty(result);
+    return (
+        !umtUtils.isObjectEmpty(result) &&
+        result.reqStat.PR == 'A' &&
+        result.reqStat.TR == 'A'
+    );
 };
 
 /**

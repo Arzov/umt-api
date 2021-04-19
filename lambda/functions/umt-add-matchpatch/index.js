@@ -137,16 +137,7 @@ exports.handler = async (event) => {
             }
 
             // Player already in the match
-            else {
-                err = new Error(
-                    JSON.stringify({
-                        code: 'MatchPatchExistException',
-                        message: `El jugador ya participa del partido.`,
-                    })
-                );
-
-                throw err;
-            }
+            else throw err;
         }
 
         // Check if the patches vacancy are not full

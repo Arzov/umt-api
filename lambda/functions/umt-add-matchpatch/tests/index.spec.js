@@ -190,7 +190,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         });
     }, 60000);
 
-    test('Evaluate: Match - Patch (svonko.vescovi@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
+    test('Evaluate: Patch - Match (svonko.vescovi@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
         params.Payload = JSON.stringify(events[6]);
 
         lambda.invoke(params, function (err, data) {
@@ -215,7 +215,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         });
     }, 60000);
 
-    test('Evaluate: Match - Patch (ivo.farias@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
+    test('Evaluate: Patch - Match (ivo.farias@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
         params.Payload = JSON.stringify(events[7]);
 
         lambda.invoke(params, function (err, data) {
@@ -227,8 +227,8 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchPatchExistException',
-                    message: `El jugador ya participa del partido.`,
+                    code: 'MatchPatchFullException',
+                    message: `No quedan cupos en el partido.`,
                 });
             }
 
