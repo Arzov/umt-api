@@ -354,6 +354,11 @@
             teamId2: String!,
             email: String!
           ): MatchPatch
+
+          listTeamChats(
+            id: String!,
+            nextToken: String
+          ): TeamChatList
         }
 
         schema {
