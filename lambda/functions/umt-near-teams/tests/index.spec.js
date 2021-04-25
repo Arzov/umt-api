@@ -1,19 +1,42 @@
+/**
+ * Test: umt-near-teams
+ * @author Franco Barrientos <franco.barrientos@arzov.com>
+ */
+
+
+// packages
+
 const aws = require('aws-sdk');
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs');
 const events = require('../events/events.json');
 
+
+// execution
+
 describe('Test AWS Lambda: umt-near-teams', () => {
+
     let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG);
     let params = { FunctionName: 'umt-near-teams' };
 
+
+    // test 1
+
     test('Evaluate: Search teams 01', (done) => {
+
         params.Payload = JSON.stringify(events[0]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(400);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -27,14 +50,25 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         });
     }, 60000);
 
+
+    // test 2
+
     test('Evaluate: Join team 02', (done) => {
+
         params.Payload = JSON.stringify(events[1]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(400);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -49,14 +83,25 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         });
     }, 60000);
 
+
+    // test 3
+
     test('Evaluate: Join team 03', (done) => {
+
         params.Payload = JSON.stringify(events[2]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(400);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -70,14 +115,25 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         });
     }, 60000);
 
+
+    // test 4
+
     test('Evaluate: Search teams 04', (done) => {
+
         params.Payload = JSON.stringify(events[3]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(400);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -91,14 +147,25 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         });
     }, 60000);
 
+
+    // test 5
+
     test('Evaluate: Search teams 05', (done) => {
+
         params.Payload = JSON.stringify(events[4]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(400);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -112,14 +179,25 @@ describe('Test AWS Lambda: umt-near-teams', () => {
         });
     }, 60000);
 
+
+    // test 6
+
     test('Evaluate: Search teams 06', (done) => {
+
         params.Payload = JSON.stringify(events[5]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(400);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);

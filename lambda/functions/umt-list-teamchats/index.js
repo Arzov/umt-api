@@ -18,6 +18,7 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 
 exports.handler = (event, context, callback) => {
+
     const hashKey = `${umtEnvs.pfx.TEAM}${event.id}`;
     const nextToken = event.nextToken;
 
@@ -27,16 +28,18 @@ exports.handler = (event, context, callback) => {
         hashKey,
         limitScan,
         nextToken,
+
         function (err, data) {
             if (err) callback(err);
             else {
+
                 let nextTokenResult = null;
                 let dataResult = null;
 
                 if ('LastEvaluatedKey' in data)
                     nextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
-                if (data.Count) {
+                if (data.Count)
                     dataResult = data.Items.map(function (teamChat) {
                         return {
                             teamId: teamChat.hashKey.S.split('#')[1],
@@ -46,7 +49,6 @@ exports.handler = (event, context, callback) => {
                             msg: teamChat.msg.S,
                         };
                     });
-                }
 
                 callback(null, {
                     items: dataResult,

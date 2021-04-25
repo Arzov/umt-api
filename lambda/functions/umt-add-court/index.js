@@ -3,9 +3,15 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
+
+// configurations
 
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
 
@@ -13,7 +19,11 @@ if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
 
 const dynamodb = new aws.DynamoDB(options);
 
+
+// execution
+
 exports.handler = function (event, context, callback) {
+
     const hashKey = `${umtEnvs.pfx.STADIUM}${event.stadiumId}`;
     const matchFilter = event.matchFilter;
     const material = event.material;
@@ -21,12 +31,15 @@ exports.handler = function (event, context, callback) {
 
     let rangeKey = `${umtEnvs.pfx.COURT}${event.stadiumGeohash}`;
 
-    // Get `id` of latest court added, to generate a new `id`
+
+    // get `id` of latest court added, to generate a new `id`
+
     dql.getLastCourtId(
         dynamodb,
         process.env.DB_UMT_001,
         hashKey,
         rangeKey,
+
         function (err, lastId) {
             if (err) callback(err);
             else {

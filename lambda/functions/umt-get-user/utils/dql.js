@@ -3,30 +3,48 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtUtils = require('umt-utils');
+
+
+// functions
 
 /**
  * Get user
- * @param {Object} db DynamoDB client
- * @param {String} tableName Table name
- * @param {String} hashKey Email
- * @param {String} rangeKey Email
- * @param {Function} fn Callback
+ * @param   {Object}    db          DynamoDB client
+ * @param   {String}    tableName   Table name
+ * @param   {String}    hashKey     Email
+ * @param   {String}    rangeKey    Email
+ * @param   {Function}  fn          Callback
  */
 const getUser = (db, tableName, hashKey, rangeKey, fn) => {
+
     db.getItem(
         {
             TableName: tableName,
             Key: {
-                hashKey: { S: hashKey },
-                rangeKey: { S: rangeKey },
+                hashKey     : { S: hashKey },
+                rangeKey    : { S: rangeKey },
             },
         },
+
         function (err, data) {
+
+            // error
+
             if (err) return fn(err);
+
+            // return empty object
+
             else if (umtUtils.isObjectEmpty(data)) {
                 fn(null, {});
-            } else {
+            }
+
+            // return result
+
+            else {
                 fn(null, {
                     email: data.Item.hashKey.S.split('#')[1],
                     geohash: data.Item.geohash.S,
@@ -44,5 +62,8 @@ const getUser = (db, tableName, hashKey, rangeKey, fn) => {
         }
     );
 };
+
+
+// export modules
 
 module.exports.getUser = getUser;

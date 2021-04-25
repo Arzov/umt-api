@@ -3,10 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
 const fns = require('utils/fns');
+
+
+// configurations
 
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
@@ -21,7 +27,11 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const lambda = new aws.Lambda(optionsLambda);
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 
+
+// execution
+
 exports.handler = (event, context, callback) => {
+
     const hashKey = `${umtEnvs.pfx.TEAM}${event.id}`;
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
 
@@ -35,6 +45,9 @@ exports.handler = (event, context, callback) => {
 
     const patchNextToken = event.nextToken;
 
+
+    // get team's actives matches
+
     if (event.id) {
         dql.listOwnerMatches(
             dynamodb,
@@ -42,6 +55,7 @@ exports.handler = (event, context, callback) => {
             hashKey,
             limitScan,
             ownerNextToken,
+
             function (err, data) {
                 if (err) callback(err);
                 else {
@@ -59,6 +73,7 @@ exports.handler = (event, context, callback) => {
                         hashKey,
                         limitScan,
                         guestNextToken,
+
                         function (err, data) {
                             if (err) callback(err);
                             else {
@@ -68,6 +83,7 @@ exports.handler = (event, context, callback) => {
                                 ownerNextTokenResult = ownerNextTokenResult
                                     ? ownerNextTokenResult
                                     : '';
+
                                 guestNextTokenResult = guestNextTokenResult
                                     ? guestNextTokenResult
                                     : '';
@@ -84,13 +100,19 @@ exports.handler = (event, context, callback) => {
                 }
             }
         );
-    } else
+    }
+
+
+    // get player's actives matches
+
+    else
         dql.listPatchMatches(
             dynamodb,
             process.env.DB_UMT_001,
             GSI1PK,
             limitScan,
             patchNextToken,
+
             async function (err, data) {
                 if (err) callback(err);
                 else {

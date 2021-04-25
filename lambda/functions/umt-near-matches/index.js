@@ -3,10 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
 const fns = require('utils/fns');
+
+
+// configurations
 
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
@@ -21,7 +27,11 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const lambda = new aws.Lambda(optionsLambda);
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 
+
+// exection
+
 exports.handler = (event, context, callback) => {
+
     const email = event.email;
     const geohash = event.geohash;
     const gender = event.gender;
@@ -34,16 +44,19 @@ exports.handler = (event, context, callback) => {
     let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
 
-    // Fill with ' ' array 'matchFilter' of size 3
+    // fill with ' ' array 'matchFilter' of size 3
+
     const l = 3 - matchFilter.length;
     for (let i = 0; i < l; i++) {
         matchFilter.push(' ');
     }
 
-    // Prefix to id
+    // prefix to id
+
     ownTeams = ownTeams.map(function (x) {
         return `${umtEnvs.pfx.MATCH}${x}`;
     });
+
 
     /**
      * The `geohash` of the `nextToken` must be equal to the `geohash` of the
@@ -52,6 +65,7 @@ exports.handler = (event, context, callback) => {
      * This may occur due to the team/user moving to another site
      * and change its `geohash`.
      */
+
     if (nextToken) {
         if (JSON.parse(nextToken).geohash.S !== geohash) nextToken = null;
     }
@@ -69,6 +83,7 @@ exports.handler = (event, context, callback) => {
         currDate,
         limitScan,
         nextToken,
+
         async function (err, data) {
             if (err) callback(err);
             else {
@@ -81,27 +96,28 @@ exports.handler = (event, context, callback) => {
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
                         return {
-                            teamId1: x.hashKey.S.split('#')[1],
-                            teamId2: x.rangeKey.S.split('#')[1],
-                            createdOn: x.createdOn.S,
-                            patches: JSON.stringify(x.patches.M),
-                            positions: x.positions.SS,
-                            matchFilter: x.matchFilter.SS,
-                            expireOn: x.expireOn.S,
-                            schedule: x.schedule.S,
-                            reqStat: JSON.stringify(x.reqStat.M),
-                            geohash: x.geohash.S,
-                            coords: JSON.stringify(x.coords.M),
-                            stadiumGeohash: x.stadiumGeohash.S,
-                            stadiumId: x.stadiumId.S,
-                            courtId: x.courtId.N,
-                            ageMinFilter: x.ageMinFilter.N,
-                            ageMaxFilter: x.ageMaxFilter.N,
-                            genderFilter: x.genderFilter.SS,
+                            teamId1         : x.hashKey.S.split('#')[1],
+                            teamId2         : x.rangeKey.S.split('#')[1],
+                            createdOn       : x.createdOn.S,
+                            patches         : JSON.stringify(x.patches.M),
+                            positions       : x.positions.SS,
+                            matchFilter     : x.matchFilter.SS,
+                            expireOn        : x.expireOn.S,
+                            schedule        : x.schedule.S,
+                            reqStat         : JSON.stringify(x.reqStat.M),
+                            geohash         : x.geohash.S,
+                            coords          : JSON.stringify(x.coords.M),
+                            stadiumGeohash  : x.stadiumGeohash.S,
+                            stadiumId       : x.stadiumId.S,
+                            courtId         : x.courtId.N,
+                            ageMinFilter    : x.ageMinFilter.N,
+                            ageMaxFilter    : x.ageMaxFilter.N,
+                            genderFilter    : x.genderFilter.SS,
                         };
                     });
 
-                    // Drop already joined matches
+                    // drop already joined matches
+
                     dataResult = await fns.filterJoinedMatches(
                         lambda,
                         dataResult,
@@ -111,8 +127,8 @@ exports.handler = (event, context, callback) => {
                 }
 
                 callback(null, {
-                    items: dataResult,
-                    nextToken: nextTokenResult,
+                    items       : dataResult,
+                    nextToken   : nextTokenResult,
                 });
             }
         }

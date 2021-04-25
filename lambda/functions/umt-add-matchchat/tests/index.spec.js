@@ -1,19 +1,42 @@
+/**
+ * Test: umt-add-matchchat
+ * @author Franco Barrientos <franco.barrientos@arzov.com>
+ */
+
+
+// packages
+
 const aws = require('aws-sdk');
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs');
 const events = require('../events/events.json');
 
+
+// execution
+
 describe('Test AWS Lambda: umt-add-matchchat', () => {
+
     let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG);
     let params = { FunctionName: 'umt-add-matchchat' };
 
+
+    // test 1
+
     test('Evaluate: Match - Player (MAN. UNITED - REAL MADRID, svonko.vescovi@arzov.com)', (done) => {
+
         params.Payload = JSON.stringify(events[0]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -28,14 +51,25 @@ describe('Test AWS Lambda: umt-add-matchchat', () => {
         });
     }, 60000);
 
+
+    // test 2
+
     test('Evaluate: Match - Player (MAN. UNITED - REAL MADRID, franco.barrientos@arzov.com)', (done) => {
+
         params.Payload = JSON.stringify(events[1]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
