@@ -10,6 +10,7 @@
  * @param   {String}    tableName   Table name
  * @param   {String}    hashKey     Team id
  * @param   {String}    rangeKey    Message send date + User email
+ * @param   {String}    author      Name of the sender
  * @param   {String}    msg         Message
  * @param   {String}    expireOn    Message expire date
  * @param   {String}    GSI1PK      User email
@@ -22,6 +23,7 @@ const addTeamChat = (
     tableName,
     hashKey,
     rangeKey,
+    author,
     msg,
     expireOn,
     GSI1PK,
@@ -36,6 +38,7 @@ const addTeamChat = (
             Item: {
                 hashKey     : { S: hashKey },
                 rangeKey    : { S: rangeKey },
+                author      : { S: author },
                 msg         : { S: msg },
                 expireOn    : { S: expireOn },
                 GSI1PK      : { S: GSI1PK },
@@ -43,6 +46,7 @@ const addTeamChat = (
                 sentOn      : { S: sentOn },
             },
         },
+
         function (err, data) {
             if (err) fn(err);
             else
@@ -50,6 +54,7 @@ const addTeamChat = (
                     teamId: hashKey.split('#')[1],
                     email: GSI1PK.split('#')[1],
                     sentOn,
+                    author,
                     msg,
                     expireOn,
                 });
