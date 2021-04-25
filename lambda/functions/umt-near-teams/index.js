@@ -3,10 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const umtUtils = require('umt-utils');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
+
+// configurations
 
 let limitScan = umtEnvs.gbl.SCAN_LIMIT;
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
@@ -21,7 +27,11 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda);
 
+
+// execution
+
 exports.handler = (event, context, callback) => {
+
     const email = event.email;
     const geohash = event.geohash;
     const forJoin = event.forJoin; // true: search team for join, false: search teams to play with
@@ -35,13 +45,15 @@ exports.handler = (event, context, callback) => {
     let matchFilter = event.matchFilter;
     let nextToken = event.nextToken;
 
-    // Fill with ' ' array 'matchFilter' of size 3
+    // fill with ' ' array 'matchFilter' of size 3
+
     const l = 3 - matchFilter.length;
     for (let i = 0; i < l; i++) {
         matchFilter.push(' ');
     }
 
-    // Prefix to id
+    // prefix to id
+
     ownTeams = ownTeams.map(function (teamId) {
         return `${umtEnvs.pfx.METADATA}${teamId}`;
     });
@@ -53,9 +65,11 @@ exports.handler = (event, context, callback) => {
      * This may occur due to the team/user moving to another site
      * and change its `geohash`.
      */
+
     if (nextToken) {
         if (JSON.parse(nextToken).geohash.S !== geohash) nextToken = null;
     }
+
 
     dql.nearTeams(
         dynamodb,
@@ -71,6 +85,7 @@ exports.handler = (event, context, callback) => {
         matchFilter,
         limitScan,
         nextToken,
+
         async function (err, data) {
             if (err) callback(err);
             else {
@@ -81,9 +96,13 @@ exports.handler = (event, context, callback) => {
                     nextTokenResult = JSON.stringify(data.LastEvaluatedKey);
 
                 if (data.Count) {
+
                     if (forJoin) {
-                        // Filter teams that already has a request with the user
+
+                        // filter teams that already has a request with the user
+
                         for (const i in data.Items) {
+
                             const team = data.Items[i];
 
                             let params = { FunctionName: 'umt-get-teammember' };
@@ -121,8 +140,10 @@ exports.handler = (event, context, callback) => {
                             return `${umtEnvs.pfx.TEAM}${teamId.split('#')[1]}`;
                         });
 
-                        // Filter teams that already has a match with user's teams
+                        // filter teams that already has a match with user's teams
+
                         for (const i in data.Items) {
+
                             const team = data.Items[i];
                             const existMatch = await dql.existMatches(
                                 dynamodb,
@@ -151,8 +172,8 @@ exports.handler = (event, context, callback) => {
                 }
 
                 callback(null, {
-                    items: dataResult,
-                    nextToken: nextTokenResult,
+                    items       : dataResult,
+                    nextToken   : nextTokenResult,
                 });
             }
         }

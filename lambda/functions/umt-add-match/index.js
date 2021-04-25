@@ -3,10 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const umtUtils = require('umt-utils');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
+
+// configurations
 
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
@@ -19,7 +25,11 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda);
 
+
+// execution
+
 exports.handler = function (event, context, callback) {
+
     const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId1}`;
     const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
     const GSI1PK = `${umtEnvs.pfx.TEAM}${event.teamId2}`;
@@ -50,7 +60,8 @@ exports.handler = function (event, context, callback) {
         LAT: { N: String(latitude) },
     };
 
-    // Validate if already exist a request from the requested team
+    // validate if already exist a request from the requested team
+
     let params = { FunctionName: 'umt-get-match' };
 
     params.Payload = JSON.stringify({
@@ -64,15 +75,22 @@ exports.handler = function (event, context, callback) {
             const response = JSON.parse(data.Payload);
             const isEmpty = umtUtils.isObjectEmpty(response);
 
+
+            // a request already exists
+
             if (!isEmpty && createdOn < response.expireOn) {
                 const err = new Error(
                     JSON.stringify({
-                        code: 'MatchExistException',
-                        message: `Ya existe una solicitud desde el equipo rival.`,
+                        code    : 'MatchExistException',
+                        message : `Ya existe una solicitud desde el equipo rival.`,
                     })
                 );
                 callback(err);
-            } else
+            }
+
+            // add a new match
+
+            else
                 dql.addMatch(
                     dynamodb,
                     process.env.DB_UMT_001,

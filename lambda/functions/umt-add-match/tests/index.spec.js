@@ -1,19 +1,42 @@
+/**
+ * Test: umt-add-match
+ * @author Franco Barrientos <franco.barrientos@arzov.com>
+ */
+
+
+// packages
+
 const aws = require('aws-sdk');
 const umtEnvs = require('../../../layers/umt-envs/nodejs/node_modules/umt-envs');
 const events = require('../events/events.json');
 
+
+// execution
+
 describe('Test AWS Lambda: umt-add-match', () => {
+
     let lambda = new aws.Lambda(umtEnvs.dev.LAMBDA_CONFIG);
     let params = { FunctionName: 'umt-add-match' };
 
+
+    // test 1
+
     test('Evaluate: Match (MAN. UNITED - REAL MADRID)', (done) => {
+
         params.Payload = JSON.stringify(events[0]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -46,20 +69,31 @@ describe('Test AWS Lambda: umt-add-match', () => {
         });
     }, 60000);
 
+
+    // test 2
+
     test('Evaluate: Match (REAL MADRID - MAN. UNITED)', (done) => {
+
         params.Payload = JSON.stringify(events[1]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchExistException',
-                    message: `Ya existe una solicitud desde el equipo rival.`,
+                    code    : 'MatchExistException',
+                    message : `Ya existe una solicitud desde el equipo rival.`,
                 });
             }
 
@@ -67,14 +101,25 @@ describe('Test AWS Lambda: umt-add-match', () => {
         });
     }, 60000);
 
+
+    // test 3
+
     test('Evaluate: Match (FC BARCELONA - MAN. UNITED)', (done) => {
+
         params.Payload = JSON.stringify(events[2]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -107,14 +152,25 @@ describe('Test AWS Lambda: umt-add-match', () => {
         });
     }, 60000);
 
+
+    // test 4
+
     test('Evaluate: Match (CHELSEA - REAL MADRID)', (done) => {
+
         params.Payload = JSON.stringify(events[3]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -147,14 +203,25 @@ describe('Test AWS Lambda: umt-add-match', () => {
         });
     }, 60000);
 
+
+    // test 5
+
     test('Evaluate: Match (AC MILAN - BAYERN)', (done) => {
+
         params.Payload = JSON.stringify(events[4]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
@@ -191,14 +258,25 @@ describe('Test AWS Lambda: umt-add-match', () => {
         });
     }, 60000);
 
+
+    // test 6
+
     test('Evaluate: Match (REAL MADRID - FC BARCELONA)', (done) => {
+
         params.Payload = JSON.stringify(events[5]);
 
         lambda.invoke(params, function (err, data) {
+
+            // error
+
             if (err) {
                 console.log(err);
                 expect(err.StatusCode).toBe(200);
-            } else {
+            }
+
+            // success
+
+            else {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);

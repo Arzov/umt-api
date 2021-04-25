@@ -3,10 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const ngeohash = require('ngeohash');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
+
+// configurations
 
 const geohashLength = umtEnvs.gbl.GEOHASH_LENGTH;
 let options = umtEnvs.gbl.DYNAMODB_CONFIG;
@@ -15,7 +21,11 @@ if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
 
 const dynamodb = new aws.DynamoDB(options);
 
+
+// execution
+
 exports.handler = function (event, context, callback) {
+
     const latitude = event.latitude;
     const longitude = event.longitude;
     const hashKey = `${umtEnvs.pfx.USER}${event.email}`;

@@ -3,10 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const umtUtils = require('umt-utils');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
+
+// configurations
 
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
@@ -19,7 +25,11 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda);
 
+
+// execution
+
 exports.handler = function (event, context, callback) {
+
     const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId1}`;
     const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
     const patches = JSON.parse(event.patches);
@@ -40,13 +50,14 @@ exports.handler = function (event, context, callback) {
         teamId1: event.teamId1,
         teamId2: event.teamId2,
     });
+
     lambda.invoke(params, function (err, data) {
         if (err) callback(err);
         else {
             const response = JSON.parse(data.Payload);
             const isEmpty = umtUtils.isObjectEmpty(response);
 
-            // The match still exist
+            // the match still exist
             if (!isEmpty) {
                 if (
                     reqStat.AR.S === 'C' ||
@@ -85,12 +96,12 @@ exports.handler = function (event, context, callback) {
                     );
             }
 
-            // The match doesn't exist
+            // the match doesn't exist
             else {
                 const err = new Error(
                     JSON.stringify({
-                        code: 'MatchNotExistException',
-                        message: `El partido no existe.`,
+                        code    : 'MatchNotExistException',
+                        message : `El partido no existe.`,
                     })
                 );
                 callback(err);

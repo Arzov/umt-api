@@ -116,6 +116,7 @@ lambdas="
     umt-list-matches
     umt-list-matchpatches
     umt-matchpatch-requests
+    umt-list-teamchats
 "
 
 # Install dependencies

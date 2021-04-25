@@ -3,10 +3,16 @@
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
+
+// packages
+
 const umtEnvs = require('umt-envs');
 const umtUtils = require('umt-utils');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
+
+
+// configurations
 
 let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
 let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
@@ -19,7 +25,11 @@ if (process.env.RUN_MODE === 'LOCAL') {
 const dynamodb = new aws.DynamoDB(optionsDynamodb);
 const lambda = new aws.Lambda(optionsLambda);
 
+
+// execution
+
 exports.handler = function (event, context, callback) {
+
     const name = umtUtils.cleanName(event.name);
     const hashKey = `${umtEnvs.pfx.TEAM}${umtUtils.nameToId(name)}`;
     const rangeKey = `${umtEnvs.pfx.METADATA}${umtUtils.nameToId(name)}`;
@@ -53,18 +63,26 @@ exports.handler = function (event, context, callback) {
     lambda.invoke(params, function (err, data) {
         if (err) callback(err);
         else {
+
             const response = JSON.parse(data.Payload);
             const isEmpty = umtUtils.isObjectEmpty(response);
+
+            // team already exists
 
             if (!isEmpty) {
                 const err = new Error(
                     JSON.stringify({
-                        code: 'TeamExistException',
-                        message: 'El equipo ya existe.',
+                        code    : 'TeamExistException',
+                        message : 'El equipo ya existe.',
                     })
                 );
+
                 callback(err);
-            } else {
+            }
+
+            // add new team
+
+            else {
                 dql.addTeam(
                     dynamodb,
                     process.env.DB_UMT_001,
