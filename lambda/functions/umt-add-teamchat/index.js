@@ -29,6 +29,7 @@ exports.handler = function (event, context, callback) {
     const rangeKey = `${umtEnvs.pfx.TEAM_CHAT}${sentOn}${event.email}`;
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
     const GSI1SK = `${umtEnvs.pfx.TEAM_CHAT}${sentOn}`;
+    const author = event.author;
     const msg = event.msg;
 
     let expireOn = new Date();
@@ -42,6 +43,7 @@ exports.handler = function (event, context, callback) {
         process.env.DB_UMT_001,
         hashKey,
         rangeKey,
+        author,
         msg,
         expireOn,
         GSI1PK,

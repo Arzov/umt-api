@@ -10,6 +10,7 @@
  * @param   {String}    tableName   Table name
  * @param   {String}    hashKey     Applicant team id + Requested team id
  * @param   {String}    rangeKey    Message send date + User email
+ * @param   {String}    author      Name of the sender
  * @param   {String}    msg         Message
  * @param   {String}    expireOn    Match expire date
  * @param   {String}    GSI1PK      User email
@@ -22,6 +23,7 @@ const addMatchChat = (
     tableName,
     hashKey,
     rangeKey,
+    author,
     msg,
     expireOn,
     GSI1PK,
@@ -36,6 +38,7 @@ const addMatchChat = (
             Item: {
                 hashKey     : { S: hashKey },
                 rangeKey    : { S: rangeKey },
+                author      : { S: author },
                 msg         : { S: msg },
                 expireOn    : { S: expireOn },
                 GSI1PK      : { S: GSI1PK },
@@ -50,6 +53,7 @@ const addMatchChat = (
                     teamId1: hashKey.split('#')[1],
                     teamId2: hashKey.split('#')[2],
                     email: GSI1PK.split('#')[1],
+                    author,
                     msg,
                     expireOn,
                     sentOn,

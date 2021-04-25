@@ -45,14 +45,17 @@ describe('Test AWS Lambda: umt-list-teamchats', () => {
                 expect(response.items[0].email).toBe(
                     'franco.barrientos@arzov.com'
                 );
+                expect(response.items[0].author).toBe('Franco');
                 expect(response.items[0].msg).toBe(
                     'Buena cabros! Alguien juega?'
                 );
+
 
                 expect(response.items[1].teamId).toBe('man.united');
                 expect(response.items[1].email).toBe(
                     'matias.barrientos@arzov.com'
                 );
+                expect(response.items[1].author).toBe('Matías');
                 expect(response.items[1].msg).toBe('Jajajaja');
             }
 

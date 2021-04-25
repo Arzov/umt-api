@@ -2,11 +2,13 @@
     {
         "teamId": "man.united",
         "email": "matias.barrientos@arzov.com",
+        "author": "Matías",
         "msg": "Jajajaja"
     },
     {
         "teamId": "man.united",
         "email": "franco.barrientos@arzov.com",
+        "author": "Franco",
         "msg": "Buena cabros! Alguien juega?"
     }
 ]
