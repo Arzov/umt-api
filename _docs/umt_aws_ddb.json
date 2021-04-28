@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "Franco Barrientos",
     "DateCreated": "Aug 26, 2020, 11:01 PM",
-    "DateLastModified": "Apr 07, 2021, 09:09 PM",
+    "DateLastModified": "Apr 28, 2021, 05:57 PM",
     "Description": "Modelo de datos para API de Umatch.",
     "Version": "2.0",
     "AWSService": "Amazon DynamoDB"
@@ -148,6 +148,10 @@
         },
         {
           "AttributeName": "sentOn",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "author",
           "AttributeType": "S"
         }
       ],
@@ -639,7 +643,10 @@
             "foot",
             "weight",
             "height"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "TeamMember",
@@ -714,6 +721,9 @@
                     "S": "A"
                   }
                 }
+              },
+              "name": {
+                "S": "Franco"
               },
               "joinedOn": {
                 "S": "2021-03-21T20:36:57.562Z"
@@ -792,6 +802,9 @@
                     "S": "A"
                   }
                 }
+              },
+              "name": {
+                "S": "Jesús"
               },
               "joinedOn": {
                 "S": "2021-03-22T20:36:57.562Z"
@@ -873,6 +886,9 @@
                   }
                 }
               },
+              "name": {
+                "S": "Jesús"
+              },
               "joinedOn": {
                 "S": "2021-03-20T20:36:57.562Z"
               },
@@ -953,6 +969,9 @@
                   }
                 }
               },
+              "name": {
+                "S": "Matías"
+              },
               "joinedOn": {
                 "S": "2021-03-20T20:36:57.562Z"
               },
@@ -1032,6 +1051,9 @@
                     "S": "A"
                   }
                 }
+              },
+              "name": {
+                "S": "Nadia"
               },
               "joinedOn": {
                 "S": "2021-03-20T20:36:57.562Z"
@@ -1113,6 +1135,9 @@
                   }
                 }
               },
+              "name": {
+                "S": "Ivo"
+              },
               "joinedOn": {
                 "S": "2021-03-20T20:36:57.562Z"
               },
@@ -1192,6 +1217,9 @@
                     "S": "A"
                   }
                 }
+              },
+              "name": {
+                "S": "Jesús"
               },
               "joinedOn": {
                 "S": "2021-03-20T20:36:57.562Z"
@@ -1273,6 +1301,9 @@
                   }
                 }
               },
+              "name": {
+                "S": "Nadia"
+              },
               "joinedOn": {
                 "S": "2021-03-20T20:36:57.562Z"
               },
@@ -1294,8 +1325,12 @@
             "joinedOn",
             "number",
             "GSI1PK",
-            "GSI1SK"
-          ]
+            "GSI1SK",
+            "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "TeamChat",
@@ -1325,6 +1360,9 @@
               },
               "sentOn": {
                 "S": "2021-04-04T20:36:57.562Z"
+              },
+              "author": {
+                "S": "Matías"
               }
             },
             {
@@ -1348,6 +1386,9 @@
               },
               "sentOn": {
                 "S": "2021-04-04T20:37:57.562Z"
+              },
+              "author": {
+                "S": "Franco"
               }
             }
           ],
@@ -1356,8 +1397,12 @@
             "expireOn",
             "GSI1PK",
             "GSI1SK",
-            "sentOn"
-          ]
+            "sentOn",
+            "author"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Team",
@@ -1777,7 +1822,10 @@
             "picture",
             "formation",
             "createdOn"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Match",
@@ -1953,7 +2001,10 @@
             "GSI1PK",
             "GSI1SK",
             "patches"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "MatchPatch",
@@ -1978,6 +2029,9 @@
                     "S": "A"
                   }
                 }
+              },
+              "name": {
+                "S": "Svonko"
               },
               "expireOn": {
                 "S": "2021-04-04T20:36:57.562Z"
@@ -2009,6 +2063,9 @@
                   }
                 }
               },
+              "name": {
+                "S": "Franco"
+              },
               "expireOn": {
                 "S": "2021-04-04T20:36:57.562Z"
               },
@@ -2028,8 +2085,12 @@
             "expireOn",
             "joinedOn",
             "GSI1PK",
-            "GSI1SK"
-          ]
+            "GSI1SK",
+            "name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "MatchChat",
@@ -2059,6 +2120,9 @@
               },
               "sentOn": {
                 "S": "2021-04-04T20:36:57.562Z"
+              },
+              "author": {
+                "S": "Svonko"
               }
             },
             {
@@ -2082,6 +2146,9 @@
               },
               "sentOn": {
                 "S": "2021-04-04T20:36:57.562Z"
+              },
+              "author": {
+                "S": "Franco"
               }
             }
           ],
@@ -2090,8 +2157,12 @@
             "expireOn",
             "GSI1PK",
             "GSI1SK",
-            "sentOn"
-          ]
+            "sentOn",
+            "author"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Stadium",
@@ -2142,7 +2213,10 @@
             "name",
             "createdOn",
             "address"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "Court",
@@ -2194,7 +2268,10 @@
             "matchFilter",
             "createdOn",
             "material"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         }
       ],
       "GlobalSecondaryIndexes": [
