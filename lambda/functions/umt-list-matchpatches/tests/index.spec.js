@@ -42,9 +42,8 @@ describe('Test AWS Lambda: umt-list-matchpatches', () => {
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].teamId1).toBe('man.united');
                 expect(response.items[0].teamId2).toBe('realmadrid');
-                expect(response.items[0].email).toBe(
-                    'svonko.vescovi@arzov.com'
-                );
+                expect(response.items[0].email).toBe('svonko.vescovi@arzov.com');
+                expect(response.items[0].name).toBe('Svonko');
                 expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'A' },

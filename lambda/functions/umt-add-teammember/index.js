@@ -32,6 +32,7 @@ exports.handler = function (event, context, callback) {
     const number = umtEnvs.dft.TEAM_MEMBER.NUMBER;
     const joinedOn = new Date().toISOString();
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
+    const name = event.name;
 
     dql.addTeamMember(
         dynamodb,
@@ -44,6 +45,7 @@ exports.handler = function (event, context, callback) {
         number,
         joinedOn,
         GSI1PK,
+        name,
         callback
     );
 };

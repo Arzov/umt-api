@@ -53,6 +53,7 @@ exports.handler = (event, context, callback) => {
                             teamId  : x.hashKey.S.split('#')[1],
                             email   : x.rangeKey.S.split('#')[1],
                             reqStat : JSON.stringify(x.reqStat.M),
+                            name    : x.name.S
                         };
                     });
                 }

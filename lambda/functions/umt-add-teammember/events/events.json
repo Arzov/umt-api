@@ -2,62 +2,73 @@
     {
         "teamId": "man.united",
         "email": "franco.barrientos@arzov.com",
+        "name": "Franco",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "man.united",
         "email": "jesus.barrientos@arzov.com",
+        "name": "Jesús",
         "reqStat": "{\"TR\":{\"S\":\"P\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "fcbarcelona",
         "email": "jesus.barrientos@arzov.com",
+        "name": "Jesús",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "fcbarcelona",
         "email": "franco.barrientos@arzov.com",
+        "name": "Franco",
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
     },
     {
         "teamId": "bayern",
         "email": "matias.barrientos@arzov.com",
+        "name": "Matías",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "bayern",
         "email": "franco.barrientos@arzov.com",
+        "name": "Franco",
         "reqStat": "{\"TR\":{\"S\":\"P\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "psg",
         "email": "nadia.sepulveda@arzov.com",
+        "name": "Nadia",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "realmadrid",
         "email": "ivo.farias@arzov.com",
+        "name": "Ivo",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "chelsea",
         "email": "jesus.barrientos@arzov.com",
+        "name": "Jesús",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "bayern",
         "email": "nadia.sepulveda@arzov.com",
+        "name": "Nadia",
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     },
     {
         "teamId": "acmilan",
         "email": "nadia.sepulveda@arzov.com",
+        "name": "Nadia",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
     }

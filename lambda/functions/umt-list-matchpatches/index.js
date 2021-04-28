@@ -42,8 +42,11 @@ exports.handler = (event, context, callback) => {
         nextToken,
 
         async function (err, data) {
+
             if (err) callback(err);
+
             else {
+
                 let nextTokenResult = null;
                 let dataResult = null;
 
@@ -76,8 +79,8 @@ exports.handler = (event, context, callback) => {
                 }
 
                 callback(null, {
-                    items: dataResult,
-                    nextToken: nextTokenResult,
+                    items       : dataResult,
+                    nextToken   : nextTokenResult,
                 });
             }
         }

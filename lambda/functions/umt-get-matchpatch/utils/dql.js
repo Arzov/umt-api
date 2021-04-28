@@ -52,6 +52,7 @@ const getMatchPatch = (db, tableName, hashKey, rangeKey, fn) => {
                     reqStat     : JSON.stringify(data.Item.reqStat.M),
                     joinedOn    : data.Item.joinedOn.S,
                     expireOn    : data.Item.expireOn.S,
+                    name        : data.Item.name.S
                 });
             }
         }

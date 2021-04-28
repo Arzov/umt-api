@@ -41,9 +41,8 @@ describe('Test AWS Lambda: umt-team-requests', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(response.items[0].teamId).toBe('man.united');
-                expect(response.items[0].email).toBe(
-                    'jesus.barrientos@arzov.com'
-                );
+                expect(response.items[0].email).toBe('jesus.barrientos@arzov.com');
+                expect(response.items[0].name).toBe('Jesús');
                 expect(JSON.parse(response.items[0].reqStat)).toStrictEqual({
                     TR: { S: 'P' },
                     PR: { S: 'A' },

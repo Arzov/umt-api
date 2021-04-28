@@ -45,6 +45,7 @@
         type TeamMember {
           teamId: String
           email: String
+          name: String
           position: String
           role: [String]
           reqStat: String
@@ -100,6 +101,7 @@
           teamId1: String
           teamId2: String
           email: String
+          name: String
           reqStat: String
           joinedOn: String
           expireOn: String
@@ -184,6 +186,7 @@
           addTeamMember(
             teamId: String!,
             email: String!,
+            name: String!,
             role: [String],
             reqStat: String!
           ): TeamMember
@@ -212,6 +215,7 @@
             teamId1: String!,
             teamId2: String!,
             email: String!,
+            name: String!,
             reqStat: String,
             expireOn: String!
           ): MatchPatch

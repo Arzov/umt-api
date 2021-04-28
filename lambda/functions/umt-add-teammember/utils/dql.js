@@ -16,6 +16,7 @@
  * @param   {String}    number      Player number
  * @param   {String}    joinedOn    Join date
  * @param   {String}    GSI1PK      User email
+ * @param   {String}    name        User name
  * @param   {Function}  fn          Callback
  */
 const addTeamMember = (
@@ -29,6 +30,7 @@ const addTeamMember = (
     number,
     joinedOn,
     GSI1PK,
+    name,
     fn
 ) => {
 
@@ -45,19 +47,21 @@ const addTeamMember = (
                 joinedOn    : { S   : joinedOn },
                 GSI1PK      : { S   : GSI1PK },
                 GSI1SK      : { S   : hashKey },
+                name        : { S   : name }
             },
         },
         function (err, data) {
             if (err) fn(err);
             else
                 fn(null, {
-                    teamId: hashKey.split('#')[1],
-                    email: rangeKey.split('#')[1],
-                    position: JSON.stringify(position),
+                    teamId      : hashKey.split('#')[1],
+                    email       : rangeKey.split('#')[1],
+                    position    : JSON.stringify(position),
+                    reqStat     : JSON.stringify(reqStat),
                     role,
-                    reqStat: JSON.stringify(reqStat),
                     number,
                     joinedOn,
+                    name
                 });
         }
     );

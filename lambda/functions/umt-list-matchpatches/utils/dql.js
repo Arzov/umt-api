@@ -32,12 +32,12 @@ const listMatchPatches = (db, tableName, hashKey, limitScan, nextToken, fn) => {
 
     db.query(
         {
-            TableName: tableName,
-            KeyConditionExpression: keyExp,
-            FilterExpression: filterExp,
-            ExpressionAttributeValues: expValues,
-            ExclusiveStartKey: nextToken ? JSON.parse(nextToken) : undefined,
-            Limit: limitScan,
+            TableName                   : tableName,
+            KeyConditionExpression      : keyExp,
+            FilterExpression            : filterExp,
+            ExpressionAttributeValues   : expValues,
+            ExclusiveStartKey           : nextToken ? JSON.parse(nextToken) : undefined,
+            Limit                       : limitScan,
         },
         function (err, data) {
             if (err) fn(err);

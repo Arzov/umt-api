@@ -40,13 +40,13 @@ const teamMemberRequests = (
 
     db.query(
         {
-            TableName: tableName,
-            IndexName: idx,
-            KeyConditionExpression: keyExp,
-            FilterExpression: filterExp,
-            ExpressionAttributeValues: expValues,
-            ExclusiveStartKey: nextToken ? JSON.parse(nextToken) : undefined,
-            Limit: limitScan,
+            TableName                   : tableName,
+            IndexName                   : idx,
+            KeyConditionExpression      : keyExp,
+            FilterExpression            : filterExp,
+            ExpressionAttributeValues   : expValues,
+            ExclusiveStartKey           : nextToken ? JSON.parse(nextToken) : undefined,
+            Limit                       : limitScan,
         },
         function (err, data) {
             if (err) fn(err);
