@@ -39,8 +39,11 @@ exports.handler = (event, context, callback) => {
         nextToken,
 
         function (err, data) {
+
             if (err) callback(err);
+
             else {
+
                 let nextTokenResult = null;
                 let dataResult = [];
 
@@ -53,6 +56,7 @@ exports.handler = (event, context, callback) => {
                             teamId  : x.hashKey.S.split('#')[1],
                             email   : x.rangeKey.S.split('#')[1],
                             reqStat : JSON.stringify(x.reqStat.M),
+                            name    : x.name.S
                         };
                     });
                 }

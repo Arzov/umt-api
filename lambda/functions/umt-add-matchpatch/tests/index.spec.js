@@ -43,6 +43,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 expect(response.teamId1).toBe('man.united');
                 expect(response.teamId2).toBe('realmadrid');
                 expect(response.email).toBe('svonko.vescovi@arzov.com');
+                expect(response.name).toBe('Svonko');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'A' },
@@ -77,8 +78,8 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchPatchExistException',
-                    message: `El jugador ya participa del partido.`,
+                    code    : 'MatchPatchExistException',
+                    message : `El jugador ya participa del partido.`,
                 });
             }
 
@@ -111,6 +112,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 expect(response.teamId1).toBe('fcbarcelona');
                 expect(response.teamId2).toBe('man.united');
                 expect(response.email).toBe('svonko.vescovi@arzov.com');
+                expect(response.name).toBe('Svonko');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'P' },
@@ -145,8 +147,8 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchPatchRequestException',
-                    message: `Ya existe una solicitud para el jugador.`,
+                    code    : 'MatchPatchRequestException',
+                    message : `Ya existe una solicitud para el jugador.`,
                 });
             }
 
@@ -179,6 +181,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 expect(response.teamId1).toBe('fcbarcelona');
                 expect(response.teamId2).toBe('man.united');
                 expect(response.email).toBe('svonko.vescovi@arzov.com');
+                expect(response.name).toBe('Svonko');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'A' },
@@ -213,8 +216,8 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchPatchExistException',
-                    message: `El jugador ya participa del partido.`,
+                    code    : 'MatchPatchExistException',
+                    message : `El jugador ya participa del partido.`,
                 });
             }
 
@@ -245,8 +248,8 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchPatchFullException',
-                    message: `No quedan cupos en el partido.`,
+                    code    : 'MatchPatchFullException',
+                    message : `No quedan cupos en el partido.`,
                 });
             }
 
@@ -279,6 +282,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 expect(response.teamId1).toBe('acmilan');
                 expect(response.teamId2).toBe('bayern');
                 expect(response.email).toBe('ivo.farias@arzov.com');
+                expect(response.name).toBe('Ivo');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'A' },
@@ -315,6 +319,7 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
                 expect(response.teamId1).toBe('realmadrid');
                 expect(response.teamId2).toBe('fcbarcelona');
                 expect(response.email).toBe('svonko.vescovi@arzov.com');
+                expect(response.name).toBe('Svonko');
                 expect(JSON.parse(response.reqStat)).toStrictEqual({
                     MR: { S: 'A' },
                     PR: { S: 'P' },
@@ -349,8 +354,8 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
 
                 expect(data.StatusCode).toBe(200);
                 expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchPatchFullException',
-                    message: `No quedan cupos en el partido.`,
+                    code    : 'MatchPatchFullException',
+                    message : `No quedan cupos en el partido.`,
                 });
             }
 

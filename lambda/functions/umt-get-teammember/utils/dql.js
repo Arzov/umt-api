@@ -53,6 +53,7 @@ const getTeamMember = (db, tableName, hashKey, rangeKey, fn) => {
                     role        : data.Item.role.SS,
                     reqStat     : JSON.stringify(data.Item.reqStat.M),
                     number      : data.Item.number.N,
+                    name        : data.Item.name.S
                 });
             }
         }

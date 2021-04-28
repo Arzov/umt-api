@@ -36,6 +36,8 @@ exports.handler = async (event) => {
     const reqStat = JSON.parse(event.reqStat);
     const expireOn = event.expireOn;
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
+    const name = event.name;
+
 
     let err = new Error(
         JSON.stringify({
@@ -56,8 +58,8 @@ exports.handler = async (event) => {
 
         err = new Error(
             JSON.stringify({
-                code: 'MatchExpiredException',
-                message: `El partido ya no existe o expiró.`,
+                code    : 'MatchExpiredException',
+                message : `El partido ya no existe o expiró.`,
             })
         );
 
@@ -127,7 +129,8 @@ exports.handler = async (event) => {
                 joinedOn,
                 reqStat,
                 expireOn,
-                GSI1PK
+                GSI1PK,
+                name
             );
     }
 
@@ -164,7 +167,8 @@ exports.handler = async (event) => {
                     joinedOn,
                     reqStat,
                     expireOn,
-                    GSI1PK
+                    GSI1PK,
+                    name
                 );
             }
 
@@ -202,7 +206,8 @@ exports.handler = async (event) => {
                 joinedOn,
                 reqStat,
                 expireOn,
-                GSI1PK
+                GSI1PK,
+                name
             );
         }
     }

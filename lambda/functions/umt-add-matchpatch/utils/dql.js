@@ -15,6 +15,7 @@
  * @param   {String}    expireOn    Expire date of the match
  * @param   {String}    GSI1PK      User email
  * @param   {String}    GSI1SK      Applicant team id + Requested team id
+ * @param   {String}    name        User name
  */
 const addMatchPatch = async (
     db,
@@ -24,8 +25,10 @@ const addMatchPatch = async (
     joinedOn,
     reqStat,
     expireOn,
-    GSI1PK
+    GSI1PK,
+    name
 ) => {
+
     try {
         await db
             .putItem({
@@ -38,6 +41,7 @@ const addMatchPatch = async (
                     expireOn    : { S: expireOn },
                     GSI1PK      : { S: GSI1PK },
                     GSI1SK      : { S: hashKey },
+                    name        : { S: name }
                 },
             })
             .promise();
@@ -49,7 +53,9 @@ const addMatchPatch = async (
             joinedOn,
             reqStat: JSON.stringify(reqStat),
             expireOn,
+            name
         };
+
     } catch (err) {
         return err;
     }
