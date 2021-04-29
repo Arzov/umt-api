@@ -1,0 +1,10 @@
+
+  ASDataSourceUMTLDUpdateTeamMember:
+    Type: AWS::AppSync::DataSource
+    Properties: 
+      ApiId: !GetAtt ASGraphQLApiUMT.ApiId
+      LambdaConfig:
+        LambdaFunctionArn: !GetAtt LDFunctionUMTUpdateTeamMember.Arn
+      Name: LDUpdateTeamMember
+      ServiceRoleArn: !ImportValue ARV-IARoleARVAppSyncARN
+      Type: AWS_LAMBDA
