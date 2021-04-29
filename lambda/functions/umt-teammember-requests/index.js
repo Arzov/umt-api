@@ -50,10 +50,14 @@ exports.handler = (event, context, callback) => {
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
                         return {
-                            teamId  : x.hashKey.S.split('#')[1],
-                            email   : x.rangeKey.S.split('#')[1],
-                            reqStat : JSON.stringify(x.reqStat.M),
-                            name    : x.name.S
+                            teamId      : x.hashKey.S.split('#')[1],
+                            email       : x.rangeKey.S.split('#')[1],
+                            reqStat     : JSON.stringify(x.reqStat.M),
+                            name        : x.name.S,
+                            position    : JSON.stringify(x.position.M),
+                            joinedOn    : x.joinedOn.S,
+                            role        : x.role.SS,
+                            number      : x.number.N
                         };
                     });
                 }

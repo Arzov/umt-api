@@ -38,6 +38,9 @@ exports.handler = (event, context, callback) => {
         ? event.nextToken.split('&')[1]
         : null;
 
+
+    // get team owner requests
+
     dql.matchOwnerRequests(
         dynamodb,
         process.env.DB_UMT_001,
@@ -46,8 +49,11 @@ exports.handler = (event, context, callback) => {
         ownerNextToken,
 
         function (err, data) {
+
             if (err) callback(err);
+
             else {
+
                 let ownerNextTokenResult = null;
                 let guestNextTokenResult = null;
                 let ownerDataResult = [];
@@ -61,12 +67,29 @@ exports.handler = (event, context, callback) => {
                 if (data.Count) {
                     ownerDataResult = data.Items.map(function (x) {
                         return {
-                            teamId1: x.hashKey.S.split('#')[1],
-                            teamId2: x.rangeKey.S.split('#')[1],
-                            reqStat: JSON.stringify(x.reqStat.M),
+                            teamId1         : x.hashKey.S.split('#')[1],
+                            teamId2         : x.rangeKey.S.split('#')[1],
+                            reqStat         : JSON.stringify(x.reqStat.M),
+                            patches         : JSON.stringify(x.patches.M),
+                            positions       : x.positions.SS,
+                            matchFilter     : x.matchFilter.SS,
+                            schedule        : x.schedule.S,
+                            stadiumGeohash  : x.stadiumGeohash.S,
+                            stadiumId       : x.stadiumId.S,
+                            courtId         : x.courtId.N,
+                            genderFilter    : x.genderFilter.SS,
+                            ageMinFilter    : x.ageMinFilter.N,
+                            ageMaxFilter    : x.ageMaxFilter.N,
+                            geohash         : x.geohash.S,
+                            coords          : JSON.stringify(x.coords.M),
+                            expireOn        : x.expireOn.S,
+                            createdOn       : x.createdOn.S
                         };
                     });
                 }
+
+
+                // get team guest requests
 
                 dql.matchGuestRequests(
                     dynamodb,
@@ -76,8 +99,11 @@ exports.handler = (event, context, callback) => {
                     guestNextToken,
 
                     function (err, data) {
+
                         if (err) callback(err);
+
                         else {
+
                             if ('LastEvaluatedKey' in data)
                                 guestNextTokenResult = JSON.stringify(
                                     data.LastEvaluatedKey
@@ -86,9 +112,23 @@ exports.handler = (event, context, callback) => {
                             if (data.Count) {
                                 guestDataResult = data.Items.map(function (x) {
                                     return {
-                                        teamId1: x.hashKey.S.split('#')[1],
-                                        teamId2: x.rangeKey.S.split('#')[1],
-                                        reqStat: JSON.stringify(x.reqStat.M),
+                                        teamId1         : x.hashKey.S.split('#')[1],
+                                        teamId2         : x.rangeKey.S.split('#')[1],
+                                        reqStat         : JSON.stringify(x.reqStat.M),
+                                        patches         : JSON.stringify(x.patches.M),
+                                        positions       : x.positions.SS,
+                                        matchFilter     : x.matchFilter.SS,
+                                        schedule        : x.schedule.S,
+                                        stadiumGeohash  : x.stadiumGeohash.S,
+                                        stadiumId       : x.stadiumId.S,
+                                        courtId         : x.courtId.N,
+                                        genderFilter    : x.genderFilter.SS,
+                                        ageMinFilter    : x.ageMinFilter.N,
+                                        ageMaxFilter    : x.ageMaxFilter.N,
+                                        geohash         : x.geohash.S,
+                                        coords          : JSON.stringify(x.coords.M),
+                                        expireOn        : x.expireOn.S,
+                                        createdOn       : x.createdOn.S
                                     };
                                 });
                             }
@@ -101,8 +141,8 @@ exports.handler = (event, context, callback) => {
                                 : '';
 
                             callback(null, {
-                                items: ownerDataResult.concat(guestDataResult),
-                                nextToken: `${ownerNextTokenResult}&${guestNextTokenResult}`,
+                                items       : ownerDataResult.concat(guestDataResult),
+                                nextToken   : `${ownerNextTokenResult}&${guestNextTokenResult}`
                             });
                         }
                     }
