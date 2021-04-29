@@ -273,6 +273,16 @@
             stadiumId: String!,
             courtId: Int!
           ): Match
+
+          updateTeamMember(
+            teamId: String!,
+            email: String!,
+            name: String!,
+            position: String!,
+            role: [String]!,
+            reqStat: String!,
+            number: Int!
+          ): TeamMember
         }
 
         type Query {

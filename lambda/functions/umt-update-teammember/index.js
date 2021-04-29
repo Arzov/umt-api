@@ -1,5 +1,5 @@
 /**
- * Update match
+ * Update team member
  * @author Franco Barrientos <franco.barrientos@arzov.com>
  */
 
@@ -30,78 +30,79 @@ const lambda = new aws.Lambda(optionsLambda);
 
 exports.handler = function (event, context, callback) {
 
-    const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId1}`;
-    const rangeKey = `${umtEnvs.pfx.MATCH}${event.teamId2}`;
-    const patches = JSON.parse(event.patches);
-    const positions = event.positions;
-    const matchFilter = event.matchFilter;
-    const schedule = event.schedule;
+    const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
+    const rangeKey = `${umtEnvs.pfx.TEAM_MEMBER}${event.email}`;
+    const name = event.name;
+    const position = JSON.parse(event.position);
+    const role = event.role;
     const reqStat = JSON.parse(event.reqStat);
-    const stadiumGeohash = event.stadiumGeohash;
-    const stadiumId = event.stadiumId;
-    const courtId = String(event.courtId);
-    const genderFilter = event.genderFilter;
-    const ageMinFilter = String(event.ageMinFilter);
-    const ageMaxFilter = String(event.ageMaxFilter);
-    const currDate = new Date().toISOString();
+    const number = String(event.number);
 
-    let params = { FunctionName: 'umt-get-match' };
+
+    // get team member to compare request status
+
+    let params = { FunctionName: 'umt-get-teammember' };
+
     params.Payload = JSON.stringify({
-        teamId1: event.teamId1,
-        teamId2: event.teamId2,
+        teamId  : event.teamId,
+        email   : event.email
     });
 
     lambda.invoke(params, function (err, data) {
+
         if (err) callback(err);
+
         else {
+
             const response = JSON.parse(data.Payload);
             const isEmpty = umtUtils.isObjectEmpty(response);
 
-            // the match still exist
+
+            // the request still exist
+
             if (!isEmpty) {
-                if (
-                    reqStat.AR.S === 'C' ||
-                    reqStat.RR.S === 'C' ||
-                    currDate >= response.expireOn
-                )
-                    dql.deleteMatch(
+
+
+                // delete the request if it's cancelled
+
+                if (reqStat.PR.S === 'C' || reqStat.TR.S === 'C')
+                    dql.deleteTeamMember(
                         dynamodb,
                         process.env.DB_UMT_001,
                         hashKey,
                         rangeKey,
                         callback
                     );
+
+
+                // update request
+
                 else
-                    dql.updateMatch(
+                    dql.updateTeamMember(
                         dynamodb,
                         process.env.DB_UMT_001,
                         hashKey,
                         rangeKey,
-                        patches,
-                        positions,
-                        matchFilter,
-                        schedule,
+                        name,
+                        position,
+                        role,
+                        number,
                         reqStat,
-                        stadiumGeohash,
-                        stadiumId,
-                        courtId,
-                        genderFilter,
-                        ageMinFilter,
-                        ageMaxFilter,
-                        response.geohash,
-                        response.coords,
                         callback
                     );
             }
 
-            // the match doesn't exist
+
+            // the request no longer exist
+
             else {
                 const err = new Error(
                     JSON.stringify({
-                        code    : 'MatchNotExistException',
-                        message : `El partido no existe.`,
+                        code    : 'TeamMemberNotExistException',
+                        message : `La solicitud ya no existe.`,
                     })
                 );
+
                 callback(err);
             }
         }
