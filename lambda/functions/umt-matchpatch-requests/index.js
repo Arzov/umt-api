@@ -50,11 +50,13 @@ exports.handler = (event, context, callback) => {
                 if (data.Count) {
                     dataResult = data.Items.map(function (x) {
                         return {
-                            teamId1 : x.hashKey.S.split('#')[1],
-                            teamId2 : x.hashKey.S.split('#')[2],
-                            email   : x.rangeKey.S.split('#')[1],
-                            reqStat : JSON.stringify(x.reqStat.M),
-                            name    : x.name.S
+                            teamId1     : x.hashKey.S.split('#')[1],
+                            teamId2     : x.hashKey.S.split('#')[2],
+                            email       : x.rangeKey.S.split('#')[1],
+                            reqStat     : JSON.stringify(x.reqStat.M),
+                            name        : x.name.S,
+                            joinedOn    : x.joinedOn.S,
+                            expireOn    : x.expireOn.S
                         };
                     });
                 }
