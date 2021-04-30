@@ -1,0 +1,13 @@
+
+  LDFunctionUMTUpdateTeamMember:
+    Type: AWS::Serverless::Function
+    DependsOn:
+      - LDLayerUMTEnvs
+      - LDLayerUMTPkgs
+    Properties:
+      FunctionName: umt-update-teammember
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-update-teammember/" ] ]
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs
+        - !Ref LDLayerUMTPkgs
