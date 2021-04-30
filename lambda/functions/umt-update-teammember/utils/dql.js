@@ -121,14 +121,10 @@ const deleteTeamMember = (db, tableName, hashKey, rangeKey, fn) => {
             if (err) fn(err);
 
             else {
-                const err = new Error(
-                    JSON.stringify({
-                        code    : 'TeamMemberDeletedException',
-                        message : `Jugador eliminado.`,
-                    })
-                );
-
-                fn(err);
+                fn(null, {
+                    teamId  : hashKey.split('#')[1],
+                    email   : rangeKey.split('#')[1]
+                });
             }
         }
     );

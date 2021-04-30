@@ -41,10 +41,8 @@ describe('Test AWS Lambda: umt-update-teammember', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code    : 'TeamMemberDeletedException',
-                    message : `Jugador eliminado.`,
-                });
+                expect(response.teamId).toBe('fcbarcelona');
+                expect(response.email).toBe('franco.barrientos@arzov.com');
             }
 
             done();

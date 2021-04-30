@@ -126,13 +126,10 @@ const deleteMatch = (db, tableName, hashKey, rangeKey, fn) => {
         function (err, data) {
             if (err) fn(err);
             else {
-                const err = new Error(
-                    JSON.stringify({
-                        code    : 'MatchDeletedException',
-                        message : `Partido eliminado.`,
-                    })
-                );
-                fn(err);
+                fn(null, {
+                    teamId1  : hashKey.split('#')[1],
+                    teamId2  : rangeKey.split('#')[1]
+                });
             }
         }
     );

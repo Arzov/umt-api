@@ -124,10 +124,8 @@ describe('Test AWS Lambda: umt-update-match', () => {
                 let response = JSON.parse(data.Payload);
 
                 expect(data.StatusCode).toBe(200);
-                expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code: 'MatchDeletedException',
-                    message: `Partido eliminado.`,
-                });
+                expect(response.teamId1).toBe('chelsea');
+                expect(response.teamId2).toBe('realmadrid');
             }
 
             done();
