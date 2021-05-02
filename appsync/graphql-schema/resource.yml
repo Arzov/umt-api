@@ -195,8 +195,7 @@
             teamId: String!,
             email: String!,
             author: String!,
-            msg: String!,
-            expireOn: String!
+            msg: String!
           ): TeamChat
 
           addMatch(
