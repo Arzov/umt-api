@@ -1,0 +1,10 @@
+
+  LDFunctionUMTListTeamMembers:
+    Type: AWS::Serverless::Function
+    DependsOn: LDLayerUMTEnvs
+    Properties:
+      FunctionName: umt-list-teammembers
+      CodeUri: !Join [ "/", [ !Ref HostRoot, "lambda/functions/umt-list-teammembers/" ] ]
+      Role: !ImportValue ARV-IARoleARVLambdaARN
+      Layers:
+        - !Ref LDLayerUMTEnvs

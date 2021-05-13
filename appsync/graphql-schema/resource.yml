@@ -334,6 +334,11 @@
             nextToken: String
           ): TeamList
 
+          listTeamMembers(
+            teamId: String!,
+            nextToken: String
+          ): TeamMemberList
+
           teamRequests(
             id: String!,
             nextToken: String
