@@ -381,6 +381,12 @@
             id: String!,
             nextToken: String
           ): TeamChatList
+
+          listMatchChats(
+            teamId1: String!,
+            teamId2: String!,
+            nextToken: String
+          ): MatchChatList
         }
 
         schema {

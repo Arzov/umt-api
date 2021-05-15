@@ -34,6 +34,9 @@ exports.handler = function (event, context, callback) {
     const GSI1PK = `${umtEnvs.pfx.USER}${event.email}`;
     const name = event.name;
 
+
+    // TODO: check if the player already belong to the team
+
     dql.addTeamMember(
         dynamodb,
         process.env.DB_UMT_001,
