@@ -1,0 +1,17 @@
+[
+    {
+        "teamId1": "realmadrid",
+        "teamId2": "fcbarcelona",
+        "email": "svonko.vescovi@arzov.com",
+        "name": "Svonko",
+        "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
+    },
+
+    {
+        "teamId1": "realmadrid",
+        "teamId2": "fcbarcelona",
+        "email": "svonko.vescovi@arzov.com",
+        "name": "Svonko",
+        "reqStat": "{\"MR\":{\"S\":\"C\"},\"PR\":{\"S\":\"C\"}}"
+    }
+]
