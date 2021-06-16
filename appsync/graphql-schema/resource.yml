@@ -273,6 +273,14 @@
             courtId: Int!
           ): Match
 
+          updateMatchPatch(
+            teamId1: String!,
+            teamId2: String!,
+            email: String!,
+            name: String!,
+            reqStat: String!
+          ): MatchPatch
+
           updateTeamMember(
             teamId: String!,
             email: String!,
