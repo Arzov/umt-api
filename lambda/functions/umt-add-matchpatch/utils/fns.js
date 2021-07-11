@@ -38,6 +38,7 @@ const belongToTeam = async (lambda, teamId, email) => {
         result.reqStat.PR == 'A' &&
         result.reqStat.TR == 'A'
     );
+
 };
 
 
@@ -68,6 +69,7 @@ const getMatchPatch = async (lambda, teamId1, teamId2, email) => {
     result.isEmpty = umtUtils.isObjectEmpty(result);
 
     return result;
+
 };
 
 
@@ -96,6 +98,7 @@ const getMatch = async (lambda, teamId1, teamId2) => {
     result.isEmpty = umtUtils.isObjectEmpty(result);
 
     return result;
+
 };
 
 
@@ -135,6 +138,7 @@ const updateMatch = async (lambda, match) => {
     });
 
     return result;
+
 };
 
 

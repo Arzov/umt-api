@@ -17,9 +17,8 @@
  * @param   {String}    joinedOn    Join date
  * @param   {String}    GSI1PK      User email
  * @param   {String}    name        User name
- * @param   {Function}  fn          Callback
  */
-const addTeamMember = (
+const addTeamMember = async (
     db,
     tableName,
     hashKey,
@@ -30,41 +29,44 @@ const addTeamMember = (
     number,
     joinedOn,
     GSI1PK,
-    name,
-    fn
+    name
 ) => {
 
-    db.putItem(
-        {
+    try {
+
+        await db.putItem({
             TableName: tableName,
             Item: {
-                hashKey     : { S   : hashKey },
-                rangeKey    : { S   : rangeKey },
-                position    : { M   : position },
-                role        : { SS  : role },
-                reqStat     : { M   : reqStat },
-                number      : { N   : number },
-                joinedOn    : { S   : joinedOn },
-                GSI1PK      : { S   : GSI1PK },
-                GSI1SK      : { S   : hashKey },
-                name        : { S   : name }
+                hashKey : { S   : hashKey },
+                rangeKey: { S   : rangeKey },
+                position: { M   : position },
+                role    : { SS  : role },
+                reqStat : { M   : reqStat },
+                number  : { N   : number },
+                joinedOn: { S   : joinedOn },
+                GSI1PK  : { S   : GSI1PK },
+                GSI1SK  : { S   : hashKey },
+                name    : { S   : name }
             },
-        },
-        function (err, data) {
-            if (err) fn(err);
-            else
-                fn(null, {
-                    teamId      : hashKey.split('#')[1],
-                    email       : rangeKey.split('#')[1],
-                    position    : JSON.stringify(position),
-                    reqStat     : JSON.stringify(reqStat),
-                    role,
-                    number,
-                    joinedOn,
-                    name
-                });
-        }
-    );
+        }).promise();
+
+        return {
+            teamId  : hashKey.split('#')[1],
+            email   : rangeKey.split('#')[1],
+            position: JSON.stringify(position),
+            reqStat : JSON.stringify(reqStat),
+            role,
+            number,
+            joinedOn,
+            name
+        };
+
+    }
+
+    catch (e) {
+        return err;
+    }
+
 };
 
 

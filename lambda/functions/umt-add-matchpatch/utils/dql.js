@@ -30,35 +30,37 @@ const addMatchPatch = async (
 ) => {
 
     try {
-        await db
-            .putItem({
-                TableName: tableName,
-                Item: {
-                    hashKey     : { S: hashKey },
-                    rangeKey    : { S: rangeKey },
-                    joinedOn    : { S: joinedOn },
-                    reqStat     : { M: reqStat },
-                    expireOn    : { S: expireOn },
-                    GSI1PK      : { S: GSI1PK },
-                    GSI1SK      : { S: hashKey },
-                    name        : { S: name }
-                },
-            })
-            .promise();
+
+        await db.putItem({
+            TableName: tableName,
+            Item: {
+                hashKey : { S: hashKey },
+                rangeKey: { S: rangeKey },
+                joinedOn: { S: joinedOn },
+                reqStat : { M: reqStat },
+                expireOn: { S: expireOn },
+                GSI1PK  : { S: GSI1PK },
+                GSI1SK  : { S: hashKey },
+                name    : { S: name }
+            },
+        }).promise();
 
         return {
-            teamId1: hashKey.split('#')[1],
-            teamId2: hashKey.split('#')[2],
-            email: GSI1PK.split('#')[1],
+            teamId1 : hashKey.split('#')[1],
+            teamId2 : hashKey.split('#')[2],
+            email   : GSI1PK.split('#')[1],
+            reqStat : JSON.stringify(reqStat),
             joinedOn,
-            reqStat: JSON.stringify(reqStat),
             expireOn,
             name
         };
 
-    } catch (err) {
+    }
+
+    catch (err) {
         return err;
     }
+
 };
 
 

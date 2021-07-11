@@ -39,12 +39,10 @@ exports.handler = async (event) => {
     const name = event.name;
 
 
-    let err = new Error(
-        JSON.stringify({
-            code    : 'MatchPatchExistException',
-            message : `El jugador ya participa del partido.`,
-        })
-    ); // default case of player already in the match
+    let err = new Error(JSON.stringify({
+        code    : 'MatchPatchExistException',
+        message : `El jugador ya participa del partido.`,
+    })); // default case of player already in the match
 
 
     // validate if the match still exist
@@ -56,14 +54,13 @@ exports.handler = async (event) => {
 
         // the match could be expired
 
-        err = new Error(
-            JSON.stringify({
-                code    : 'MatchExpiredException',
-                message : `El partido ya no existe o expiró.`,
-            })
-        );
+        err = new Error(JSON.stringify({
+            code    : 'MatchExpiredException',
+            message : `El partido ya no existe o expiró.`,
+        }));
 
         throw err;
+
     }
 
 
@@ -108,14 +105,13 @@ exports.handler = async (event) => {
             // player doesn't accept request from match yet
 
             if (existRequest.reqStat.PR.S == 'P')
-                err = new Error(
-                    JSON.stringify({
-                        code    : 'MatchPatchRequestException',
-                        message : `Ya existe una solicitud para el jugador.`,
-                    })
-                );
+                err = new Error(JSON.stringify({
+                    code    : 'MatchPatchRequestException',
+                    message : `Ya existe una solicitud para el jugador.`,
+                }));
 
             throw err;
+
         }
 
         // add a new request to the player
@@ -132,12 +128,14 @@ exports.handler = async (event) => {
                 GSI1PK,
                 name
             );
+
     }
 
 
     // request from player to match
 
     else {
+
         match.patches.CP.N = Number(match.patches.CP.N);
         match.patches.NP.N = Number(match.patches.NP.N);
 
@@ -154,6 +152,7 @@ exports.handler = async (event) => {
              */
 
             if (existRequest.reqStat.PR.S == 'P') {
+
                 match.patches.CP.N += 1;
                 match.patches.NP.N += 1;
 
@@ -170,30 +169,32 @@ exports.handler = async (event) => {
                     GSI1PK,
                     name
                 );
+
             }
 
             // player already in the match
 
             else throw err;
+
         }
 
         // check if the patches vacancy are not full
 
         else if (match.patches.CP.N >= match.patches.NP.N) {
 
-            err = new Error(
-                JSON.stringify({
-                    code    : 'MatchPatchFullException',
-                    message : `No quedan cupos en el partido.`,
-                })
-            );
+            err = new Error(JSON.stringify({
+                code    : 'MatchPatchFullException',
+                message : `No quedan cupos en el partido.`,
+            }));
 
             throw err;
+
         }
 
         // add new player into the match
 
         else {
+
             match.patches.CP.N += 1;
 
             await fns.updateMatch(lambda, match);
@@ -209,6 +210,9 @@ exports.handler = async (event) => {
                 GSI1PK,
                 name
             );
+
         }
+
     }
+
 };

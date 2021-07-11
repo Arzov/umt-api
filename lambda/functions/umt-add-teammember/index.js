@@ -9,20 +9,26 @@
 const umtEnvs = require('umt-envs');
 const aws = require('aws-sdk');
 const dql = require('utils/dql');
+const fns = require('utils/fns');
 
 
 // configurations
 
-let options = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsDynamodb = umtEnvs.gbl.DYNAMODB_CONFIG;
+let optionsLambda = umtEnvs.gbl.LAMBDA_CONFIG;
 
-if (process.env.RUN_MODE === 'LOCAL') options = umtEnvs.dev.DYNAMODB_CONFIG;
+if (process.env.RUN_MODE === 'LOCAL') {
+    optionsDynamodb = umtEnvs.dev.DYNAMODB_CONFIG;
+    optionsLambda = umtEnvs.dev.LAMBDA_CONFIG;
+}
 
-const dynamodb = new aws.DynamoDB(options);
+const dynamodb = new aws.DynamoDB(optionsDynamodb);
+const lambda = new aws.Lambda(optionsLambda);
 
 
 // execution
 
-exports.handler = function (event, context, callback) {
+exports.handler = async (event) => {
 
     const hashKey = `${umtEnvs.pfx.TEAM}${event.teamId}`;
     const rangeKey = `${umtEnvs.pfx.TEAM_MEMBER}${event.email}`;
@@ -35,20 +41,40 @@ exports.handler = function (event, context, callback) {
     const name = event.name;
 
 
-    // TODO: check if the player already belong to the team
+    // check if the player already belong to the team
 
-    dql.addTeamMember(
-        dynamodb,
-        process.env.DB_UMT_001,
-        hashKey,
-        rangeKey,
-        position,
-        role,
-        reqStat,
-        number,
-        joinedOn,
-        GSI1PK,
-        name,
-        callback
-    );
+    const belongToTeam = await fns.belongToTeam(lambda, event.teamId1, event.email);
+
+    if (belongToTeam) {
+
+        err = new Error(JSON.stringify({
+            code    : 'TeamMemberExistException',
+            message : `El jugador ya pertenece al equipo.`,
+        }));
+
+        throw err;
+
+    }
+
+
+    // add team member request
+
+    else {
+
+        return await dql.addTeamMember(
+            dynamodb,
+            process.env.DB_UMT_001,
+            hashKey,
+            rangeKey,
+            position,
+            role,
+            reqStat,
+            number,
+            joinedOn,
+            GSI1PK,
+            name
+        );
+
+    }
+
 };
