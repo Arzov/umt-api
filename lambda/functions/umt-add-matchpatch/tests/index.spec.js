@@ -331,35 +331,4 @@ describe('Test AWS Lambda: umt-add-matchpatch', () => {
         });
     }, 60000);
 
-
-    // test 9
-
-    test('Evaluate: Patch - Match (ivo.farias@arzov.com, REAL MADRID - FC BARCELONA)', (done) => {
-
-        params.Payload = JSON.stringify(events[7]);
-
-        lambda.invoke(params, function (err, data) {
-
-            // error
-
-            if (err) {
-                console.log(err);
-                expect(err.StatusCode).toBe(200);
-            }
-
-            // success
-
-            else {
-                const response = JSON.parse(data.Payload);
-
-                expect(data.StatusCode).toBe(200);
-                expect(JSON.parse(response.errorMessage)).toStrictEqual({
-                    code    : 'MatchPatchFullException',
-                    message : `No quedan cupos en el partido.`,
-                });
-            }
-
-            done();
-        });
-    }, 60000);
 });

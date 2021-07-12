@@ -35,8 +35,8 @@ const belongToTeam = async (lambda, teamId, email) => {
 
     return (
         !umtUtils.isObjectEmpty(result) &&
-        result.reqStat.PR == 'A' &&
-        result.reqStat.TR == 'A'
+        JSON.parse(result.reqStat).PR.S == 'A' &&
+        JSON.parse(result.reqStat).TR.S == 'A'
     );
 
 };
