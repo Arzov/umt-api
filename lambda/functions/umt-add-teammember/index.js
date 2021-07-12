@@ -43,7 +43,7 @@ exports.handler = async (event) => {
 
     // check if the player already belong to the team
 
-    const belongToTeam = await fns.belongToTeam(lambda, event.teamId1, event.email);
+    const belongToTeam = await fns.belongToTeam(lambda, event.teamId, event.email);
 
     if (belongToTeam) {
 
