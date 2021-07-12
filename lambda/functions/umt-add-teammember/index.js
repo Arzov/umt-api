@@ -47,7 +47,7 @@ exports.handler = async (event) => {
 
     if (belongToTeam) {
 
-        err = new Error(JSON.stringify({
+        const err = new Error(JSON.stringify({
             code    : 'TeamMemberExistException',
             message : `El jugador ya pertenece al equipo.`,
         }));
