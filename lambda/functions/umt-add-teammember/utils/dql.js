@@ -64,7 +64,7 @@ const addTeamMember = async (
     }
 
     catch (e) {
-        return err;
+        return e;
     }
 
 };
