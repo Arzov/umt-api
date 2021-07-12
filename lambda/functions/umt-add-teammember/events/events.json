@@ -71,5 +71,11 @@
         "name": "Nadia",
         "role": ["Admin", "Player", "Captain"],
         "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}"
+    },
+    {
+        "teamId": "man.united",
+        "email": "franco.barrientos@arzov.com",
+        "name": "Franco",
+        "reqStat": "{\"TR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}"
     }
 ]

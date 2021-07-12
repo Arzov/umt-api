@@ -54,13 +54,5 @@
         "name": "Svonko",
         "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"P\"}}",
         "expireOn": "9999-04-04T20:36:57.562Z"
-    },
-    {
-        "teamId1": "realmadrid",
-        "teamId2": "fcbarcelona",
-        "email": "ivo.farias@arzov.com",
-        "name": "Ivo",
-        "reqStat": "{\"MR\":{\"S\":\"A\"},\"PR\":{\"S\":\"A\"}}",
-        "expireOn": "2021-04-04T20:36:57.562Z"
     }
 ]

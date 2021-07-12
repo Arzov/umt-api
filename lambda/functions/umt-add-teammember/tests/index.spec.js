@@ -485,4 +485,39 @@ describe('Test AWS Lambda: umt-add-teammember', () => {
             done();
         });
     }, 60000);
+
+
+    // test 12
+
+    test('Evaluate: Team - Member (MAN. UNITED - franco.barrientos@arzov.com)', (done) => {
+
+        params.Payload = JSON.stringify(events[11]);
+
+        lambda.invoke(params, function (err, data) {
+
+            // error
+
+            if (err) {
+                console.log(err);
+                expect(err.StatusCode).toBe(200);
+            }
+
+            // succes
+
+            else {
+
+                let response = JSON.parse(data.Payload);
+
+                expect(data.StatusCode).toBe(200);
+                expect(JSON.parse(response.errorMessage)).toStrictEqual({
+                    code    : 'TeamMemberExistException',
+                    message : `El jugador ya pertenece al equipo.`,
+                });
+
+            }
+
+            done();
+        });
+    }, 60000);
+
 });
